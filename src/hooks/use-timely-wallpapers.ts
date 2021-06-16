@@ -56,7 +56,6 @@ export const useTimelyWallpapers = () => {
 
   function handler() {
     if (wallpapersConfig[wallpaperName].type === 'standalone') return;
-    // console.log({ wallpaperName });
     /** Only dynamic and light/dark wallpaper logic to tackle */
     // Now check if user really wants the change to happen.
 

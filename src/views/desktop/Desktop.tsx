@@ -12,6 +12,8 @@ export const Desktop = () => {
   const outerRef = useRef<HTMLDivElement>();
 
   const [wallpaperName, setWallpaperName] = useWallpaperName();
+
+  setWallpaperName('big-sur-graphic');
   const [currWallpaperImg] = useTimelyWallpapers();
 
   const [wallpaper, setWallpaper] = useState('');

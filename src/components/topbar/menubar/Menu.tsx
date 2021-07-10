@@ -11,7 +11,7 @@ export const Menu = ({ menu }: MenuProps) => {
   return (
     <div class={css.container} tabIndex={-1}>
       <RovingTabIndexProvider options={{ direction: 'vertical', loopAround: true }}>
-        {Object.keys<string>(menu).map((key) => (
+        {Object.keys<string>(menu || {}).map((key) => (
           <>
             <MenuItemButton
               key={key}

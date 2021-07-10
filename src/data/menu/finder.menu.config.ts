@@ -384,3 +384,5 @@ export const finderMenuConfig = createMenuConfig({
     },
   },
 });
+
+export default finderMenuConfig;

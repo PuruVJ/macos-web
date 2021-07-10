@@ -1,12 +1,9 @@
 import { atom } from 'jotai';
 import { finderMenuConfig } from '__/data/menu/finder.menu.config';
 
-const menuConfigs = { finder: finderMenuConfig };
-
-export const menuBarMenusStore = atom(
-  // Uncomment when all apps get their own menus
-  // (get) => menuConfigs[get(activeAppStore) as keyof typeof menuConfigs],
-  menuConfigs.finder,
+export const menuBarMenusStore = atom<Record<any, any>>(
+  // All apps will load their own configs, to support code splitting
+  {},
 );
 
 export const activeMenuStore = atom<string>('');

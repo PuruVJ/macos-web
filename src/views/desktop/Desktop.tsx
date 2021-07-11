@@ -1,21 +1,28 @@
-import { useEffect, useRef } from 'preact/hooks';
+import { useEffect, useRef, useState } from 'preact/hooks';
 import { ContextMenu } from '__/components/Desktop/ContextMenu/ContextMenu';
 import { StartupChime } from '__/components/Desktop/StartupChime';
 import { WindowsArea } from '__/components/Desktop/Window/WindowsArea';
 import { Dock } from '__/components/dock/Dock';
 import { TopBar } from '__/components/topbar/TopBar';
+import { useTimelyWallpapers } from '__/hooks';
+import { useWallpaperName } from '__/hooks/use-wallpaper-name';
 import css from './Desktop.module.scss';
-
-const DarkBackground = '/assets/wallpapers/3-1.jpg';
-const LightBackground = '/assets/wallpapers/3-2.jpg';
 
 export const Desktop = () => {
   const outerRef = useRef<HTMLDivElement>();
 
+  const [wallpaperName, setWallpaperName] = useWallpaperName();
+  const [currWallpaperImg] = useTimelyWallpapers();
+
+  const [wallpaper, setWallpaper] = useState('');
+
   useEffect(() => {
-    preloadImage(DarkBackground);
-    preloadImage(LightBackground);
-  }, []);
+    async function main() {
+      await preloadImage(`/assets/wallpapers/${currWallpaperImg}.jpg`);
+      setWallpaper(currWallpaperImg);
+    }
+    main();
+  }, [currWallpaperImg]);
 
   return (
     <>
@@ -28,12 +35,20 @@ export const Desktop = () => {
 
       <StartupChime />
 
-      <div class={css.backgroundCover} aria-hidden="true" />
+      <div
+        class={css.backgroundCover}
+        style={{ backgroundImage: `url(/assets/wallpapers/${wallpaper}.jpg)` }}
+        aria-hidden="true"
+      />
     </>
   );
 };
 
-function preloadImage(path: string) {
-  const img = new Image();
-  img.src = path;
+async function preloadImage(path: string) {
+  return new Promise((resolve) => {
+    const img = new Image();
+    img.src = path;
+
+    img.onload = resolve;
+  });
 }

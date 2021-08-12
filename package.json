@@ -1,0 +1,22 @@
+{
+  "name": "macos-svelte",
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "serve": "vite preview"
+  },
+  "devDependencies": {
+    "@sveltejs/vite-plugin-svelte": "^1.0.0-next.15",
+    "@tsconfig/svelte": "^2.0.1",
+    "sass": "^1.37.5",
+    "svelte": "^3.42.1",
+    "svelte-preprocess": "^4.7.4",
+    "typescript": "^4.3.5",
+    "vite": "^2.4.4"
+  },
+  "dependencies": {
+    "@mdi/js": "^5.9.55"
+  }
+}

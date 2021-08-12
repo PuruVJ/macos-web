@@ -1,5 +1,6 @@
 <script lang="ts">
   import MenuBar from './MenuBar.svelte';
+  import TopBarTime from './TopBarTime.svelte';
 </script>
 
 <header>
@@ -10,8 +11,7 @@
   <!-- ActionCenterToggle -->
 
   <button>
-    <!-- TopBarTime -->
-    <div />
+    <TopBarTime />
   </button>
 </header>
 

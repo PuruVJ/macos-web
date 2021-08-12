@@ -1,5 +1,9 @@
 <script lang="ts">
-  import { clickOutside } from '__/actions/click-outside';
+  import { mdiApple } from '@mdi/js';
+  import { clickOutside, focusOutside } from '__/actions';
+  import { activeMenu, menuBarMenus } from '__/stores/menubar.store';
+  import Icon from '../utils/Icon.svelte';
+  import Menu from './Menu.svelte';
 
   let containerEl: HTMLDivElement;
 </script>
@@ -7,9 +11,34 @@
 <div
   class="container"
   bind:this={containerEl}
-  use:clickOutside={{ callback: () => console.log('Outside click') }}
+  use:clickOutside={{ callback: () => ($activeMenu = '') }}
+  use:focusOutside={{ callback: () => ($activeMenu = '') }}
 >
-  Hello
+  {#each Object.entries($menuBarMenus) as [menuID, menuConfig]}
+    <div>
+      <div style="height: 100%">
+        <button
+          class="menu-button"
+          class:default-menu={menuID === 'default'}
+          class:apple-icon-button={menuID === 'apple'}
+          style="--scale: {$activeMenu === menuID ? 1 : 0}"
+          on:click={() => ($activeMenu = menuID)}
+          on:mouseover={() => $activeMenu && ($activeMenu = menuID)}
+          on:focus={() => ($activeMenu = menuID)}
+        >
+          {#if menuID === 'apple'}
+            <Icon path={mdiApple} size={18} />
+          {:else}
+            {menuConfig.title}
+          {/if}
+        </button>
+      </div>
+
+      <div class="menu-parent" style="visibility: {$activeMenu !== menuID ? 'hidden' : 'visible'}">
+        <Menu menu={menuConfig.menu} />
+      </div>
+    </div>
+  {/each}
 </div>
 
 <style lang="scss">
@@ -18,7 +47,55 @@
 
     display: flex;
     position: relative;
+  }
+
+  .menu-parent {
+    z-index: 1;
+    position: absolute;
+    margin-top: 1.5px;
+  }
+
+  .menu-button {
+    font-weight: 500;
+
+    border-radius: 0.25rem;
+
+    position: relative;
+    z-index: 1;
+
+    padding: 0 0.5rem;
 
     height: 100%;
+
+    &.default-menu {
+      font-weight: 600 !important;
+      margin: 0 6px;
+    }
+
+    &::after {
+      content: '';
+
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: -1;
+
+      height: 100%;
+      width: 100%;
+
+      border-radius: inherit;
+
+      transform: scale(var(--scale), var(--scale));
+      transform-origin: center center;
+
+      transition: transform 100ms ease;
+
+      background-color: hsla(var(--app-color-grey-100-hsl), 0.3);
+    }
+  }
+
+  .apple-icon-button {
+    margin: 0 0rem 0 0.5rem;
+    padding: 0 0.7rem;
   }
 </style>

@@ -18,6 +18,7 @@
   },
   "dependencies": {
     "@mdi/js": "^5.9.55",
+    "date-fns": "^2.23.0",
     "popmotion": "^9.4.0"
   }
 }

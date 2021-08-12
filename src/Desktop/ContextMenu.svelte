@@ -38,8 +38,8 @@
   <div
     class="container"
     class:dark={$theme === 'dark'}
-    style="top: {yPos}px; left: {xPos}px"
-    in:fadeIn
+    style="transform: translate3d({xPos}px, {yPos}px, 0);"
+    in:fadeIn={{ duration: 80 }}
     out:fadeOut
   >
     {#each Object.values(defaultConfig) as contents}
@@ -71,6 +71,8 @@
 
     border-radius: 0.5rem;
 
+    transition: transform 100ms ease;
+
     box-shadow: hsla(0, 0%, 0%, 0.3) 0px 0px 11px 0px, var(--additional-shadow);
 
     &.dark {
@@ -96,6 +98,7 @@
 
     border-radius: 0.3rem;
 
+    backface-visibility: hidden;
     transition: none;
 
     color: hsla(var(--app-color-dark-hsl), var(--alpha));

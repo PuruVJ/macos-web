@@ -2,13 +2,14 @@
   import { interpolate } from 'popmotion';
   import { spring } from 'svelte/motion';
   import { appsConfig } from '__/data/apps/apps-config';
-  import { activeApp, AppID, openApps } from '__/stores/apps.store';
+  import { activeApp, openApps } from '__/stores/apps.store';
+  import type { AppID } from '__/stores/apps.store';
   import { theme } from '__/stores/theme.store';
 
   export let mouseX: number | null;
   export let appID: AppID;
 
-  let el: HTMLImageElement;
+  let imageEl: HTMLImageElement;
 
   const baseWidth = 57.6;
   const distanceLimit = baseWidth * 6;
@@ -44,8 +45,8 @@
   $: width = `${$widthPX / 16}rem`;
 
   function animate(mouseX: number | null) {
-    if (el && mouseX !== null) {
-      const rect = el.getBoundingClientRect();
+    if (imageEl && mouseX !== null) {
+      const rect = imageEl.getBoundingClientRect();
 
       // get the x coordinate of the img DOMElement's center
       // the left x coordinate plus the half of the width
@@ -75,7 +76,12 @@
 
 <button on:click={openApp} aria-label="Launch {title} app">
   <p class="tooltip" class:dark={$theme === 'dark'}>{title}</p>
-  <img bind:this={el} src="/assets/app-icons/{appID}/256.webp" alt="" style="width: {width};" />
+  <img
+    bind:this={imageEl}
+    src="/assets/app-icons/{appID}/256.webp"
+    alt="{title} app"
+    style="width: {width};"
+  />
 </button>
 
 <style lang="scss">

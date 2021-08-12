@@ -3,9 +3,12 @@
   import Dock from '__/Dock/Dock.svelte';
   import { theme } from '__/stores/theme.store';
   import '../css/global.scss';
+  import ContextMenu from './ContextMenu.svelte';
 
   const DarkBackground = '/assets/wallpapers/37-1.jpg';
   const LightBackground = '/assets/wallpapers/37-2.jpg';
+
+  let mainEl: HTMLElement;
 
   $: wallpaperName = $theme === 'dark' ? DarkBackground : LightBackground;
 
@@ -20,7 +23,8 @@
   });
 </script>
 
-<main>
+<main bind:this={mainEl}>
+  <ContextMenu targetElement={mainEl} />
   <div />
   <div />
   <Dock />

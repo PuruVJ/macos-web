@@ -1,30 +1,36 @@
 export const contextMenuConfig = {
   default: {
-    "new-folder": {
-      title: "New Folder",
+    'new-folder': {
+      title: 'New Folder',
       breakAfter: true,
     },
-    "get-info": {
-      title: "Get Info",
+    'get-info': {
+      title: 'Get Info',
+      breakAfter: false,
     },
-    "change-desktop-bg": {
-      title: "Change Desktop Background",
+    'change-desktop-bg': {
+      title: 'Change Desktop Background',
       breakAfter: true,
     },
-    "use-stacks": {
-      title: "Use Stacks"
+    'use-stacks': {
+      title: 'Use Stacks',
+      breakAfter: false,
     },
-    "sort-by": {
-      title: "Sort By"
+    'sort-by': {
+      title: 'Sort By',
+      breakAfter: false,
     },
-    "clean-up": {
-      title: "Clean Up"
+    'clean-up': {
+      title: 'Clean Up',
+      breakAfter: false,
     },
-    "clean-up-by": {
-      title: "Clean Up By"
+    'clean-up-by': {
+      title: 'Clean Up By',
+      breakAfter: false,
     },
-    "show-view-options": {
-      title: "Show View Options"
-    }
-  }
-}
+    'show-view-options': {
+      title: 'Show View Options',
+      breakAfter: false,
+    },
+  },
+};

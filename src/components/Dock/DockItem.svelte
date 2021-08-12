@@ -1,7 +1,8 @@
 <script lang="ts">
   import { interpolate } from 'popmotion';
   import { onDestroy } from 'svelte';
-  import { spring } from 'svelte/motion';
+  import { sineInOut } from 'svelte/easing';
+  import { spring, tweened } from 'svelte/motion';
   import { appsConfig } from '__/data/apps/apps-config';
   import type { AppID } from '__/stores/apps.store';
   import { activeApp, openApps } from '__/stores/apps.store';
@@ -68,11 +69,23 @@
   }
   let { title, shouldOpenWindow, externalAction } = appsConfig[appID];
 
-  function openApp(e: MouseEvent) {
+  // Spring animation for the click animation
+  const appOpenIconBounceTransform = tweened(0, {
+    duration: 400,
+    easing: sineInOut,
+  });
+
+  async function openApp(e: MouseEvent) {
     if (!shouldOpenWindow) return externalAction?.(e);
 
     $openApps[appID] = true;
     $activeApp = appID;
+
+    // Animate the icon
+    await appOpenIconBounceTransform.set(-39.2);
+
+    // Now animate it back to its place
+    await appOpenIconBounceTransform.set(0);
   }
 
   onDestroy(() => {
@@ -82,12 +95,14 @@
 
 <button on:click={openApp} aria-label="Launch {title} app">
   <p class="tooltip" class:dark={$theme === 'dark'}>{title}</p>
-  <img
-    bind:this={imageEl}
-    src="/assets/app-icons/{appID}/256.webp"
-    alt="{title} app"
-    style="width: {$widthPX / 16}rem;"
-  />
+  <span style="transform: translateY({$appOpenIconBounceTransform}%)">
+    <img
+      bind:this={imageEl}
+      src="/assets/app-icons/{appID}/256.webp"
+      alt="{title} app"
+      style="width: {$widthPX / 16}rem"
+    />
+  </span>
 </button>
 
 <style lang="scss">
@@ -102,6 +117,12 @@
         display: block;
       }
     }
+
+    & > span {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
   }
 
   .tooltip {
@@ -111,6 +132,7 @@
 
     position: absolute;
     top: -35%;
+    z-index: 1000;
 
     background-color: hsla(var(--app-color-light-hsl), 0.5);
     backdrop-filter: blur(5px);

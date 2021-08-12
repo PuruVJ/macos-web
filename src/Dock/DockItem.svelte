@@ -1,0 +1,124 @@
+<script lang="ts">
+  import { interpolate } from 'popmotion';
+  import { spring } from 'svelte/motion';
+  import { appsConfig } from '__/data/apps/apps-config';
+  import { activeApp, AppID, openApps } from '__/stores/apps.store';
+  import { theme } from '__/stores/theme.store';
+
+  export let mouseX: number | null;
+  export let appID: AppID;
+
+  let el: HTMLImageElement;
+
+  const baseWidth = 57.6;
+  const distanceLimit = baseWidth * 6;
+  const beyondTheDistanceLimit = distanceLimit + 1;
+  const distanceInput = [
+    -distanceLimit,
+    -distanceLimit / 1.25,
+    -distanceLimit / 2,
+    0,
+    distanceLimit / 2,
+    distanceLimit / 1.25,
+    distanceLimit,
+  ];
+  const widthOutput = [
+    baseWidth,
+    baseWidth * 1.1,
+    baseWidth * 1.414,
+    baseWidth * 2,
+    baseWidth * 1.414,
+    baseWidth * 1.1,
+    baseWidth,
+  ];
+
+  let distance = beyondTheDistanceLimit;
+
+  const widthPX = spring(baseWidth, {
+    damping: 0.47,
+    stiffness: 0.15,
+  });
+
+  $: $widthPX = interpolate(distanceInput, widthOutput)(distance);
+
+  $: width = `${$widthPX / 16}rem`;
+
+  function animate(mouseX: number | null) {
+    if (el && mouseX !== null) {
+      const rect = el.getBoundingClientRect();
+
+      // get the x coordinate of the img DOMElement's center
+      // the left x coordinate plus the half of the width
+      const imgCenterX = rect.left + rect.width / 2;
+
+      // difference between the x coordinate value of the mouse pointer
+      // and the img center x coordinate value
+      const distanceDelta = mouseX - imgCenterX;
+      distance = distanceDelta;
+      return;
+    }
+
+    distance = beyondTheDistanceLimit;
+  }
+
+  $: Promise.resolve().then(() => animate(mouseX));
+
+  let { title, shouldOpenWindow, externalAction } = appsConfig[appID];
+
+  function openApp(e: MouseEvent) {
+    if (!shouldOpenWindow) return externalAction?.(e);
+
+    $openApps[appID] = true;
+    $activeApp = appID;
+  }
+</script>
+
+<button on:click={openApp} aria-label="Launch {title} app">
+  <p class="tooltip" class:dark={$theme === 'dark'}>{title}</p>
+  <img bind:this={el} src="/assets/app-icons/{appID}/256.webp" alt="" style="width: {width};" />
+</button>
+
+<style lang="scss">
+  img {
+    will-change: width;
+  }
+
+  button {
+    &:hover,
+    &:focus-visible {
+      .tooltip {
+        display: block;
+      }
+    }
+  }
+
+  .tooltip {
+    --double-border: 0 0 0 0 white;
+
+    white-space: nowrap;
+
+    position: absolute;
+    top: -35%;
+
+    background-color: hsla(var(--app-color-light-hsl), 0.5);
+    backdrop-filter: blur(5px);
+
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.375rem;
+
+    box-shadow: hsla(0deg, 0%, 0%, 30%) 0px 1px 5px 2px, var(--double-border);
+
+    color: var(--app-color-light-contrast);
+    font-family: var(--app-font-family);
+    font-weight: 400;
+    font-size: 0.9rem;
+    letter-spacing: 0.4px;
+
+    display: none;
+
+    &.dark {
+      --double-border: inset 0 0 0 0.9px hsla(var(--app-color-dark-hsl), 0.3),
+        0 0 0 1.2px hsla(var(--app-color-light-hsl), 0.3);
+    }
+  }
+</style>

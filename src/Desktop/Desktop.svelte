@@ -1,14 +1,32 @@
 <script lang="ts">
+  import { onMount } from 'svelte';
+  import Dock from '__/Dock/Dock.svelte';
   import { theme } from '__/stores/theme.store';
   import '../css/global.scss';
+
+  const DarkBackground = '/assets/wallpapers/37-1.jpg';
+  const LightBackground = '/assets/wallpapers/37-2.jpg';
+
+  $: wallpaperName = $theme === 'dark' ? DarkBackground : LightBackground;
+
+  function preloadImage(path: string) {
+    const img = new Image();
+    img.src = path;
+  }
+
+  onMount(() => {
+    preloadImage(LightBackground);
+    preloadImage(DarkBackground);
+  });
 </script>
 
 <main>
-  <div
-    class="backgroundCover"
-    style="background-image: url(/assets/wallpapers/{$theme === 'dark' ? '37-1' : '37-2'}.jpg);"
-  />
+  <div />
+  <div />
+  <Dock />
 </main>
+
+<div class="backgroundCover" style="background-image: url({wallpaperName});" />
 
 <style lang="scss">
   main {

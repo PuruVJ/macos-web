@@ -11,6 +11,7 @@ type ObjectKeys<Obj> = Obj extends object
 
 interface ObjectConstructor {
   keys<ObjectType>(o: ObjectType): ObjectKeys<ObjectType>;
+  entries<ObjType>(o: ObjType): [Unpacked<ObjectKeys<ObjType>>, ObjType[keyof ObjType]][];
 }
 
 interface Storage {

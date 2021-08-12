@@ -55,6 +55,8 @@
 
     will-change: background-image;
 
+    transition: background-image 150ms ease-in;
+
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;

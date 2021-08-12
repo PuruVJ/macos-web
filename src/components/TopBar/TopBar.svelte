@@ -1,4 +1,5 @@
 <script lang="ts">
+  import ActionCenterToggle from './ActionCenterToggle.svelte';
   import MenuBar from './MenuBar.svelte';
   import TopBarTime from './TopBarTime.svelte';
 </script>
@@ -8,7 +9,7 @@
 
   <span style="flex: 1 1 auto" />
 
-  <!-- ActionCenterToggle -->
+  <ActionCenterToggle />
 
   <button>
     <TopBarTime />
@@ -24,7 +25,6 @@
     height: 1.4rem;
 
     background-color: hsla(var(--app-color-light-hsl), 0.3);
-    // backdrop-filter: blur(12px);
 
     color: var(--app-color-light-contrast);
     fill: var(--app-color-light-contrast);

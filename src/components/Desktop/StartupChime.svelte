@@ -18,7 +18,7 @@
     <Icon path={mdiApple} fill="white" size={100} />
   </div>
 
-  <audio hidden autoplay={!import.meta.env.PROD} src="/assets/sounds/mac-startup-sound.mp3" />
+  <audio hidden autoplay={import.meta.env.PROD} src="/assets/sounds/mac-startup-sound.mp3" />
 {/if}
 
 <style lang="scss">

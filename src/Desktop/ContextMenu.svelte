@@ -36,7 +36,7 @@
   <div
     class="container"
     class:dark={$theme === 'dark'}
-    style="transform: translate3d({xPos}px, {yPos}px, 0);"
+    style="transform: translate({xPos}px, {yPos}px);"
     in:fadeIn={{ duration: 80 }}
     out:fadeOut
   >

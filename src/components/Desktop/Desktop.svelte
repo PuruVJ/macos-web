@@ -2,9 +2,10 @@
   import { onMount } from 'svelte';
   import Dock from '__/components/Dock/Dock.svelte';
   import TopBar from '__/components/TopBar/TopBar.svelte';
-  import { theme } from '__/stores/theme.store';
   import '__/css/global.scss';
+  import { theme } from '__/stores/theme.store';
   import ContextMenu from './ContextMenu.svelte';
+  import StartupChime from './StartupChime.svelte';
 
   const DarkBackground = '/assets/wallpapers/37-1.jpg';
   const LightBackground = '/assets/wallpapers/37-2.jpg';
@@ -25,6 +26,7 @@
 </script>
 
 <main bind:this={mainEl}>
+  <StartupChime />
   <ContextMenu targetElement={mainEl} />
   <TopBar />
   <div />

@@ -62,20 +62,24 @@
 
     position: absolute;
 
+    -webkit-font-smoothing: antialiased;
     user-select: none;
+    transition: transform 100ms ease;
 
     background-color: hsla(var(--app-color-light-hsl), 0.3);
     backdrop-filter: blur(15px);
 
     border-radius: 0.5rem;
 
-    transition: transform 100ms ease;
-
     box-shadow: hsla(0, 0%, 0%, 0.3) 0px 0px 11px 0px, var(--additional-shadow);
 
     &.dark {
       --additional-shadow: inset 0 0 0 0.9px hsla(var(--app-color-dark-hsl), 0.3),
         0 0 0 1.2px hsla(var(--app-color-light-hsl), 0.3);
+    }
+
+    * {
+      -webkit-font-smoothing: antialiased;
     }
   }
 

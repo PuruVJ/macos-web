@@ -14,12 +14,12 @@
 </script>
 
 {#if !(hiddenSplashScreen || import.meta.env.DEV)}
-  <div out:fadeOut class="splash-screen">
+  <div out:fadeOut={{ duration: 500 }} class="splash-screen">
     <Icon path={mdiApple} fill="white" size={100} />
   </div>
-
-  <audio hidden autoplay={import.meta.env.PROD} src="/assets/sounds/mac-startup-sound.mp3" />
 {/if}
+
+<audio hidden autoplay={import.meta.env.PROD} src="/assets/sounds/mac-startup-sound.mp3" />
 
 <style lang="scss">
   .splash-screen {

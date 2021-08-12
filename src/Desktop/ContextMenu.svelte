@@ -26,8 +26,6 @@
 
     isMenuVisible = true;
   }
-
-  $: console.log(targetElement);
 </script>
 
 <svelte:body

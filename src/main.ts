@@ -1,4 +1,4 @@
-import App from './Desktop/Desktop.svelte';
+import App from './components/Desktop/Desktop.svelte';
 
 const app = new App({
   target: document.getElementById('root'),

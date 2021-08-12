@@ -1,9 +1,10 @@
 <script lang="ts">
   import { interpolate } from 'popmotion';
+  import { onDestroy } from 'svelte';
   import { spring } from 'svelte/motion';
   import { appsConfig } from '__/data/apps/apps-config';
-  import { activeApp, openApps } from '__/stores/apps.store';
   import type { AppID } from '__/stores/apps.store';
+  import { activeApp, openApps } from '__/stores/apps.store';
   import { theme } from '__/stores/theme.store';
 
   export let mouseX: number | null;
@@ -37,14 +38,13 @@
 
   const widthPX = spring(baseWidth, {
     damping: 0.47,
-    stiffness: 0.15,
+    stiffness: 0.12,
   });
 
   $: $widthPX = interpolate(distanceInput, widthOutput)(distance);
 
-  $: width = `${$widthPX / 16}rem`;
-
-  function animate(mouseX: number | null) {
+  let raf: number;
+  function animate() {
     if (imageEl && mouseX !== null) {
       const rect = imageEl.getBoundingClientRect();
 
@@ -62,8 +62,10 @@
     distance = beyondTheDistanceLimit;
   }
 
-  $: Promise.resolve().then(() => animate(mouseX));
-
+  $: {
+    mouseX;
+    raf = requestAnimationFrame(animate);
+  }
   let { title, shouldOpenWindow, externalAction } = appsConfig[appID];
 
   function openApp(e: MouseEvent) {
@@ -72,6 +74,10 @@
     $openApps[appID] = true;
     $activeApp = appID;
   }
+
+  onDestroy(() => {
+    cancelAnimationFrame(raf);
+  });
 </script>
 
 <button on:click={openApp} aria-label="Launch {title} app">
@@ -80,7 +86,7 @@
     bind:this={imageEl}
     src="/assets/app-icons/{appID}/256.webp"
     alt="{title} app"
-    style="width: {width};"
+    style="width: {$widthPX / 16}rem;"
   />
 </button>
 

@@ -82,20 +82,21 @@
     handle: '.app-window-drag-handle',
     bounds: { bottom: 80, top: 22.5, left: -600, right: -600 },
     disabled: !draggingEnabled,
+    gpuAcceleration: false,
   }}
   on:svelte-drag:start={() => {
     focusApp();
     isBeingDragged = true;
   }}
   on:svelte-drag:end={() => (isBeingDragged = false)}
-  on:click|stopPropagation={focusApp}
+  on:click={focusApp}
   out:fadeOut
 >
-  <div class="tl-container">
+  <div class="tl-container {appID}">
     <TrafficLights {appID} on:maximize-click={maximizeApp} />
   </div>
 
-  <AppNexus {appID} />
+  <AppNexus {appID} {isBeingDragged} />
 </section>
 
 <style lang="scss">

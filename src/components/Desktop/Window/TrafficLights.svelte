@@ -42,7 +42,7 @@
     height: 100%;
 
     &.unfocused button {
-      --bgcolor: hsla(var(--app-color-dark-hsl), 0.3);
+      --bgcolor: #b6b6b7;
       --border-color: hsla(var(--app-color-dark-hsl), 0.5);
     }
 

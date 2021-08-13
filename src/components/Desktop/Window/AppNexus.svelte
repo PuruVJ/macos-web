@@ -1,5 +1,4 @@
 <script lang="ts">
-  import Placeholder from '__/components/apps/Placeholder/Placeholder.svelte';
   import type { AppID } from '__/stores/apps.store';
 
   export let appID: AppID;
@@ -11,4 +10,6 @@
   
 {/if} -->
 
-<Placeholder {appID} />
+{#await import('__/components/apps/Placeholder/Placeholder.svelte') then { default: Placeholder }}
+  <Placeholder {appID} />
+{/await}

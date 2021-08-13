@@ -34,7 +34,9 @@
   <Dock />
 </main>
 
-<div class="backgroundCover" style="background-image: url({wallpaperName});" />
+{#key wallpaperName}
+  <div class="backgroundCover" style="background-image: url({wallpaperName});" />
+{/key}
 
 <style lang="scss">
   main {

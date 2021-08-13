@@ -1,17 +1,26 @@
 <script lang="ts">
+  import { onMount } from 'svelte';
+
   import { spring } from 'svelte/motion';
+  import { waitFor } from '__/helpers/wait-for';
   import type { AppID } from '__/stores/apps.store';
 
   export let appID: AppID;
 
-  const motionVal = spring(0);
+  const motionVal = spring(0, { damping: 0.28, stiffness: 0.1 });
+
+  onMount(async () => {
+    await waitFor(100);
+
+    $motionVal = 1;
+  });
 </script>
 
 <section class="container">
   <header class="titlebar app-window-drag-handle" />
   <section class="main-area">
     <img
-      style="transform: rotate({0.5 * ($motionVal + 1)}turn) scale({motionVal});"
+      style="transform: rotate({180 * ($motionVal + 1)}deg) scale({$motionVal}) translateZ(0px);"
       src="/assets/app-icons/{appID}/256.webp"
       alt="Placeholder App"
     />

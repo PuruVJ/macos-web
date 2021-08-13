@@ -111,8 +111,10 @@
       src="/assets/app-icons/{appID}/256.webp"
       alt="{title} app"
       style="width: {$widthPX / 16}rem"
+      draggable="false"
     />
   </span>
+  <div class="dot" style="--opacity: {+$openApps[appID]}" />
 </button>
 
 <style lang="scss">
@@ -121,6 +123,11 @@
   }
 
   button {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    position: relative;
+
     &:hover,
     &:focus-visible {
       .tooltip {
@@ -163,5 +170,18 @@
       --double-border: inset 0 0 0 0.9px hsla(var(--app-color-dark-hsl), 0.3),
         0 0 0 1.2px hsla(var(--app-color-light-hsl), 0.3);
     }
+  }
+
+  .dot {
+    height: 4px;
+    width: 4px;
+
+    margin: 0px;
+
+    border-radius: 50%;
+
+    background-color: var(--app-color-dark);
+
+    opacity: var(--opacity);
   }
 </style>

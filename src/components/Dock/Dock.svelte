@@ -30,7 +30,7 @@
     position: fixed;
 
     width: 100%;
-    height: 5rem;
+    height: 5.2rem;
 
     padding: 0.4rem;
 

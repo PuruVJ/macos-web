@@ -98,7 +98,13 @@
 </script>
 
 <button on:click={openApp} aria-label="Launch {title} app">
-  <p class="tooltip" class:dark={$theme === 'dark'}>{title}</p>
+  <p
+    class="tooltip"
+    class:dark={$theme === 'dark'}
+    style="top: {prefersReducedMotion ? '-50px' : '-35%'};"
+  >
+    {title}
+  </p>
   <span style="transform: translateY({$appOpenIconBounceTransform}%)">
     <img
       bind:this={imageEl}
@@ -135,7 +141,6 @@
     white-space: nowrap;
 
     position: absolute;
-    top: -35%;
     z-index: 1000;
 
     background-color: hsla(var(--app-color-light-hsl), 0.5);

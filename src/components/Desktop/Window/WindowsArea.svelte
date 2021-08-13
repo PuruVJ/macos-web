@@ -26,8 +26,7 @@
     top: 1.4rem;
     height: calc(100vh - 5.25rem - 1.4rem);
 
-    width: 200vw;
-    left: -50vw;
+    width: 100vw;
 
     justify-self: center;
   }

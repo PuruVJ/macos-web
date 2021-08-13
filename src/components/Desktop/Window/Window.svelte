@@ -2,6 +2,7 @@
   import { onMount } from 'svelte';
   import { draggable } from 'svelte-drag';
   import { appsConfig } from '__/data/apps/apps-config';
+  import { fadeOut } from '__/helpers/fade';
   import { randint } from '__/helpers/random';
   import { waitFor } from '__/helpers/wait-for';
   import type { AppID } from '__/stores/apps.store';
@@ -27,7 +28,7 @@
   const randY = randint(-100, 100);
 
   let defaultPosition = {
-    x: ((3 / 2) * document.body.clientWidth + randX) / 2,
+    x: (document.body.clientWidth / 2 + randX) / 2,
     y: (100 + randY) / 2,
   };
 
@@ -39,14 +40,16 @@
     windowEl.style.transition = 'height 0.3s ease, width 0.3s ease, transform 0.3s ease';
 
     if (!isMaximized) {
+      console.log(1);
       draggingEnabled = false;
 
       minimizedTransform = windowEl.style.transform;
-      windowEl.style.transform = `translate(50vw, 0)`;
+      windowEl.style.transform = `translate(0, 0)`;
 
       windowEl.style.width = `${document.body.clientWidth}px`;
       windowEl.style.height = '100%';
     } else {
+      console.log(2);
       draggingEnabled = true;
       windowEl.style.transform = minimizedTransform;
 
@@ -54,11 +57,11 @@
       windowEl.style.height = `${+height / 16}rem`;
     }
 
+    isMaximized = !isMaximized;
+
     await waitFor(3000);
 
     windowEl.style.transition = 'initial';
-
-    isMaximized = !isMaximized;
   }
 
   $: $activeApp === appID && (appZIndex = $activeAppZIndex);
@@ -77,7 +80,7 @@
   use:draggable={{
     defaultPosition,
     handle: '.app-window-drag-handle',
-    bounds: 'parent',
+    bounds: { bottom: 80, top: 22.5, left: -600, right: -600 },
     disabled: !draggingEnabled,
   }}
   on:svelte-drag:start={() => {
@@ -86,6 +89,7 @@
   }}
   on:svelte-drag:end={() => (isBeingDragged = false)}
   on:click|stopPropagation={focusApp}
+  out:fadeOut
 >
   <div class="tl-container">
     <TrafficLights {appID} on:maximize-click={maximizeApp} />

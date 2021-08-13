@@ -63,9 +63,13 @@
     distance = beyondTheDistanceLimit;
   }
 
+  const prefersReducedMotion = matchMedia('(prefers-reduced-motion)').matches;
+
   $: {
     mouseX;
-    raf = requestAnimationFrame(animate);
+    if (!prefersReducedMotion) {
+      raf = requestAnimationFrame(animate);
+    }
   }
   let { title, shouldOpenWindow, externalAction } = appsConfig[appID];
 

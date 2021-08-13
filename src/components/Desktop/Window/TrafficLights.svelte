@@ -24,15 +24,19 @@
   }
 </script>
 
-<div class="container" class:unfocused={$activeApp === appID}>
+<div class="container" class:unfocused={$activeApp !== appID}>
   <button class="close-light" on:click={closeApp}> <CloseIcon /> </button>
   <button class="minimize-light"> <MinimizeSvg /> </button>
-  <button class="stretch-light"> <GreenLight expandable={appsConfig[appID].expandable} /> </button>
+  <button class="stretch-light" on:click={greenLightAction}>
+    <GreenLight expandable={appsConfig[appID].expandable} />
+  </button>
 </div>
 
 <style lang="scss">
   .container {
     --button-size: 0.8rem;
+
+    pointer-events: none;
 
     display: grid;
     grid-template-columns: repeat(3, var(--button-size));
@@ -58,6 +62,8 @@
   button {
     height: var(--button-size);
     width: var(--button-size);
+
+    pointer-events: initial;
 
     border-radius: 50%;
 

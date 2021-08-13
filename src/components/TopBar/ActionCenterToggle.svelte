@@ -2,6 +2,7 @@
   import { clickOutside, focusOutside } from '__/actions';
   import { fadeIn, fadeOut } from '__/helpers/fade';
   import SwitchSvg from '../SVG/SwitchSVG.svelte';
+  import ActionCenter from './ActionCenter.svelte';
 
   let visible = false;
 
@@ -24,11 +25,9 @@
   </button>
 
   {#if visible}
-    {#await import('./ActionCenter.svelte') then { default: ActionCenter }}
-      <div in:fadeIn out:fadeOut class="menu-parent">
-        <ActionCenter />
-      </div>
-    {/await}
+    <div in:fadeIn out:fadeOut class="menu-parent">
+      <ActionCenter />
+    </div>
   {/if}
 </div>
 

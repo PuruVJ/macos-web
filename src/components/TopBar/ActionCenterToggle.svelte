@@ -1,7 +1,7 @@
 <script lang="ts">
   import { clickOutside, focusOutside } from '__/actions';
   import { fadeIn, fadeOut } from '__/helpers/fade';
-  import SwitchSvg from '../utils/SwitchSVG.svelte';
+  import SwitchSvg from '../SVG/SwitchSVG.svelte';
 
   let visible = false;
 

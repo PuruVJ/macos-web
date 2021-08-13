@@ -5,7 +5,7 @@
   $: $activeAppZIndex += 2;
 </script>
 
-<section class="container">
+<section>
   {#each Object.keys(appsConfig) as appID}
     {#if $openApps[appID] && appsConfig[appID].shouldOpenWindow}
       {#await import('./Window.svelte') then { default: Window }}
@@ -14,3 +14,21 @@
     {/if}
   {/each}
 </section>
+
+<style lang="scss">
+  section {
+    display: block;
+
+    position: fixed;
+
+    // 1.4 rem is the heigh of the header
+    // 5.25 rem is the height of dock
+    top: 1.4rem;
+    height: calc(100vh - 5.25rem - 1.4rem);
+
+    width: 200vw;
+    left: -50vw;
+
+    justify-self: center;
+  }
+</style>

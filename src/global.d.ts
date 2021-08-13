@@ -24,9 +24,11 @@ type Unpromisify<PromiseLike> = PromiseLike extends Promise<infer RootType>
   ? RootType
   : PromiseLike;
 
-declare namespace React {
+declare namespace svelte.JSX {
   interface HTMLAttributes<T> {
-    class?: string;
+    'onsvelte-drag:start'?: (e: CustomEvent<null>) => void;
+    'onsvelte-drag:end'?: (e: CustomEvent<null>) => void;
+    'onsvelte-drag'?: (e: CustomEvent<{ offsetX: number; offsetY: number }>) => void;
   }
 }
 

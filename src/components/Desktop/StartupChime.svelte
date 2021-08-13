@@ -3,7 +3,7 @@
   import { onMount } from 'svelte';
   import { fadeOut } from '__/helpers/fade';
   import { waitFor } from '__/helpers/wait-for';
-  import Icon from '../utils/Icon.svelte';
+  import Icon from '../SVG/Icon.svelte';
 
   let hiddenSplashScreen = false;
 

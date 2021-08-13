@@ -2,9 +2,9 @@
   import { mdiBluetooth, mdiKeyboard, mdiWifiStrength4 } from '@mdi/js';
   import { onMount } from 'svelte';
   import { theme } from '__/stores/theme.store';
-  import AirDropSvg from '../utils/AirDropSVG.svelte';
-  import Icon from '../utils/Icon.svelte';
-  import MoonSvg from '../utils/MoonSVG.svelte';
+  import AirDropSvg from '../SVG/AirDropSVG.svelte';
+  import Icon from '../SVG/Icon.svelte';
+  import MoonSvg from '../SVG/MoonSVG.svelte';
   import ActionCenterSurface from './ActionCenterSurface.svelte';
   import ActionCenterTile from './ActionCenterTile.svelte';
 

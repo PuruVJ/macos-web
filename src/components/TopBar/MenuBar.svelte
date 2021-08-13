@@ -2,7 +2,7 @@
   import { mdiApple } from '@mdi/js';
   import { clickOutside, focusOutside } from '__/actions';
   import { activeMenu, menuBarMenus } from '__/stores/menubar.store';
-  import Icon from '../utils/Icon.svelte';
+  import Icon from '../SVG/Icon.svelte';
   import Menu from './Menu.svelte';
 
   let containerEl: HTMLDivElement;

@@ -8,7 +8,7 @@
   import type { AppID } from '__/stores/apps.store';
   import { activeApp, activeAppZIndex } from '__/stores/apps.store';
   import { theme } from '__/stores/theme.store';
-  import AppNexus from './AppNexus.svelte';
+  import AppNexus from '../../apps/AppNexus.svelte';
   import TrafficLights from './TrafficLights.svelte';
 
   export let appID: AppID;

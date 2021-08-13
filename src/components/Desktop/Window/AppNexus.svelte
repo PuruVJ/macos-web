@@ -5,11 +5,12 @@
   // export let isBeingDragged: boolean;
 </script>
 
-<!-- 
-{#if }
-  
-{/if} -->
-
-{#await import('__/components/apps/Placeholder/Placeholder.svelte') then { default: Placeholder }}
-  <Placeholder {appID} />
-{/await}
+{#if appID === 'calendar'}
+  {#await import('__/components/apps/Calendar/Calendar.svelte') then { default: Calendar }}
+    <Calendar />
+  {/await}
+{:else}
+  {#await import('__/components/apps/Placeholder/Placeholder.svelte') then { default: Placeholder }}
+    <Placeholder {appID} />
+  {/await}
+{/if}

@@ -16,11 +16,7 @@
   }
 
   function greenLightAction() {
-    if (appsConfig[appID].expandable) {
-      // Action not available right now!
-    } else {
-      dispatch('maximize-click');
-    }
+    dispatch('maximize-click');
   }
 </script>
 

@@ -46,7 +46,7 @@
       minimizedTransform = windowEl.style.transform;
       windowEl.style.transform = `translate(0, 0)`;
 
-      windowEl.style.width = `${document.body.clientWidth}px`;
+      windowEl.style.width = `100%`;
       windowEl.style.height = '100%';
     } else {
       console.log(2);
@@ -107,6 +107,8 @@
     grid-template-rows: 1fr;
 
     position: absolute;
+
+    will-change: width, height;
 
     border-radius: 0.75rem;
     box-shadow: 0 33px 81px rgba(0, 0, 0, 0.31);

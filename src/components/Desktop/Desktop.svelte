@@ -26,16 +26,15 @@
 
 <main bind:this={mainEl}>
   <StartupChime />
+
   <ContextMenu targetElement={mainEl} />
+
   <TopBar />
   <WindowsArea />
   <Dock />
 </main>
 
-<div
-  class="backgroundCover"
-  style="background-image: url({$theme === 'dark' ? DarkBackground : LightBackground});"
-/>
+<div class="backgroundCover" class:dark={$theme === 'dark'} />
 
 <style lang="scss">
   main {
@@ -62,5 +61,11 @@
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
+
+    background-image: url(/assets/wallpapers/37-2.jpg);
+
+    &.dark {
+      background-image: url(/assets/wallpapers/37-1.jpg);
+    }
   }
 </style>

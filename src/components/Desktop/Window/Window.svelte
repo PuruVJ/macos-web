@@ -44,7 +44,7 @@
       draggingEnabled = false;
 
       minimizedTransform = windowEl.style.transform;
-      windowEl.style.transform = `translate(0, 0)`;
+      windowEl.style.transform = `translate(0px, 0px)`;
 
       windowEl.style.width = `100%`;
       windowEl.style.height = '100%';
@@ -61,7 +61,7 @@
 
     await waitFor(3000);
 
-    windowEl.style.transition = 'initial';
+    windowEl.style.transition = '';
   }
 
   $: $activeApp === appID && (appZIndex = $activeAppZIndex);

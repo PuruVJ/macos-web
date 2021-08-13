@@ -13,6 +13,10 @@
   {#await import('__/components/apps/VSCode/VSCode.svelte') then { default: VSCode }}
     <VSCode {isBeingDragged} />
   {/await}
+{:else if appID === 'calculator'}
+  {#await import('__/components/apps/Calculator/Calculator.svelte') then { default: Calculator }}
+    <Calculator />
+  {/await}
 {:else}
   {#await import('__/components/apps/Placeholder/Placeholder.svelte') then { default: Placeholder }}
     <Placeholder {appID} />

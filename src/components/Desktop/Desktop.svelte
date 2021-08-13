@@ -13,8 +13,6 @@
 
   let mainEl: HTMLElement;
 
-  $: wallpaperName = $theme === 'dark' ? DarkBackground : LightBackground;
-
   function preloadImage(path: string) {
     const img = new Image();
     img.src = path;
@@ -34,9 +32,10 @@
   <Dock />
 </main>
 
-{#key wallpaperName}
-  <div class="backgroundCover" style="background-image: url({wallpaperName});" />
-{/key}
+<div
+  class="backgroundCover"
+  style="background-image: url({$theme === 'dark' ? DarkBackground : LightBackground});"
+/>
 
 <style lang="scss">
   main {

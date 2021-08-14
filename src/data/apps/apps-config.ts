@@ -1,5 +1,6 @@
 import { calculatorAppConfig } from './calculator.app-config';
 import { calendarAppConfig } from './calendar.app-config';
+import { devUtilsConfig } from './devutils.app-config';
 import { facetimeAppConfig } from './facetime.app-config';
 import { finderAppConfig } from './finder.app-config';
 import { mailAppConfig } from './mail.app-config';
@@ -25,4 +26,6 @@ export const appsConfig = {
 
   'purus-twitter': purusTwitterAppConfig,
   'view-source': viewSourceAppConfig,
+
+  devutils: devUtilsConfig,
 };

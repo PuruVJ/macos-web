@@ -3,11 +3,10 @@
   <head>
     <meta charset="utf-8" />
     <link rel="icon" href="/assets/app-icons/finder/32.png" />
-    <!-- <meta name="viewport" content="width=device-width, initial-scale=1" /> -->
     <meta name="description" content="MacOS Desktop experience for Web" />
     <title>macOS in Svelte</title>
 
-    <meta property="og:title" content="macOS in Preact" />
+    <meta property="og:title" content="macOS in Svelte" />
     <meta property="og:description" content="A painting of macOS Big Sur in HTML, CSS and JS" />
     <meta property="og:image" content="https://macos.now.sh/assets/cover-image.png" />
     <meta property="og:url" content="https://macos.now.sh" />
@@ -24,4 +23,27 @@
     href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;350;400;500;600;700&display=swap"
     rel="stylesheet"
   />
+
+  <script type="module">
+    if (import.meta.env.PROD) {
+      (function (c, l, a, r, i, t, y) {
+        c[a] =
+          c[a] ||
+          function () {
+            (c[a].q = c[a].q || []).push(arguments);
+          };
+        t = l.createElement(r);
+        t.async = 1;
+        t.src = 'https://www.clarity.ms/tag/' + i;
+        y = l.getElementsByTagName(r)[0];
+        y.parentNode.insertBefore(t, y);
+      })(window, document, 'clarity', 'script', '5gipf5fh8x');
+
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', function () {
+          navigator.serviceWorker.register('/sw.js');
+        });
+      }
+    }
+  </script>
 </html>

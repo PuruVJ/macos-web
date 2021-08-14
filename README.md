@@ -2,7 +2,7 @@
 
 # Mac OS Monterey Web
 
-This open source project aims to replicate some of the Mac OS(Moneterey, at the time)'s desktop experience on web, using Svelte!
+This open source project aims to replicate some of the Mac OS(Monterey, at the time of writing)'s desktop experience on web, using Svelte!
 
 🔗🔗 [macos.now.sh](https://macos.now.sh)
 

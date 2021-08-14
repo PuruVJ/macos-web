@@ -1,8 +1,8 @@
 <script lang="ts">
   import { contextMenuConfig } from '__/data/menu/context.menu.config';
-
   import { fadeIn, fadeOut } from '__/helpers/fade';
   import { theme } from '__/stores/theme.store';
+
   export let targetElement: HTMLElement;
 
   let xPos = 0;

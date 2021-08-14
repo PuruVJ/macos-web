@@ -9,8 +9,6 @@
   let yPos = 0;
   let isMenuVisible = false;
 
-  const defaultConfig = contextMenuConfig.default;
-
   function handleContextMenu(e: MouseEvent) {
     if (!targetElement?.contains(e.target as HTMLElement)) return (isMenuVisible = false);
 
@@ -40,7 +38,7 @@
     in:fadeIn={{ duration: 80 }}
     out:fadeOut
   >
-    {#each Object.values(defaultConfig) as contents}
+    {#each Object.values(contextMenuConfig.default) as contents}
       <button class="menu-item">{contents.title}</button>
 
       {#if contents.breakAfter}

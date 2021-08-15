@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { appsConfig } from '__/data/apps/apps-config';
+  import { appsConfig } from '__/configs/apps/apps-config';
 
   import DockItem from './DockItem.svelte';
 
@@ -57,7 +57,7 @@
 
     &::before {
       content: '';
-      
+
       border-radius: 20px;
 
       width: 100%;

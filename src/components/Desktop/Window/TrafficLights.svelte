@@ -3,7 +3,7 @@
   import CloseIcon from '__/components/SVG/traffic-lights/CloseSVG.svelte';
   import GreenLight from '__/components/SVG/traffic-lights/GreenLight.svelte';
   import MinimizeSvg from '__/components/SVG/traffic-lights/MinimizeSVG.svelte';
-  import { appsConfig } from '__/data/apps/apps-config';
+  import { appsConfig } from '__/configs/apps/apps-config';
   import type { AppID } from '__/stores/apps.store';
   import { activeApp, openApps } from '__/stores/apps.store';
 

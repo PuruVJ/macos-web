@@ -3,7 +3,7 @@
   import { onDestroy } from 'svelte';
   import { sineInOut } from 'svelte/easing';
   import { spring, tweened } from 'svelte/motion';
-  import { appsConfig } from '__/data/apps/apps-config';
+  import { appsConfig } from '__/configs/apps/apps-config';
   import type { AppID } from '__/stores/apps.store';
   import { activeApp, openApps } from '__/stores/apps.store';
   import { theme } from '__/stores/theme.store';

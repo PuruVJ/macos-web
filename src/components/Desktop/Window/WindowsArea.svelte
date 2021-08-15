@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { appsConfig } from '__/data/apps/apps-config';
+  import { appsConfig } from '__/configs/apps/apps-config';
   import { activeApp, activeAppZIndex, openApps } from '__/stores/apps.store';
 
   $: $activeApp, ($activeAppZIndex += 2);

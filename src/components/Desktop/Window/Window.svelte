@@ -1,7 +1,7 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import { draggable } from 'svelte-drag';
-  import { appsConfig } from '__/data/apps/apps-config';
+  import { appsConfig } from '__/configs/apps/apps-config';
   import { fadeOut } from '__/helpers/fade';
   import { randint } from '__/helpers/random';
   import { waitFor } from '__/helpers/wait-for';

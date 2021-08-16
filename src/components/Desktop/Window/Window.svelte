@@ -72,8 +72,6 @@
       windowEl.style.transition = 'height 0.3s ease, width 0.3s ease, transform 0.3s ease';
     }
 
-    debugger;
-
     if (!isMaximized) {
       draggingEnabled = false;
 

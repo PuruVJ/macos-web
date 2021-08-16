@@ -32,7 +32,12 @@
   <TopBar />
   <WindowsArea />
   <Dock />
+
+  <!-- These preloads and renders the image for browser but invisible to user -->
 </main>
+
+<img src={LightBackground} aria-hidden="true" alt="" />
+<img src={DarkBackground} aria-hidden="true" alt="" />
 
 <div class="backgroundCover" class:dark={$theme === 'dark'} />
 
@@ -43,6 +48,11 @@
 
     display: grid;
     grid-template-rows: auto 1fr auto;
+  }
+
+  img {
+    height: 1px;
+    width: 1px;
   }
 
   .backgroundCover {

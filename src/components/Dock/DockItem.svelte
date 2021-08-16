@@ -6,6 +6,7 @@
   import { appsConfig } from '__/configs/apps/apps-config';
   import type { AppID } from '__/stores/apps.store';
   import { activeApp, openApps } from '__/stores/apps.store';
+  import { prefersReducedMotion } from '__/stores/prefers-motion.store';
   import { theme } from '__/stores/theme.store';
 
   export let mouseX: number | null;
@@ -63,11 +64,9 @@
     distance = beyondTheDistanceLimit;
   }
 
-  const prefersReducedMotion = matchMedia('(prefers-reduced-motion)').matches;
-
   $: {
     mouseX;
-    if (!prefersReducedMotion) {
+    if (!$prefersReducedMotion) {
       raf = requestAnimationFrame(animate);
     }
   }
@@ -97,11 +96,11 @@
   });
 </script>
 
-<button on:click={openApp} aria-label="Launch {title} app">
+<button on:click={openApp} aria-label="Launch {title} app" class="dock-open-app-button {appID}">
   <p
     class="tooltip"
     class:dark={$theme === 'dark'}
-    style="top: {prefersReducedMotion ? '-50px' : '-35%'};"
+    style="top: {$prefersReducedMotion ? '-50px' : '-35%'};"
   >
     {title}
   </p>

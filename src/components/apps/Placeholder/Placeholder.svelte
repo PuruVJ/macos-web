@@ -1,9 +1,9 @@
 <script lang="ts">
   import { onMount } from 'svelte';
-
   import { spring } from 'svelte/motion';
   import { waitFor } from '__/helpers/wait-for';
   import type { AppID } from '__/stores/apps.store';
+  import { prefersReducedMotion } from '__/stores/prefers-motion.store';
 
   export let appID: AppID;
 
@@ -20,7 +20,9 @@
   <header class="titlebar app-window-drag-handle" />
   <section class="main-area">
     <img
-      style="transform: rotate({180 * ($motionVal + 1)}deg) scale({$motionVal}) translateZ(0px);"
+      style="transform:{!$prefersReducedMotion
+        ? `rotate(${180 * ($motionVal + 1)}deg) scale(${$motionVal}) translateZ(0px)`
+        : 'initial'};"
       src="/assets/app-icons/{appID}/256.webp"
       alt="Placeholder App"
     />

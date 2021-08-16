@@ -1,6 +1,7 @@
 <script lang="ts">
-  import { mdiBluetooth, mdiKeyboard, mdiWifiStrength4 } from '@mdi/js';
+  import { mdiBluetooth, mdiTransition, mdiWifiStrength4 } from '@mdi/js';
   import { onMount } from 'svelte';
+  import { prefersReducedMotion } from '__/stores/prefers-motion.store';
   import { theme } from '__/stores/theme.store';
   import AirDropSvg from '../SVG/AirDropSVG.svelte';
   import Icon from '../SVG/Icon.svelte';
@@ -14,9 +15,11 @@
     $theme = $theme === 'light' ? 'dark' : 'light';
   }
 
-  onMount(() => {
-    containerEl?.focus();
-  });
+  function toggleMotionPreference() {
+    $prefersReducedMotion = !$prefersReducedMotion;
+  }
+
+  onMount(() => containerEl?.focus());
 </script>
 
 <section class="container" class:dark={$theme === 'dark'} tabindex="-1" bind:this={containerEl}>
@@ -64,7 +67,7 @@
     </ActionCenterTile>
   </ActionCenterSurface>
 
-  <!-- Keyboard brightness -->
+  <!-- Motion Preference -->
   <ActionCenterSurface
     grid={[
       [7, 6],
@@ -72,10 +75,14 @@
     ]}
   >
     <ActionCenterTile grid={[1, 1]}>
-      <button class="toggle" class:filled={!0}>
-        <Icon path={mdiKeyboard} size={16} />
+      <button
+        class="toggle"
+        on:click={toggleMotionPreference}
+        class:filled={!$prefersReducedMotion}
+      >
+        <Icon path={mdiTransition} size={16} />
       </button>
-      Keyboard
+      Animations
     </ActionCenterTile>
   </ActionCenterSurface>
 </section>
@@ -132,7 +139,7 @@
 
     background-color: hsla(var(--bgcolor), var(--bgalpha));
 
-    transition: box-shadow 100ms ease;
+    transition: box-shadow 100ms ease, background 100ms ease;
 
     :global(svg) {
       fill: hsla(var(--svgcolor), var(--svgalpha));

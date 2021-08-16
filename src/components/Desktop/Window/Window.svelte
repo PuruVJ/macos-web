@@ -7,6 +7,7 @@
   import { waitFor } from '__/helpers/wait-for';
   import type { AppID } from '__/stores/apps.store';
   import { activeApp, activeAppZIndex } from '__/stores/apps.store';
+  import { prefersReducedMotion } from '__/stores/prefers-motion.store';
   import { theme } from '__/stores/theme.store';
   import AppNexus from '../../apps/AppNexus.svelte';
   import TrafficLights from './TrafficLights.svelte';
@@ -36,11 +37,26 @@
     $activeApp = appID;
   }
 
-  const prefersReducedMotion = matchMedia('(prefers-reduced-motion)').matches;
+  // function windowOpenTransition(
+  //   el: HTMLElement,
+  //   { duration = prefersReducedMotion ? 0 : 300 }: SvelteTransitionConfig,
+  // ): SvelteTransitionReturnType {
+  //   const { left, right, height, width } = document
+  //     .querySelector(`button.dock-open-app-button.${appID}`)
+  //     .getBoundingClientRect();
+
+  //   el.style.transform = `translate()`;
+
+  //   return {
+  //     duration,
+  //     easing: sineInOut,
+  //     css: (t) => `opacity: ${t}; transform:  scale(${t})`,
+  //   };
+  // }
 
   function windowCloseTransition(
     el: HTMLElement,
-    { duration = prefersReducedMotion ? 0 : 300 }: SvelteTransitionConfig,
+    { duration = $prefersReducedMotion ? 0 : 300 }: SvelteTransitionConfig,
   ): SvelteTransitionReturnType {
     const existingTransform = getComputedStyle(el).transform;
 
@@ -52,7 +68,11 @@
   }
 
   async function maximizeApp() {
-    windowEl.style.transition = 'height 0.3s ease, width 0.3s ease, transform 0.3s ease';
+    if (!$prefersReducedMotion) {
+      windowEl.style.transition = 'height 0.3s ease, width 0.3s ease, transform 0.3s ease';
+    }
+
+    debugger;
 
     if (!isMaximized) {
       draggingEnabled = false;
@@ -74,7 +94,7 @@
 
     await waitFor(300);
 
-    windowEl.style.transition = '';
+    if (!$prefersReducedMotion) windowEl.style.transition = '';
   }
 
   $: $activeApp === appID && (appZIndex = $activeAppZIndex);

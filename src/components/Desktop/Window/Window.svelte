@@ -109,7 +109,7 @@
   use:draggable={{
     defaultPosition,
     handle: '.app-window-drag-handle',
-    bounds: { bottom: 84, top: 22.5, left: -600, right: -600 },
+    bounds: { bottom: 84, top: 22.7, left: -600, right: -600 },
     disabled: !draggingEnabled,
     gpuAcceleration: false,
   }}

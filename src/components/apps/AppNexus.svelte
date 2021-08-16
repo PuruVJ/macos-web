@@ -17,6 +17,10 @@
   {#await import('__/components/apps/Calculator/Calculator.svelte') then { default: Calculator }}
     <Calculator />
   {/await}
+{:else if appID === 'safari'}
+  {#await import('__/components/apps/Safari/Safari.svelte') then { default: Safari }}
+    <Safari />
+  {/await}
 {:else}
   {#await import('__/components/apps/Placeholder/Placeholder.svelte') then { default: Placeholder }}
     <Placeholder {appID} />

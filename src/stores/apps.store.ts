@@ -18,6 +18,8 @@ export const openApps = writable<Record<AppID, boolean>>({
 
   'purus-twitter': true,
   'view-source': true,
+
+  devutils: true,
 });
 
 /** Which app is currently focused */

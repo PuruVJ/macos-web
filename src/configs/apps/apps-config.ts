@@ -1,6 +1,6 @@
 import { createAppConfig } from '__/helpers/create-app-config';
 
-const calculatorAppConfig = createAppConfig({
+const calculator = createAppConfig({
   title: 'Calculator',
 
   expandable: true,
@@ -10,12 +10,12 @@ const calculatorAppConfig = createAppConfig({
   width: 300,
 });
 
-const calendarAppConfig = createAppConfig({
+const calendar = createAppConfig({
   title: 'Calendar',
   resizable: true,
 });
 
-export const vscodeAppConfig = createAppConfig({
+const vscode = createAppConfig({
   title: 'VSCode',
   resizable: true,
 
@@ -23,42 +23,45 @@ export const vscodeAppConfig = createAppConfig({
   width: 800,
 });
 
-export const finderAppConfig = createAppConfig({
+const finder = createAppConfig({
   title: 'Finder',
   resizable: true,
 });
 
-export const safariAppConfig = createAppConfig({
+const safari = createAppConfig({
   title: 'Safari',
   resizable: true,
+
+  height: 600,
+  width: 800,
 });
 
-export const messagesAppConfig = createAppConfig({
+const messages = createAppConfig({
   title: 'Messages',
   resizable: true,
 });
 
-export const mailAppConfig = createAppConfig({
+const mail = createAppConfig({
   title: 'Mail',
   resizable: true,
 });
 
-export const photosAppConfig = createAppConfig({
+const photos = createAppConfig({
   title: 'Photos',
   resizable: true,
 });
 
-export const facetimeAppConfig = createAppConfig({
+const facetime = createAppConfig({
   title: 'Facetime',
   resizable: true,
 });
 
-export const systemPreferencesAppConfig = createAppConfig({
+const systemPreferences = createAppConfig({
   title: 'System Preferences',
   resizable: true,
 });
 
-export const purusTwitterAppConfig = createAppConfig({
+const purusTwitter = createAppConfig({
   title: `Puru's Twitter`,
   resizable: true,
 
@@ -68,7 +71,7 @@ export const purusTwitterAppConfig = createAppConfig({
   dockBreaksBefore: true,
 });
 
-export const viewSourceAppConfig = createAppConfig({
+const viewSource = createAppConfig({
   title: `View Source`,
   resizable: true,
 
@@ -76,7 +79,7 @@ export const viewSourceAppConfig = createAppConfig({
   externalAction: () => window.open('https://github.com/puruvj/macos-web', '_blank'),
 });
 
-export const devUtilsConfig = createAppConfig({
+const devutils = createAppConfig({
   title: `DevUtils`,
   resizable: true,
 
@@ -87,19 +90,19 @@ export const devUtilsConfig = createAppConfig({
 });
 
 export const appsConfig = {
-  calculator: calculatorAppConfig,
-  calendar: calendarAppConfig,
-  vscode: vscodeAppConfig,
-  finder: finderAppConfig,
-  safari: safariAppConfig,
-  messages: messagesAppConfig,
-  mail: mailAppConfig,
-  photos: photosAppConfig,
-  facetime: facetimeAppConfig,
-  'system-preferences': systemPreferencesAppConfig,
+  safari,
+  calculator,
+  calendar,
+  vscode,
+  finder,
+  messages,
+  mail,
+  photos,
+  facetime,
+  'system-preferences': systemPreferences,
 
-  'purus-twitter': purusTwitterAppConfig,
-  'view-source': viewSourceAppConfig,
+  'purus-twitter': purusTwitter,
+  'view-source': viewSource,
 
-  devutils: devUtilsConfig,
+  devutils,
 };

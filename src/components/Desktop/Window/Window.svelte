@@ -36,9 +36,11 @@
     $activeApp = appID;
   }
 
+  const prefersReducedMotion = matchMedia('(prefers-reduced-motion)').matches;
+
   function windowCloseTransition(
     el: HTMLElement,
-    { duration = 300 }: SvelteTransitionConfig,
+    { duration = prefersReducedMotion ? 0 : 300 }: SvelteTransitionConfig,
   ): SvelteTransitionReturnType {
     const existingTransform = getComputedStyle(el).transform;
 

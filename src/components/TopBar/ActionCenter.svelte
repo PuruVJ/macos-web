@@ -22,7 +22,7 @@
   onMount(() => containerEl?.focus());
 </script>
 
-<section class="container" class:dark={$theme === 'dark'} tabindex="-1" bind:this={containerEl}>
+<section class="container" class:dark={$theme === 'dark'} tabindex={-1} bind:this={containerEl}>
   <!-- Main controls: Wifi, Bluetooth, Airdrop -->
   <ActionCenterSurface
     grid={[
@@ -60,7 +60,7 @@
     ]}
   >
     <ActionCenterTile grid={[1, 1]}>
-      <button class="toggle" on:click={toggleTheme} class:filled={$theme === 'dark'}>
+      <button class="toggle" class:filled={$theme === 'dark'} on:click={toggleTheme}>
         <MoonSvg />
       </button>
       Dark mode
@@ -77,8 +77,8 @@
     <ActionCenterTile grid={[1, 1]}>
       <button
         class="toggle"
-        on:click={toggleMotionPreference}
         class:filled={!$prefersReducedMotion}
+        on:click={toggleMotionPreference}
       >
         <Icon path={mdiTransition} size={16} />
       </button>

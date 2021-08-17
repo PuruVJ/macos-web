@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { onMount } from 'svelte';
   import Dock from '__/components/Dock/Dock.svelte';
   import TopBar from '__/components/TopBar/TopBar.svelte';
   import '__/css/global.scss';
@@ -12,16 +11,6 @@
   const LightBackground = '/assets/wallpapers/37-2.jpg';
 
   let mainEl: HTMLElement;
-
-  function preloadImage(path: string) {
-    const img = new Image();
-    img.src = path;
-  }
-
-  onMount(() => {
-    preloadImage(LightBackground);
-    preloadImage(DarkBackground);
-  });
 </script>
 
 <main bind:this={mainEl}>

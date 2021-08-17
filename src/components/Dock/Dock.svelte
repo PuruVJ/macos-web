@@ -1,6 +1,5 @@
 <script lang="ts">
   import { appsConfig } from '__/configs/apps/apps-config';
-
   import DockItem from './DockItem.svelte';
 
   let mouseX: number | null = null;

@@ -4,8 +4,8 @@
   import TopBar from '__/components/TopBar/TopBar.svelte';
   import '__/css/global.scss';
   import { theme } from '__/stores/theme.store';
+  import BoostupScreen from './BootupScreen.svelte';
   import ContextMenu from './ContextMenu.svelte';
-  import StartupChime from './StartupChime.svelte';
   import WindowsArea from './Window/WindowsArea.svelte';
 
   const DarkBackground = '/assets/wallpapers/37-1.jpg';
@@ -25,17 +25,16 @@
 </script>
 
 <main bind:this={mainEl}>
-  <StartupChime />
+  <BoostupScreen />
 
   <ContextMenu targetElement={mainEl} />
 
   <TopBar />
   <WindowsArea />
   <Dock />
-
-  <!-- These preloads and renders the image for browser but invisible to user -->
 </main>
 
+<!-- These preload and render the image for browser but invisible to user -->
 <img src={LightBackground} aria-hidden="true" alt="" />
 <img src={DarkBackground} aria-hidden="true" alt="" />
 

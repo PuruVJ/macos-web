@@ -1,7 +1,7 @@
-import App from './components/Desktop/Desktop.svelte';
+import Desktop from './components/Desktop/Desktop.svelte';
 
-const app = new App({
+const desktop = new Desktop({
   target: document.getElementById('root'),
 });
 
-export default app;
+export default desktop;

@@ -1,8 +1,8 @@
 <script lang="ts">
-  export let tabOpen = 'new-tab';
+  let tabOpen = 'new-tab';
 </script>
 
-<section class="container" class:new-tab={tabOpen === 'new-tab'}>
+<section class="container">
   <header class="app-window-drag-handle" />
 </section>
 

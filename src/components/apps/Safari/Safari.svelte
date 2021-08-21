@@ -8,7 +8,7 @@
 
 <style lang="scss">
   .container {
-    background-color: hsla(var(--app-color-light-hsl), 1);
+    background-color: var(--app-color-light);
   }
 
   header {

@@ -12,6 +12,10 @@
   .container {
     // background-color: var(--app-color-light);
     background-image: url(/assets/safari-wallpapers/2.webp);
+    background-position: center center;
+    background-size: cover;
+
+    border-radius: inherit;
   }
 
   header {
@@ -20,6 +24,6 @@
     padding: 1rem;
   }
 
-  .search-box {
-  }
+  // .search-box {
+  // }
 </style>

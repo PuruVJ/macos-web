@@ -8,13 +8,13 @@
     "serve": "vite preview"
   },
   "devDependencies": {
-    "@sveltejs/vite-plugin-svelte": "^1.0.0-next.19",
-    "autoprefixer": "^10.3.3",
-    "sass": "^1.38.2",
+    "@sveltejs/vite-plugin-svelte": "^1.0.0-next.22",
+    "autoprefixer": "^10.3.4",
+    "sass": "^1.39.0",
     "svelte": "^3.42.4",
-    "svelte-preprocess": "^4.8.0",
+    "svelte-preprocess": "^4.9.1",
     "typescript": "^4.4.2",
-    "vite": "^2.5.1"
+    "vite": "^2.5.3"
   },
   "dependencies": {
     "@mdi/js": "^5.9.55",

@@ -1,19 +1,4 @@
-<script lang="ts">
-  import { interpolate } from 'popmotion';
-  import { onDestroy } from 'svelte';
-  import { sineInOut } from 'svelte/easing';
-  import { spring, tweened } from 'svelte/motion';
-  import { appsConfig } from '__/configs/apps/apps-config';
-  import type { AppID } from '__/stores/apps.store';
-  import { activeApp, openApps } from '__/stores/apps.store';
-  import { prefersReducedMotion } from '__/stores/prefers-motion.store';
-  import { theme } from '__/stores/theme.store';
-
-  export let mouseX: number | null;
-  export let appID: AppID;
-
-  let imageEl: HTMLImageElement;
-
+<script context="module">
   const baseWidth = 57.6;
   const distanceLimit = baseWidth * 6;
   const beyondTheDistanceLimit = distanceLimit + 1;
@@ -35,6 +20,23 @@
     baseWidth * 1.1,
     baseWidth,
   ];
+</script>
+
+<script lang="ts">
+  import { interpolate } from 'popmotion';
+  import { onDestroy } from 'svelte';
+  import { sineInOut } from 'svelte/easing';
+  import { spring, tweened } from 'svelte/motion';
+  import { appsConfig } from '__/configs/apps/apps-config';
+  import type { AppID } from '__/stores/apps.store';
+  import { activeApp, openApps } from '__/stores/apps.store';
+  import { prefersReducedMotion } from '__/stores/prefers-motion.store';
+  import { theme } from '__/stores/theme.store';
+
+  export let mouseX: number | null;
+  export let appID: AppID;
+
+  let imageEl: HTMLImageElement;
 
   let distance = beyondTheDistanceLimit;
 

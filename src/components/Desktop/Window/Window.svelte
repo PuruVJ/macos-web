@@ -141,7 +141,7 @@
     will-change: width, height;
 
     border-radius: 0.75rem;
-    box-shadow: 0 33px 81px rgba(0, 0, 0, 0.31);
+    box-shadow: 0px 9.9px 14.8px rgba(0, 0, 0, 0.205), 0px 79px 118px rgba(0, 0, 0, 0.41);
 
     cursor: var(--app-cursor-default), auto;
 

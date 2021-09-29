@@ -9,4 +9,7 @@ export default defineConfig({
       __: new URL('./src/', import.meta.url).pathname,
     },
   },
+  build: {
+    minify: 'terser',
+  },
 });

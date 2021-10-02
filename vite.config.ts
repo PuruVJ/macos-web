@@ -22,7 +22,9 @@ export default defineConfig({
     VitePWA({
       includeAssets: [
         'robots.txt',
+        'assets/app-icons/finder/32.png',
         'assets/cover-image.png',
+        'assets/cursors/(normal|link|text|help)-select.svg',
         'assets/**/*.mp3',
         'assets/**/*.webp',
         'assets/wallpapers/37-[12].jpg',
@@ -90,7 +92,21 @@ export default defineConfig({
                 statuses: [0, 200]
               },
             }
-          }
+          },
+          {
+            urlPattern: /^https:\/\/github1s.com\/.*/i,
+            handler: 'CacheFirst',
+            options: {
+              cacheName: 'github1s-api-cache',
+              expiration: {
+                maxEntries: 10,
+                maxAgeSeconds: 60 * 60 * 24 * 365 // <== 365 days
+              },
+              cacheableResponse: {
+                statuses: [0, 200]
+              },
+            }
+          },
         ]
       },
     }),

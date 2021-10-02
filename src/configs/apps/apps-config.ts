@@ -86,11 +86,17 @@ export const devUtilsConfig = createAppConfig({
   dockBreaksBefore: true,
 });
 
+export const appStoreConfig = createAppConfig({
+  title: 'App Store',
+  resizable: true,
+});
+
 export const appsConfig = {
   calculator: calculatorAppConfig,
   calendar: calendarAppConfig,
   vscode: vscodeAppConfig,
   finder: finderAppConfig,
+  appstore: appStoreConfig,
   safari: safariAppConfig,
   messages: messagesAppConfig,
   mail: mailAppConfig,

@@ -1,5 +1,6 @@
 /// <reference types="svelte" />
 /// <reference types="vite/client" />
+/// <reference types="vite-plugin-pwa/client" />
 
 type ObjectKeys<Obj> = Obj extends object
   ? (keyof Obj)[]

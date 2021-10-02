@@ -1,9 +1,100 @@
 import { svelte } from '@sveltejs/vite-plugin-svelte';
 import { defineConfig } from 'vite';
 import { prefetch } from './prefetch-plugin';
+import { VitePWA } from 'vite-plugin-pwa';
+import replace from "@rollup/plugin-replace";
+
+const replacePlugin = () => {
+  console.log(`process.env.VITE_LOCAL_BUILD=${process.env.VITE_LOCAL_BUILD === 'true'}`);
+  if (process.env.VITE_LOCAL_BUILD === 'true') {
+    return {
+      __DATE__: new Date().toISOString(),
+    };
+  }
+  return {};
+}
 
 export default defineConfig({
-  plugins: [svelte(), prefetch()],
+  plugins: [
+    svelte(),
+    prefetch(),
+    replace({ ...replacePlugin() }),
+    VitePWA({
+      includeAssets: [
+        'robots.txt',
+        'assets/cover-image.png',
+        'assets/**/*.mp3',
+        'assets/**/*.webp',
+        'assets/wallpapers/37-[12].jpg',
+      ],
+      manifest: {
+        name: 'Mac OS Monterey Svelte Web',
+        short_name: 'macOS Svelte',
+        theme_color: '#ffffff',
+        description: "Mac OS Monterey Web written in Svelte",
+        icons: [
+          {
+            src: 'assets/app-icons/finder/128.png',
+            sizes: '128x128',
+            type: 'image/png',
+          },
+          {
+            src: 'assets/app-icons/finder/192.png',
+            sizes: '192x192',
+            type: 'image/png',
+          },
+          {
+            src: 'assets/app-icons/finder/256.png',
+            sizes: '256x256',
+            type: 'image/png',
+          },
+          {
+            src: 'assets/app-icons/finder/512.png',
+            sizes: '512x512',
+            type: 'image/png',
+          },
+          {
+            src: 'assets/app-icons/finder/512.png',
+            sizes: '512x512',
+            type: 'image/png',
+            purpose: 'any maskable',
+          },
+        ],
+      },
+      workbox: {
+        runtimeCaching: [
+          {
+            urlPattern: /^https:\/\/fonts\.googleapis\.com\/.*/i,
+            handler: 'CacheFirst',
+            options: {
+              cacheName: 'google-fonts-cache',
+              expiration: {
+                maxEntries: 10,
+                maxAgeSeconds: 60 * 60 * 24 * 365 // <== 365 days
+              },
+              cacheableResponse: {
+                statuses: [0, 200]
+              }
+            }
+          },
+          {
+            urlPattern: /^https:\/\/fonts\.gstatic\.com\/.*/i,
+            handler: 'CacheFirst',
+            options: {
+              cacheName: 'gstatic-fonts-cache',
+              expiration: {
+                maxEntries: 10,
+                maxAgeSeconds: 60 * 60 * 24 * 365 // <== 365 days
+              },
+              cacheableResponse: {
+                statuses: [0, 200]
+              },
+            }
+          }
+        ]
+      },
+    }),
+  ],
   resolve: {
     alias: {
       __: new URL('./src/', import.meta.url).pathname,

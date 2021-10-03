@@ -10,12 +10,14 @@
   let hiddenSplashScreen = false;
   let progressVal = tweened(100, { duration: 3000, easing: quintInOut });
 
+  let hidden: boolean = !import.meta.env.PROD;
+  let autoplay: boolean = !!import.meta.env.PROD;
+
   onMount(async () => {
     $progressVal = 0;
     await waitFor(3000);
     hiddenSplashScreen = true;
   });
-
 </script>
 
 {#if !(hiddenSplashScreen || import.meta.env.DEV)}
@@ -35,7 +37,25 @@
   </div>
 {/if}
 
-<audio hidden autoplay={import.meta.env.PROD} src="/assets/sounds/mac-startup-sound.mp3" />
+<!-- iframe => firefox support: will always make sound available on start or F5 -->
+<iframe
+  id="audio"
+  src="/assets/sounds/mac-startup-sound.mp3"
+  type="audio/mp3"
+  allow="autoplay"
+></iframe>
+<!-- the audio will not autoplay on chrome based browsers: requires some user interaction -->
+<!-- see https://developer.chrome.com/blog/autoplay/ for a more detailed explanation -->
+<!-- unless you install the PWA on the desktop, in that case will always be played  -->
+<!-- it will always sound when the restart for system update clicked, we have user interaction  -->
+<audio
+  id="player"
+  {hidden}
+  {autoplay}
+  controls
+>
+  <source src="/assets/sounds/mac-startup-sound.mp3">
+</audio>
 
 <style lang="scss">
   .splash-screen {
@@ -80,5 +100,9 @@
     height: 100%;
 
     transform: translateX(-0%);
+  }
+  #audio, #player {
+    position: absolute;
+    z-index: -9999;
   }
 </style>

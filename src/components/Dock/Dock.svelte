@@ -32,11 +32,7 @@
   async function handleUpdateApp() {
     if ($needRefresh) {
       needsUpdate = false;
-      try {
-        localStorage.setItem('pwa:update', 'true');
-      } finally {
-        updateServiceWorker();
-      }
+      updateServiceWorker();
     }
   }
 

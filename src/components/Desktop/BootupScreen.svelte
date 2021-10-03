@@ -9,8 +9,22 @@
 
   let hiddenSplashScreen = false;
   let progressVal = tweened(100, { duration: 3000, easing: quintInOut });
+  let updateApp: boolean | undefined;
 
   onMount(async () => {
+    try {
+      updateApp = localStorage.getItem<boolean>("pwa:update");
+    }
+    catch (_) {
+      updateApp = false;
+    }
+    finally {
+      if (updateApp) {
+        try {
+          localStorage.removeItem("pwa:update");
+        } catch (_) {}
+      }
+    }
     $progressVal = 0;
     await waitFor(3000);
     hiddenSplashScreen = true;
@@ -34,7 +48,7 @@
   </div>
 {/if}
 
-<audio hidden autoplay={import.meta.env.PROD} src="/assets/sounds/mac-startup-sound.mp3" />
+<audio hidden autoplay={import.meta.env.PROD && !updateApp} src="/assets/sounds/mac-startup-sound.mp3" />
 
 <style lang="scss">
   .splash-screen {

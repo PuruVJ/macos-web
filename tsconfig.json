@@ -20,7 +20,7 @@
     "target": "esnext",
     "module": "esnext",
     "resolveJsonModule": true,
-    "baseUrl": "./src",
+//    "baseUrl": "./src",
     "paths": {
       "__/*": ["./src/*"]
     },

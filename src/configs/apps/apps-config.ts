@@ -81,7 +81,7 @@ export const devUtilsConfig = createAppConfig({
   resizable: true,
 
   shouldOpenWindow: false,
-  externalAction: () => window.open('https://devutils.app', '_blank'),
+  externalAction: () => window.open('https://devutils.app/?ref=puru', '_blank'),
 
   dockBreaksBefore: true,
 });

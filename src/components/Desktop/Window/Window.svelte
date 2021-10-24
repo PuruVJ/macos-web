@@ -1,12 +1,13 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import { draggable } from 'svelte-drag';
-  import { appsConfig } from '__/data/apps/apps-config';
-  import { fadeOut } from '__/helpers/fade';
+  import { sineInOut } from 'svelte/easing';
+  import { appsConfig } from '__/configs/apps/apps-config';
   import { randint } from '__/helpers/random';
   import { waitFor } from '__/helpers/wait-for';
   import type { AppID } from '__/stores/apps.store';
   import { activeApp, activeAppZIndex } from '__/stores/apps.store';
+  import { prefersReducedMotion } from '__/stores/prefers-motion.store';
   import { theme } from '__/stores/theme.store';
   import AppNexus from '../../apps/AppNexus.svelte';
   import TrafficLights from './TrafficLights.svelte';
@@ -36,11 +37,42 @@
     $activeApp = appID;
   }
 
+  // function windowOpenTransition(
+  //   el: HTMLElement,
+  //   { duration = prefersReducedMotion ? 0 : 300 }: SvelteTransitionConfig,
+  // ): SvelteTransitionReturnType {
+  //   const { left, right, height, width } = document
+  //     .querySelector(`button.dock-open-app-button.${appID}`)
+  //     .getBoundingClientRect();
+
+  //   el.style.transform = `translate()`;
+
+  //   return {
+  //     duration,
+  //     easing: sineInOut,
+  //     css: (t) => `opacity: ${t}; transform:  scale(${t})`,
+  //   };
+  // }
+
+  function windowCloseTransition(
+    el: HTMLElement,
+    { duration = $prefersReducedMotion ? 0 : 300 }: SvelteTransitionConfig,
+  ): SvelteTransitionReturnType {
+    const existingTransform = getComputedStyle(el).transform;
+
+    return {
+      duration,
+      easing: sineInOut,
+      css: (t) => `opacity: ${t}; transform: ${existingTransform} scale(${t})`,
+    };
+  }
+
   async function maximizeApp() {
-    windowEl.style.transition = 'height 0.3s ease, width 0.3s ease, transform 0.3s ease';
+    if (!$prefersReducedMotion) {
+      windowEl.style.transition = 'height 0.3s ease, width 0.3s ease, transform 0.3s ease';
+    }
 
     if (!isMaximized) {
-      console.log(1);
       draggingEnabled = false;
 
       minimizedTransform = windowEl.style.transform;
@@ -49,7 +81,6 @@
       windowEl.style.width = `100%`;
       windowEl.style.height = '100%';
     } else {
-      console.log(2);
       draggingEnabled = true;
       windowEl.style.transform = minimizedTransform;
 
@@ -59,16 +90,14 @@
 
     isMaximized = !isMaximized;
 
-    await waitFor(3000);
+    await waitFor(300);
 
-    windowEl.style.transition = '';
+    if (!$prefersReducedMotion) windowEl.style.transition = '';
   }
 
   $: $activeApp === appID && (appZIndex = $activeAppZIndex);
 
-  onMount(() => {
-    windowEl?.focus();
-  });
+  onMount(() => windowEl?.focus());
 </script>
 
 <section
@@ -80,7 +109,7 @@
   use:draggable={{
     defaultPosition,
     handle: '.app-window-drag-handle',
-    bounds: { bottom: 80, top: 22.5, left: -600, right: -600 },
+    bounds: { bottom: 84, top: 22.7, left: -600, right: -600 },
     disabled: !draggingEnabled,
     gpuAcceleration: false,
   }}
@@ -90,7 +119,7 @@
   }}
   on:svelte-drag:end={() => (isBeingDragged = false)}
   on:click={focusApp}
-  out:fadeOut
+  out:windowCloseTransition
 >
   <div class="tl-container {appID}">
     <TrafficLights {appID} on:maximize-click={maximizeApp} />
@@ -112,7 +141,7 @@
     will-change: width, height;
 
     border-radius: 0.75rem;
-    box-shadow: 0 33px 81px rgba(0, 0, 0, 0.31);
+    box-shadow: 0px 9.9px 14.8px rgba(0, 0, 0, 0.205), 0px 79px 118px rgba(0, 0, 0, 0.41);
 
     cursor: var(--app-cursor-default), auto;
 

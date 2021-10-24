@@ -1,18 +1,4 @@
-<script lang="ts">
-  import { interpolate } from 'popmotion';
-  import { onDestroy } from 'svelte';
-  import { sineInOut } from 'svelte/easing';
-  import { spring, tweened } from 'svelte/motion';
-  import { appsConfig } from '__/data/apps/apps-config';
-  import type { AppID } from '__/stores/apps.store';
-  import { activeApp, openApps } from '__/stores/apps.store';
-  import { theme } from '__/stores/theme.store';
-
-  export let mouseX: number | null;
-  export let appID: AppID;
-
-  let imageEl: HTMLImageElement;
-
+<script context="module">
   const baseWidth = 57.6;
   const distanceLimit = baseWidth * 6;
   const beyondTheDistanceLimit = distanceLimit + 1;
@@ -34,6 +20,24 @@
     baseWidth * 1.1,
     baseWidth,
   ];
+</script>
+
+<script lang="ts">
+  import { interpolate } from 'popmotion';
+  import { onDestroy } from 'svelte';
+  import { sineInOut } from 'svelte/easing';
+  import { spring, tweened } from 'svelte/motion';
+  import { appsConfig } from '__/configs/apps/apps-config';
+  import type { AppID } from '__/stores/apps.store';
+  import { activeApp, openApps } from '__/stores/apps.store';
+  import { prefersReducedMotion } from '__/stores/prefers-motion.store';
+  import { theme } from '__/stores/theme.store';
+
+  export let mouseX: number | null;
+  export let appID: AppID;
+  export let needsUpdate: boolean = false;
+
+  let imageEl: HTMLImageElement;
 
   let distance = beyondTheDistanceLimit;
 
@@ -63,11 +67,9 @@
     distance = beyondTheDistanceLimit;
   }
 
-  const prefersReducedMotion = matchMedia('(prefers-reduced-motion)').matches;
-
   $: {
     mouseX;
-    if (!prefersReducedMotion) {
+    if (!$prefersReducedMotion) {
       raf = requestAnimationFrame(animate);
     }
   }
@@ -95,13 +97,19 @@
   onDestroy(() => {
     cancelAnimationFrame(raf);
   });
+
+  $:appStore = appID === 'appstore'
+  $:showPwaBadge = appStore && needsUpdate
+  // $: {
+  //   appStore && console.log($widthPX)
+  // }
 </script>
 
-<button on:click={openApp} aria-label="Launch {title} app">
+<button on:click={openApp} aria-label="Launch {title} app" class="dock-open-app-button {appID}">
   <p
     class="tooltip"
     class:dark={$theme === 'dark'}
-    style="top: {prefersReducedMotion ? '-50px' : '-35%'};"
+    style="top: {$prefersReducedMotion ? '-50px' : '-35%'};"
   >
     {title}
   </p>
@@ -115,6 +123,12 @@
     />
   </span>
   <div class="dot" style="--opacity: {+$openApps[appID]}" />
+  {#if showPwaBadge}
+    <div
+      class="pwa-badge"
+      style="font-size: {$widthPX / 57.6}rem; width: {1.5 * $widthPX / 57.6}rem; height: {1.5 * $widthPX / 57.6}rem; line-height: {1.5 * $widthPX / 57.6}rem;"
+    >1</div>
+  {/if}
 </button>
 
 <style lang="scss">
@@ -184,4 +198,19 @@
 
     opacity: var(--opacity);
   }
+  .pwa-badge {
+    position: absolute;
+    top: 1px;
+    right: -1px;
+    background-color: rgba(248, 58, 58, 0.85);
+    box-shadow: hsla(var(--app-color-dark-hsl), 0.4) 0px 0.5px 2px;
+    color: white;
+    border-radius: 50%;
+    pointer-events: none;
+    vertical-align: middle;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+  }
+
 </style>

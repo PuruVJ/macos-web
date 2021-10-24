@@ -20,10 +20,13 @@
     "target": "esnext",
     "module": "esnext",
     "resolveJsonModule": true,
-    // "baseUrl": "./src",
+//    "baseUrl": "./src",
     "paths": {
       "__/*": ["./src/*"]
     },
+    "types": [
+      "vite-plugin-pwa/client"
+    ],
     /**
      * Typecheck JS in `.svelte` and `.js` files by default.
      * Disable checkJs if you'd like to use dynamic types in JS.
@@ -33,6 +36,6 @@
     "allowJs": true,
     "checkJs": true
   },
-  "include": ["src/**/*.d.ts", "src/**/*.ts", "src/**/*.js", "src/**/*.svelte"],
+  "include": ["src/**/*.d.ts", "src/**/*.ts", "src/**/*.js", "src/**/*.svelte", "./*.ts"],
   "exclude": ["node_modules/**/*"]
 }

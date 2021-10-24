@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { contextMenuConfig } from '__/data/menu/context.menu.config';
+  import { contextMenuConfig } from '__/configs/menu/context.menu.config';
   import { fadeIn, fadeOut } from '__/helpers/fade';
   import { theme } from '__/stores/theme.store';
 
@@ -24,11 +24,13 @@
 
     isMenuVisible = true;
   }
+
+  function hideMenu() {
+    isMenuVisible = false;
+  }
 </script>
 
-<svelte:body
-  on:contextmenu|preventDefault={handleContextMenu}
-  on:click={() => (isMenuVisible = false)} />
+<svelte:body on:contextmenu|preventDefault={handleContextMenu} on:click={hideMenu} />
 
 {#if isMenuVisible}
   <div

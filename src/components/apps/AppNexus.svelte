@@ -6,19 +6,19 @@
 </script>
 
 {#if appID === 'calendar'}
-  {#await import('__/components/apps/Calendar/Calendar.svelte') then { default: Calendar }}
+  {#await import('./Calendar/Calendar.svelte') then { default: Calendar }}
     <Calendar />
   {/await}
 {:else if appID === 'vscode'}
-  {#await import('__/components/apps/VSCode/VSCode.svelte') then { default: VSCode }}
+  {#await import('./VSCode/VSCode.svelte') then { default: VSCode }}
     <VSCode {isBeingDragged} />
   {/await}
 {:else if appID === 'calculator'}
-  {#await import('__/components/apps/Calculator/Calculator.svelte') then { default: Calculator }}
+  {#await import('./Calculator/Calculator.svelte') then { default: Calculator }}
     <Calculator />
   {/await}
 {:else}
-  {#await import('__/components/apps/Placeholder/Placeholder.svelte') then { default: Placeholder }}
+  {#await import('./Placeholder/Placeholder.svelte') then { default: Placeholder }}
     <Placeholder {appID} />
   {/await}
 {/if}

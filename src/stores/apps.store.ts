@@ -1,5 +1,5 @@
 import { writable } from 'svelte/store';
-import type { appsConfig } from '__/data/apps/apps-config';
+import type { appsConfig } from '__/configs/apps/apps-config';
 
 export type AppID = keyof typeof appsConfig;
 
@@ -9,6 +9,7 @@ export const openApps = writable<Record<AppID, boolean>>({
   vscode: false,
   calculator: false,
   safari: false,
+  appstore: false,
   messages: false,
   mail: false,
   photos: false,
@@ -18,6 +19,7 @@ export const openApps = writable<Record<AppID, boolean>>({
 
   'purus-twitter': true,
   'view-source': true,
+  devutils: true,
 });
 
 /** Which app is currently focused */

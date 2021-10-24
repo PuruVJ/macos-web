@@ -1,31 +1,20 @@
 <script lang="ts">
-  import { onMount } from 'svelte';
   import Dock from '__/components/Dock/Dock.svelte';
   import TopBar from '__/components/TopBar/TopBar.svelte';
   import '__/css/global.scss';
   import { theme } from '__/stores/theme.store';
+  import BoostupScreen from './BootupScreen.svelte';
   import ContextMenu from './ContextMenu.svelte';
-  import StartupChime from './StartupChime.svelte';
   import WindowsArea from './Window/WindowsArea.svelte';
 
   const DarkBackground = '/assets/wallpapers/37-1.jpg';
   const LightBackground = '/assets/wallpapers/37-2.jpg';
 
   let mainEl: HTMLElement;
-
-  function preloadImage(path: string) {
-    const img = new Image();
-    img.src = path;
-  }
-
-  onMount(() => {
-    preloadImage(LightBackground);
-    preloadImage(DarkBackground);
-  });
 </script>
 
 <main bind:this={mainEl}>
-  <StartupChime />
+  <BoostupScreen />
 
   <ContextMenu targetElement={mainEl} />
 
@@ -33,6 +22,10 @@
   <WindowsArea />
   <Dock />
 </main>
+
+<!-- These preload and render the image for browser but invisible to user -->
+<img src={LightBackground} aria-hidden="true" alt="" />
+<img src={DarkBackground} aria-hidden="true" alt="" />
 
 <div class="backgroundCover" class:dark={$theme === 'dark'} />
 
@@ -43,6 +36,11 @@
 
     display: grid;
     grid-template-rows: auto 1fr auto;
+  }
+
+  img {
+    height: 1px;
+    width: 1px;
   }
 
   .backgroundCover {

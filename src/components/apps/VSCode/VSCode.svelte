@@ -7,8 +7,8 @@
   <div>
     <iframe
       class:iframe-dragged={isBeingDragged}
-      src="https://github1s.com/kelvinninja1/kelvinninja1"
-      title="macOS Web Source Code"
+      src="https://vscode.dev/"
+      title="VS Code for macOS Web"
     />
   </div>
 </section>

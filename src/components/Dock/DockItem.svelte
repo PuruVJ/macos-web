@@ -35,6 +35,7 @@
 
   export let mouseX: number | null;
   export let appID: AppID;
+  export let needsUpdate: boolean = false;
 
   let imageEl: HTMLImageElement;
 
@@ -97,6 +98,12 @@
   onDestroy(() => {
     cancelAnimationFrame(raf);
   });
+
+  $:appStore = appID === 'appstore'
+  $:showPwaBadge = appStore && needsUpdate
+  // $: {
+  //   appStore && console.log($widthPX)
+  // }
 </script>
 
 <button on:click={openApp} aria-label="Launch {title} app" class="dock-open-app-button {appID}">
@@ -117,6 +124,12 @@
     />
   </span>
   <div class="dot" style="--opacity: {+$openApps[appID]}" />
+  {#if showPwaBadge}
+    <div
+      class="pwa-badge"
+      style="font-size: {$widthPX / 57.6}rem; width: {1.5 * $widthPX / 57.6}rem; height: {1.5 * $widthPX / 57.6}rem; line-height: {1.5 * $widthPX / 57.6}rem;"
+    >1</div>
+  {/if}
 </button>
 
 <style lang="scss">
@@ -186,4 +199,19 @@
 
     opacity: var(--opacity);
   }
+  .pwa-badge {
+    position: absolute;
+    top: 1px;
+    right: -1px;
+    background-color: rgba(248, 58, 58, 0.85);
+    box-shadow: hsla(var(--app-color-dark-hsl), 0.4) 0px 0.5px 2px;
+    color: white;
+    border-radius: 50%;
+    pointer-events: none;
+    vertical-align: middle;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+  }
+
 </style>

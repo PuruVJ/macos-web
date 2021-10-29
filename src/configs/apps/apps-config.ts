@@ -84,9 +84,14 @@ const devutils = createAppConfig({
   resizable: true,
 
   shouldOpenWindow: false,
-  externalAction: () => window.open('https://devutils.app', '_blank'),
+  externalAction: () => window.open('https://devutils.app/?ref=puru', '_blank'),
 
   dockBreaksBefore: true,
+});
+
+export const appstore = createAppConfig({
+  title: 'App Store',
+  resizable: true,
 });
 
 export const appsConfig = {
@@ -95,6 +100,7 @@ export const appsConfig = {
   calendar,
   vscode,
   finder,
+  appstore,
   messages,
   mail,
   photos,

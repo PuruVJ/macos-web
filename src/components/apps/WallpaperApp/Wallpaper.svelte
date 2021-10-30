@@ -7,6 +7,8 @@
 
   let visibleBackgroundImage = '/assets/wallpapers/37-2.jpg';
 
+  const interval = createIntervalStore(10 * 1000);
+
   $: {
     $interval;
 
@@ -66,8 +68,6 @@
     const chosenTimeStamp = smallerClosestValue(timestamps, hour);
     $theme = themeTimestampsMap?.[chosenTimeStamp] || 'light';
   }
-
-  const interval = createIntervalStore(10 * 1000);
 
   function previewImageOnLoad() {
     visibleBackgroundImage = `/assets/wallpapers/${$wallpaperImage}.jpg`;

@@ -4,6 +4,8 @@ export type Wallpaper = {
   name: string;
   type: 'standalone' | 'automatic' | 'dynamic';
 
+  thumbnail: string;
+
   /** Timestamps definition in terms of when a new wallpaper should take effect */
   timestamps?: {
     wallpaper?: Record<number, string>;
@@ -17,6 +19,7 @@ export const wallpapersConfig = createWallpapersConfig({
   'big-sur-graphic': {
     name: 'Big Sur Graphic',
     type: 'automatic',
+    thumbnail: '3-2',
     timestamps: {
       wallpaper: {
         7: '3-2',
@@ -32,9 +35,16 @@ export const wallpapersConfig = createWallpapersConfig({
   monterey: {
     name: 'Monterey',
     type: 'automatic',
+    thumbnail: '37-2',
     timestamps: {
       wallpaper: {
         7: '37-2',
+        9: '37-3',
+        11: '37-4',
+        13: '37-5',
+        15: '37-6',
+        16: '37-7',
+        17: '37-8',
         18: '37-1',
       },
       theme: {
@@ -47,6 +57,7 @@ export const wallpapersConfig = createWallpapersConfig({
   catalina: {
     name: 'Catalina',
     type: 'dynamic',
+    thumbnail: '24-3',
     timestamps: {
       wallpaper: {
         7: '24-2',

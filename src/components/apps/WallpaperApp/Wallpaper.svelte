@@ -25,7 +25,7 @@
     const date = new Date();
     const hour = date.getHours();
 
-    const wallpaperTimestampsMap = wallpapersConfig[$wallpaperName].wallpaperTimestamps;
+    const wallpaperTimestampsMap = wallpapersConfig[$wallpaperName].timestamps.wallpaper;
     const timestamps = Object.keys(wallpaperTimestampsMap);
 
     const minTimestamp = Math.min(...timestamps);
@@ -52,7 +52,7 @@
     const date = new Date();
     const hour = date.getHours();
 
-    const themeTimestampsMap = wallpapersConfig[$wallpaperName].themeTimestamps;
+    const themeTimestampsMap = wallpapersConfig[$wallpaperName].timestamps.theme;
     const timestamps = Object.keys(themeTimestampsMap);
 
     const minTimestamp = Math.min(...timestamps);

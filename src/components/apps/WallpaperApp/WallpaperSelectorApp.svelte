@@ -1,20 +1,38 @@
+<script lang="ts">
+  import type { WallpaperID } from '__/configs/wallpapers/wallpaper.config';
+  import { wallpaperName } from '__/stores/wallpaper.store';
+
+  function changeWallpaper(_wallpaperName: WallpaperID) {
+    $wallpaperName = _wallpaperName;
+  }
+</script>
+
 <section class="container">
   <header class="titlebar app-window-drag-handle" />
   <section class="main-area">
     <section class="dynamic-wallpapers">
       <h2>Dynamic Wallpapers</h2>
       <div class="wallpapers">
-        <button class="wallpaper-button">
-          <img src="/assets/wallpapers/37-2.jpg" alt="MacOS Monterey Wallpapers, dynamic" />
-        </button>
+        <div class="wallpaper-button">
+          <button on:click={() => changeWallpaper('monterey')}>
+            <img src="/assets/wallpapers/37-2.jpg" alt="MacOS Monterey Wallpapers, dynamic" />
+          </button>
+          <p>Monterey</p>
+        </div>
 
-        <button class="wallpaper-button">
-          <img src="/assets/wallpapers/3-2.jpg" alt="MacOS Big Sur Wallpapers, dynamic" />
-        </button>
+        <div class="wallpaper-button">
+          <button on:click={() => changeWallpaper('big-sur-graphic')}>
+            <img src="/assets/wallpapers/3-2.jpg" alt="MacOS Big Sur Wallpapers, dynamic" />
+          </button>
+          <p>Big Sur</p>
+        </div>
 
-        <button class="wallpaper-button">
-          <img src="/assets/wallpapers/24-2.jpg" alt="MacOS Catalina Wallpapers, dynamic" />
-        </button>
+        <div class="wallpaper-button">
+          <button on:click={() => changeWallpaper('catalina')}>
+            <img src="/assets/wallpapers/24-2.jpg" alt="MacOS Catalina Wallpapers, dynamic" />
+          </button>
+          <p>Catalina</p>
+        </div>
       </div>
     </section>
   </section>
@@ -30,6 +48,7 @@
 
   h2 {
     line-height: 1.618;
+    font-size: 1.618rem;
 
     margin: 0 0 1rem 0;
   }
@@ -47,7 +66,7 @@
   }
 
   .main-area {
-    font-size: 1.618rem;
+    font-size: 1rem;
     color: var(--app-color-light-contrast);
 
     height: 100%;
@@ -71,12 +90,22 @@
     height: auto;
     aspect-ratio: 16 / 10;
 
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
     border-radius: 0.75rem;
 
-    transition: box-shadow 100ms ease-in;
+    button {
+      width: 100%;
+      height: auto;
+      aspect-ratio: 16 / 10;
 
-    &:hover {
-      box-shadow: 0 0 0 0.25rem hsla(var(--app-color-primary-hsl), 0.7);
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+
+      border-radius: 0.75rem;
     }
 
     img {
@@ -86,6 +115,17 @@
       object-fit: cover;
 
       border-radius: inherit;
+
+      transition: box-shadow 100ms ease-in;
+
+      &:hover {
+        box-shadow: 0 0 0 0.25rem hsla(var(--app-color-primary-hsl), 0.7);
+      }
+    }
+
+    p {
+      width: 100%;
+      text-align: center;
     }
   }
 </style>

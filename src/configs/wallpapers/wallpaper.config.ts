@@ -16,14 +16,20 @@ export type Wallpaper = {
 const createWallpapersConfig = <TConfig>(et: Record<keyof TConfig, Wallpaper>) => et;
 
 export const wallpapersConfig = createWallpapersConfig({
-  'big-sur-graphic': {
-    name: 'Big Sur Graphic',
-    type: 'automatic',
-    thumbnail: '3-2',
+  monterey: {
+    name: 'Monterey',
+    type: 'dynamic',
+    thumbnail: '12-4',
     timestamps: {
       wallpaper: {
-        7: '3-2',
-        18: '3-1',
+        7: '12-2',
+        9: '12-3',
+        11: '12-4',
+        13: '12-5',
+        15: '12-6',
+        16: '12-7',
+        17: '12-8',
+        18: '12-1',
       },
       theme: {
         7: 'light',
@@ -32,9 +38,9 @@ export const wallpapersConfig = createWallpapersConfig({
     },
   },
 
-  monterey: {
-    name: 'Monterey',
-    type: 'automatic',
+  'monterey-graphic': {
+    name: 'Monterey Graphic',
+    type: 'dynamic',
     thumbnail: '37-2',
     timestamps: {
       wallpaper: {
@@ -46,6 +52,22 @@ export const wallpapersConfig = createWallpapersConfig({
         16: '37-7',
         17: '37-8',
         18: '37-1',
+      },
+      theme: {
+        7: 'light',
+        18: 'dark',
+      },
+    },
+  },
+
+  'big-sur-graphic': {
+    name: 'Big Sur Graphic',
+    type: 'dynamic',
+    thumbnail: '3-2',
+    timestamps: {
+      wallpaper: {
+        7: '3-2',
+        18: '3-1',
       },
       theme: {
         7: 'light',

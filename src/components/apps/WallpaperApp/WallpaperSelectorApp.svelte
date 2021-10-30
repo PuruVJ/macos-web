@@ -1,6 +1,10 @@
 <script lang="ts">
-  import type { WallpaperID } from '__/configs/wallpapers/wallpaper.config';
+  import { WallpaperID, wallpapersConfig } from '__/configs/wallpapers/wallpaper.config';
   import { wallpaperName } from '__/stores/wallpaper.store';
+
+  const dynamicWallpapers = Object.entries(wallpapersConfig).filter(
+    ([, { type }]) => type === 'dynamic',
+  );
 
   function changeWallpaper(_wallpaperName: WallpaperID) {
     $wallpaperName = _wallpaperName;
@@ -9,30 +13,23 @@
 
 <section class="container">
   <header class="titlebar app-window-drag-handle" />
+
   <section class="main-area">
     <section class="dynamic-wallpapers">
       <h2>Dynamic Wallpapers</h2>
+
       <div class="wallpapers">
-        <div class="wallpaper-button">
-          <button on:click={() => changeWallpaper('monterey')}>
-            <img src="/assets/wallpapers/37-2.jpg" alt="MacOS Monterey Wallpapers, dynamic" />
-          </button>
-          <p>Monterey</p>
-        </div>
-
-        <div class="wallpaper-button">
-          <button on:click={() => changeWallpaper('big-sur-graphic')}>
-            <img src="/assets/wallpapers/3-2.jpg" alt="MacOS Big Sur Wallpapers, dynamic" />
-          </button>
-          <p>Big Sur</p>
-        </div>
-
-        <div class="wallpaper-button">
-          <button on:click={() => changeWallpaper('catalina')}>
-            <img src="/assets/wallpapers/24-2.jpg" alt="MacOS Catalina Wallpapers, dynamic" />
-          </button>
-          <p>Catalina</p>
-        </div>
+        {#each dynamicWallpapers as [id, { thumbnail, name }]}
+          <div class="wallpaper-button">
+            <button on:click={() => changeWallpaper(id)}>
+              <img
+                src="/assets/wallpapers/{thumbnail}.jpg"
+                alt="MacOS {name} Wallpapers, dynamic"
+              />
+            </button>
+            <p>{name}</p>
+          </div>
+        {/each}
       </div>
     </section>
   </section>

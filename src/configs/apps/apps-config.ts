@@ -4,8 +4,8 @@ const wallpapers = createAppConfig({
   title: 'Wallpapers',
   resizable: true,
 
-  height: 600,
-  width: 800,
+  height: 700,
+  width: 900,
 });
 
 const calculator = createAppConfig({

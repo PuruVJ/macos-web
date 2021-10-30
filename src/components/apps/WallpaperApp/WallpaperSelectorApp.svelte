@@ -6,6 +6,10 @@
     ([, { type }]) => type === 'dynamic',
   );
 
+  const standaloneWallpapers = Object.entries(wallpapersConfig).filter(
+    ([, { type }]) => type === 'standalone',
+  );
+
   function changeWallpaper(_wallpaperName: WallpaperID) {
     $wallpaperName = _wallpaperName;
   }
@@ -20,6 +24,26 @@
 
       <div class="wallpapers">
         {#each dynamicWallpapers as [id, { thumbnail, name }]}
+          <div class="wallpaper-button">
+            <button on:click={() => changeWallpaper(id)}>
+              <img
+                src="/assets/wallpapers/{thumbnail}.jpg"
+                alt="MacOS {name} Wallpapers, dynamic"
+              />
+            </button>
+            <p>{name}</p>
+          </div>
+        {/each}
+      </div>
+    </section>
+
+    <br /><br /><br />
+
+    <section class="standalone-wallpapers">
+      <h2>Standalone Wallpapers</h2>
+
+      <div class="wallpapers">
+        {#each standaloneWallpapers as [id, { thumbnail, name }]}
           <div class="wallpaper-button">
             <button on:click={() => changeWallpaper(id)}>
               <img
@@ -54,10 +78,19 @@
     background-color: var(--app-color-light);
 
     border-radius: inherit;
+
+    display: grid;
+    grid-template-rows: auto 1fr;
+
+    min-height: auto;
+    height: 100% !important;
+    max-height: 100%;
+
+    overflow-y: hidden;
   }
 
   .titlebar {
-    padding: 1rem 1rem;
+    padding: 1.4rem 1rem;
 
     width: 100%;
   }
@@ -69,17 +102,43 @@
     height: 100%;
     width: 100%;
 
+    overflow-y: auto;
+
     display: flex;
     flex-direction: column;
     align-items: center;
 
     padding: 1rem;
+
+    &::-webkit-scrollbar {
+      background-color: transparent;
+      width: 18px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: hsla(var(--app-color-dark-hsl), 0.8);
+      border: 6px solid transparent;
+      border-radius: 16px;
+      background-clip: content-box;
+      transition: all 200ms;
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+      background-color: hsla(var(--app-color-dark-hsl), 1);
+    }
   }
 
-  .dynamic-wallpapers .wallpapers {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
-    gap: 1rem;
+  .dynamic-wallpapers,
+  .standalone-wallpapers {
+    .wallpapers {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+      gap: 1rem;
+    }
+  }
+
+  .standalone-wallpapers {
+    grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
   }
 
   .wallpaper-button {

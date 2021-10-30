@@ -12,7 +12,10 @@
   $: {
     $interval;
 
-    if (wallpapersConfig[$wallpaperName].type === 'standalone') break $;
+    if (wallpapersConfig[$wallpaperName].type === 'standalone') {
+      $wallpaperImage = wallpapersConfig[$wallpaperName].thumbnail;
+      break $;
+    }
 
     /** Only dynamic and light/dark wallpaper logic to tackle */
     // Now check if user really wants the change to happen.
@@ -74,15 +77,13 @@
   }
 </script>
 
-<!-- These preload and render the image for browser but invisible to user -->
-{#key $wallpaperImage}
-  <img
-    src="/assets/wallpapers/{$wallpaperImage}.jpg"
-    aria-hidden="true"
-    alt=""
-    on:load={previewImageOnLoad}
-  />
-{/key}
+<!-- This preload and render the image for browser but invisible to user -->
+<img
+  src="/assets/wallpapers/{$wallpaperImage}.jpg"
+  aria-hidden="true"
+  alt=""
+  on:load={previewImageOnLoad}
+/>
 
 <div class="background-cover" style="background-image: url({visibleBackgroundImage});" />
 

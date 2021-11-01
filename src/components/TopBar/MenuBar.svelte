@@ -97,5 +97,7 @@
   .apple-icon-button {
     margin: 0 0rem 0 0.5rem;
     padding: 0 0.7rem;
+
+    display: block;
   }
 </style>

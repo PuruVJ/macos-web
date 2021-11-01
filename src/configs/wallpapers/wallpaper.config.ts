@@ -19,28 +19,6 @@ export const wallpapersConfig = createWallpapersConfig({
   monterey: {
     name: 'Monterey',
     type: 'dynamic',
-    thumbnail: '12-4',
-    timestamps: {
-      wallpaper: {
-        7: '12-2',
-        9: '12-3',
-        11: '12-4',
-        13: '12-5',
-        15: '12-6',
-        16: '12-7',
-        17: '12-8',
-        18: '12-1',
-      },
-      theme: {
-        7: 'light',
-        18: 'dark',
-      },
-    },
-  },
-
-  'monterey-graphic': {
-    name: 'Monterey Graphic',
-    type: 'dynamic',
     thumbnail: '37-2',
     timestamps: {
       wallpaper: {
@@ -68,6 +46,28 @@ export const wallpapersConfig = createWallpapersConfig({
       wallpaper: {
         7: '3-2',
         18: '3-1',
+      },
+      theme: {
+        7: 'light',
+        18: 'dark',
+      },
+    },
+  },
+
+  'big-sur': {
+    name: 'Monterey',
+    type: 'dynamic',
+    thumbnail: '12-4',
+    timestamps: {
+      wallpaper: {
+        7: '12-2',
+        9: '12-3',
+        11: '12-4',
+        13: '12-5',
+        15: '12-6',
+        16: '12-7',
+        17: '12-8',
+        18: '12-1',
       },
       theme: {
         7: 'light',

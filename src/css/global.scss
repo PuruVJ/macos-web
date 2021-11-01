@@ -60,3 +60,7 @@ button {
 
   -webkit-tap-highlight-color: transparent;
 }
+
+* {
+  cursor: var(--app-cursor-default), auto;
+}

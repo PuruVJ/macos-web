@@ -1,17 +1,26 @@
 <script lang="ts">
   import { mdiBluetooth, mdiTransition, mdiWifiStrength4 } from '@mdi/js';
   import { onMount } from 'svelte';
+  import { wallpapersConfig } from '__/configs/wallpapers/wallpaper.config';
   import { prefersReducedMotion } from '__/stores/prefers-motion.store';
   import { theme } from '__/stores/theme.store';
+  import { wallpaper } from '__/stores/wallpaper.store';
   import AirDropSvg from '../SVG/AirDropSVG.svelte';
   import Icon from '../SVG/Icon.svelte';
   import MoonSvg from '../SVG/MoonSVG.svelte';
+  import SystemDialog from '../System/SystemDialog.svelte';
   import ActionCenterSurface from './ActionCenterSurface.svelte';
   import ActionCenterTile from './ActionCenterTile.svelte';
 
-  let containerEl: HTMLDivElement;
+  let containerEl: HTMLElement;
+  let themeWarningDialog: SystemDialog;
 
   function toggleTheme() {
+    if (wallpapersConfig[$wallpaper.id].type === 'dynamic' && $wallpaper.canControlTheme) {
+      themeWarningDialog.open();
+      return;
+    }
+
     $theme = $theme === 'light' ? 'dark' : 'light';
   }
 
@@ -64,6 +73,10 @@
         <MoonSvg />
       </button>
       Dark mode
+
+      <SystemDialog bind:this={themeWarningDialog}>
+        <section class="theme-warning-section">Hello</section>
+      </SystemDialog>
     </ActionCenterTile>
   </ActionCenterSurface>
 
@@ -156,5 +169,9 @@
       --svgcolor: var(--app-color-primary-contrast-hsl);
       --svgalpha: 1;
     }
+  }
+
+  .theme-warning-section {
+    color: white;
   }
 </style>

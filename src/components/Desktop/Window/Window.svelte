@@ -5,8 +5,7 @@
   import { appsConfig } from '__/configs/apps/apps-config';
   import { randint } from '__/helpers/random';
   import { waitFor } from '__/helpers/wait-for';
-  import type { AppID } from '__/stores/apps.store';
-  import { activeApp, activeAppZIndex } from '__/stores/apps.store';
+  import { activeApp, activeAppZIndex, AppID } from '__/stores/apps.store';
   import { prefersReducedMotion } from '__/stores/prefers-motion.store';
   import { theme } from '__/stores/theme.store';
   import AppNexus from '../../apps/AppNexus.svelte';

@@ -46,26 +46,6 @@ const safari = createAppConfig({
   width: 800,
 });
 
-const messages = createAppConfig({
-  title: 'Messages',
-  resizable: true,
-});
-
-const mail = createAppConfig({
-  title: 'Mail',
-  resizable: true,
-});
-
-const photos = createAppConfig({
-  title: 'Photos',
-  resizable: true,
-});
-
-const facetime = createAppConfig({
-  title: 'Facetime',
-  resizable: true,
-});
-
 const systemPreferences = createAppConfig({
   title: 'System Preferences',
   resizable: true,
@@ -112,10 +92,7 @@ export const appsConfig = {
   vscode,
   finder,
   appstore,
-  messages,
-  mail,
-  photos,
-  facetime,
+
   'system-preferences': systemPreferences,
 
   'purus-twitter': purusTwitter,

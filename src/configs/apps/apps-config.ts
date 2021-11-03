@@ -41,9 +41,6 @@ const finder = createAppConfig({
 const safari = createAppConfig({
   title: 'Safari',
   resizable: true,
-
-  height: 600,
-  width: 800,
 });
 
 const systemPreferences = createAppConfig({

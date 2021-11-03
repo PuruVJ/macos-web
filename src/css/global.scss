@@ -7,9 +7,9 @@ body {
 }
 
 body {
-  cursor: var(--app-cursor-default), auto;
+  cursor: var(--system-cursor-default), auto;
 
-  font-family: var(--app-font-family);
+  font-family: var(--system-font-family);
 
   overflow: hidden;
 
@@ -54,7 +54,7 @@ button {
 
   user-select: none;
   appearance: none;
-  cursor: var(--app-cursor-default), auto;
+  cursor: var(--system-cursor-default), auto;
 
   background-color: transparent;
 
@@ -62,5 +62,5 @@ button {
 }
 
 * {
-  cursor: var(--app-cursor-default), auto;
+  cursor: var(--system-cursor-default), auto;
 }

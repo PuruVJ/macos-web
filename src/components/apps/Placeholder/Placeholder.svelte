@@ -32,7 +32,7 @@
 
 <style lang="scss">
   .container {
-    background-color: var(--app-color-light);
+    background-color: var(--system-color-light);
 
     border-radius: inherit;
   }
@@ -49,7 +49,7 @@
 
   .main-area {
     font-size: 1.618rem;
-    color: var(--app-color-light-contrast);
+    color: var(--system-color-light-contrast);
 
     height: 100%;
     width: 100%;

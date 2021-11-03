@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { elevation } from '__/actions';
   import { wallpapersConfig } from '__/configs/wallpapers/wallpaper.config';
   import { smallerClosestValue } from '__/helpers/smaller-closest-value';
   import { createIntervalStore } from '__/stores/interval.store';
@@ -94,7 +95,11 @@
   on:load={previewImageOnLoad}
 />
 
-<div class="background-cover" style="background-image: url({visibleBackgroundImage});" />
+<div
+  class="background-cover"
+  style="background-image: url({visibleBackgroundImage});"
+  use:elevation={'wallpaper'}
+/>
 
 <style lang="scss">
   img {
@@ -106,7 +111,6 @@
     height: 100%;
     width: 100%;
 
-    z-index: -1;
     position: fixed;
     top: 0;
     left: 0;

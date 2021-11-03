@@ -65,7 +65,7 @@
     display: grid;
     grid-template-rows: auto auto 1fr;
 
-    font-family: var(--app-font-family) !important;
+    font-family: var(--system-font-family) !important;
   }
 
   .buttons-container {

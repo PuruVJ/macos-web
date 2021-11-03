@@ -1,6 +1,5 @@
 <script lang="ts">
   import { createEventDispatcher } from 'svelte';
-
   import { sineInOut } from 'svelte/easing';
   import { clickOutside, portal, trapFocus } from '__/actions';
   import { fadeOut } from '__/helpers/fade';

@@ -170,7 +170,7 @@
     position: absolute;
     z-index: 1000;
 
-    background-color: hsla(var(--app-color-light-hsl), 0.5);
+    background-color: hsla(var(--system-color-light-hsl), 0.5);
     backdrop-filter: blur(5px);
 
     padding: 0.5rem 0.75rem;
@@ -178,8 +178,8 @@
 
     box-shadow: hsla(0deg, 0%, 0%, 30%) 0px 1px 5px 2px, var(--double-border);
 
-    color: var(--app-color-light-contrast);
-    font-family: var(--app-font-family);
+    color: var(--system-color-light-contrast);
+    font-family: var(--system-font-family);
     font-weight: 400;
     font-size: 0.9rem;
     letter-spacing: 0.4px;
@@ -187,8 +187,8 @@
     display: none;
 
     &.dark {
-      --double-border: inset 0 0 0 0.9px hsla(var(--app-color-dark-hsl), 0.3),
-        0 0 0 1.2px hsla(var(--app-color-light-hsl), 0.3);
+      --double-border: inset 0 0 0 0.9px hsla(var(--system-color-dark-hsl), 0.3),
+        0 0 0 1.2px hsla(var(--system-color-light-hsl), 0.3);
     }
   }
 
@@ -200,7 +200,7 @@
 
     border-radius: 50%;
 
-    background-color: var(--app-color-dark);
+    background-color: var(--system-color-dark);
 
     opacity: var(--opacity);
   }
@@ -209,7 +209,7 @@
     top: 1px;
     right: -1px;
     background-color: rgba(248, 58, 58, 0.85);
-    box-shadow: hsla(var(--app-color-dark-hsl), 0.4) 0px 0.5px 2px;
+    box-shadow: hsla(var(--system-color-dark-hsl), 0.4) 0px 0.5px 2px;
     color: white;
     border-radius: 50%;
     pointer-events: none;

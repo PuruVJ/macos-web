@@ -88,8 +88,8 @@
 
     &:nth-child(7n),
     &:nth-child(7n-1) {
-      --bgcolor: var(--app-color-grey-100);
-      --color: var(--app-color-dark);
+      --bgcolor: var(--system-color-grey-100);
+      --color: var(--system-color-dark);
 
       background-color: var(--bgcolor) !important;
       color: var(--color);
@@ -110,14 +110,14 @@
       justify-content: center;
       align-items: center;
 
-      color: var(--app-color-grey-500);
+      color: var(--system-color-grey-500);
     }
 
     .this-month {
-      color: var(--app-color-dark);
+      color: var(--system-color-dark);
 
       :global(body.dark) & {
-        color: var(--app-color-dark);
+        color: var(--system-color-dark);
       }
     }
 

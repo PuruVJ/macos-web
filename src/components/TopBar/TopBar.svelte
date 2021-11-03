@@ -24,15 +24,15 @@
     width: 100%;
     height: 1.7rem;
 
-    background-color: hsla(var(--app-color-light-hsl), 0.3);
+    background-color: hsla(var(--system-color-light-hsl), 0.3);
 
-    color: var(--app-color-light-contrast);
-    fill: var(--app-color-light-contrast);
+    color: var(--system-color-light-contrast);
+    fill: var(--system-color-light-contrast);
 
     button {
       font-weight: 500;
       font-size: 0.8rem;
-      font-family: var(--app-font-family);
+      font-family: var(--system-font-family);
 
       letter-spacing: 0.3px;
 

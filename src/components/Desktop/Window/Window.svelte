@@ -142,14 +142,14 @@
     border-radius: 0.75rem;
     box-shadow: 0px 9.9px 14.8px rgba(0, 0, 0, 0.205), 0px 79px 118px rgba(0, 0, 0, 0.41);
 
-    cursor: var(--app-cursor-default), auto;
+    cursor: var(--system-cursor-default), auto;
 
     &.dark {
       & > :global(section),
       & > :global(div) {
         border-radius: inherit;
-        box-shadow: inset 0 0 0 0.9px hsla(var(--app-color-dark-hsl), 0.3),
-          0 0 0 1px hsla(var(--app-color-light-hsl), 0.5);
+        box-shadow: inset 0 0 0 0.9px hsla(var(--system-color-dark-hsl), 0.3),
+          0 0 0 1px hsla(var(--system-color-light-hsl), 0.5);
       }
     }
   }

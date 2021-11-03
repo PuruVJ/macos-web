@@ -66,7 +66,7 @@
     user-select: none;
     transition: transform 100ms ease;
 
-    background-color: hsla(var(--app-color-light-hsl), 0.3);
+    background-color: hsla(var(--system-color-light-hsl), 0.3);
     backdrop-filter: blur(15px);
 
     border-radius: 0.5rem;
@@ -74,8 +74,8 @@
     box-shadow: hsla(0, 0%, 0%, 0.3) 0px 0px 11px 0px, var(--additional-shadow);
 
     &.dark {
-      --additional-shadow: inset 0 0 0 0.9px hsla(var(--app-color-dark-hsl), 0.3),
-        0 0 0 1.2px hsla(var(--app-color-light-hsl), 0.3);
+      --additional-shadow: inset 0 0 0 0.9px hsla(var(--system-color-dark-hsl), 0.3),
+        0 0 0 1.2px hsla(var(--system-color-light-hsl), 0.3);
     }
 
     * {
@@ -103,12 +103,12 @@
     backface-visibility: hidden;
     transition: none;
 
-    color: hsla(var(--app-color-dark-hsl), var(--alpha));
+    color: hsla(var(--system-color-dark-hsl), var(--alpha));
 
     &:hover,
     &:focus-visible {
-      background-color: var(--app-color-primary);
-      color: var(--app-color-primary-contrast);
+      background-color: var(--system-color-primary);
+      color: var(--system-color-primary-contrast);
     }
   }
 
@@ -116,7 +116,7 @@
     width: 100%;
     height: 0.2px;
 
-    background-color: hsla(var(--app-color-dark-hsl), 0.2);
+    background-color: hsla(var(--system-color-dark-hsl), 0.2);
 
     margin: 2px 0;
   }

@@ -88,11 +88,11 @@
 
     overflow-x: hidden;
 
-    background-color: var(--app-color-grey-800);
+    background-color: var(--system-color-grey-800);
   }
 
   .indicator {
-    background-color: var(--app-color-grey-100);
+    background-color: var(--system-color-grey-100);
 
     border-radius: inherit;
 

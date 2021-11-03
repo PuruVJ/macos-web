@@ -106,7 +106,7 @@
       height: 1rem;
       width: 1rem;
 
-      fill: var(--app-color-light-contrast) !important;
+      fill: var(--system-color-light-contrast) !important;
 
       position: relative;
     }
@@ -129,7 +129,7 @@
 
     width: 20rem;
 
-    color: var(--app-color-dark);
+    color: var(--system-color-dark);
 
     h3,
     p {
@@ -160,19 +160,19 @@
 
         border-radius: 0.5rem;
 
-        background-color: hsla(var(--app-color-dark-hsl), 0.2);
+        background-color: hsla(var(--system-color-dark-hsl), 0.2);
 
         &:hover {
-          background-color: hsla(var(--app-color-dark-hsl), 0.3);
+          background-color: hsla(var(--system-color-dark-hsl), 0.3);
         }
 
         &.confirm {
-          background-color: var(--app-color-primary);
+          background-color: var(--system-color-primary);
 
-          color: var(--app-color-primary-contrast);
+          color: var(--system-color-primary-contrast);
 
           &:hover {
-            background-color: hsla(var(--app-color-primary-hsl), 0.8);
+            background-color: hsla(var(--system-color-primary-hsl), 0.8);
           }
         }
       }

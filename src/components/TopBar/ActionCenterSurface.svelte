@@ -28,10 +28,10 @@
 
     border-radius: 0.75rem;
     box-shadow: hsla(0, 0%, 0%, 0.3) 0px 1px 4px -1px,
-      inset 0 0 0 var(--border-size) hsla(var(--app-color-dark-hsl), 0.3),
-      0 0 0 var(--border-size) hsla(var(--app-color-light-hsl), 0.3);
+      inset 0 0 0 var(--border-size) hsla(var(--system-color-dark-hsl), 0.3),
+      0 0 0 var(--border-size) hsla(var(--system-color-light-hsl), 0.3);
 
-    background-color: hsla(var(--app-color-light-hsl), 0.5);
+    background-color: hsla(var(--system-color-light-hsl), 0.5);
 
     &.dark {
       --border-size: 0.4px;

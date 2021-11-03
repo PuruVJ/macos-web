@@ -16,6 +16,6 @@
 
     font-size: 0.85rem;
     font-weight: 600;
-    color: var(--app-color-dark);
+    color: var(--system-color-dark);
   }
 </style>

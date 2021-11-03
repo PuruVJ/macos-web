@@ -78,7 +78,7 @@
 
     padding: 1rem;
 
-    background: hsla(var(--app-color-light-hsl), 0.6);
+    background: hsla(var(--system-color-light-hsl), 0.6);
     backdrop-filter: blur(20px);
 
     will-change: transform;
@@ -88,8 +88,8 @@
 
     &.dark {
       // border-radius: inherit;
-      box-shadow: var(--elevation), inset 0 0 0 0.9px hsla(var(--app-color-dark-hsl), 0.3),
-        0 0 0 1px hsla(var(--app-color-light-hsl), 0.5);
+      box-shadow: var(--elevation), inset 0 0 0 0.9px hsla(var(--system-color-dark-hsl), 0.3),
+        0 0 0 1px hsla(var(--system-color-light-hsl), 0.5);
     }
   }
 </style>

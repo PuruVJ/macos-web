@@ -86,7 +86,7 @@
 
       transition: transform 100ms ease;
 
-      background-color: hsla(var(--app-color-dark-hsl), 0.2);
+      background-color: hsla(var(--system-color-dark-hsl), 0.2);
     }
   }
 

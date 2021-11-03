@@ -90,7 +90,7 @@
 
       transition: transform 100ms ease;
 
-      background-color: hsla(var(--app-color-grey-100-hsl), 0.3);
+      background-color: hsla(var(--app-color-dark-hsl), 0.2);
     }
   }
 

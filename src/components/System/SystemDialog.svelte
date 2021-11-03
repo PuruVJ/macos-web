@@ -1,6 +1,9 @@
 <script lang="ts">
+  import { createEventDispatcher } from 'svelte';
+
   import { sineInOut } from 'svelte/easing';
-  import { portal, trapFocus } from '__/actions';
+  import { clickOutside, portal, trapFocus } from '__/actions';
+  import { fadeOut } from '__/helpers/fade';
   import { prefersReducedMotion } from '__/stores/prefers-motion.store';
   import { theme } from '__/stores/theme.store';
 
@@ -8,19 +11,24 @@
 
   export let backdropDismiss = true;
 
+  const dispatch = createEventDispatcher<{ open: undefined; close: string | undefined }>();
+
   export function open() {
     isOpen = true;
+    dispatch('open');
   }
 
   export function close(message?: string) {
     isOpen = false;
+
+    dispatch('close', message);
 
     return message;
   }
 
   function dialogOpenTransition(
     _: HTMLElement,
-    { duration = $prefersReducedMotion ? 0 : 150 }: SvelteTransitionConfig,
+    { duration = $prefersReducedMotion ? 0 : 250 }: SvelteTransitionConfig,
   ): SvelteTransitionReturnType {
     return {
       duration,
@@ -31,13 +39,7 @@
 </script>
 
 {#if isOpen}
-  <section
-    use:portal={'body'}
-    class="overlay"
-    on:click={() => {
-      backdropDismiss && close(), console.log(0);
-    }}
-  >
+  <section use:portal={'body'} class="overlay">
     <div
       class="dialog"
       class:dark={$theme === 'dark'}
@@ -46,7 +48,9 @@
       aria-labelledby="info-title"
       aria-describedby="info-description"
       in:dialogOpenTransition
+      out:fadeOut
       use:trapFocus
+      use:clickOutside={{ callback: () => backdropDismiss && close() }}
       on:click|stopPropagation={() => {}}
     >
       <slot />
@@ -76,9 +80,11 @@
     padding: 1rem;
 
     background: hsla(var(--app-color-light-hsl), 0.6);
-    backdrop-filter: blur(30px);
+    backdrop-filter: blur(20px);
 
-    border-radius: 0.75rem;
+    will-change: transform;
+
+    border-radius: 1rem;
     box-shadow: var(--elevation);
 
     &.dark {

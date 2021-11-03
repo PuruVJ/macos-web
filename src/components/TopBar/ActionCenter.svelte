@@ -1,23 +1,23 @@
 <script lang="ts">
-  import { mdiBluetooth, mdiTransition, mdiWifiStrength4 } from '@mdi/js';
+  import { mdiTransition } from '@mdi/js';
   import { onMount } from 'svelte';
   import { wallpapersConfig } from '__/configs/wallpapers/wallpaper.config';
+  import { openApps } from '__/stores/apps.store';
   import { prefersReducedMotion } from '__/stores/prefers-motion.store';
   import { theme } from '__/stores/theme.store';
   import { wallpaper } from '__/stores/wallpaper.store';
-  import AirDropSvg from '../SVG/AirDropSVG.svelte';
   import Icon from '../SVG/Icon.svelte';
   import MoonSvg from '../SVG/MoonSVG.svelte';
-  import SystemDialog from '../System/SystemDialog.svelte';
   import ActionCenterSurface from './ActionCenterSurface.svelte';
   import ActionCenterTile from './ActionCenterTile.svelte';
 
+  export let isThemeWarningDialogOpen: boolean;
+
   let containerEl: HTMLElement;
-  let themeWarningDialog: SystemDialog;
 
   function toggleTheme() {
     if (wallpapersConfig[$wallpaper.id].type === 'dynamic' && $wallpaper.canControlTheme) {
-      themeWarningDialog.open();
+      isThemeWarningDialogOpen = true;
       return;
     }
 
@@ -36,35 +36,6 @@
   <ActionCenterSurface
     grid={[
       [1, 6],
-      [1, 4],
-    ]}
-  >
-    <ActionCenterTile grid={[1, 1]}>
-      <button class="toggle" class:filled={!0}>
-        <Icon path={mdiWifiStrength4} size={16} />
-      </button>
-      Wi-Fi
-    </ActionCenterTile>
-
-    <ActionCenterTile grid={[2, 1]}>
-      <button class="toggle" class:filled={!0}>
-        <Icon path={mdiBluetooth} size={18} />
-      </button>
-      Bluetooth
-    </ActionCenterTile>
-
-    <ActionCenterTile grid={[3, 1]}>
-      <button class="toggle" class:filled={!!0}>
-        <AirDropSvg />
-      </button>
-      Airdrop
-    </ActionCenterTile>
-  </ActionCenterSurface>
-
-  <!-- Theme Switcher -->
-  <ActionCenterSurface
-    grid={[
-      [7, 6],
       [1, 2],
     ]}
   >
@@ -73,18 +44,13 @@
         <MoonSvg />
       </button>
       Dark mode
-
-      <SystemDialog bind:this={themeWarningDialog}>
-        <section class="theme-warning-section">Hello</section>
-      </SystemDialog>
     </ActionCenterTile>
   </ActionCenterSurface>
 
-  <!-- Motion Preference -->
   <ActionCenterSurface
     grid={[
       [7, 6],
-      [3, 2],
+      [1, 2],
     ]}
   >
     <ActionCenterTile grid={[1, 1]}>
@@ -96,6 +62,28 @@
         <Icon path={mdiTransition} size={16} />
       </button>
       Animations
+    </ActionCenterTile>
+  </ActionCenterSurface>
+
+  <ActionCenterSurface
+    grid={[
+      [1, 12],
+      [3, 3],
+    ]}
+  >
+    <ActionCenterTile on:click={() => ($openApps.wallpapers = true)} grid={[1, 1]}>
+      <div class="wallpaper-tile">
+        <img
+          class="wallpaper-thumbnail"
+          src="/assets/wallpapers/{wallpapersConfig[$wallpaper.id].thumbnail}.jpg"
+          alt="Current wallpaper"
+        />
+
+        <div class="wallpaper-info">
+          <h3>{wallpapersConfig[$wallpaper.id].name}</h3>
+          <p>{wallpapersConfig[$wallpaper.id].type} wallpaper</p>
+        </div>
+      </div>
     </ActionCenterTile>
   </ActionCenterSurface>
 </section>
@@ -171,7 +159,33 @@
     }
   }
 
-  .theme-warning-section {
-    color: white;
+  .wallpaper-tile {
+    height: 100%;
+    width: 100%;
+
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 1rem;
+    align-items: center;
+
+    img {
+      aspect-ratio: 1 / 1;
+      height: 5.1rem;
+
+      border-radius: 0.5rem;
+    }
+
+    h3 {
+      width: 100%;
+
+      font-size: 1rem;
+      line-height: 1.618;
+    }
+
+    p {
+      text-transform: capitalize;
+      font-size: 0.8rem;
+      font-weight: 400;
+    }
   }
 </style>

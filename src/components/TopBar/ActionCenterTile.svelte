@@ -4,7 +4,7 @@
   const [rowStart, rowsPan] = grid;
 </script>
 
-<div class="container" style="grid-row: {rowStart} / span {rowsPan}">
+<div tabindex="0" on:click class="container" style="grid-row: {rowStart} / span {rowsPan}">
   <slot />
 </div>
 

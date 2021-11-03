@@ -1,13 +1,12 @@
 <script lang="ts">
-  import { mdiTransition } from '@mdi/js';
   import { onMount } from 'svelte';
   import { wallpapersConfig } from '__/configs/wallpapers/wallpaper.config';
   import { activeApp, openApps } from '__/stores/apps.store';
   import { prefersReducedMotion } from '__/stores/prefers-motion.store';
   import { theme } from '__/stores/theme.store';
   import { wallpaper } from '__/stores/wallpaper.store';
-  import Icon from '../SVG/Icon.svelte';
-  import MoonSvg from '../SVG/MoonSVG.svelte';
+  import DarkMode from '~icons/gg/dark-mode';
+  import TransitionMaskedIcon from '~icons/mdi/transition-masked';
   import ActionCenterSurface from './ActionCenterSurface.svelte';
   import ActionCenterTile from './ActionCenterTile.svelte';
 
@@ -41,7 +40,7 @@
   >
     <ActionCenterTile grid={[1, 1]}>
       <button class="toggle" class:filled={$theme === 'dark'} on:click={toggleTheme}>
-        <MoonSvg />
+        <DarkMode />
       </button>
       Dark mode
     </ActionCenterTile>
@@ -59,7 +58,7 @@
         class:filled={!$prefersReducedMotion}
         on:click={toggleMotionPreference}
       >
-        <Icon path={mdiTransition} size={16} />
+        <TransitionMaskedIcon />
       </button>
       Animations
     </ActionCenterTile>
@@ -149,7 +148,7 @@
     transition: box-shadow 100ms ease, background 100ms ease;
 
     :global(svg) {
-      fill: hsla(var(--svgcolor), var(--svgalpha));
+      color: hsla(var(--svgcolor), var(--svgalpha));
     }
 
     &:focus-visible {

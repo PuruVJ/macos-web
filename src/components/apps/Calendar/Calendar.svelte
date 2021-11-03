@@ -1,8 +1,8 @@
 <script lang="ts">
-  import { mdiChevronLeft, mdiChevronRight } from '@mdi/js';
   import { addMonths, format } from 'date-fns';
-  import Icon from '__/components/SVG/Icon.svelte';
   import { theme } from '__/stores/theme.store';
+  import LeftArrow from '~icons/ic/round-chevron-left';
+  import RightArrow from '~icons/ic/round-chevron-right';
   import MonthView from './MonthView.svelte';
 
   export let view: 'year' | 'month' | 'week' | 'day' = 'month';
@@ -34,11 +34,11 @@
 
       <div class="control-buttons">
         <button on:click={goPreviousMonth}>
-          <Icon size={18} path={mdiChevronLeft} />
+          <LeftArrow />
         </button>
         <button on:click={goToToday}>Today</button>
         <button on:click={goNextMonth}>
-          <Icon size={18} path={mdiChevronRight} />
+          <RightArrow />
         </button>
       </div>
     </div>
@@ -134,6 +134,10 @@
       margin: 0 0.05rem;
 
       height: 1.3rem;
+
+      :global(svg) {
+        font-size: 1.2rem;
+      }
 
       :global(body.dark) & {
         --bgcolor: var(--app-color-grey-800);

@@ -249,7 +249,7 @@
       border-radius: 0.75rem;
 
       &:hover,
-      &:focus {
+      &:focus-visible {
         img {
           box-shadow: 0 0 0 0.25rem hsla(var(--app-color-primary-hsl), 0.7);
         }

@@ -1,7 +1,7 @@
 <script lang="ts">
   import { clickOutside, focusOutside } from '__/actions';
   import { fadeIn, fadeOut } from '__/helpers/fade';
-  import { openApps } from '__/stores/apps.store';
+  import { activeApp, openApps } from '__/stores/apps.store';
   import SwitchSvg from '../SVG/SwitchSVG.svelte';
   import SystemDialog from '../System/SystemDialog.svelte';
   import ActionCenter from './ActionCenter.svelte';
@@ -57,7 +57,9 @@
         class="confirm"
         on:click={() => {
           themeWarningDialog.close();
+
           $openApps.wallpapers = true;
+          $activeApp = 'wallpapers';
         }}
       >
         Go to Wallpapers

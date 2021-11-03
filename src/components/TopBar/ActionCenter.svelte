@@ -2,7 +2,7 @@
   import { mdiTransition } from '@mdi/js';
   import { onMount } from 'svelte';
   import { wallpapersConfig } from '__/configs/wallpapers/wallpaper.config';
-  import { openApps } from '__/stores/apps.store';
+  import { activeApp, openApps } from '__/stores/apps.store';
   import { prefersReducedMotion } from '__/stores/prefers-motion.store';
   import { theme } from '__/stores/theme.store';
   import { wallpaper } from '__/stores/wallpaper.store';
@@ -71,7 +71,13 @@
       [3, 3],
     ]}
   >
-    <ActionCenterTile on:click={() => ($openApps.wallpapers = true)} grid={[1, 1]}>
+    <ActionCenterTile
+      on:click={() => {
+        $openApps.wallpapers = true;
+        $activeApp = 'wallpapers';
+      }}
+      grid={[1, 1]}
+    >
       <div class="wallpaper-tile">
         <img
           class="wallpaper-thumbnail"
@@ -171,6 +177,8 @@
     img {
       aspect-ratio: 1 / 1;
       height: 5.1rem;
+
+      object-fit: cover;
 
       border-radius: 0.5rem;
     }

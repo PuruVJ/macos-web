@@ -57,15 +57,15 @@
 
 <style lang="scss">
   .container {
-    background-color: var(--app-color-light);
+    background-color: var(--system-color-light);
 
     border-radius: inherit;
 
     overflow: hidden;
 
     &.dark {
-      box-shadow: inset 0 0 0 0.9px hsla(var(--app-color-dark-hsl), 0.2),
-        0 0 0 1.5px hsla(var(--app-color-light-hsl), 0.5);
+      box-shadow: inset 0 0 0 0.9px hsla(var(--system-color-dark-hsl), 0.2),
+        0 0 0 1.5px hsla(var(--system-color-light-hsl), 0.5);
     }
   }
 
@@ -83,7 +83,7 @@
   }
 
   .main-area {
-    color: var(--app-color-light-contrast);
+    color: var(--system-color-light-contrast);
 
     margin-top: $title-bar-height;
 
@@ -119,15 +119,15 @@
     justify-content: center;
 
     button {
-      --bgcolor: hsla(var(--app-color-light-hsl), 0.5);
+      --bgcolor: hsla(var(--system-color-light-hsl), 0.5);
 
       border-radius: 0.375rem;
-      box-shadow: hsla(var(--app-color-dark-hsl), 0.4) 0px 0.5px 2px;
+      box-shadow: hsla(var(--system-color-dark-hsl), 0.4) 0px 0.5px 2px;
 
       background-color: var(--bgcolor);
 
-      color: var(--app-color-dark);
-      fill: var(--app-color-dark);
+      color: var(--system-color-dark);
+      fill: var(--system-color-dark);
       font-weight: bold;
 
       padding: 0.2rem 0.5rem;
@@ -140,7 +140,7 @@
       }
 
       :global(body.dark) & {
-        --bgcolor: var(--app-color-grey-800);
+        --bgcolor: var(--system-color-grey-800);
         box-shadow: 0 0 white;
       }
     }

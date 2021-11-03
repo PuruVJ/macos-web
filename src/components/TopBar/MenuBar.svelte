@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { clickOutside, focusOutside } from '__/actions';
+  import { clickOutside, elevation, focusOutside } from '__/actions';
   import { activeMenu, menuBarMenus } from '__/stores/menubar.store';
   import AppleIcon from '~icons/mdi/apple';
   import Menu from './Menu.svelte';
@@ -30,7 +30,11 @@
         </button>
       </div>
 
-      <div class="menu-parent" style="visibility: {$activeMenu !== menuID ? 'hidden' : 'visible'}">
+      <div
+        class="menu-parent"
+        style="visibility: {$activeMenu !== menuID ? 'hidden' : 'visible'}"
+        use:elevation={'menubar-menu-parent'}
+      >
         <Menu menu={menuConfig.menu} />
       </div>
     </div>
@@ -46,7 +50,6 @@
   }
 
   .menu-parent {
-    z-index: 1;
     position: absolute;
     margin-top: 1.5px;
   }
@@ -86,7 +89,7 @@
 
       transition: transform 100ms ease;
 
-      background-color: hsla(var(--app-color-dark-hsl), 0.2);
+      background-color: hsla(var(--system-color-dark-hsl), 0.2);
     }
   }
 

@@ -110,14 +110,14 @@
 
     user-select: none;
 
-    background-color: hsla(var(--app-color-light-hsl), 0.3);
+    background-color: hsla(var(--system-color-light-hsl), 0.3);
     backdrop-filter: blur(12px);
 
     border-radius: 1rem;
 
     box-shadow: hsla(0, 0%, 0%, 0.3) 0px 0px 11px 0px,
-      inset 0 0 0 var(--border-size) hsla(var(--app-color-dark-hsl), 0.3),
-      0 0 0 var(--border-size) hsla(var(--app-color-light-hsl), 0.3);
+      inset 0 0 0 var(--border-size) hsla(var(--system-color-dark-hsl), 0.3),
+      0 0 0 var(--border-size) hsla(var(--system-color-light-hsl), 0.3);
 
     &.dark {
       --border-size: 0.5px;
@@ -127,10 +127,10 @@
   .toggle {
     --size: 1.7rem;
 
-    --bgcolor: var(--app-color-dark-hsl);
+    --bgcolor: var(--system-color-dark-hsl);
     --bgalpha: 0.1;
 
-    --svgcolor: var(--app-color-light-contrast-hsl);
+    --svgcolor: var(--system-color-light-contrast-hsl);
     --svgalpha: 0.9;
 
     height: var(--size) !important;
@@ -156,10 +156,10 @@
     }
 
     &.filled {
-      --bgcolor: var(--app-color-primary-hsl);
+      --bgcolor: var(--system-color-primary-hsl);
       --bgalpha: 1;
 
-      --svgcolor: var(--app-color-primary-contrast-hsl);
+      --svgcolor: var(--system-color-primary-contrast-hsl);
       --svgalpha: 1;
     }
   }
@@ -173,9 +173,11 @@
     gap: 1rem;
     align-items: center;
 
+    padding: 0.25rem 0 0.25rem 0.25rem;
+
     img {
       aspect-ratio: 1 / 1;
-      height: 5.1rem;
+      height: 4.5rem;
 
       object-fit: cover;
 

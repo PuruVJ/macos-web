@@ -43,7 +43,7 @@
 
     &.unfocused button {
       --bgcolor: #b6b6b7;
-      --border-color: hsla(var(--app-color-dark-hsl), 0.5);
+      --border-color: hsla(var(--system-color-dark-hsl), 0.5);
     }
 
     :global(svg) {

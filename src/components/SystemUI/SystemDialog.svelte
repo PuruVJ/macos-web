@@ -1,7 +1,7 @@
 <script lang="ts">
   import { createEventDispatcher } from 'svelte';
   import { sineInOut } from 'svelte/easing';
-  import { clickOutside, portal, trapFocus } from '__/actions';
+  import { clickOutside, elevation, portal, trapFocus } from '__/actions';
   import { fadeOut } from '__/helpers/fade';
   import { prefersReducedMotion } from '__/stores/prefers-motion.store';
   import { theme } from '__/stores/theme.store';
@@ -38,7 +38,7 @@
 </script>
 
 {#if isOpen}
-  <section use:portal={'body'} class="overlay">
+  <section class="overlay" use:portal={'#windows-area'} use:elevation={'system-dialog'}>
     <div
       class="dialog"
       class:dark={$theme === 'dark'}
@@ -59,13 +59,12 @@
 
 <style lang="scss">
   .overlay {
-    position: fixed;
+    position: sticky;
     top: 0;
     left: 0;
-    z-index: 9999;
 
-    height: 100vh;
-    width: 100vw;
+    height: 100%;
+    width: 100%;
 
     display: grid;
     place-items: center;
@@ -78,7 +77,7 @@
 
     padding: 1rem;
 
-    background: hsla(var(--app-color-light-hsl), 0.6);
+    background: hsla(var(--system-color-light-hsl), 0.6);
     backdrop-filter: blur(20px);
 
     will-change: transform;
@@ -88,8 +87,8 @@
 
     &.dark {
       // border-radius: inherit;
-      box-shadow: var(--elevation), inset 0 0 0 0.9px hsla(var(--app-color-dark-hsl), 0.3),
-        0 0 0 1px hsla(var(--app-color-light-hsl), 0.5);
+      box-shadow: var(--elevation), inset 0 0 0 0.9px hsla(var(--system-color-dark-hsl), 0.3),
+        0 0 0 1px hsla(var(--system-color-light-hsl), 0.5);
     }
   }
 </style>

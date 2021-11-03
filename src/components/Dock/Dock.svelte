@@ -2,6 +2,7 @@
   import { appsConfig } from '__/configs/apps/apps-config';
   import { useRegisterSW } from 'virtual:pwa-register/svelte';
   import DockItem from './DockItem.svelte';
+  import { elevation } from '__/actions';
 
   // replaced dynamically
   const buildDate = '__DATE__';
@@ -39,7 +40,7 @@
   let mouseX: number | null = null;
 </script>
 
-<section class="dock-container">
+<section class="dock-container" use:elevation={'dock'}>
   <div
     class="dock-el"
     on:mousemove={(event) => (mouseX = event.x)}
@@ -55,7 +56,7 @@
 </section>
 
 {#if $needRefresh}
-  <div class="updates-available-dialog" role="alert">
+  <div class="updates-available-dialog" role="alert" use:elevation={'system-updates-available'}>
     <div class="updates-available-hero">
       <img
         width="64"
@@ -83,7 +84,6 @@
     margin-bottom: 0.3rem;
     left: 0;
     bottom: 0;
-    z-index: 9900;
     position: fixed;
 
     width: 100%;
@@ -96,10 +96,10 @@
   }
 
   .dock-el {
-    background-color: hsla(var(--app-color-light-hsl), 0.4);
+    background-color: hsla(var(--system-color-light-hsl), 0.4);
 
-    box-shadow: inset 0 0 0 0.2px hsla(var(--app-color-grey-100-hsl), 0.7),
-      0 0 0 0.2px hsla(var(--app-color-grey-900-hsl), 0.7), hsla(0, 0%, 0%, 0.3) 2px 5px 19px 7px;
+    box-shadow: inset 0 0 0 0.2px hsla(var(--system-color-grey-100-hsl), 0.7),
+      0 0 0 0.2px hsla(var(--system-color-grey-900-hsl), 0.7), hsla(0, 0%, 0%, 0.3) 2px 5px 19px 7px;
 
     position: relative;
 
@@ -136,7 +136,7 @@
     height: 100%;
     width: 0.2px;
 
-    background-color: hsla(var(--app-color-dark-hsl), 0.3);
+    background-color: hsla(var(--system-color-dark-hsl), 0.3);
 
     margin: 0 4px;
   }
@@ -150,7 +150,6 @@
     margin: 16px;
     border: 1px solid #8885;
     border-radius: 0.5rem;
-    z-index: 1;
     text-align: left;
     box-shadow: 3px 4px 5px 0 #8885;
     display: grid;

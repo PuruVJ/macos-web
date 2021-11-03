@@ -1,5 +1,6 @@
 <script lang="ts">
   import { onMount } from 'svelte';
+  import { elevation } from '__/actions';
   import { draggable } from 'svelte-drag';
   import { sineInOut } from 'svelte/easing';
   import { appsConfig } from '__/configs/apps/apps-config';
@@ -120,7 +121,7 @@
   on:click={focusApp}
   out:windowCloseTransition
 >
-  <div class="tl-container {appID}">
+  <div class="tl-container {appID}" use:elevation={'window-traffic-lights'}>
     <TrafficLights {appID} on:maximize-click={maximizeApp} />
   </div>
 
@@ -158,7 +159,6 @@
     position: absolute;
     top: 1rem;
     left: 1rem;
-    z-index: 1;
 
     // Necessary, as `.container` tries to apply shadow on it
     box-shadow: none !important;

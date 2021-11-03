@@ -43,26 +43,6 @@ const safari = createAppConfig({
   resizable: true,
 });
 
-const messages = createAppConfig({
-  title: 'Messages',
-  resizable: true,
-});
-
-const mail = createAppConfig({
-  title: 'Mail',
-  resizable: true,
-});
-
-const photos = createAppConfig({
-  title: 'Photos',
-  resizable: true,
-});
-
-const facetime = createAppConfig({
-  title: 'Facetime',
-  resizable: true,
-});
-
 const systemPreferences = createAppConfig({
   title: 'System Preferences',
   resizable: true,

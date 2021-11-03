@@ -27,6 +27,7 @@
   import { onDestroy } from 'svelte';
   import { sineInOut } from 'svelte/easing';
   import { spring, tweened } from 'svelte/motion';
+  import { elevation } from '__/actions';
   import { appsConfig } from '__/configs/apps/apps-config';
   import type { AppID } from '__/stores/apps.store';
   import { activeApp, openApps } from '__/stores/apps.store';
@@ -110,9 +111,11 @@
     class="tooltip"
     class:dark={$theme === 'dark'}
     style="top: {$prefersReducedMotion ? '-50px' : '-35%'};"
+    use:elevation={'dock-tooltip'}
   >
     {title}
   </p>
+
   <span style="transform: translate3d(0, {$appOpenIconBounceTransform}%, 0)">
     <img
       bind:this={imageEl}
@@ -168,7 +171,6 @@
     white-space: nowrap;
 
     position: absolute;
-    z-index: 1000;
 
     background-color: hsla(var(--system-color-light-hsl), 0.5);
     backdrop-filter: blur(5px);

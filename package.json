@@ -4,9 +4,10 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "pnpm check && vite build",
     "serve": "vite preview",
-    "test-https": "cross-env VITE_LOCAL_BUILD=true npm run build && serve dist"
+    "test-https": "cross-env VITE_LOCAL_BUILD=true npm run build && serve dist",
+    "check": "svelte-check --tsconfig ./tsconfig.json"
   },
   "devDependencies": {
     "@iconify-json/gg": "^1.0.1",
@@ -22,6 +23,7 @@
     "https-localhost": "^4.7.0",
     "sass": "^1.43.4",
     "svelte": "^3.44.1",
+    "svelte-check": "^2.2.8",
     "svelte-preprocess": "^4.9.8",
     "typescript": "^4.4.4",
     "vite": "2.6.13",

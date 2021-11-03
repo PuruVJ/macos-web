@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { elevation } from '__/actions';
   import { contextMenuConfig } from '__/configs/menu/context.menu.config';
   import { fadeIn, fadeOut } from '__/helpers/fade';
   import { theme } from '__/stores/theme.store';
@@ -39,6 +40,7 @@
     style="transform: translate({xPos}px, {yPos}px);"
     in:fadeIn={{ duration: 80 }}
     out:fadeOut
+    use:elevation={'context-menu'}
   >
     {#each Object.values(contextMenuConfig.default) as contents}
       <button class="menu-item">{contents.title}</button>
@@ -54,7 +56,6 @@
   .container {
     --additional-shadow: 0 0 0 0 white;
     display: block;
-    z-index: 99999999;
 
     min-width: 16rem;
 

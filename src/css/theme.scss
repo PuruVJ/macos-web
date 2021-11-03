@@ -77,10 +77,10 @@ body[data-theme='light'] {
 
 body.dark {
   /* // Primary */
-  --system-color-primary: hsl(211, 100%, 50%);
-  --system-color-primary-hsl: 211, 100%, 50%;
-  --system-color-primary-contrast: hsl(240, 24%, 100%);
-  --system-color-primary-contrast-hsl: 240, 24%, 100%;
+  --system-color-primary: #0a85ff;
+  --system-color-primary-hsl: 210, 100%, 52%;
+  --system-color-primary-contrast: hsl(210, 92%, 5%);
+  --system-color-primary-contrast-hsl: 210, 92%, 5%;
 
   /* // Dark */
   --system-color-dark: hsl(240, 24%, 100%);

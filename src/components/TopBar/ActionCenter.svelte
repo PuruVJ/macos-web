@@ -173,9 +173,11 @@
     gap: 1rem;
     align-items: center;
 
+    padding: 0.25rem 0 0.25rem 0.25rem;
+
     img {
       aspect-ratio: 1 / 1;
-      height: 5.1rem;
+      height: 4.5rem;
 
       object-fit: cover;
 

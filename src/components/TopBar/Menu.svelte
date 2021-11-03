@@ -72,6 +72,7 @@
       &:focus-visible {
         background-color: var(--system-color-primary);
         color: var(--system-color-primary-contrast);
+        font-weight: 500 !important;
       }
     }
   }

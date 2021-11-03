@@ -2,6 +2,7 @@
   import { onMount } from 'svelte';
   import { quintInOut } from 'svelte/easing';
   import { tweened } from 'svelte/motion';
+  import { elevation } from '__/actions';
   import { fadeOut } from '__/helpers/fade';
   import { waitFor } from '__/helpers/wait-for';
   import AppleIcon from '~icons/mdi/apple';
@@ -20,7 +21,7 @@
 </script>
 
 {#if !(hiddenSplashScreen || import.meta.env.DEV)}
-  <div out:fadeOut={{ duration: 500 }} class="splash-screen">
+  <div out:fadeOut={{ duration: 500 }} class="splash-screen" use:elevation={'bootup-screen'}>
     <AppleIcon />
 
     <div
@@ -57,7 +58,6 @@
     position: fixed;
     top: 0;
     bottom: 0;
-    z-index: 999999999999;
 
     height: 100vh;
     width: 100vw;

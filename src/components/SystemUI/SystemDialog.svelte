@@ -1,7 +1,7 @@
 <script lang="ts">
   import { createEventDispatcher } from 'svelte';
   import { sineInOut } from 'svelte/easing';
-  import { clickOutside, portal, trapFocus } from '__/actions';
+  import { clickOutside, elevation, portal, trapFocus } from '__/actions';
   import { fadeOut } from '__/helpers/fade';
   import { prefersReducedMotion } from '__/stores/prefers-motion.store';
   import { theme } from '__/stores/theme.store';
@@ -38,7 +38,7 @@
 </script>
 
 {#if isOpen}
-  <section use:portal={'#windows-area'} class="overlay">
+  <section class="overlay" use:portal={'#windows-area'} use:elevation={'system-dialog'}>
     <div
       class="dialog"
       class:dark={$theme === 'dark'}
@@ -62,7 +62,6 @@
     position: sticky;
     top: 0;
     left: 0;
-    z-index: 9999;
 
     height: 100%;
     width: 100%;

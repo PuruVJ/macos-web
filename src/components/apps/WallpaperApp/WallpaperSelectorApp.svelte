@@ -209,6 +209,8 @@
 
       input {
         margin-left: 0;
+
+        accent-color: var(--system-color-primary);
       }
     }
   }

@@ -3,17 +3,17 @@
   import { smallerClosestValue } from '__/helpers/smaller-closest-value';
   import { createIntervalStore } from '__/stores/interval.store';
   import { theme } from '__/stores/theme.store';
-  import { wallpaperImage, wallpaperName } from '__/stores/wallpaper.store';
+  import { wallpaper } from '__/stores/wallpaper.store';
 
   let visibleBackgroundImage = '/assets/wallpapers/37-2.jpg';
 
-  const interval = createIntervalStore(10 * 1000);
+  const interval = createIntervalStore(5 * 1000);
 
   $: {
     $interval;
 
-    if (wallpapersConfig[$wallpaperName].type === 'standalone') {
-      $wallpaperImage = wallpapersConfig[$wallpaperName].thumbnail;
+    if (wallpapersConfig[$wallpaper.id].type === 'standalone') {
+      $wallpaper.image = wallpapersConfig[$wallpaper.id].thumbnail;
       break $;
     }
 
@@ -28,7 +28,7 @@
     const date = new Date();
     const hour = date.getHours();
 
-    const wallpaperTimestampsMap = wallpapersConfig[$wallpaperName].timestamps.wallpaper;
+    const wallpaperTimestampsMap = wallpapersConfig[$wallpaper.id].timestamps.wallpaper;
     const timestamps = Object.keys(wallpaperTimestampsMap);
 
     const minTimestamp = Math.min(...timestamps);
@@ -37,7 +37,7 @@
     if (hour > maxTimestamp || hour < minTimestamp) {
       // Go for the min timestamp value
       if (wallpaperTimestampsMap[maxTimestamp]) {
-        $wallpaperImage = wallpaperTimestampsMap[maxTimestamp];
+        $wallpaper.image = wallpaperTimestampsMap[maxTimestamp];
       }
 
       return;
@@ -47,15 +47,17 @@
     const chosenTimeStamp = smallerClosestValue(timestamps, hour);
 
     if (wallpaperTimestampsMap[chosenTimeStamp]) {
-      $wallpaperImage = wallpaperTimestampsMap[chosenTimeStamp];
+      $wallpaper.image = wallpaperTimestampsMap[chosenTimeStamp];
     }
   }
 
   function handleTheme() {
+    if (!$wallpaper.canControlTheme) return;
+
     const date = new Date();
     const hour = date.getHours();
 
-    const themeTimestampsMap = wallpapersConfig[$wallpaperName].timestamps.theme;
+    const themeTimestampsMap = wallpapersConfig[$wallpaper.id].timestamps.theme;
     const timestamps = Object.keys(themeTimestampsMap);
 
     const minTimestamp = Math.min(...timestamps);
@@ -73,13 +75,20 @@
   }
 
   function previewImageOnLoad() {
-    visibleBackgroundImage = `/assets/wallpapers/${$wallpaperImage}.jpg`;
+    visibleBackgroundImage = `/assets/wallpapers/${$wallpaper.image}.jpg`;
   }
 </script>
 
+<!-- Prefetch all wallpapers -->
+<svelte:head>
+  {#each Object.values(wallpapersConfig) as { thumbnail }}
+    <link rel="prefetch" href="/assets/wallpapers/{thumbnail}.jpg" />
+  {/each}
+</svelte:head>
+
 <!-- This preload and render the image for browser but invisible to user -->
 <img
-  src="/assets/wallpapers/{$wallpaperImage}.jpg"
+  src="/assets/wallpapers/{$wallpaper.image}.jpg"
   aria-hidden="true"
   alt=""
   on:load={previewImageOnLoad}

@@ -90,12 +90,14 @@
 
       transition: transform 100ms ease;
 
-      background-color: hsla(var(--app-color-grey-100-hsl), 0.3);
+      background-color: hsla(var(--app-color-dark-hsl), 0.2);
     }
   }
 
   .apple-icon-button {
     margin: 0 0rem 0 0.5rem;
     padding: 0 0.7rem;
+
+    display: block;
   }
 </style>

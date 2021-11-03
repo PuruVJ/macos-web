@@ -1,6 +1,6 @@
 <script lang="ts">
   import { WallpaperID, wallpapersConfig } from '__/configs/wallpapers/wallpaper.config';
-  import { wallpaperName } from '__/stores/wallpaper.store';
+  import { wallpaper } from '__/stores/wallpaper.store';
 
   const dynamicWallpapers = Object.entries(wallpapersConfig).filter(
     ([, { type }]) => type === 'dynamic',
@@ -10,15 +10,41 @@
     ([, { type }]) => type === 'standalone',
   );
 
-  function changeWallpaper(_wallpaperName: WallpaperID) {
-    $wallpaperName = _wallpaperName;
+  function changeWallpaper(wallpaperName: WallpaperID) {
+    $wallpaper.id = wallpaperName;
   }
 </script>
 
 <section class="container">
-  <header class="titlebar app-window-drag-handle" />
+  <header class="titlebar app-window-drag-handle">
+    <span>Wallpapers</span>
+  </header>
 
   <section class="main-area">
+    <section class="selected-wallpaper-section">
+      <div
+        class="image"
+        style="background-image: url(/assets/wallpapers/{wallpapersConfig[$wallpaper.id]
+          .thumbnail}.jpg);"
+      />
+
+      <div class="info">
+        <h2>{wallpapersConfig[$wallpaper.id].name}</h2>
+        <p class="wallpaper-type">{wallpapersConfig[$wallpaper.id].type} wallpaper</p>
+
+        <br /> <br />
+
+        {#if wallpapersConfig[$wallpaper.id].type !== 'standalone'}
+          <label>
+            <input type="checkbox" bind:checked={$wallpaper.canControlTheme} />
+            Change dark/light mode as wallpapers change
+          </label>
+        {/if}
+      </div>
+    </section>
+
+    <br /><br /><br /><br />
+
     <section class="dynamic-wallpapers">
       <h2>Dynamic Wallpapers</h2>
 
@@ -90,9 +116,21 @@
   }
 
   .titlebar {
-    padding: 1.4rem 1rem;
+    display: flex;
+    justify-content: center;
+
+    padding: 0.9rem 1rem;
 
     width: 100%;
+
+    border-bottom: solid 0.9px hsla(var(--app-color-dark-hsl), 0.3);
+
+    span {
+      color: hsla(var(--app-color-dark-hsl), 0.8);
+      font-weight: 500;
+      font-size: 0.9rem;
+      letter-spacing: 0.5px;
+    }
   }
 
   .main-area {
@@ -128,17 +166,64 @@
     }
   }
 
+  .selected-wallpaper-section {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+
+    .image {
+      width: 30rem;
+      height: auto;
+
+      border-radius: 1rem;
+
+      aspect-ratio: 16 / 10;
+
+      will-change: background-image;
+
+      transition: background-image 150ms ease-in;
+
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center;
+    }
+
+    .info {
+      display: flex;
+      flex-direction: column;
+    }
+
+    h2 {
+      margin-bottom: 0;
+    }
+
+    .wallpaper-type {
+      color: hsla(var(--app-color-dark-hsl), 0.7);
+      text-transform: capitalize;
+    }
+
+    label {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+
+      input {
+        margin-left: 0;
+      }
+    }
+  }
+
   .dynamic-wallpapers,
   .standalone-wallpapers {
     .wallpapers {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
       gap: 1rem;
     }
   }
 
-  .standalone-wallpapers {
-    grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+  .standalone-wallpapers .wallpapers {
+    grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)) !important;
   }
 
   .wallpaper-button {
@@ -162,6 +247,13 @@
       gap: 0.5rem;
 
       border-radius: 0.75rem;
+
+      &:hover,
+      &:focus {
+        img {
+          box-shadow: 0 0 0 0.25rem hsla(var(--app-color-primary-hsl), 0.7);
+        }
+      }
     }
 
     img {
@@ -173,10 +265,6 @@
       border-radius: inherit;
 
       transition: box-shadow 100ms ease-in;
-
-      &:hover {
-        box-shadow: 0 0 0 0.25rem hsla(var(--app-color-primary-hsl), 0.7);
-      }
     }
 
     p {

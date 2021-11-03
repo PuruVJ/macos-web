@@ -21,10 +21,10 @@
 
     position: fixed;
 
-    // 1.4 rem is the heigh of the header
+    // 1.7 rem is the heigh of the header
     // 5.25 rem is the height of dock
-    top: 1.4rem;
-    height: calc(100vh - 5.25rem - 1.4rem);
+    top: 1.7rem;
+    height: calc(100vh - 5.25rem - 1.7rem);
 
     width: 100vw;
 

@@ -3,7 +3,7 @@
   import { fadeIn, fadeOut } from '__/helpers/fade';
   import { activeApp, openApps } from '__/stores/apps.store';
   import SwitchSvg from '../SVG/SwitchSVG.svelte';
-  import SystemDialog from '../System/SystemDialog.svelte';
+  import SystemDialog from '../SystemUI/SystemDialog.svelte';
   import ActionCenter from './ActionCenter.svelte';
 
   let visible = false;

@@ -38,7 +38,7 @@
 </script>
 
 {#if isOpen}
-  <section use:portal={'body'} class="overlay">
+  <section use:portal={'#windows-area'} class="overlay">
     <div
       class="dialog"
       class:dark={$theme === 'dark'}
@@ -59,13 +59,13 @@
 
 <style lang="scss">
   .overlay {
-    position: fixed;
+    position: sticky;
     top: 0;
     left: 0;
     z-index: 9999;
 
-    height: 100vh;
-    width: 100vw;
+    height: 100%;
+    width: 100%;
 
     display: grid;
     place-items: center;

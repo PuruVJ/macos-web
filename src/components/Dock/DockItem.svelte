@@ -99,8 +99,8 @@
     cancelAnimationFrame(raf);
   });
 
-  $:appStore = appID === 'appstore'
-  $:showPwaBadge = appStore && needsUpdate
+  $: appStore = appID === 'appstore';
+  $: showPwaBadge = appStore && needsUpdate;
   // $: {
   //   appStore && console.log($widthPX)
   // }
@@ -123,12 +123,18 @@
       draggable="false"
     />
   </span>
+
   <div class="dot" style="--opacity: {+$openApps[appID]}" />
+
   {#if showPwaBadge}
     <div
       class="pwa-badge"
-      style="font-size: {$widthPX / 57.6}rem; width: {1.5 * $widthPX / 57.6}rem; height: {1.5 * $widthPX / 57.6}rem; line-height: {1.5 * $widthPX / 57.6}rem;"
-    >1</div>
+      style="font-size: {$widthPX / 57.6}rem; width: {(1.5 * $widthPX) / 57.6}rem; height: {(1.5 *
+        $widthPX) /
+        57.6}rem; line-height: {(1.5 * $widthPX) / 57.6}rem;"
+    >
+      1
+    </div>
   {/if}
 </button>
 
@@ -213,5 +219,4 @@
     padding: 0;
     text-align: center;
   }
-
 </style>

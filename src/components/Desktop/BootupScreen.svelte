@@ -1,11 +1,10 @@
 <script lang="ts">
-  import { mdiApple } from '@mdi/js';
   import { onMount } from 'svelte';
   import { quintInOut } from 'svelte/easing';
   import { tweened } from 'svelte/motion';
   import { fadeOut } from '__/helpers/fade';
   import { waitFor } from '__/helpers/wait-for';
-  import Icon from '../SVG/Icon.svelte';
+  import AppleIcon from '~icons/mdi/apple';
 
   let hiddenSplashScreen = false;
   let progressVal = tweened(100, { duration: 3000, easing: quintInOut });
@@ -22,7 +21,7 @@
 
 {#if !(hiddenSplashScreen || import.meta.env.DEV)}
   <div out:fadeOut={{ duration: 500 }} class="splash-screen">
-    <Icon path={mdiApple} fill="white" size={100} />
+    <AppleIcon />
 
     <div
       class="progress"
@@ -43,10 +42,8 @@
   src="/assets/sounds/mac-startup-sound.mp3"
   type="audio/mp3"
   allow="autoplay"
-  hidden
-  title=""
+  title="hello"
 />
-
 <!-- the audio will not autoplay on chrome based browsers: requires some user interaction -->
 <!-- see https://developer.chrome.com/blog/autoplay/ for a more detailed explanation -->
 <!-- unless you install the PWA on the desktop, in that case will always be played  -->
@@ -76,6 +73,11 @@
     animation-fill-mode: forwards;
 
     background-color: #000;
+
+    :global(svg) {
+      font-size: 100px;
+      color: white;
+    }
   }
 
   .progress {
@@ -103,5 +105,7 @@
   #player {
     position: absolute;
     z-index: -9999;
+
+    display: none;
   }
 </style>

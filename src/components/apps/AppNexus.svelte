@@ -21,6 +21,10 @@
   {#await import('./Safari/Safari.svelte') then { default: Safari }}
     <Safari />
   {/await}
+{:else if appID === 'wallpapers'}
+  {#await import('./WallpaperApp/WallpaperSelectorApp.svelte') then { default: WallpaperSelector }}
+    <WallpaperSelector />
+  {/await}
 {:else}
   {#await import('./Placeholder/Placeholder.svelte') then { default: Placeholder }}
     <Placeholder {appID} />

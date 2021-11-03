@@ -1,7 +1,11 @@
 <script lang="ts">
-  import { mdiClose, mdiDivision, mdiMinus, mdiPercentOutline, mdiPlusMinusVariant } from '@mdi/js';
-
-  import Icon from '__/components/SVG/Icon.svelte';
+  import Plus from '~icons/ic/outline-plus';
+  import PlusMinusVariant from '~icons/ic/outline-plus-minus';
+  import Equal from '~icons/ic/round-equals';
+  import Minus from '~icons/ic/round-minus';
+  import Modulo from '~icons/icon-park-outline/percentage';
+  import Division from '~icons/ph/divide-bold';
+  import Multiply from '~icons/uil/multiply';
 </script>
 
 <section class="container">
@@ -12,35 +16,35 @@
   <section class="buttons-container">
     <button class="top-row-button"> AC </button>
     <button class="top-row-button">
-      <Icon path={mdiPlusMinusVariant} />
+      <PlusMinusVariant />
     </button>
     <button class="top-row-button">
-      <Icon path={mdiPercentOutline} />
+      <Modulo />
     </button>
     <button class="operation-button">
-      <icon path={mdiDivision} />
+      <Division />
     </button>
     <button class="number-button"> 7 </button>
     <button class="number-button"> 8 </button>
     <button class="number-button"> 9 </button>
     <button class="operation-button">
-      <Icon path={mdiClose} />
+      <Multiply />
     </button>
     <button class="number-button"> 4 </button>
     <button class="number-button"> 5 </button>
     <button class="number-button"> 6 </button>
     <button class="operation-button">
-      <Icon path={mdiMinus} size={24} />
+      <Minus />
     </button>
     <button class="number-button"> 1 </button>
     <button class="number-button"> 2 </button>
     <button class="number-button"> 3 </button>
-    <button class="operation-button"> + </button>
+    <button class="operation-button"> <Plus /> </button>
     <button class="number-button curved-bottom-left-button" style="grid-column: 1 / span 2">
       0
     </button>
     <button class="number-button"> . </button>
-    <button class="operation-button curved-bottom-right-button"> = </button>
+    <button class="operation-button curved-bottom-right-button"> <Equal /> </button>
   </section>
 </section>
 
@@ -77,6 +81,10 @@
       font-weight: 300 !important;
       color: white;
       fill: white;
+    }
+
+    :global(svg) {
+      font-size: 1.2rem;
     }
   }
 

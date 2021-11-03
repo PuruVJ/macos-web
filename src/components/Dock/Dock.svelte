@@ -1,32 +1,32 @@
 <script lang="ts">
   import { appsConfig } from '__/configs/apps/apps-config';
-  import { useRegisterSW } from "virtual:pwa-register/svelte";
+  import { useRegisterSW } from 'virtual:pwa-register/svelte';
   import DockItem from './DockItem.svelte';
 
   // replaced dynamically
-  const buildDate = '__DATE__'
+  const buildDate = '__DATE__';
 
   // Will store the update event, so we can use this value on AppStore to show the badge.
   // If the user click on Later instead Restart, the dialog is closed but the update is still there.
   // We don't need to store it on localStorage since the new sw is on skip waiting state, and so
   // a refresh or reopening the browser will prompt again the dialog to restart.
   // Once updateServiceWorker is called, there is a full reload, so the app will be loaded again.
-  let needsUpdate: boolean = false
+  let needsUpdate: boolean = false;
 
   const { needRefresh, updateServiceWorker } = useRegisterSW({
     onNeedRefresh() {
       needsUpdate = true;
     },
     onRegistered(swr) {
-      console.log(`SW registered: ${swr}`)
+      console.log(`SW registered: ${swr}`);
     },
     onRegisterError(error) {
-      console.log('SW registration error', error)
+      console.log('SW registration error', error);
     },
-  })
+  });
 
   function close() {
-    needRefresh.set(false)
+    needRefresh.set(false);
   }
 
   async function handleUpdateApp() {
@@ -49,20 +49,13 @@
       {#if config.dockBreaksBefore}
         <div class="divider" aria-hidden="true" />
       {/if}
-      <DockItem
-        {mouseX}
-        {appID}
-        {needsUpdate}
-      />
+      <DockItem {mouseX} {appID} {needsUpdate} />
     {/each}
   </div>
 </section>
 
 {#if $needRefresh}
-  <div
-    class="updates-available-dialog"
-    role="alert"
-  >
+  <div class="updates-available-dialog" role="alert">
     <div class="updates-available-hero">
       <img
         width="64"
@@ -73,25 +66,17 @@
       />
     </div>
     <div class="updates-available-content">
-      <div>
-        Updates Available
-      </div>
-      <div>
-        Do you want to restart to install these updates now or tonight?
-      </div>
+      <div>Updates Available</div>
+      <div>Do you want to restart to install these updates now or tonight?</div>
     </div>
-    <div class='updates-available-buttons'>
-      <button on:click={handleUpdateApp}>
-        Restart
-      </button>
-      <button on:click={close}>
-        Later
-      </button>
+    <div class="updates-available-buttons">
+      <button on:click={handleUpdateApp}> Restart </button>
+      <button on:click={close}> Later </button>
     </div>
   </div>
 {/if}
 
-<div class='pwa-date'>{buildDate}</div>
+<div class="pwa-date">{buildDate}</div>
 
 <style lang="scss">
   .dock-container {
@@ -153,7 +138,7 @@
 
     background-color: hsla(var(--app-color-dark-hsl), 0.3);
 
-    margin: 0 2px;
+    margin: 0 4px;
   }
   .pwa-date {
     visibility: hidden;
@@ -180,7 +165,7 @@
       :first-child {
         font-size: 1.2rem;
         font-weight: bold;
-        padding: 0.75rem 0.5rem 0.5rem 0.5rem;;
+        padding: 0.75rem 0.5rem 0.5rem 0.5rem;
       }
       :last-child {
         padding: 0 0.5rem 0.75rem;

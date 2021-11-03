@@ -1,17 +1,25 @@
 <script lang="ts">
-  import { mdiBluetooth, mdiTransition, mdiWifiStrength4 } from '@mdi/js';
   import { onMount } from 'svelte';
+  import { wallpapersConfig } from '__/configs/wallpapers/wallpaper.config';
+  import { activeApp, openApps } from '__/stores/apps.store';
   import { prefersReducedMotion } from '__/stores/prefers-motion.store';
   import { theme } from '__/stores/theme.store';
-  import AirDropSvg from '../SVG/AirDropSVG.svelte';
-  import Icon from '../SVG/Icon.svelte';
-  import MoonSvg from '../SVG/MoonSVG.svelte';
+  import { wallpaper } from '__/stores/wallpaper.store';
+  import DarkMode from '~icons/gg/dark-mode';
+  import TransitionMaskedIcon from '~icons/mdi/transition-masked';
   import ActionCenterSurface from './ActionCenterSurface.svelte';
   import ActionCenterTile from './ActionCenterTile.svelte';
 
-  let containerEl: HTMLDivElement;
+  export let isThemeWarningDialogOpen: boolean;
+
+  let containerEl: HTMLElement;
 
   function toggleTheme() {
+    if (wallpapersConfig[$wallpaper.id].type === 'dynamic' && $wallpaper.canControlTheme) {
+      isThemeWarningDialogOpen = true;
+      return;
+    }
+
     $theme = $theme === 'light' ? 'dark' : 'light';
   }
 
@@ -27,51 +35,21 @@
   <ActionCenterSurface
     grid={[
       [1, 6],
-      [1, 4],
-    ]}
-  >
-    <ActionCenterTile grid={[1, 1]}>
-      <button class="toggle" class:filled={!0}>
-        <Icon path={mdiWifiStrength4} size={16} />
-      </button>
-      Wi-Fi
-    </ActionCenterTile>
-
-    <ActionCenterTile grid={[2, 1]}>
-      <button class="toggle" class:filled={!0}>
-        <Icon path={mdiBluetooth} size={18} />
-      </button>
-      Bluetooth
-    </ActionCenterTile>
-
-    <ActionCenterTile grid={[3, 1]}>
-      <button class="toggle" class:filled={!!0}>
-        <AirDropSvg />
-      </button>
-      Airdrop
-    </ActionCenterTile>
-  </ActionCenterSurface>
-
-  <!-- Theme Switcher -->
-  <ActionCenterSurface
-    grid={[
-      [7, 6],
       [1, 2],
     ]}
   >
     <ActionCenterTile grid={[1, 1]}>
       <button class="toggle" class:filled={$theme === 'dark'} on:click={toggleTheme}>
-        <MoonSvg />
+        <DarkMode />
       </button>
       Dark mode
     </ActionCenterTile>
   </ActionCenterSurface>
 
-  <!-- Motion Preference -->
   <ActionCenterSurface
     grid={[
       [7, 6],
-      [3, 2],
+      [1, 2],
     ]}
   >
     <ActionCenterTile grid={[1, 1]}>
@@ -80,9 +58,37 @@
         class:filled={!$prefersReducedMotion}
         on:click={toggleMotionPreference}
       >
-        <Icon path={mdiTransition} size={16} />
+        <TransitionMaskedIcon />
       </button>
       Animations
+    </ActionCenterTile>
+  </ActionCenterSurface>
+
+  <ActionCenterSurface
+    grid={[
+      [1, 12],
+      [3, 3],
+    ]}
+  >
+    <ActionCenterTile
+      on:click={() => {
+        $openApps.wallpapers = true;
+        $activeApp = 'wallpapers';
+      }}
+      grid={[1, 1]}
+    >
+      <div class="wallpaper-tile">
+        <img
+          class="wallpaper-thumbnail"
+          src="/assets/wallpapers/{wallpapersConfig[$wallpaper.id].thumbnail}.jpg"
+          alt="Current wallpaper"
+        />
+
+        <div class="wallpaper-info">
+          <h3>{wallpapersConfig[$wallpaper.id].name}</h3>
+          <p>{wallpapersConfig[$wallpaper.id].type} wallpaper</p>
+        </div>
+      </div>
     </ActionCenterTile>
   </ActionCenterSurface>
 </section>
@@ -142,7 +148,7 @@
     transition: box-shadow 100ms ease, background 100ms ease;
 
     :global(svg) {
-      fill: hsla(var(--svgcolor), var(--svgalpha));
+      color: hsla(var(--svgcolor), var(--svgalpha));
     }
 
     &:focus-visible {
@@ -155,6 +161,38 @@
 
       --svgcolor: var(--app-color-primary-contrast-hsl);
       --svgalpha: 1;
+    }
+  }
+
+  .wallpaper-tile {
+    height: 100%;
+    width: 100%;
+
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 1rem;
+    align-items: center;
+
+    img {
+      aspect-ratio: 1 / 1;
+      height: 5.1rem;
+
+      object-fit: cover;
+
+      border-radius: 0.5rem;
+    }
+
+    h3 {
+      width: 100%;
+
+      font-size: 1rem;
+      line-height: 1.618;
+    }
+
+    p {
+      text-transform: capitalize;
+      font-size: 0.8rem;
+      font-weight: 400;
     }
   }
 </style>

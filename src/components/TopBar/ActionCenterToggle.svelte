@@ -1,10 +1,17 @@
 <script lang="ts">
   import { clickOutside, focusOutside } from '__/actions';
   import { fadeIn, fadeOut } from '__/helpers/fade';
+  import { activeApp, openApps } from '__/stores/apps.store';
   import SwitchSvg from '../SVG/SwitchSVG.svelte';
+  import SystemDialog from '../System/SystemDialog.svelte';
   import ActionCenter from './ActionCenter.svelte';
 
   let visible = false;
+  let themeWarningDialog: SystemDialog;
+
+  /* LOGIC FOR THEME SWITCHING WHEN IT ISN'T ALLOWED */
+  let isThemeWarningDialogOpen = false;
+  $: isThemeWarningDialogOpen && themeWarningDialog.open();
 
   function show() {
     visible = true;
@@ -16,6 +23,7 @@
 </script>
 
 <div
+  class="container"
   style="height: 100%;"
   use:clickOutside={{ callback: hide }}
   use:focusOutside={{ callback: hide }}
@@ -26,13 +34,42 @@
 
   {#if visible}
     <div in:fadeIn out:fadeOut class="menu-parent">
-      <ActionCenter />
+      <ActionCenter bind:isThemeWarningDialogOpen />
     </div>
   {/if}
 </div>
 
+<SystemDialog bind:this={themeWarningDialog} on:close={() => (isThemeWarningDialogOpen = false)}>
+  <section class="theme-warning-section">
+    <img
+      height="100"
+      width="100"
+      src="/assets/app-icons/wallpapers/256.webp"
+      alt="Wallpapers app logo"
+    />
+
+    <h3>Current Wallpaper Settings prevent changing theme</h3>
+    <p>Head over to Wallpapers app to change this setting or choose a standalone wallpaper.</p>
+
+    <div class="buttons">
+      <button on:click={() => themeWarningDialog.close()}>Close</button>
+      <button
+        class="confirm"
+        on:click={() => {
+          themeWarningDialog.close();
+
+          $openApps.wallpapers = true;
+          $activeApp = 'wallpapers';
+        }}
+      >
+        Go to Wallpapers
+      </button>
+    </div>
+  </section>
+</SystemDialog>
+
 <style lang="scss">
-  button {
+  .container button {
     height: 100%;
     width: max-content;
 
@@ -80,5 +117,65 @@
     position: absolute;
     right: 1rem;
     margin-top: 4.5px;
+  }
+
+  .theme-warning-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+
+    padding: 1rem 0 0;
+
+    width: 20rem;
+
+    color: var(--app-color-dark);
+
+    h3,
+    p {
+      text-align: center;
+    }
+
+    h3 {
+      font-size: 1.2rem;
+      font-weight: 500;
+    }
+
+    p {
+      font-size: 0.9rem;
+    }
+
+    .buttons {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.5rem;
+
+      width: 100%;
+
+      button {
+        width: 100%;
+        height: 2rem;
+
+        font-weight: 500;
+
+        border-radius: 0.5rem;
+
+        background-color: hsla(var(--app-color-dark-hsl), 0.2);
+
+        &:hover {
+          background-color: hsla(var(--app-color-dark-hsl), 0.3);
+        }
+
+        &.confirm {
+          background-color: var(--app-color-primary);
+
+          color: var(--app-color-primary-contrast);
+
+          &:hover {
+            background-color: hsla(var(--app-color-primary-hsl), 0.8);
+          }
+        }
+      }
+    }
   }
 </style>

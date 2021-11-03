@@ -1,12 +1,7 @@
 {
   "compilerOptions": {
     "moduleResolution": "node",
-    /**
-      Svelte Preprocess cannot figure out whether you have a value or a type, so tell TypeScript
-      to enforce using `import type` instead of `import` for Types.
-     */
-    "importsNotUsedAsValues": "error",
-    "isolatedModules": true,
+
     /**
       To have warnings/errors of the Svelte compiler at the correct position,
       enable source maps by default.
@@ -20,13 +15,11 @@
     "target": "esnext",
     "module": "esnext",
     "resolveJsonModule": true,
-//    "baseUrl": "./src",
+    //    "baseUrl": "./src",
     "paths": {
       "__/*": ["./src/*"]
     },
-    "types": [
-      "vite-plugin-pwa/client"
-    ],
+    "types": ["vite-plugin-pwa/client"],
     /**
      * Typecheck JS in `.svelte` and `.js` files by default.
      * Disable checkJs if you'd like to use dynamic types in JS.

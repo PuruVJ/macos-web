@@ -22,7 +22,7 @@
     align-items: center;
 
     width: 100%;
-    height: 1.4rem;
+    height: 1.7rem;
 
     background-color: hsla(var(--app-color-light-hsl), 0.3);
 

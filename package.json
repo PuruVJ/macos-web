@@ -9,13 +9,19 @@
     "test-https": "cross-env VITE_LOCAL_BUILD=true npm run build && serve dist"
   },
   "devDependencies": {
+    "@iconify-json/gg": "^1.0.1",
+    "@iconify-json/ic": "^1.0.3",
+    "@iconify-json/icon-park-outline": "^1.0.1",
+    "@iconify-json/mdi": "^1.0.3",
+    "@iconify-json/ph": "^1.0.1",
+    "@iconify-json/uil": "^1.0.2",
     "@rollup/plugin-replace": "^3.0.0",
     "@sveltejs/vite-plugin-svelte": "^1.0.0-next.30",
     "autoprefixer": "^10.4.0",
     "cross-env": "^7.0.3",
     "https-localhost": "^4.7.0",
     "sass": "^1.43.4",
-    "svelte": "^3.44.0",
+    "svelte": "^3.44.1",
     "svelte-preprocess": "^4.9.8",
     "typescript": "^4.4.4",
     "vite": "2.6.13",
@@ -23,9 +29,10 @@
     "workbox-window": "^6.3.0"
   },
   "dependencies": {
-    "@mdi/js": "^6.4.95",
     "date-fns": "^2.25.0",
     "popmotion": "^10.0.2",
-    "svelte-drag": "^2.0.2"
+    "svelte-drag": "^2.0.2",
+    "svelte-local-storage-store": "^0.2.4",
+    "unplugin-icons": "^0.12.17"
   }
 }

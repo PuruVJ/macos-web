@@ -1,5 +1,13 @@
 import { createAppConfig } from '__/helpers/create-app-config';
 
+const wallpapers = createAppConfig({
+  title: 'Wallpapers',
+  resizable: true,
+
+  height: 600,
+  width: 800,
+});
+
 const calculator = createAppConfig({
   title: 'Calculator',
 
@@ -26,6 +34,8 @@ const vscode = createAppConfig({
 const finder = createAppConfig({
   title: 'Finder',
   resizable: true,
+
+  dockBreaksBefore: true,
 });
 
 const safari = createAppConfig({
@@ -89,12 +99,13 @@ const devutils = createAppConfig({
   dockBreaksBefore: true,
 });
 
-export const appstore = createAppConfig({
+const appstore = createAppConfig({
   title: 'App Store',
   resizable: true,
 });
 
 export const appsConfig = {
+  wallpapers,
   safari,
   calculator,
   calendar,

@@ -80,7 +80,7 @@
     width: 100%;
     height: 0.2px;
 
-    background-color: hsla(var(--app-color-dark-hsl), 0.2);
+    background-color: hsla(var(--app-color-dark-hsl), 0.3);
 
     margin: 2px 0;
   }

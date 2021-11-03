@@ -1,16 +1,12 @@
 <script lang="ts">
-  import { mdiApple } from '@mdi/js';
   import { clickOutside, focusOutside } from '__/actions';
   import { activeMenu, menuBarMenus } from '__/stores/menubar.store';
-  import Icon from '../SVG/Icon.svelte';
+  import AppleIcon from '~icons/mdi/apple';
   import Menu from './Menu.svelte';
-
-  let containerEl: HTMLDivElement;
 </script>
 
 <div
   class="container"
-  bind:this={containerEl}
   use:clickOutside={{ callback: () => ($activeMenu = '') }}
   use:focusOutside={{ callback: () => ($activeMenu = '') }}
 >
@@ -27,7 +23,7 @@
           on:focus={() => ($activeMenu = menuID)}
         >
           {#if menuID === 'apple'}
-            <Icon path={mdiApple} size={18} />
+            <AppleIcon />
           {:else}
             {menuConfig.title}
           {/if}
@@ -90,12 +86,18 @@
 
       transition: transform 100ms ease;
 
-      background-color: hsla(var(--app-color-grey-100-hsl), 0.3);
+      background-color: hsla(var(--app-color-dark-hsl), 0.2);
     }
   }
 
   .apple-icon-button {
     margin: 0 0rem 0 0.5rem;
     padding: 0 0.7rem;
+
+    display: block;
+
+    :global(svg) {
+      font-size: 1rem;
+    }
   }
 </style>

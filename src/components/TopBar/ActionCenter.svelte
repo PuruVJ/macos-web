@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onMount } from 'svelte';
-  import { colors } from '__/configs/theme/colors';
+  import { colors } from '__/configs/theme/colors.config';
   import { wallpapersConfig } from '__/configs/wallpapers/wallpaper.config';
   import { activeApp, openApps } from '__/stores/apps.store';
   import { prefersReducedMotion } from '__/stores/prefers-motion.store';

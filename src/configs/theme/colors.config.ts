@@ -30,17 +30,6 @@ export const colors = colorsConfig({
     },
   },
 
-  mint: {
-    light: {
-      hsl: '177deg, 100%, 39%',
-      contrastHsl: '240, 24%, 100%',
-    },
-    dark: {
-      hsl: '177deg, 56%, 62%',
-      contrastHsl: '180deg, 35%, 6%',
-    },
-  },
-
   cyan: {
     light: {
       hsl: '199deg, 78%, 55%',

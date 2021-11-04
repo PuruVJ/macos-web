@@ -116,7 +116,7 @@
     z-index: 1;
     position: absolute;
     right: 1rem;
-    margin-top: 4.5px;
+    margin-top: 1px;
   }
 
   .theme-warning-section {

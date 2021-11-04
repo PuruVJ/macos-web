@@ -1,11 +1,13 @@
 <script lang="ts">
   import { onMount } from 'svelte';
+  import { colors } from '__/configs/theme/colors';
   import { wallpapersConfig } from '__/configs/wallpapers/wallpaper.config';
   import { activeApp, openApps } from '__/stores/apps.store';
   import { prefersReducedMotion } from '__/stores/prefers-motion.store';
   import { theme } from '__/stores/theme.store';
   import { wallpaper } from '__/stores/wallpaper.store';
   import DarkMode from '~icons/gg/dark-mode';
+  import CheckedIcon from '~icons/ic/outline-check';
   import TransitionMaskedIcon from '~icons/mdi/transition-masked';
   import ActionCenterSurface from './ActionCenterSurface.svelte';
   import ActionCenterTile from './ActionCenterTile.svelte';
@@ -72,7 +74,33 @@
   <ActionCenterSurface
     grid={[
       [1, 12],
-      [3, 3],
+      [3, 2],
+    ]}
+  >
+    <ActionCenterTile grid={[1, 1]}>
+      <div class="color-picker">
+        <p>System Color</p>
+        <div class="color-palette">
+          {#each Object.keys(colors) as colorID}
+            <button
+              style="--color-hsl: {colors[colorID][$theme.scheme]
+                .hsl}; --color-contrast-hsl: {colors[colorID][$theme.scheme].contrastHsl}"
+              on:click={() => ($theme.primaryColor = colorID)}
+            >
+              {#if $theme.primaryColor === colorID}
+                <CheckedIcon />
+              {/if}
+            </button>
+          {/each}
+        </div>
+      </div>
+    </ActionCenterTile>
+  </ActionCenterSurface>
+
+  <ActionCenterSurface
+    grid={[
+      [1, 12],
+      [5, 3],
     ]}
   >
     <ActionCenterTile
@@ -150,7 +178,7 @@
 
     background-color: hsla(var(--bgcolor), var(--bgalpha));
 
-    transition: box-shadow 100ms ease, background 100ms ease;
+    transition: box-shadow 100ms ease, background-color 150ms ease;
 
     :global(svg) {
       color: hsla(var(--svgcolor), var(--svgalpha));
@@ -200,6 +228,43 @@
       text-transform: capitalize;
       font-size: 0.8rem;
       font-weight: 400;
+    }
+  }
+
+  .color-picker {
+    height: max-content;
+    width: 100%;
+
+    display: grid;
+    gap: 0.5rem;
+
+    padding: 0.25rem;
+
+    .color-palette {
+      margin-top: 0.5rem;
+
+      display: flex;
+      justify-content: space-between;
+
+      width: 100%;
+
+      button {
+        height: 1.4rem;
+        width: 1.4rem;
+
+        color: hsl(var(--color-contrast-hsl));
+
+        border-radius: 50%;
+
+        background-color: hsl(var(--color-hsl));
+
+        transition: box-shadow 200ms ease-in;
+
+        &:hover,
+        &:focus-visible {
+          box-shadow: 0 0 0 0.2rem hsla(var(--color-hsl), 0.25);
+        }
+      }
     }
   }
 </style>

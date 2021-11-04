@@ -102,7 +102,7 @@
 
 <section
   class="container"
-  class:dark={$theme === 'dark'}
+  class:dark={$theme.scheme === 'dark'}
   style="width: {+width / 16}rem;height: {+height / 16}rem; z-index: {appZIndex}"
   tabindex="-1"
   bind:this={windowEl}

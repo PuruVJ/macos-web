@@ -1,10 +1,17 @@
 <script lang="ts">
   export let grid: [rowStart: number, rowSpan: number];
+  export let focusable = false;
 
   const [rowStart, rowsPan] = grid;
 </script>
 
-<div tabindex="0" on:click class="container" style="grid-row: {rowStart} / span {rowsPan}">
+<div
+  class="container"
+  style="grid-row: {rowStart} / span {rowsPan}"
+  tabindex={focusable ? 0 : -1}
+  on:click
+  on:keyup
+>
   <slot />
 </div>
 
@@ -13,6 +20,8 @@
     display: flex;
     gap: 0.4rem;
     align-items: center;
+
+    border-radius: inherit;
 
     font-size: 0.85rem;
     font-weight: 600;

@@ -41,7 +41,7 @@
   <section class="overlay" use:portal={'#windows-area'} use:elevation={'system-dialog'}>
     <div
       class="dialog"
-      class:dark={$theme === 'dark'}
+      class:dark={$theme.scheme === 'dark'}
       tabindex={0}
       role="dialog"
       aria-labelledby="info-title"

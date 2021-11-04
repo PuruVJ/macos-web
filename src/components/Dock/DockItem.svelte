@@ -109,7 +109,7 @@
 <button on:click={openApp} aria-label="Launch {title} app" class="dock-open-app-button {appID}">
   <p
     class="tooltip"
-    class:dark={$theme === 'dark'}
+    class:dark={$theme.scheme === 'dark'}
     style="top: {$prefersReducedMotion ? '-50px' : '-35%'};"
     use:elevation={'dock-tooltip'}
   >
@@ -150,6 +150,8 @@
     flex-direction: column;
     justify-content: flex-end;
     position: relative;
+
+    border-radius: 0.5rem;
 
     &:hover,
     &:focus-visible {

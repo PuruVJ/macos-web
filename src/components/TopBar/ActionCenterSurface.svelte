@@ -8,7 +8,7 @@
 
 <section
   class="container"
-  class:dark={$theme === 'dark'}
+  class:dark={$theme.scheme === 'dark'}
   style="grid-column: {columnStart} / span {columnSpan}; grid-row: {rowStart} / span {rowSpan}"
 >
   <slot />

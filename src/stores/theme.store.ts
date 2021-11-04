@@ -1,5 +1,5 @@
 import { writable } from 'svelte-local-storage-store';
-import { colors } from '__/configs/theme/colors';
+import { colors } from '__/configs/theme/colors.config';
 
 export type Theme = {
   scheme: 'light' | 'dark';

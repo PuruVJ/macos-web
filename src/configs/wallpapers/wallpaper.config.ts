@@ -9,7 +9,7 @@ export type Wallpaper = {
   /** Timestamps definition in terms of when a new wallpaper should take effect */
   timestamps?: {
     wallpaper?: Record<number, string>;
-    theme?: Record<number, Theme>;
+    theme?: Record<number, Theme['scheme']>;
   };
 };
 

@@ -22,7 +22,7 @@
   }
 </script>
 
-<section class="container" class:dark={$theme === 'dark'}>
+<section class="container" class:dark={$theme.scheme === 'dark'}>
   <header class="app-window-drag-handle titlebar" />
 
   <section class="main-area">

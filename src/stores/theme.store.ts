@@ -1,14 +1,29 @@
 import { writable } from 'svelte-local-storage-store';
+import { colors } from '__/configs/theme/colors';
 
-export type Theme = 'light' | 'dark';
+export type Theme = {
+  scheme: 'light' | 'dark';
+  primaryColor: keyof typeof colors;
+};
 
-export const theme = writable<Theme>(
-  'macos:theme',
-  matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light',
-);
+export const theme = writable<Theme>('macos:theme-settings', {
+  scheme: matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light',
+  primaryColor: 'blue',
+});
 
-theme.subscribe((val) => {
+theme.subscribe(({ scheme, primaryColor }) => {
+  // Color scheme
   const { classList } = document.body;
   classList.remove('light', 'dark');
-  classList.add(val);
+  classList.add(scheme);
+
+  // Primary color
+  const colorObj = colors[primaryColor][scheme];
+  document.body.style.setProperty('--system-color-primary', `hsl(${colorObj.hsl})`);
+  document.body.style.setProperty('--system-color-primary-hsl', `${colorObj.hsl}`);
+  document.body.style.setProperty(
+    '--system-color-primary-contrast',
+    `hsl(${colorObj.contrastHsl})`,
+  );
+  document.body.style.setProperty('--system-color-primary-contrast-hsl', `${colorObj.contrastHsl}`);
 });

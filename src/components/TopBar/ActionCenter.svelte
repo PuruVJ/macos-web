@@ -20,7 +20,7 @@
       return;
     }
 
-    $theme = $theme === 'light' ? 'dark' : 'light';
+    $theme.scheme = $theme.scheme === 'light' ? 'dark' : 'light';
   }
 
   function toggleMotionPreference() {
@@ -30,7 +30,12 @@
   onMount(() => containerEl?.focus());
 </script>
 
-<section class="container" class:dark={$theme === 'dark'} tabindex={-1} bind:this={containerEl}>
+<section
+  class="container"
+  class:dark={$theme.scheme === 'dark'}
+  tabindex={-1}
+  bind:this={containerEl}
+>
   <!-- Main controls: Wifi, Bluetooth, Airdrop -->
   <ActionCenterSurface
     grid={[
@@ -39,7 +44,7 @@
     ]}
   >
     <ActionCenterTile grid={[1, 1]}>
-      <button class="toggle" class:filled={$theme === 'dark'} on:click={toggleTheme}>
+      <button class="toggle" class:filled={$theme.scheme === 'dark'} on:click={toggleTheme}>
         <DarkMode />
       </button>
       Dark mode

@@ -66,13 +66,13 @@
 
     if (hour > maxTimestamp || hour < minTimestamp) {
       // Go for the min timestamp value
-      $theme = 'dark';
+      $theme.scheme = 'dark';
       return;
     }
 
     // Now set the right timestamp
     const chosenTimeStamp = smallerClosestValue(timestamps, hour);
-    $theme = themeTimestampsMap?.[chosenTimeStamp] || 'light';
+    $theme.scheme = themeTimestampsMap?.[chosenTimeStamp] || 'light';
   }
 
   function previewImageOnLoad() {

@@ -23,8 +23,8 @@
 
     // 1.7 rem is the heigh of the header
     // 5.25 rem is the height of dock
-    top: 1.71rem;
-    height: calc(100vh - 5.25rem - 1.7rem);
+    top: 1.75rem;
+    height: calc(100vh - 5.25rem - 1.75rem);
 
     width: 100vw;
 

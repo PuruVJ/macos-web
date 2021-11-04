@@ -36,7 +36,7 @@
 {#if isMenuVisible}
   <div
     class="container"
-    class:dark={$theme === 'dark'}
+    class:dark={$theme.scheme === 'dark'}
     style="transform: translate({xPos}px, {yPos}px);"
     in:fadeIn={{ duration: 80 }}
     out:fadeOut

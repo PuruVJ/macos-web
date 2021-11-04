@@ -151,6 +151,8 @@
     justify-content: flex-end;
     position: relative;
 
+    border-radius: 0.5rem;
+
     &:hover,
     &:focus-visible {
       .tooltip {

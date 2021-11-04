@@ -21,6 +21,8 @@ body[data-theme='light'] {
   --system-font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Helvetica Neue', 'Helvetica',
     'Arial', sans-serif;
 
+  --system-focus-outline: 0 0 0 4px hsla(var(--system-color-primary-hsl), 0.5);
+
   --system-color-grey-50: #fafafa;
   --system-color-grey-50-hsl: 0, 0%, 98%;
 

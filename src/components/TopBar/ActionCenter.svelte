@@ -29,6 +29,11 @@
     $prefersReducedMotion = !$prefersReducedMotion;
   }
 
+  function openWallpapersApp() {
+    $openApps.wallpapers = true;
+    $activeApp = 'wallpapers';
+  }
+
   onMount(() => containerEl?.focus());
 </script>
 
@@ -104,11 +109,10 @@
     ]}
   >
     <ActionCenterTile
-      on:click={() => {
-        $openApps.wallpapers = true;
-        $activeApp = 'wallpapers';
-      }}
+      focusable={true}
       grid={[1, 1]}
+      on:click={openWallpapersApp}
+      on:keyup={(e) => ['Enter', 'Space Bar'].includes(e.key) && openWallpapersApp()}
     >
       <div class="wallpaper-tile">
         <img

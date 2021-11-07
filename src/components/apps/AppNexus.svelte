@@ -21,6 +21,10 @@
   {#await import('./WallpaperApp/WallpaperSelectorApp.svelte') then { default: WallpaperSelector }}
     <WallpaperSelector />
   {/await}
+{:else if appID === 'purus-twitter'}
+  {#await import('./PurusProfile/PurusProfile.svelte') then { default: PurusProfile }}
+    <PurusProfile />
+  {/await}
 {:else}
   {#await import('./Placeholder/Placeholder.svelte') then { default: Placeholder }}
     <Placeholder {appID} />

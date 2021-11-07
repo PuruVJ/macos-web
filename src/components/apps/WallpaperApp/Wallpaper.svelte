@@ -105,6 +105,8 @@
   img {
     height: 1px;
     width: 1px;
+
+    display: none;
   }
 
   .background-cover {

@@ -79,7 +79,7 @@
       windowEl.style.transform = `translate(0px, 0px)`;
 
       windowEl.style.width = `100%`;
-      windowEl.style.height = '100%';
+      windowEl.style.height = 'calc(100vh - 1.7rem - 5.25rem)';
     } else {
       draggingEnabled = true;
       windowEl.style.transform = minimizedTransform;

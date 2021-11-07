@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { clickOutside, focusOutside } from '__/actions';
+  import { clickOutside, elevation, focusOutside } from '__/actions';
   import { fadeIn, fadeOut } from '__/helpers/fade';
   import { activeApp, openApps } from '__/stores/apps.store';
   import SwitchSvg from '../SVG/SwitchSVG.svelte';
@@ -27,6 +27,7 @@
   style="height: 100%;"
   use:clickOutside={{ callback: hide }}
   use:focusOutside={{ callback: hide }}
+  use:elevation={'menubar-menu-parent'}
 >
   <button style="--scale: {visible ? 1 : 0};" on:click={show} on:focus={show}>
     <SwitchSvg />
@@ -78,7 +79,6 @@
     border-radius: 0.25rem;
 
     position: relative;
-    z-index: 1;
 
     &::before {
       content: '';

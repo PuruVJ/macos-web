@@ -1,8 +1,29 @@
 <script lang="ts">
   import { appsConfig } from '__/configs/apps/apps-config';
-  import { activeApp, activeAppZIndex, openApps } from '__/stores/apps.store';
+  import { activeApp, activeAppZIndex, appZIndices, openApps } from '__/stores/apps.store';
 
   $: $activeApp, ($activeAppZIndex += 2);
+
+  function normalizeAppZIndices() {
+    if (!Object.values($appZIndices).some((zIndex) => zIndex > 50)) return;
+
+    // Get the lowest non-zero z-index
+    const lowestZIndex = Math.min(
+      ...[...new Set(Object.values($appZIndices))].filter((val) => val !== 0),
+    );
+
+    $activeAppZIndex -= lowestZIndex;
+
+    const keys = Object.keys($appZIndices);
+
+    for (const app of keys) {
+      if ($appZIndices[app] >= lowestZIndex) {
+        $appZIndices[app] -= lowestZIndex;
+      }
+    }
+  }
+
+  $: $appZIndices, normalizeAppZIndices();
 </script>
 
 <section id="windows-area">

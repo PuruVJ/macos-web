@@ -12,7 +12,12 @@
   </aside>
 
   <section class="content">
-    <!--  -->
+    <img
+      height="200"
+      width="200"
+      src="/assets/app-data/purus-profile/puru.webp"
+      alt="Puru Vijay Profile pic"
+    />
   </section>
 </section>
 
@@ -40,6 +45,8 @@
 
     display: flex;
     justify-content: center;
+
+    z-index: 0;
 
     padding: 0.9rem 1rem;
 
@@ -84,5 +91,13 @@
 
   .content {
     grid-area: 2 / 2 / span 1 / span 1;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    img {
+      border-radius: 50%;
+    }
   }
 </style>

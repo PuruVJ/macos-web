@@ -210,7 +210,10 @@
       input {
         margin-left: 0;
 
-        // accent-color: var(--system-color-primary);
+        height: 1.2rem;
+        width: 1.2rem;
+
+        accent-color: var(--system-color-primary);
       }
     }
   }

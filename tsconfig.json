@@ -18,7 +18,7 @@
     "resolveJsonModule": true,
     //    "baseUrl": "./src",
     "paths": {
-      "__/*": ["./src/*"]
+      "🍎/*": ["./src/*"]
     },
     "types": ["vite-plugin-pwa/client"],
     /**

@@ -1,5 +1,5 @@
 import { writable } from 'svelte/store';
-import { finderMenuConfig } from '__/configs/menu/finder.menu.config';
+import { finderMenuConfig } from '🍎/configs/menu/finder.menu.config';
 
 const menuConfigs = { finder: finderMenuConfig };
 

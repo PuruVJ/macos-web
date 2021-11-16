@@ -47,7 +47,8 @@
     stiffness: 0.12,
   });
 
-  $: $widthPX = interpolate(distanceInput, widthOutput)(distance);
+  const getWidthFromDistance = interpolate(distanceInput, widthOutput);
+  $: $widthPX = getWidthFromDistance(distance);
 
   let raf: number;
   function animate() {

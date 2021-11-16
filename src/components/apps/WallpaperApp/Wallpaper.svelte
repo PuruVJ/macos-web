@@ -1,10 +1,10 @@
 <script lang="ts">
-  import { elevation } from '__/actions';
-  import { wallpapersConfig } from '__/configs/wallpapers/wallpaper.config';
-  import { smallerClosestValue } from '__/helpers/smaller-closest-value';
-  import { createIntervalStore } from '__/stores/interval.store';
-  import { theme } from '__/stores/theme.store';
-  import { wallpaper } from '__/stores/wallpaper.store';
+  import { elevation } from '🍎/actions';
+  import { wallpapersConfig } from '🍎/configs/wallpapers/wallpaper.config';
+  import { smallerClosestValue } from '🍎/helpers/smaller-closest-value';
+  import { createIntervalStore } from '🍎/stores/interval.store';
+  import { theme } from '🍎/stores/theme.store';
+  import { wallpaper } from '🍎/stores/wallpaper.store';
 
   let visibleBackgroundImage = '/assets/wallpapers/37-2.jpg';
 

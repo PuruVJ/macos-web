@@ -2,9 +2,9 @@
   import { onMount } from 'svelte';
   import { quintInOut } from 'svelte/easing';
   import { tweened } from 'svelte/motion';
-  import { elevation } from '__/actions';
-  import { fadeOut } from '__/helpers/fade';
-  import { waitFor } from '__/helpers/wait-for';
+  import { elevation } from '🍎/actions';
+  import { fadeOut } from '🍎/helpers/fade';
+  import { waitFor } from '🍎/helpers/wait-for';
   import AppleIcon from '~icons/mdi/apple';
 
   let hiddenSplashScreen = false;

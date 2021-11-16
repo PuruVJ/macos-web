@@ -1,6 +1,6 @@
 <script lang="ts">
-  import Dock from '__/components/Dock/Dock.svelte';
-  import TopBar from '__/components/TopBar/TopBar.svelte';
+  import Dock from '🍎/components/Dock/Dock.svelte';
+  import TopBar from '🍎/components/TopBar/TopBar.svelte';
   import Wallpaper from '../apps/WallpaperApp/Wallpaper.svelte';
   import BoostupScreen from './BootupScreen.svelte';
   import ContextMenu from './ContextMenu.svelte';

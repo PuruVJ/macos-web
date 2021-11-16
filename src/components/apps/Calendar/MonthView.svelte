@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { theme } from '__/stores/theme.store';
+  import { theme } from '🍎/stores/theme.store';
 
   import { DAYS_OF_THE_WEEK } from './calendar-constants';
   import { getDisplayDays } from './calendar-utils';

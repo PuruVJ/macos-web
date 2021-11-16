@@ -115,7 +115,7 @@ export default defineConfig({
   ],
   resolve: {
     alias: {
-      __: new URL('./src/', import.meta.url).pathname,
+      '🍎': new URL('./src/', import.meta.url).pathname,
     },
   },
   build: {

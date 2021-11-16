@@ -1,5 +1,5 @@
 import { writable } from 'svelte-local-storage-store';
-import type { WallpaperID } from '__/configs/wallpapers/wallpaper.config';
+import type { WallpaperID } from '🍎/configs/wallpapers/wallpaper.config';
 
 type WallpaperSettings = {
   id: WallpaperID;

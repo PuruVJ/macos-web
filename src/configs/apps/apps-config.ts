@@ -52,10 +52,10 @@ const purusTwitter = createAppConfig({
   title: `Puru's Twitter`,
   resizable: true,
 
-  shouldOpenWindow: false,
-  externalAction: () => window.open('https://twitter.com/puruvjdev', '_blank'),
-
   dockBreaksBefore: true,
+
+  height: 600,
+  width: 800,
 });
 
 const viewSource = createAppConfig({

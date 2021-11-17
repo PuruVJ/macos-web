@@ -148,7 +148,6 @@
     user-select: none;
 
     background-color: hsla(var(--system-color-light-hsl), 0.3);
-    backdrop-filter: blur(12px);
 
     border-radius: 1rem;
 
@@ -158,6 +157,20 @@
 
     &.dark {
       --border-size: 0.5px;
+    }
+
+    &::before {
+      content: '';
+
+      width: 100%;
+      height: 100%;
+
+      position: absolute;
+      left: 0;
+      top: 0;
+
+      z-index: -1;
+      backdrop-filter: blur(12px);
     }
   }
 

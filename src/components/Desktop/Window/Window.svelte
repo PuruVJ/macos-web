@@ -6,7 +6,7 @@
   import { appsConfig } from '🍎/configs/apps/apps-config';
   import { randint } from '🍎/helpers/random';
   import { waitFor } from '🍎/helpers/wait-for';
-  import { activeApp, activeAppZIndex, AppID } from '🍎/stores/apps.store';
+  import { activeApp, activeAppZIndex, AppID, appZIndices } from '🍎/stores/apps.store';
   import { prefersReducedMotion } from '🍎/stores/prefers-motion.store';
   import { theme } from '🍎/stores/theme.store';
   import AppNexus from '../../apps/AppNexus.svelte';
@@ -14,7 +14,6 @@
 
   export let appID: AppID;
 
-  let appZIndex = 0;
   let isBeingDragged = false;
   let draggingEnabled = true;
 
@@ -33,26 +32,11 @@
     y: (100 + randY) / 2,
   };
 
+  $: $activeApp === appID && ($appZIndices[appID] = $activeAppZIndex);
+
   function focusApp() {
     $activeApp = appID;
   }
-
-  // function windowOpenTransition(
-  //   el: HTMLElement,
-  //   { duration = prefersReducedMotion ? 0 : 300 }: SvelteTransitionConfig,
-  // ): SvelteTransitionReturnType {
-  //   const { left, right, height, width } = document
-  //     .querySelector(`button.dock-open-app-button.${appID}`)
-  //     .getBoundingClientRect();
-
-  //   el.style.transform = `translate()`;
-
-  //   return {
-  //     duration,
-  //     easing: sineInOut,
-  //     css: (t) => `opacity: ${t}; transform:  scale(${t})`,
-  //   };
-  // }
 
   function windowCloseTransition(
     el: HTMLElement,
@@ -79,7 +63,7 @@
       windowEl.style.transform = `translate(0px, 0px)`;
 
       windowEl.style.width = `100%`;
-      windowEl.style.height = '100%';
+      windowEl.style.height = 'calc(100vh - 1.7rem - 5.25rem)';
     } else {
       draggingEnabled = true;
       windowEl.style.transform = minimizedTransform;
@@ -95,15 +79,14 @@
     if (!$prefersReducedMotion) windowEl.style.transition = '';
   }
 
-  $: $activeApp === appID && (appZIndex = $activeAppZIndex);
-
   onMount(() => windowEl?.focus());
 </script>
 
 <section
   class="container"
   class:dark={$theme.scheme === 'dark'}
-  style="width: {+width / 16}rem;height: {+height / 16}rem; z-index: {appZIndex}"
+  class:active={$activeApp === appID}
+  style="width: {+width / 16}rem;height: {+height / 16}rem; z-index: {$appZIndices[appID]}"
   tabindex="-1"
   bind:this={windowEl}
   use:draggable={{
@@ -130,6 +113,9 @@
 
 <style lang="scss">
   .container {
+    --elevated-shadow: 0px 6.7px 12px rgba(0, 0, 0, 0.065), 0px 22.3px 40.2px rgba(0, 0, 0, 0.095),
+      0px 100px 180px rgba(0, 0, 0, 0.16);
+
     width: 100%;
     height: 100%;
 
@@ -141,16 +127,21 @@
     will-change: width, height;
 
     border-radius: 0.75rem;
-    box-shadow: 0px 9.9px 14.8px rgba(0, 0, 0, 0.205), 0px 79px 118px rgba(0, 0, 0, 0.41);
+    box-shadow: var(--elevated-shadow);
 
     cursor: var(--system-cursor-default), auto;
+
+    &.active {
+      --elevated-shadow: 0px 6.7px 12px rgba(0, 0, 0, 0.218), 0px 22.3px 40.2px rgba(0, 0, 0, 0.322),
+        0px 100px 180px rgba(0, 0, 0, 0.54);
+    }
 
     &.dark {
       & > :global(section),
       & > :global(div) {
         border-radius: inherit;
         box-shadow: inset 0 0 0 0.9px hsla(var(--system-color-dark-hsl), 0.3),
-          0 0 0 1px hsla(var(--system-color-light-hsl), 0.5);
+          0 0 0 1px hsla(var(--system-color-light-hsl), 0.5), var(--elevated-shadow);
       }
     }
   }

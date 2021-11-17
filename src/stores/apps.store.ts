@@ -27,3 +27,18 @@ export const activeApp = writable<AppID>('finder');
  * Initialize with -2, so that it becomes 0 when initialised
  */
 export const activeAppZIndex = writable(-2);
+
+export const appZIndices = writable<Record<AppID, number>>({
+  wallpapers: 0,
+  finder: 0,
+  vscode: 0,
+  calculator: 0,
+  safari: 0,
+  appstore: 0,
+  calendar: 0,
+  'system-preferences': 0,
+
+  'purus-twitter': 0,
+  'view-source': 0,
+  devutils: 0,
+});

@@ -84,7 +84,6 @@
     margin-bottom: 0.3rem;
     left: 0;
     bottom: 0;
-    position: fixed;
 
     width: 100%;
     height: 5.2rem;
@@ -140,9 +139,14 @@
 
     margin: 0 4px;
   }
+
   .pwa-date {
     visibility: hidden;
+
+    height: 0;
+    width: 0;
   }
+
   .updates-available-dialog {
     position: fixed;
     right: 0;

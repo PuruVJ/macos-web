@@ -86,14 +86,19 @@
   async function openApp(e: MouseEvent) {
     if (!shouldOpenWindow) return externalAction?.(e);
 
+    // For the bounce animation
+    const isAppAlreadyOpen = $openApps[appID];
+
     $openApps[appID] = true;
     $activeApp = appID;
+
+    if (isAppAlreadyOpen) return;
 
     // Animate the icon
     await appOpenIconBounceTransform.set(-39.2);
 
     // Now animate it back to its place
-    await appOpenIconBounceTransform.set(0);
+    appOpenIconBounceTransform.set(0);
   }
 
   onDestroy(() => {

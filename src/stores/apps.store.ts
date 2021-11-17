@@ -1,5 +1,5 @@
 import { writable } from 'svelte/store';
-import type { appsConfig } from '__/configs/apps/apps-config';
+import type { appsConfig } from '🍎/configs/apps/apps-config';
 
 export type AppID = keyof typeof appsConfig;
 

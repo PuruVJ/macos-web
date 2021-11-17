@@ -27,12 +27,12 @@
   import { onDestroy } from 'svelte';
   import { sineInOut } from 'svelte/easing';
   import { spring, tweened } from 'svelte/motion';
-  import { elevation } from '__/actions';
-  import { appsConfig } from '__/configs/apps/apps-config';
-  import type { AppID } from '__/stores/apps.store';
-  import { activeApp, openApps } from '__/stores/apps.store';
-  import { prefersReducedMotion } from '__/stores/prefers-motion.store';
-  import { theme } from '__/stores/theme.store';
+  import { elevation } from '🍎/actions';
+  import { appsConfig } from '🍎/configs/apps/apps-config';
+  import type { AppID } from '🍎/stores/apps.store';
+  import { activeApp, openApps } from '🍎/stores/apps.store';
+  import { prefersReducedMotion } from '🍎/stores/prefers-motion.store';
+  import { theme } from '🍎/stores/theme.store';
 
   export let mouseX: number | null;
   export let appID: AppID;
@@ -47,7 +47,8 @@
     stiffness: 0.12,
   });
 
-  $: $widthPX = interpolate(distanceInput, widthOutput)(distance);
+  const getWidthFromDistance = interpolate(distanceInput, widthOutput);
+  $: $widthPX = getWidthFromDistance(distance);
 
   let raf: number;
   function animate() {

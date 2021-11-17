@@ -1,8 +1,8 @@
 <script lang="ts">
-  import { appsConfig } from '__/configs/apps/apps-config';
+  import { appsConfig } from '🍎/configs/apps/apps-config';
   import { useRegisterSW } from 'virtual:pwa-register/svelte';
   import DockItem from './DockItem.svelte';
-  import { elevation } from '__/actions';
+  import { elevation } from '🍎/actions';
 
   // replaced dynamically
   const buildDate = '__DATE__';

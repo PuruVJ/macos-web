@@ -1,14 +1,14 @@
 <script lang="ts">
   import { onMount } from 'svelte';
-  import { elevation } from '__/actions';
+  import { elevation } from '🍎/actions';
   import { draggable } from 'svelte-drag';
   import { sineInOut } from 'svelte/easing';
-  import { appsConfig } from '__/configs/apps/apps-config';
-  import { randint } from '__/helpers/random';
-  import { waitFor } from '__/helpers/wait-for';
-  import { activeApp, activeAppZIndex, AppID, appZIndices } from '__/stores/apps.store';
-  import { prefersReducedMotion } from '__/stores/prefers-motion.store';
-  import { theme } from '__/stores/theme.store';
+  import { appsConfig } from '🍎/configs/apps/apps-config';
+  import { randint } from '🍎/helpers/random';
+  import { waitFor } from '🍎/helpers/wait-for';
+  import { activeApp, activeAppZIndex, AppID, appZIndices } from '🍎/stores/apps.store';
+  import { prefersReducedMotion } from '🍎/stores/prefers-motion.store';
+  import { theme } from '🍎/stores/theme.store';
   import AppNexus from '../../apps/AppNexus.svelte';
   import TrafficLights from './TrafficLights.svelte';
 

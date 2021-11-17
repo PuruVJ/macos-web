@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { WallpaperID, wallpapersConfig } from '__/configs/wallpapers/wallpaper.config';
-  import { wallpaper } from '__/stores/wallpaper.store';
+  import { WallpaperID, wallpapersConfig } from '🍎/configs/wallpapers/wallpaper.config';
+  import { wallpaper } from '🍎/stores/wallpaper.store';
 
   const dynamicWallpapers = Object.entries(wallpapersConfig).filter(
     ([, { type }]) => type === 'dynamic',
@@ -210,7 +210,10 @@
       input {
         margin-left: 0;
 
-        // accent-color: var(--system-color-primary);
+        height: 1.2rem;
+        width: 1.2rem;
+
+        accent-color: var(--system-color-primary);
       }
     }
   }

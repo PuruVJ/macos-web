@@ -1,11 +1,11 @@
 <script lang="ts">
   import { onMount } from 'svelte';
-  import { colors } from '__/configs/theme/colors.config';
-  import { wallpapersConfig } from '__/configs/wallpapers/wallpaper.config';
-  import { activeApp, openApps } from '__/stores/apps.store';
-  import { prefersReducedMotion } from '__/stores/prefers-motion.store';
-  import { theme } from '__/stores/theme.store';
-  import { wallpaper } from '__/stores/wallpaper.store';
+  import { colors } from '🍎/configs/theme/colors.config';
+  import { wallpapersConfig } from '🍎/configs/wallpapers/wallpaper.config';
+  import { activeApp, openApps } from '🍎/stores/apps.store';
+  import { prefersReducedMotion } from '🍎/stores/prefers-motion.store';
+  import { theme } from '🍎/stores/theme.store';
+  import { wallpaper } from '🍎/stores/wallpaper.store';
   import DarkMode from '~icons/gg/dark-mode';
   import CheckedIcon from '~icons/ic/outline-check';
   import TransitionMaskedIcon from '~icons/mdi/transition-masked';

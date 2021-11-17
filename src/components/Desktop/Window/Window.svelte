@@ -85,6 +85,7 @@
 <section
   class="container"
   class:dark={$theme.scheme === 'dark'}
+  class:active={$activeApp === appID}
   style="width: {+width / 16}rem;height: {+height / 16}rem; z-index: {$appZIndices[appID]}"
   tabindex="-1"
   bind:this={windowEl}
@@ -112,6 +113,9 @@
 
 <style lang="scss">
   .container {
+    --elevated-shadow: 0px 6.7px 12px rgba(0, 0, 0, 0.065), 0px 22.3px 40.2px rgba(0, 0, 0, 0.095),
+      0px 100px 180px rgba(0, 0, 0, 0.16);
+
     width: 100%;
     height: 100%;
 
@@ -123,16 +127,21 @@
     will-change: width, height;
 
     border-radius: 0.75rem;
-    box-shadow: 0px 9.9px 14.8px rgba(0, 0, 0, 0.205), 0px 79px 118px rgba(0, 0, 0, 0.41);
+    box-shadow: var(--elevated-shadow);
 
     cursor: var(--system-cursor-default), auto;
+
+    &.active {
+      --elevated-shadow: 0px 6.7px 12px rgba(0, 0, 0, 0.218), 0px 22.3px 40.2px rgba(0, 0, 0, 0.322),
+        0px 100px 180px rgba(0, 0, 0, 0.54);
+    }
 
     &.dark {
       & > :global(section),
       & > :global(div) {
         border-radius: inherit;
         box-shadow: inset 0 0 0 0.9px hsla(var(--system-color-dark-hsl), 0.3),
-          0 0 0 1px hsla(var(--system-color-light-hsl), 0.5);
+          0 0 0 1px hsla(var(--system-color-light-hsl), 0.5), var(--elevated-shadow);
       }
     }
   }

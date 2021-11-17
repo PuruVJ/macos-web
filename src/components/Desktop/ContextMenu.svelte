@@ -61,14 +61,15 @@
 
     padding: 0.5rem;
 
-    position: absolute;
+    position: fixed;
+    top: 0;
+    left: 0;
 
     -webkit-font-smoothing: antialiased;
     user-select: none;
     transition: transform 100ms ease;
 
     background-color: hsla(var(--system-color-light-hsl), 0.3);
-    backdrop-filter: blur(15px);
 
     border-radius: 0.5rem;
 
@@ -77,6 +78,22 @@
     &.dark {
       --additional-shadow: inset 0 0 0 0.9px hsla(var(--system-color-dark-hsl), 0.3),
         0 0 0 1.2px hsla(var(--system-color-light-hsl), 0.3);
+    }
+
+    &::before {
+      content: '';
+
+      width: 100%;
+      height: 100%;
+
+      border-radius: inherit;
+
+      position: absolute;
+      left: 0;
+      top: 0;
+
+      z-index: -1;
+      backdrop-filter: blur(15px);
     }
 
     * {

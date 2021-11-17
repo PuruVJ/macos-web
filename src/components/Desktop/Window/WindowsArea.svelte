@@ -4,6 +4,7 @@
 
   $: $activeApp, ($activeAppZIndex += 2);
 
+  // Keeps all the app z indices under 50 so they don't go above the UI elements
   function normalizeAppZIndices() {
     if (!Object.values($appZIndices).some((zIndex) => zIndex > 50)) return;
 
@@ -39,8 +40,6 @@
 <style lang="scss">
   section {
     display: block;
-
-    // position: fixed;
 
     // 1.7 rem is the heigh of the header
     // 5.25 rem is the height of dock

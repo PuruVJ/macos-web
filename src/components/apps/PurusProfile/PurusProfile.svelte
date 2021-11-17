@@ -1,5 +1,15 @@
 <script lang="ts">
-  import { theme } from '__/stores/theme.store';
+  import { theme } from '🍎/stores/theme.store';
+  import TwitterIcon from '~icons/mdi/twitter';
+  import BlogIcon from '~icons/mdi/grease-pencil';
+  import WorksIcon from '~icons/ic/round-workspaces';
+  import GithubIcon from '~icons/mdi/github';
+  import DevToIcon from '~icons/mdi/dev-to';
+
+  function external(node: HTMLAnchorElement) {
+    node.rel = 'noopener noreferrer';
+    node.target = '_blank';
+  }
 </script>
 
 <section class="container">
@@ -8,7 +18,19 @@
   </header>
 
   <aside class:light={$theme.scheme === 'light'}>
-    <!--  -->
+    <nav>
+      <a href="https://www.puruvj.dev/blog" use:external> <BlogIcon /> Blog </a>
+      <a href="https://www.puruvj.dev/works" use:external> <WorksIcon /> Works </a>
+
+      <hr />
+
+      <a href="https://www.puruvj.dev/twitter" use:external>
+        <TwitterIcon />
+        Twitter
+      </a>
+      <a href="https://www.puruvj.dev/github" use:external> <GithubIcon /> Github </a>
+      <a href="https://www.puruvj.dev/devto" use:external> <DevToIcon /> Dev.to </a>
+    </nav>
   </aside>
 
   <section class="content">
@@ -18,6 +40,30 @@
       src="/assets/app-data/purus-profile/puru.webp"
       alt="Puru Vijay Profile pic"
     />
+
+    <br />
+
+    <h1>Hi, I'm Puru</h1>
+
+    <h2>
+      I'm the creator of macOS Web, which you're on right now
+      <img src="/assets/emojis/wink.png" alt="Wink emoji" class="emoji" />
+    </h2>
+
+    <br /><br />
+
+    <p>
+      I am a fullstack web developer, with an infinite amount of love for frontend web development,
+      esp JavaScript, TypeScript, and for frontend frameworks like Svelte, Vue and React
+      <img src="/assets/emojis/star-struck.png" alt="Star Struck face emoji" class="emoji" />
+    </p>
+
+    <br /><br />
+
+    <p>
+      However, my love for tech doesn't end there. I enjoy writing backend APIs, scripts, working
+      with databases, and my fav platforms are NodeJS, Deno and Go
+    </p>
   </section>
 </section>
 
@@ -38,6 +84,8 @@
     );
 
     transition: --color 200ms ease-in;
+
+    color: var(--system-color-dark);
   }
 
   .titlebar {
@@ -46,7 +94,7 @@
     display: flex;
     justify-content: center;
 
-    z-index: 0;
+    z-index: 1;
 
     padding: 0.9rem 1rem;
 
@@ -68,7 +116,7 @@
   aside {
     grid-area: 1 / 1 / span 2 / span 1;
 
-    backdrop-filter: blur(20px);
+    transform: translateZ(0);
 
     height: calc(100% - 3px);
     width: calc(12rem - 2.27px);
@@ -77,6 +125,22 @@
 
     border-top-left-radius: 0.5rem;
     border-bottom-left-radius: inherit;
+
+    &::before {
+      content: '';
+
+      width: inherit;
+      height: inherit;
+
+      border-radius: inherit;
+
+      position: fixed;
+      left: 0;
+      top: 0;
+
+      z-index: -1;
+      backdrop-filter: blur(12px);
+    }
 
     &.light {
       height: calc(100% - 3px);
@@ -87,6 +151,45 @@
       border-top-left-radius: 0.5rem;
       border-bottom-left-radius: 0.5rem;
     }
+
+    nav {
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+
+      margin: 4rem 0.6rem;
+
+      hr {
+        display: block;
+
+        width: 100%;
+        height: 1px;
+
+        background-color: hsla(var(--system-color-dark-hsl), 0.2);
+
+        border: none;
+      }
+
+      a {
+        display: flex;
+        gap: 0.4rem;
+        align-items: center;
+
+        color: hsla(var(--system-color-dark-hsl), 0.9);
+        text-decoration: none;
+        font-weight: 400;
+
+        padding: 0.5rem 0.5rem;
+
+        border-radius: 0.4rem;
+
+        transition: background-color 100ms ease;
+
+        &:hover {
+          background-color: hsla(var(--system-color-dark-hsl), 0.2);
+        }
+      }
+    }
   }
 
   .content {
@@ -96,8 +199,31 @@
     flex-direction: column;
     align-items: center;
 
+    padding: 1rem;
+
     img {
       border-radius: 50%;
     }
+  }
+
+  .emoji {
+    height: 1em;
+    width: 1em;
+
+    vertical-align: middle;
+  }
+
+  h1 {
+    font-size: 2.618rem;
+    line-height: 1.618;
+  }
+
+  h2 {
+    font-size: 1.618rem;
+    line-height: 1.2;
+  }
+
+  p {
+    line-height: 1.618rem;
   }
 </style>

@@ -47,11 +47,17 @@
     }
 
     :global(svg) {
-      visibility: hidden;
+      opacity: 0;
     }
 
-    &:hover :global(svg) {
-      visibility: visible;
+    &:hover {
+      button {
+        transform: scale(1.2);
+      }
+
+      :global(svg) {
+        opacity: 1;
+      }
     }
   }
 
@@ -65,6 +71,8 @@
 
     background-color: var(--bgcolor);
     box-shadow: 0 0 0 0.5px var(--border-color);
+
+    transition: transform 100ms ease-in;
   }
 
   .close-light {
@@ -75,7 +83,10 @@
   .stretch-light {
     --bgcolor: #27c93f;
     --border-color: #1aab29;
-    transform: rotate(90deg);
+
+    :global(svg) {
+      transform: rotate(90deg);
+    }
   }
 
   .minimize-light {

@@ -2,7 +2,7 @@ const zIndexConfig = {
   wallpaper: -1,
   'bootup-screen': 110,
   'context-menu': 100,
-  'window-traffic-lights': 1,
+  'window-traffic-lights': 10,
   dock: 80,
   'dock-tooltip': 70,
   'system-updates-available': 60,

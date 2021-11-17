@@ -22,19 +22,13 @@
   }
 </script>
 
-<div
-  class="container"
-  style="height: 100%;"
-  use:clickOutside={{ callback: hide }}
-  use:focusOutside={{ callback: hide }}
-  use:elevation={'menubar-menu-parent'}
->
+<div class="container" use:clickOutside={{ callback: hide }} use:focusOutside={{ callback: hide }}>
   <button style="--scale: {visible ? 1 : 0};" on:click={show} on:focus={show}>
     <SwitchSvg />
   </button>
 
   {#if visible}
-    <div in:fadeIn out:fadeOut class="menu-parent">
+    <div in:fadeIn out:fadeOut class="menu-parent" use:elevation={'menubar-menu-parent'}>
       <ActionCenter bind:isThemeWarningDialogOpen />
     </div>
   {/if}

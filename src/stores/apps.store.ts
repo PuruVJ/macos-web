@@ -14,7 +14,7 @@ export const openApps = writable<Record<AppID, boolean>>({
   calendar: false,
   'system-preferences': false,
 
-  'purus-twitter': true,
+  'purus-twitter': false,
   'view-source': true,
   devutils: true,
 });

@@ -1,25 +1,14 @@
 import { svelte } from '@sveltejs/vite-plugin-svelte';
-import { defineConfig } from 'vite';
-import { prefetch } from './prefetch-plugin';
 import UnpluginIcons from 'unplugin-icons/vite';
+import { defineConfig } from 'vite';
 import { VitePWA } from 'vite-plugin-pwa';
-import replace from '@rollup/plugin-replace';
-
-const replacePlugin = () => {
-  console.log(`process.env.VITE_LOCAL_BUILD=${process.env.VITE_LOCAL_BUILD === 'true'}`);
-  if (process.env.VITE_LOCAL_BUILD === 'true') {
-    return {
-      __DATE__: new Date().toISOString(),
-    };
-  }
-  return {};
-};
+import { prefetch } from './prefetch-plugin';
 
 export default defineConfig({
   plugins: [
     svelte(),
     prefetch(),
-    replace({ ...replacePlugin() }),
+    // replace({ ...replacePlugin() }),
     UnpluginIcons({ autoInstall: true, compiler: 'svelte' }),
     VitePWA({
       includeAssets: [

@@ -110,7 +110,7 @@
     z-index: 1;
     position: absolute;
     right: 1rem;
-    margin-top: 1px;
+    margin-top: 7px;
   }
 
   .theme-warning-section {

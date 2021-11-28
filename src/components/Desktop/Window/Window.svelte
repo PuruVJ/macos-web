@@ -113,8 +113,7 @@
 
 <style lang="scss">
   .container {
-    --elevated-shadow: 0px 6.7px 12px rgba(0, 0, 0, 0.065), 0px 22.3px 40.2px rgba(0, 0, 0, 0.095),
-      0px 100px 180px rgba(0, 0, 0, 0.16);
+    --elevated-shadow: 0px 8.5px 10px rgba(0, 0, 0, 0.115), 0px 68px 80px rgba(0, 0, 0, 0.23);
 
     width: 100%;
     height: 100%;
@@ -132,8 +131,9 @@
     cursor: var(--system-cursor-default), auto;
 
     &.active {
-      --elevated-shadow: 0px 6.7px 12px rgba(0, 0, 0, 0.218), 0px 22.3px 40.2px rgba(0, 0, 0, 0.322),
-        0px 100px 180px rgba(0, 0, 0, 0.54);
+      // --elevated-shadow: 0px 6.7px 12px rgba(0, 0, 0, 0.218), 0px 22.3px 40.2px rgba(0, 0, 0, 0.322),
+      //   0px 100px 180px rgba(0, 0, 0, 0.54);
+      --elevated-shadow: 0px 8.5px 10px rgba(0, 0, 0, 0.28), 0px 68px 80px rgba(0, 0, 0, 0.56);
     }
 
     &.dark {

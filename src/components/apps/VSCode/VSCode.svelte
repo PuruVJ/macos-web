@@ -7,7 +7,7 @@
   <div>
     <iframe
       class:iframe-dragged={isBeingDragged}
-      src="https://vscode.dev/"
+      src="https://stackblitz.com/github/puruvj/macos-web?embed=1&file=src/components/Desktop/Desktop.svelte&hideNavigation=1&theme=dark&view=editor"
       title="VS Code for macOS Web"
     />
   </div>
@@ -15,7 +15,7 @@
 
 <style lang="scss">
   .container {
-    background-color: #252526;
+    background-color: #202327;
     padding: 1px;
 
     border-radius: inherit;

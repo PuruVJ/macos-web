@@ -50,10 +50,10 @@
       [1, 2],
     ]}
   >
-    <ActionCenterTile grid={[1, 1]}>
-      <button class="toggle" class:filled={$theme.scheme === 'dark'} on:click={toggleTheme}>
+    <ActionCenterTile grid={[1, 1]} on:click={toggleTheme}>
+      <span class="toggle-icon" class:filled={$theme.scheme === 'dark'}>
         <DarkMode />
-      </button>
+      </span>
       Dark mode
     </ActionCenterTile>
   </ActionCenterSurface>
@@ -64,14 +64,10 @@
       [1, 2],
     ]}
   >
-    <ActionCenterTile grid={[1, 1]}>
-      <button
-        class="toggle"
-        class:filled={!$prefersReducedMotion}
-        on:click={toggleMotionPreference}
-      >
+    <ActionCenterTile grid={[1, 1]} on:click={toggleMotionPreference}>
+      <span class="toggle-icon" class:filled={!$prefersReducedMotion}>
         <TransitionMaskedIcon />
-      </button>
+      </span>
       Animations
     </ActionCenterTile>
   </ActionCenterSurface>
@@ -82,7 +78,7 @@
       [3, 2],
     ]}
   >
-    <ActionCenterTile grid={[1, 1]}>
+    <ActionCenterTile grid={[1, 1]} role="region">
       <div class="color-picker">
         <p>System Color</p>
         <div class="color-palette">
@@ -108,12 +104,7 @@
       [5, 3],
     ]}
   >
-    <ActionCenterTile
-      focusable={true}
-      grid={[1, 1]}
-      on:click={openWallpapersApp}
-      on:keyup={(e) => ['Enter', 'Space Bar'].includes(e.key) && openWallpapersApp()}
-    >
+    <ActionCenterTile grid={[1, 1]} on:click={openWallpapersApp}>
       <div class="wallpaper-tile">
         <img
           class="wallpaper-thumbnail"
@@ -176,7 +167,7 @@
     }
   }
 
-  .toggle {
+  .toggle-icon {
     --size: 1.7rem;
 
     --bgcolor: var(--system-color-dark-hsl);
@@ -191,6 +182,7 @@
     padding: 0;
 
     display: flex;
+    justify-content: center;
     place-items: center;
 
     border-radius: 50%;

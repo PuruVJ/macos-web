@@ -1,4 +1,4 @@
-<script lang='ts'>
+<script lang="ts">
   import Dock from '🍎/components/Dock/Dock.svelte';
   import TopBar from '🍎/components/TopBar/TopBar.svelte';
   import Wallpaper from '../apps/WallpaperApp/Wallpaper.svelte';
@@ -9,7 +9,7 @@
   let mainEl: HTMLElement;
 </script>
 
-<div bind:this={mainEl} class='container'>
+<div bind:this={mainEl} class="container">
   <main>
     <TopBar />
     <WindowsArea />
@@ -22,7 +22,7 @@
   <ContextMenu targetElement={mainEl} />
 </div>
 
-<style lang='scss'>
+<style lang="scss">
   .container {
     height: 100%;
     width: 100%;

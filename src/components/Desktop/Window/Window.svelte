@@ -1,8 +1,8 @@
 <script lang="ts">
   import { onMount } from 'svelte';
-  import { elevation } from '🍎/actions';
   import { draggable } from 'svelte-drag';
   import { sineInOut } from 'svelte/easing';
+  import { elevation } from '🍎/actions';
   import { appsConfig } from '🍎/configs/apps/apps-config';
   import { randint } from '🍎/helpers/random';
   import { waitFor } from '🍎/helpers/wait-for';
@@ -10,8 +10,10 @@
     activeApp,
     activeAppZIndex,
     AppID,
+    appsInFullscreen,
     appZIndices,
     isAppBeingDragged,
+    openApps,
   } from '🍎/stores/apps.store';
   import { prefersReducedMotion } from '🍎/stores/prefers-motion.store';
   import { theme } from '🍎/stores/theme.store';
@@ -68,7 +70,8 @@
       windowEl.style.transform = `translate(0px, 0px)`;
 
       windowEl.style.width = `100%`;
-      windowEl.style.height = 'calc(100vh - 1.7rem - 5.25rem)';
+      // windowEl.style.height = 'calc(100vh - 1.7rem - 5.25rem)';
+      windowEl.style.height = 'calc(100vh - 1.7rem)';
     } else {
       draggingEnabled = true;
       windowEl.style.transform = minimizedTransform;
@@ -79,9 +82,25 @@
 
     isMaximized = !isMaximized;
 
+    $appsInFullscreen[appID] = isMaximized;
+
     await waitFor(300);
 
     if (!$prefersReducedMotion) windowEl.style.transition = '';
+  }
+
+  function closeApp() {
+    $openApps[appID] = false;
+    $appsInFullscreen[appID] = false;
+  }
+
+  function onAppDragStart() {
+    focusApp();
+    $isAppBeingDragged = true;
+  }
+
+  function onAppDragEnd() {
+    $isAppBeingDragged = false;
   }
 
   onMount(() => windowEl?.focus());
@@ -101,16 +120,13 @@
     disabled: !draggingEnabled,
     gpuAcceleration: false,
   }}
-  on:svelte-drag:start={() => {
-    focusApp();
-    $isAppBeingDragged = true;
-  }}
-  on:svelte-drag:end={() => ($isAppBeingDragged = false)}
+  on:svelte-drag:start={onAppDragStart}
+  on:svelte-drag:end={onAppDragEnd}
   on:click={focusApp}
   out:windowCloseTransition
 >
   <div class="tl-container {appID}" use:elevation={'window-traffic-lights'}>
-    <TrafficLights {appID} on:maximize-click={maximizeApp} />
+    <TrafficLights {appID} on:maximize-click={maximizeApp} on:close-app={closeApp} />
   </div>
 
   <AppNexus {appID} isBeingDragged={$isAppBeingDragged} />

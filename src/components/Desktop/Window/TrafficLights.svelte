@@ -5,14 +5,14 @@
   import MinimizeSvg from '🍎/components/SVG/traffic-lights/MinimizeSVG.svelte';
   import { appsConfig } from '🍎/configs/apps/apps-config';
   import type { AppID } from '🍎/stores/apps.store';
-  import { activeApp, openApps } from '🍎/stores/apps.store';
+  import { activeApp } from '🍎/stores/apps.store';
 
   export let appID: AppID;
 
   const dispatch = createEventDispatcher();
 
   function closeApp() {
-    $openApps[appID] = false;
+    dispatch('close-app');
   }
 
   function greenLightAction() {

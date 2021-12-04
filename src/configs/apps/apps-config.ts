@@ -66,15 +66,15 @@ const viewSource = createAppConfig({
   externalAction: () => window.open('https://github.com/puruvj/macos-web', '_blank'),
 });
 
-const devUtils = createAppConfig({
-  title: `DevUtils`,
-  resizable: true,
+// const devUtils = createAppConfig({
+//   title: `DevUtils`,
+//   resizable: true,
 
-  shouldOpenWindow: false,
-  externalAction: () => window.open('https://devutils.app/?ref=puru', '_blank'),
+//   shouldOpenWindow: false,
+//   externalAction: () => window.open('https://devutils.app/?ref=puru', '_blank'),
 
-  dockBreaksBefore: true,
-});
+//   dockBreaksBefore: true,
+// });
 
 const appstore = createAppConfig({
   title: 'App Store',

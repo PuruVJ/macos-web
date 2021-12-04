@@ -42,3 +42,17 @@ export const appZIndices = writable<Record<AppID, number>>({
 });
 
 export const isAppBeingDragged = writable(false);
+
+export const appsInFullscreen = writable<Record<AppID, boolean>>({
+  wallpapers: false,
+  finder: false,
+  vscode: false,
+  calculator: false,
+  safari: false,
+  appstore: false,
+  calendar: false,
+  'system-preferences': false,
+
+  'purus-twitter': false,
+  'view-source': false,
+});

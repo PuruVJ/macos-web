@@ -15,6 +15,5 @@ for (const [element, zIndexValue] of Object.entries(zIndexConfig)) {
 }
 
 export function elevation(node: HTMLElement, uiElement: keyof typeof zIndexConfig) {
-  node.style.isolation = 'isolate';
   node.style.zIndex = `var(--system-z-index-${uiElement})`;
 }

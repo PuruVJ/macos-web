@@ -1,8 +1,13 @@
 <script lang="ts">
-  import { appsConfig } from '🍎/configs/apps/apps-config';
   import { useRegisterSW } from 'virtual:pwa-register/svelte';
-  import DockItem from './DockItem.svelte';
   import { elevation } from '🍎/actions';
+  import { appsConfig } from '🍎/configs/apps/apps-config';
+  import { appsInFullscreen } from '🍎/stores/apps.store';
+  import DockItem from './DockItem.svelte';
+
+  let mouseX: number | null = null;
+
+  $: isDockAutoHidden = Object.values($appsInFullscreen).some(Boolean);
 
   // replaced dynamically
   const buildDate = '__DATE__';
@@ -36,13 +41,14 @@
       updateServiceWorker();
     }
   }
-
-  let mouseX: number | null = null;
 </script>
 
 <section class="dock-container" use:elevation={'dock'}>
+  <div class="hover-strip" />
+
   <div
     class="dock-el"
+    class:auto-hidden={isDockAutoHidden}
     on:mousemove={(event) => (mouseX = event.x)}
     on:mouseleave={() => (mouseX = null)}
   >
@@ -94,6 +100,20 @@
     justify-content: center;
   }
 
+  .hover-strip {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+
+    height: 3rem;
+    width: 100%;
+  }
+
+  .hover-strip:hover ~ .dock-el.auto-hidden,
+  .dock-el.auto-hidden:hover {
+    transform: translate3d(0, 0, 0);
+  }
+
   .dock-el {
     background-color: hsla(var(--system-color-light-hsl), 0.4);
 
@@ -110,6 +130,20 @@
 
     display: flex;
     align-items: flex-end;
+
+    transition: transform 0.2s ease;
+
+    &.auto-hidden {
+      transform: translate3d(0, 200%, 0);
+
+      &::before {
+        width: calc(100% - 2px);
+        height: calc(100% - 2px);
+
+        margin-top: 1px;
+        margin-left: 1px;
+      }
+    }
 
     &::before {
       content: '';

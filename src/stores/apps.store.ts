@@ -40,3 +40,5 @@ export const appZIndices = writable<Record<AppID, number>>({
   'purus-twitter': 0,
   'view-source': 0,
 });
+
+export const isAppBeingDragged = writable(false);

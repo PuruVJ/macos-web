@@ -49,7 +49,7 @@ const systemPreferences = createAppConfig({
 });
 
 const purusTwitter = createAppConfig({
-  title: `Puru's Twitter`,
+  title: `About the Developer`,
   resizable: true,
 
   dockBreaksBefore: true,

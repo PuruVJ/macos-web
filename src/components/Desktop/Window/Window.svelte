@@ -6,7 +6,13 @@
   import { appsConfig } from '🍎/configs/apps/apps-config';
   import { randint } from '🍎/helpers/random';
   import { waitFor } from '🍎/helpers/wait-for';
-  import { activeApp, activeAppZIndex, AppID, appZIndices } from '🍎/stores/apps.store';
+  import {
+    activeApp,
+    activeAppZIndex,
+    AppID,
+    appZIndices,
+    isAppBeingDragged,
+  } from '🍎/stores/apps.store';
   import { prefersReducedMotion } from '🍎/stores/prefers-motion.store';
   import { theme } from '🍎/stores/theme.store';
   import AppNexus from '../../apps/AppNexus.svelte';
@@ -14,7 +20,6 @@
 
   export let appID: AppID;
 
-  let isBeingDragged = false;
   let draggingEnabled = true;
 
   let isMaximized = false;
@@ -98,9 +103,9 @@
   }}
   on:svelte-drag:start={() => {
     focusApp();
-    isBeingDragged = true;
+    $isAppBeingDragged = true;
   }}
-  on:svelte-drag:end={() => (isBeingDragged = false)}
+  on:svelte-drag:end={() => ($isAppBeingDragged = false)}
   on:click={focusApp}
   out:windowCloseTransition
 >
@@ -108,7 +113,7 @@
     <TrafficLights {appID} on:maximize-click={maximizeApp} />
   </div>
 
-  <AppNexus {appID} {isBeingDragged} />
+  <AppNexus {appID} isBeingDragged={$isAppBeingDragged} />
 </section>
 
 <style lang="scss">

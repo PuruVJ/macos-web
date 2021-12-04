@@ -29,7 +29,7 @@
   import { spring, tweened } from 'svelte/motion';
   import { elevation } from '🍎/actions';
   import { appsConfig } from '🍎/configs/apps/apps-config';
-  import type { AppID } from '🍎/stores/apps.store';
+  import { AppID, isAppBeingDragged } from '🍎/stores/apps.store';
   import { activeApp, openApps } from '🍎/stores/apps.store';
   import { prefersReducedMotion } from '🍎/stores/prefers-motion.store';
   import { theme } from '🍎/stores/theme.store';
@@ -71,9 +71,9 @@
 
   $: {
     mouseX;
-    if (!$prefersReducedMotion) {
-      raf = requestAnimationFrame(animate);
-    }
+    if ($prefersReducedMotion || $isAppBeingDragged) break $;
+
+    raf = requestAnimationFrame(animate);
   }
   let { title, shouldOpenWindow, externalAction } = appsConfig[appID];
 
@@ -115,6 +115,7 @@
 <button on:click={openApp} aria-label="Launch {title} app" class="dock-open-app-button {appID}">
   <p
     class="tooltip"
+    class:tooltip-enabled={!$isAppBeingDragged}
     class:dark={$theme.scheme === 'dark'}
     style="top: {$prefersReducedMotion ? '-50px' : '-35%'};"
     use:elevation={'dock-tooltip'}
@@ -161,7 +162,7 @@
 
     &:hover,
     &:focus-visible {
-      .tooltip {
+      .tooltip.tooltip-enabled {
         display: block;
       }
     }

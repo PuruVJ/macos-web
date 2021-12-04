@@ -16,7 +16,6 @@ export const openApps = writable<Record<AppID, boolean>>({
 
   'purus-twitter': false,
   'view-source': true,
-  devutils: true,
 });
 
 /** Which app is currently focused */
@@ -40,5 +39,4 @@ export const appZIndices = writable<Record<AppID, number>>({
 
   'purus-twitter': 0,
   'view-source': 0,
-  devutils: 0,
 });

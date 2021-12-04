@@ -94,6 +94,4 @@ export const appsConfig = {
 
   'purus-twitter': purusTwitter,
   'view-source': viewSource,
-
-  devutils: devUtils,
 };

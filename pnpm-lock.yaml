@@ -2,6 +2,7 @@ lockfileVersion: 5.3
 
 specifiers:
   '@iconify-json/gg': ^1.0.1
+  '@iconify-json/ic': ^1.0.6
   '@iconify-json/icon-park-outline': ^1.0.1
   '@iconify-json/mdi': ^1.0.8
   '@iconify-json/pepicons': ^1.0.1
@@ -31,6 +32,7 @@ dependencies:
 
 devDependencies:
   '@iconify-json/gg': 1.0.1
+  '@iconify-json/ic': 1.0.6
   '@iconify-json/icon-park-outline': 1.0.1
   '@iconify-json/mdi': 1.0.8
   '@iconify-json/pepicons': 1.0.1
@@ -1188,6 +1190,12 @@ packages:
 
   /@iconify-json/gg/1.0.1:
     resolution: {integrity: sha512-kIxAZ9NX1+qOuLZDnKnnR5BvblPkHzPE7O7sAObg6BFVXHb2JGwV/ldJOmrrAvUy+FYii3TP2KR8pKb0kVnstg==}
+    dependencies:
+      '@iconify/types': 1.0.10
+    dev: true
+
+  /@iconify-json/ic/1.0.6:
+    resolution: {integrity: sha512-PfqqYlJ6z+DmRzEM18BmB9RygzmkLo/IfqI9VtCVRQf3NLGzn7a8Zz/xidSstURvWS1kp3e+hAoezUBi+IXCCQ==}
     dependencies:
       '@iconify/types': 1.0.10
     dev: true

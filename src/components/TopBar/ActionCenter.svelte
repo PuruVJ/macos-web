@@ -11,6 +11,8 @@
   import TransitionMaskedIcon from '~icons/mdi/transition-masked';
   import ActionCenterSurface from './ActionCenterSurface.svelte';
   import ActionCenterTile from './ActionCenterTile.svelte';
+  import NotchIcon from '~icons/pepicons/smartphone-notch';
+  import { shouldShowNotch } from '🍎/stores/menubar.store';
 
   export let isThemeWarningDialogOpen: boolean;
 
@@ -23,6 +25,10 @@
     }
 
     $theme.scheme = $theme.scheme === 'light' ? 'dark' : 'light';
+  }
+
+  function toggleNotch() {
+    $shouldShowNotch = !$shouldShowNotch;
   }
 
   function toggleMotionPreference() {
@@ -116,6 +122,22 @@
           <h3>{wallpapersConfig[$wallpaper.id].name}</h3>
           <p>{wallpapersConfig[$wallpaper.id].type} wallpaper</p>
         </div>
+      </div>
+    </ActionCenterTile>
+  </ActionCenterSurface>
+
+  <ActionCenterSurface
+    grid={[
+      [1, 12],
+      [8, 2],
+    ]}
+  >
+    <ActionCenterTile grid={[1, 1]} on:click={toggleNotch}>
+      <div class="notch-tile">
+        <span class="toggle-icon" class:filled={$shouldShowNotch}>
+          <NotchIcon />
+        </span>
+        Notch
       </div>
     </ActionCenterTile>
   </ActionCenterSurface>
@@ -277,5 +299,16 @@
         }
       }
     }
+  }
+
+  .notch-tile {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+
+    padding: 0 0.6rem;
+
+    width: 100%;
+    height: 100%;
   }
 </style>

@@ -1,12 +1,10 @@
 lockfileVersion: 5.3
 
 specifiers:
-  '@iconify-json/gg': ^1.0.1
-  '@iconify-json/ic': ^1.0.4
   '@iconify-json/icon-park-outline': ^1.0.1
   '@iconify-json/mdi': ^1.0.8
+  '@iconify-json/pepicons': ^1.0.1
   '@iconify-json/ph': ^1.0.2
-  '@iconify-json/uil': ^1.0.2
   '@sveltejs/vite-plugin-svelte': ^1.0.0-next.30
   autoprefixer: ^10.4.0
   date-fns: ^2.25.0
@@ -31,12 +29,10 @@ dependencies:
   unplugin-icons: 0.12.18_vite@2.6.14
 
 devDependencies:
-  '@iconify-json/gg': 1.0.1
-  '@iconify-json/ic': 1.0.4
   '@iconify-json/icon-park-outline': 1.0.1
   '@iconify-json/mdi': 1.0.8
+  '@iconify-json/pepicons': 1.0.1
   '@iconify-json/ph': 1.0.2
-  '@iconify-json/uil': 1.0.2
   '@sveltejs/vite-plugin-svelte': 1.0.0-next.30_svelte@3.44.1+vite@2.6.14
   autoprefixer: 10.4.0
   sass: 1.43.4
@@ -1188,18 +1184,6 @@ packages:
       to-fast-properties: 2.0.0
     dev: true
 
-  /@iconify-json/gg/1.0.1:
-    resolution: {integrity: sha512-kIxAZ9NX1+qOuLZDnKnnR5BvblPkHzPE7O7sAObg6BFVXHb2JGwV/ldJOmrrAvUy+FYii3TP2KR8pKb0kVnstg==}
-    dependencies:
-      '@iconify/types': 1.0.10
-    dev: true
-
-  /@iconify-json/ic/1.0.4:
-    resolution: {integrity: sha512-CYsARvTHmFZfgpV/y/hcf9OycwAoZ9u2nL5jVoQPr25Weg80hluEyOOTh7uGUJVKBzKSuNp+f/M/REit7+IAxQ==}
-    dependencies:
-      '@iconify/types': 1.0.10
-    dev: true
-
   /@iconify-json/icon-park-outline/1.0.1:
     resolution: {integrity: sha512-4CjsNN1VJMBAqOPeRMVH8JM/eQ1LzTSgjtjs0u/TndPlrKrI/W55avR61QJhr5jqaWPTDuE6lyIv1lJ9Oaigeg==}
     dependencies:
@@ -1212,14 +1196,14 @@ packages:
       '@iconify/types': 1.0.10
     dev: true
 
-  /@iconify-json/ph/1.0.2:
-    resolution: {integrity: sha512-Jfzg5CNtx/P/2fTQeISdq465rEzxj5SlyJE4tGULXSYSir0NPomfRY2zsytAOp2epvnsf1riTS44iMqPhuXXkA==}
+  /@iconify-json/pepicons/1.0.1:
+    resolution: {integrity: sha512-b84i5/UlBEm7ISvvkhL2aoEEWWBL+QKI3uyxcOqL1YX149t/V5Bjzs2ZHeIMzizWSfMambQbbcSm6dag4fLRlQ==}
     dependencies:
       '@iconify/types': 1.0.10
     dev: true
 
-  /@iconify-json/uil/1.0.2:
-    resolution: {integrity: sha512-ahNqblXeT4ULDAJgGdUcaLsHRdT+RdLfpRIPyw6RkfxgQmT0rqwgu3mtLHu3EktA3nrUY0QUjcB5JlHD37dNcg==}
+  /@iconify-json/ph/1.0.2:
+    resolution: {integrity: sha512-Jfzg5CNtx/P/2fTQeISdq465rEzxj5SlyJE4tGULXSYSir0NPomfRY2zsytAOp2epvnsf1riTS44iMqPhuXXkA==}
     dependencies:
       '@iconify/types': 1.0.10
     dev: true

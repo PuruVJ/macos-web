@@ -6,10 +6,9 @@
   import { prefersReducedMotion } from '🍎/stores/prefers-motion.store';
   import { theme } from '🍎/stores/theme.store';
 
-  let isOpen: boolean;
-
   export let backdropDismiss = true;
 
+  let isOpen: boolean;
   const dispatch = createEventDispatcher<{ open: undefined; close: string | undefined }>();
 
   export function open() {

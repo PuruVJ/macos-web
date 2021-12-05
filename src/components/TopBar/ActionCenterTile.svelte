@@ -2,12 +2,12 @@
   export let grid: [rowStart: number, rowSpan: number];
   export let role = 'button';
 
-  const [rowStart, rowsPan] = grid;
+  const [rowStart, rowSpan] = grid;
 </script>
 
 <button
   class="container"
-  style="grid-row: {rowStart} / span {rowsPan}"
+  style="grid-row: {rowStart} / span {rowSpan}"
   tabindex={role === 'button' ? 0 : -1}
   on:click
   on:keyup

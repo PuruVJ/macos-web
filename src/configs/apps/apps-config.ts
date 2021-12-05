@@ -76,6 +76,17 @@ const viewSource = createAppConfig({
 //   dockBreaksBefore: true,
 // });
 
+const vercel = createAppConfig({
+  title: `Powered by Vercel`,
+  resizable: true,
+
+  shouldOpenWindow: false,
+  externalAction: () =>
+    window.open('https://vercel.com/?utm_source=purus-projects&utm_campaign=oss', '_blank'),
+
+  dockBreaksBefore: true,
+});
+
 const appstore = createAppConfig({
   title: 'App Store',
   resizable: true,
@@ -94,4 +105,6 @@ export const appsConfig = {
 
   'purus-twitter': purusTwitter,
   'view-source': viewSource,
+
+  vercel,
 };

@@ -9,6 +9,7 @@
     "check": "svelte-check --tsconfig ./tsconfig.json"
   },
   "devDependencies": {
+    "@iconify-json/gg": "^1.0.1",
     "@iconify-json/icon-park-outline": "^1.0.1",
     "@iconify-json/mdi": "^1.0.8",
     "@iconify-json/pepicons": "^1.0.1",

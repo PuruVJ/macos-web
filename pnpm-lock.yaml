@@ -7,6 +7,7 @@ specifiers:
   '@iconify-json/mdi': ^1.0.8
   '@iconify-json/pepicons': ^1.0.1
   '@iconify-json/ph': ^1.0.2
+  '@iconify-json/uil': ^1.0.2
   '@sveltejs/vite-plugin-svelte': ^1.0.0-next.30
   autoprefixer: ^10.4.0
   date-fns: ^2.25.0
@@ -37,6 +38,7 @@ devDependencies:
   '@iconify-json/mdi': 1.0.8
   '@iconify-json/pepicons': 1.0.1
   '@iconify-json/ph': 1.0.2
+  '@iconify-json/uil': 1.0.2
   '@sveltejs/vite-plugin-svelte': 1.0.0-next.30_svelte@3.44.1+vite@2.6.14
   autoprefixer: 10.4.0
   sass: 1.43.4
@@ -1220,6 +1222,12 @@ packages:
 
   /@iconify-json/ph/1.0.2:
     resolution: {integrity: sha512-Jfzg5CNtx/P/2fTQeISdq465rEzxj5SlyJE4tGULXSYSir0NPomfRY2zsytAOp2epvnsf1riTS44iMqPhuXXkA==}
+    dependencies:
+      '@iconify/types': 1.0.10
+    dev: true
+
+  /@iconify-json/uil/1.0.2:
+    resolution: {integrity: sha512-ahNqblXeT4ULDAJgGdUcaLsHRdT+RdLfpRIPyw6RkfxgQmT0rqwgu3mtLHu3EktA3nrUY0QUjcB5JlHD37dNcg==}
     dependencies:
       '@iconify/types': 1.0.10
     dev: true

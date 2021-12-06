@@ -110,8 +110,8 @@
     cancelAnimationFrame(raf);
   });
 
-  $: appStore = appID === 'appstore';
-  $: showPwaBadge = appStore && needsUpdate;
+  $: isAppStore = appID === 'appstore';
+  $: showPwaBadge = isAppStore && needsUpdate;
   $: showPwaBadge && bounce();
   // $: {
   //   appStore && console.log($widthPX)

@@ -123,7 +123,7 @@
     {title}
   </p>
 
-  <span style="transform: translate3d(0, {$appOpenIconBounceTransform}%, 0)">
+  <span style="transform: translate(0, {$appOpenIconBounceTransform}%)">
     <img
       bind:this={imageEl}
       src="/assets/app-icons/{appID}/256.webp"

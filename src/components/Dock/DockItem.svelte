@@ -58,7 +58,7 @@
       // get the x coordinate of the img DOMElement's center
       // the left x coordinate plus the half of the width
       const imgCenterX = rect.left + rect.width / 2;
-
+      //
       // difference between the x coordinate value of the mouse pointer
       // and the img center x coordinate value
       const distanceDelta = mouseX - imgCenterX;

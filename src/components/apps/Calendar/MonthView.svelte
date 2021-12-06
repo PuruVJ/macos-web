@@ -17,6 +17,10 @@
     );
   }
 
+  function dayKey(date) {
+    return [date, selectedDate.getMonth()].join('-');
+  }
+
   $: ({ daysInPrevMonth, daysInThisMonth, daysInNextMonth } = getDisplayDays(selectedDate));
 </script>
 
@@ -25,19 +29,19 @@
     <div class="weekday" class:weekend={[5, 6].includes(i)}>{day}</div>
   {/each}
 
-  {#each daysInPrevMonth as date (date)}
+  {#each daysInPrevMonth as date (dayKey(date))}
     <div class="day" class:today={isToday(date, false)}>
       <div class="date-number" class:this-month={false}>{date}</div>
     </div>
   {/each}
 
-  {#each daysInThisMonth as date (date)}
+  {#each daysInThisMonth as date (dayKey(date))}
     <div class="day" class:today={isToday(date, true)}>
       <div class="date-number" class:this-month={true}>{date}</div>
     </div>
   {/each}
 
-  {#each daysInNextMonth as date (date)}
+  {#each daysInNextMonth as date (dayKey(date))}
     <div class="day" class:today={isToday(date, false)}>
       <div class="date-number" class:this-month={false}>{date}</div>
     </div>

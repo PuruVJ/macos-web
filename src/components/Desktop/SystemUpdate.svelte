@@ -27,6 +27,7 @@
     },
   });
 
+  $: $needRefresh && systemUpdateDialog?.open();
   $: $systemNeedsUpdate = $needRefresh;
 
   function close() {

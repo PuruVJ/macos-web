@@ -144,9 +144,8 @@
   {#if showPwaBadge}
     <div
       class="pwa-badge"
-      style="font-size: {$widthPX / 57.6}rem; width: {(1.5 * $widthPX) / 57.6}rem; height: {(1.5 *
-        $widthPX) /
-        57.6}rem; line-height: {(1.5 * $widthPX) / 57.6}rem;"
+      style="font-size: 1rem; width: 1.5rem; height: 1.5rem; line-height: 1.5; transform: scale({$widthPX /
+        baseWidth});"
     >
       1
     </div>

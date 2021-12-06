@@ -75,6 +75,7 @@
 
     raf = requestAnimationFrame(animate);
   }
+
   let { title, shouldOpenWindow, externalAction } = appsConfig[appID];
 
   // Spring animation for the click animation
@@ -82,6 +83,14 @@
     duration: 400,
     easing: sineInOut,
   });
+
+  async function bounce() {
+    // Animate the icon
+    await appOpenIconBounceTransform.set(-39.2);
+
+    // Now animate it back to its place
+    appOpenIconBounceTransform.set(0);
+  }
 
   async function openApp(e: MouseEvent) {
     if (!shouldOpenWindow) return externalAction?.(e);
@@ -94,11 +103,7 @@
 
     if (isAppAlreadyOpen) return;
 
-    // Animate the icon
-    await appOpenIconBounceTransform.set(-39.2);
-
-    // Now animate it back to its place
-    appOpenIconBounceTransform.set(0);
+    bounce();
   }
 
   onDestroy(() => {
@@ -107,6 +112,7 @@
 
   $: appStore = appID === 'appstore';
   $: showPwaBadge = appStore && needsUpdate;
+  $: showPwaBadge && bounce();
   // $: {
   //   appStore && console.log($widthPX)
   // }

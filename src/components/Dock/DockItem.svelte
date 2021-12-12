@@ -76,7 +76,7 @@
     raf = requestAnimationFrame(animate);
   }
 
-  let { title, shouldOpenWindow, externalAction } = appsConfig[appID];
+  const { title, shouldOpenWindow, externalAction } = appsConfig[appID];
 
   // Spring animation for the click animation
   const appOpenIconBounceTransform = tweened(0, {

@@ -84,7 +84,7 @@
     easing: sineInOut,
   });
 
-  async function bounce() {
+  async function bounceEffect() {
     // Animate the icon
     await appOpenIconBounceTransform.set(-39.2);
 
@@ -103,7 +103,7 @@
 
     if (isAppAlreadyOpen) return;
 
-    bounce();
+    bounceEffect();
   }
 
   onDestroy(() => {
@@ -112,7 +112,7 @@
 
   $: isAppStore = appID === 'appstore';
   $: showPwaBadge = isAppStore && needsUpdate;
-  $: showPwaBadge && bounce();
+  $: showPwaBadge && bounceEffect();
   // $: {
   //   appStore && console.log($widthPX)
   // }

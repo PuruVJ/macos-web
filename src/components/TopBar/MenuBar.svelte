@@ -32,7 +32,10 @@
 
       <div
         class="menu-parent"
-        style="visibility: {$activeMenu !== menuID ? 'hidden' : 'visible'}"
+        style="visibility: {$activeMenu !== menuID ? 'hidden' : 'visible'}; margin-left: {menuID ===
+        'apple'
+          ? '5px'
+          : '0'}"
         use:elevation={'menubar-menu-parent'}
       >
         <Menu menu={menuConfig.menu} />
@@ -44,6 +47,7 @@
 <style lang="scss">
   .container {
     height: 100%;
+    margin-top: 5px;
 
     display: flex;
     position: relative;

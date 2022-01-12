@@ -10,28 +10,28 @@
   },
   "devDependencies": {
     "@iconify-json/gg": "^1.0.1",
-    "@iconify-json/ic": "^1.0.6",
-    "@iconify-json/icon-park-outline": "^1.0.1",
-    "@iconify-json/mdi": "^1.0.8",
-    "@iconify-json/pepicons": "^1.0.1",
-    "@iconify-json/ph": "^1.0.2",
+    "@iconify-json/ic": "^1.0.7",
+    "@iconify-json/icon-park-outline": "^1.0.2",
+    "@iconify-json/mdi": "^1.0.12",
+    "@iconify-json/pepicons": "^1.0.4",
+    "@iconify-json/ph": "^1.0.4",
     "@iconify-json/uil": "^1.0.2",
-    "@sveltejs/vite-plugin-svelte": "^1.0.0-next.30",
-    "autoprefixer": "^10.4.0",
-    "sass": "^1.43.4",
-    "svelte": "^3.44.1",
-    "svelte-check": "^2.2.8",
-    "svelte-preprocess": "^4.9.8",
-    "typescript": "^4.4.4",
-    "vite": "2.6.14",
-    "vite-plugin-pwa": "^0.11.3",
-    "workbox-window": "^6.3.0"
+    "@sveltejs/vite-plugin-svelte": "^1.0.0-next.34",
+    "autoprefixer": "^10.4.2",
+    "sass": "^1.47.0",
+    "svelte": "^3.46.0",
+    "svelte-check": "^2.2.12",
+    "svelte-preprocess": "^4.10.1",
+    "typescript": "^4.5.4",
+    "vite": "2.7.10",
+    "vite-plugin-pwa": "^0.11.12",
+    "workbox-window": "^6.4.2"
   },
   "dependencies": {
-    "date-fns": "^2.25.0",
-    "popmotion": "^11.0.0",
-    "svelte-drag": "^2.0.4",
+    "date-fns": "^2.28.0",
+    "popmotion": "^11.0.3",
+    "svelte-drag": "^2.4.0",
     "svelte-local-storage-store": "^0.2.6",
-    "unplugin-icons": "^0.12.18"
+    "unplugin-icons": "^0.13.0"
   }
 }

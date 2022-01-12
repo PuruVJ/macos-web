@@ -86,7 +86,7 @@
 
   async function bounceEffect() {
     // Animate the icon
-    await appOpenIconBounceTransform.set(-39.2);
+    await appOpenIconBounceTransform.set(-40);
 
     // Now animate it back to its place
     appOpenIconBounceTransform.set(0);
@@ -123,13 +123,15 @@
     class="tooltip"
     class:tooltip-enabled={!$isAppBeingDragged}
     class:dark={$theme.scheme === 'dark'}
-    style="top: {$prefersReducedMotion ? '-50px' : '-35%'};"
+    style="top: {$prefersReducedMotion
+      ? '-50px'
+      : '-35%'}; transform: translate(0, {$appOpenIconBounceTransform}px)"
     use:elevation={'dock-tooltip'}
   >
     {title}
   </p>
 
-  <span style="transform: translate(0, {$appOpenIconBounceTransform}%)">
+  <span style="transform: translate(0, {$appOpenIconBounceTransform}px)">
     <img
       bind:this={imageEl}
       src="/assets/app-icons/{appID}/256.webp"

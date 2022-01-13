@@ -10,6 +10,10 @@
     ([, { type }]) => type === 'standalone',
   );
 
+  $: currentWallpaperThumb = `url(/assets/wallpapers/${
+    wallpapersConfig[$wallpaper.id].thumbnail
+  }.jpg)`;
+
   function changeWallpaper(wallpaperName: WallpaperID) {
     $wallpaper.id = wallpaperName;
   }
@@ -22,11 +26,7 @@
 
   <section class="main-area">
     <section class="selected-wallpaper-section">
-      <div
-        class="image"
-        style="background-image: url(/assets/wallpapers/{wallpapersConfig[$wallpaper.id]
-          .thumbnail}.jpg);"
-      />
+      <div class="image" style:background-image={currentWallpaperThumb} />
 
       <div class="info">
         <h2>{wallpapersConfig[$wallpaper.id].name}</h2>

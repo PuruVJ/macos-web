@@ -14,15 +14,17 @@
 
     $motionVal = 1;
   });
+
+  $: imageTransform = !$prefersReducedMotion
+    ? `rotate(${180 * ($motionVal + 1)}deg) scale(${$motionVal}) translateZ(0px)`
+    : 'initial';
 </script>
 
 <section class="container">
   <header class="titlebar app-window-drag-handle" />
   <section class="main-area">
     <img
-      style="transform:{!$prefersReducedMotion
-        ? `rotate(${180 * ($motionVal + 1)}deg) scale(${$motionVal}) translateZ(0px)`
-        : 'initial'};"
+      style:transform={imageTransform}
       src="/assets/app-icons/{appID}/256.webp"
       alt="Placeholder App"
     />

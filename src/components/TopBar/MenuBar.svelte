@@ -12,12 +12,12 @@
 >
   {#each Object.entries($menuBarMenus) as [menuID, menuConfig]}
     <div>
-      <div style="height: 100%">
+      <div style:height="100%">
         <button
           class="menu-button"
           class:default-menu={menuID === 'default'}
           class:apple-icon-button={menuID === 'apple'}
-          style="--scale: {$activeMenu === menuID ? 1 : 0}"
+          style:--scale={$activeMenu === menuID ? '1' : '0'}
           on:click={() => ($activeMenu = menuID)}
           on:mouseover={() => $activeMenu && ($activeMenu = menuID)}
           on:focus={() => ($activeMenu = menuID)}
@@ -32,7 +32,7 @@
 
       <div
         class="menu-parent"
-        style="visibility: {$activeMenu !== menuID ? 'hidden' : 'visible'}"
+        style:visibility={$activeMenu === menuID ? 'visible' : 'hidden'}
         use:elevation={'menubar-menu-parent'}
       >
         <Menu menu={menuConfig.menu} />

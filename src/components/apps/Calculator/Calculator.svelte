@@ -40,7 +40,7 @@
     <button class="number-button"> 2 </button>
     <button class="number-button"> 3 </button>
     <button class="operation-button"> <Plus /> </button>
-    <button class="number-button curved-bottom-left-button" style="grid-column: 1 / span 2">
+    <button class="number-button curved-bottom-left-button" style:grid-column="1 / span 2">
       0
     </button>
     <button class="number-button"> . </button>

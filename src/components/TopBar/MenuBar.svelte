@@ -32,7 +32,7 @@
 
       <div
         class="menu-parent"
-        style:visibility={$activeMenu !== menuID ? 'visible' : 'hidden'}
+        style:visibility={$activeMenu === menuID ? 'visible' : 'hidden'}
         use:elevation={'menubar-menu-parent'}
       >
         <Menu menu={menuConfig.menu} />

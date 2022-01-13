@@ -24,8 +24,8 @@
     <section class="selected-wallpaper-section">
       <div
         class="image"
-        style="background-image: url(/assets/wallpapers/{wallpapersConfig[$wallpaper.id]
-          .thumbnail}.jpg);"
+        style:background-image="url(/assets/wallpapers/{wallpapersConfig[$wallpaper.id]
+          .thumbnail}.jpg)"
       />
 
       <div class="info">

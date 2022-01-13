@@ -29,7 +29,7 @@
       aria-valuemax={100}
       aria-valuetext="Loading up macOS Web"
     >
-      <div class="indicator" style="transform: translateX(-{$progressVal}%);" />
+      <div class="indicator" style:transform="translateX(-{$progressVal}%)" />
     </div>
   </div>
 {/if}

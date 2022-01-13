@@ -7,7 +7,7 @@
 
 <button
   class="container"
-  style="grid-row: {rowStart} / span {rowSpan}"
+  style:grid-row="{rowStart} / span {rowSpan}"
   tabindex={role === 'button' ? 0 : -1}
   on:click
   on:keyup

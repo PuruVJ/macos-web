@@ -90,8 +90,8 @@
         <div class="color-palette">
           {#each Object.keys(colors) as colorID}
             <button
-              style="--color-hsl: {colors[colorID][$theme.scheme]
-                .hsl}; --color-contrast-hsl: {colors[colorID][$theme.scheme].contrastHsl}"
+              style:--color-hsl={colors[colorID][$theme.scheme].hsl}
+              style:--color-contrast-hsl={colors[colorID][$theme.scheme].contrastHsl}
               on:click={() => ($theme.primaryColor = colorID)}
             >
               {#if $theme.primaryColor === colorID}

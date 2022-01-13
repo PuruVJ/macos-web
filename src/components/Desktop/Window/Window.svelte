@@ -112,7 +112,9 @@
   class="container"
   class:dark={$theme.scheme === 'dark'}
   class:active={$activeApp === appID}
-  style="width: {+width / remModifier}rem;height: {+height / remModifier}rem; z-index: {$appZIndices[appID]}"
+  style:width="{+width / remModifier}rem"
+  style:height="{+height / remModifier}rem"
+  style:z-index={$appZIndices[appID] + ''}
   tabindex="-1"
   bind:this={windowEl}
   use:draggable={{

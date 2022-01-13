@@ -118,10 +118,10 @@
 
     transform: translateZ(0);
 
-    height: calc(100% - 3px);
+    height: calc(100% - 2.7px);
     width: calc(12rem - 2.27px);
 
-    margin: 1.7px 0 0px 1.7px;
+    margin: 1.8px 0 0px 1.8px;
 
     border-top-left-radius: 0.5rem;
     border-bottom-left-radius: inherit;

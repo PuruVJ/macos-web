@@ -37,7 +37,7 @@
   <div
     class="container"
     class:dark={$theme.scheme === 'dark'}
-    style:transform="translate({xPos}px, {yPos}px);"
+    style="transform: translate({xPos}px, {yPos}px);"
     in:fadeIn={{ duration: 80 }}
     out:fadeOut
     use:elevation={'context-menu'}

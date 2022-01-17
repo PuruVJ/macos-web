@@ -32,8 +32,8 @@
     <img
       height="200"
       width="200"
-      src="/assets/app-data/purus-profile/puru.webp"
-      alt="Puru Vijay Profile pic"
+      src="https://avatars.githubusercontent.com/u/91379432?v=4"
+      alt="Chandula Janith Profile pic"
     />
 
     <br />

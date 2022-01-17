@@ -14,22 +14,17 @@
 
 <section class="container">
   <header class="titlebar app-window-drag-handle">
-    <span>About the Developer</span>
+    <span>About Me</span>
   </header>
 
   <aside class:light={$theme.scheme === 'light'}>
     <nav>
-      <a href="https://www.puruvj.dev/blog" use:external> <BlogIcon /> Blog </a>
-      <a href="https://www.puruvj.dev/works" use:external> <WorksIcon /> Works </a>
+      <a href="https://gatsby-gitblog.vercel.app" use:external> <BlogIcon /> Blog </a>
+      <a href="https://github.com/RedEdge967?tab=repsitories" use:external> <WorksIcon /> Works </a>
 
       <hr />
 
-      <a href="https://www.puruvj.dev/twitter" use:external>
-        <TwitterIcon />
-        Twitter
-      </a>
-      <a href="https://www.puruvj.dev/github" use:external> <GithubIcon /> Github </a>
-      <a href="https://www.puruvj.dev/devto" use:external> <DevToIcon /> Dev.to </a>
+      <a href="https://github.com/RedEdge967" use:external> <GithubIcon /> Github </a>
     </nav>
   </aside>
 
@@ -43,7 +38,7 @@
 
     <br />
 
-    <h1>Hi, I'm Puru</h1>
+    <h1>Hi, I'm Chandula</h1>
 
     <h2>
       I'm the creator of macOS Web, which you're on right now
@@ -61,8 +56,8 @@
     <br /><br />
 
     <p>
-      However, my love for tech doesn't end there. I enjoy writing backend APIs, scripts, working
-      with databases, and my fav platforms are NodeJS, Deno and Go
+      However, my love for tech doesn't end there. I enjoy writing Games,
+      websites, blog posts and more...
     </p>
   </section>
 </section>

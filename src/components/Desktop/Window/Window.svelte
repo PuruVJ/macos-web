@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onMount } from 'svelte';
-  import { draggable } from 'svelte-drag';
+  import { draggable } from '@neodrag/svelte';
   import { sineInOut } from 'svelte/easing';
   import { elevation } from '🍎/actions';
   import { appsConfig } from '🍎/configs/apps/apps-config';

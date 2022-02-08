@@ -23,7 +23,7 @@
 </script>
 
 <div class="container" use:clickOutside={{ callback: hide }} use:focusOutside={{ callback: hide }}>
-  <button style:--scale={visible ? '1' : '0'} on:click={show} on:focus={show}>
+  <button style:--scale={visible ? 1 : 0} on:click={show} on:focus={show}>
     <SwitchSvg />
   </button>
 

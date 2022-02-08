@@ -17,7 +17,7 @@
           class="menu-button"
           class:default-menu={menuID === 'default'}
           class:apple-icon-button={menuID === 'apple'}
-          style:--scale={$activeMenu === menuID ? '1' : '0'}
+          style:--scale={$activeMenu === menuID ? 1 : 0}
           on:click={() => ($activeMenu = menuID)}
           on:mouseover={() => $activeMenu && ($activeMenu = menuID)}
           on:focus={() => ($activeMenu = menuID)}

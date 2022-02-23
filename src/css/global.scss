@@ -73,13 +73,14 @@ button {
   cursor: var(--system-cursor-default), auto;
 }
 
-/*
-/* Scrollbar Stuffs *//*
+
+/* Scrollbar Stuffs */
 ::-webkit-scrollbar {
   width: 5px;
+  margin-right: 5px;
 }
 
-/* Track *//*
+/* Track */
 ::-webkit-scrollbar-track {
   background-color: transparent;
   border-radius: 16px;
@@ -87,7 +88,7 @@ button {
   transition-duration: 0.4s;
 }
 
-/* Handle *//*
+/* Handle */
 ::-webkit-scrollbar-thumb {
   background-color: #888;
   border-radius: 16px;
@@ -95,14 +96,13 @@ button {
   transition-duration: 0.4s;
 }
 
-/* Handle on hover *//*
+/* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
   background-color: #666;
 }
 
-/* Handle on clicked *//*
+/* Handle on clicked */
 ::-webkit-scrollbar-thumb:active {
   background-color: #444;
 }
-*/
 

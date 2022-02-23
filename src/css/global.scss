@@ -77,13 +77,12 @@ button {
 /* Scrollbar Stuffs */
 ::-webkit-scrollbar {
   width: 5px;
-  margin-right: 5px;
 }
 
 /* Track */
 ::-webkit-scrollbar-track {
   background-color: transparent;
-  border-radius: 16px;
+  border-radius: 0.75rem;
   width: 5px;
   transition-duration: 0.4s;
 }
@@ -91,7 +90,7 @@ button {
 /* Handle */
 ::-webkit-scrollbar-thumb {
   background-color: #888;
-  border-radius: 16px;
+  border-radius: 0.75rem;
   width: 5px;
   transition-duration: 0.4s;
 }

@@ -6,6 +6,8 @@ const wallpapers = createAppConfig({
 
   height: 600,
   width: 800,
+
+  dockBreaksBefore: true,
 });
 
 const calculator = createAppConfig({
@@ -35,7 +37,8 @@ const finder = createAppConfig({
   title: 'Finder',
   resizable: true,
 
-  dockBreaksBefore: true,
+  // dockBreaksBefore: true,
+  shouldOpenWindow: false,
 });
 
 const safari = createAppConfig({
@@ -93,15 +96,15 @@ const appstore = createAppConfig({
 });
 
 export const appsConfig = {
+  finder,
   wallpapers,
   calculator,
   calendar,
   vscode,
-  finder,
-  appstore,
-  safari,
+  // appstore,
+  // safari,
 
-  'system-preferences': systemPreferences,
+  // 'system-preferences': systemPreferences,
 
   'purus-twitter': purusTwitter,
   'view-source': viewSource,

@@ -115,10 +115,6 @@
   style:width="{+width / remModifier}rem"
   style:height="{+height / remModifier}rem"
   style:z-index={$appZIndices[appID]}
-  style:min-width="400px"
-  style:min-height="300px"
-  style:overflow="auto"
-  style:resize="both"
   tabindex="-1"
   bind:this={windowEl}
   use:draggable={{

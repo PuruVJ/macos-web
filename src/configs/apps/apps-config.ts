@@ -101,7 +101,7 @@ export const appsConfig = {
   calculator,
   calendar,
   vscode,
-  // appstore,
+  appstore,
   // safari,
 
   // 'system-preferences': systemPreferences,

@@ -10,7 +10,7 @@ export const openApps = writable<Record<AppID, boolean>>({
   vscode: false,
   calculator: false,
   // safari: false,
-  // appstore: false,
+  appstore: false,
   calendar: false,
   // 'system-preferences': false,
 
@@ -37,7 +37,7 @@ export const appZIndices = writable<Record<AppID, number>>({
   vscode: 0,
   calculator: 0,
   // safari: 0,
-  // appstore: 0,
+  appstore: 0,
   calendar: 0,
   // 'system-preferences': 0,
 
@@ -57,7 +57,7 @@ export const appsInFullscreen = writable<Record<AppID, boolean>>({
   vscode: false,
   calculator: false,
   // safari: false,
-  // appstore: false,
+  appstore: false,
   calendar: false,
   // 'system-preferences': false,
 

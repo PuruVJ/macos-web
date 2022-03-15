@@ -34,7 +34,7 @@
     <h1 style:display="flex" style:align-items="center" style:gap="0.5rem">
       Nothing here yet <img
         style="height: 1em; width: auto; transform: translateY(0.1em);"
-        src="../../../../public/assets/emojis/wink.png"
+        src="/assets/emojis/wink.png"
         alt="Wink Emoji"
       />
     </h1>

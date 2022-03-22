@@ -112,6 +112,7 @@
   class="container"
   class:dark={$theme.scheme === 'dark'}
   class:active={$activeApp === appID}
+  class:normalWindow={!isMaximized}
   style:width="{+width / remModifier}rem"
   style:height="{+height / remModifier}rem"
   style:z-index={$appZIndices[appID]}
@@ -149,8 +150,7 @@
     position: absolute;
 
     will-change: width, height;
-
-    border-radius: 0.75rem;
+    
     box-shadow: var(--elevated-shadow);
 
     cursor: var(--system-cursor-default), auto;
@@ -179,4 +179,9 @@
     // Necessary, as `.container` tries to apply shadow on it
     box-shadow: none !important;
   }
+  
+  .normalWindow {
+    border-radius: 0.75rem;
+  }
+  
 </style>

@@ -137,7 +137,7 @@
     />
   </span>
 
-  <div class="dot" style:--opacity={+$openApps[appID] + ''} />
+  <div class="dot" style:--opacity={+$openApps[appID]} />
 
   {#if showPwaBadge}
     <div class="pwa-badge" style:transform="scale({$widthPX / baseWidth})">1</div>

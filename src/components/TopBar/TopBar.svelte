@@ -83,6 +83,25 @@
         opacity: 1;
       }
     }
+
+    // for outward curves
+    &::before,
+    &::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      height: 16px;
+      width: 16px;
+      border-radius: 50%;
+    }
+    &::before {
+      left: -16px;
+      box-shadow: 8px -8px #222;
+    }
+    &::after {
+      right: -16px;
+      box-shadow: -8px -8px #222;
+    }
   }
 
   header::before {

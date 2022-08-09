@@ -9,7 +9,8 @@
 <section
   class="container"
   class:dark={$theme.scheme === 'dark'}
-  style="grid-column: {columnStart} / span {columnSpan}; grid-row: {rowStart} / span {rowSpan}"
+  style:grid-column="{columnStart} / span {columnSpan}"
+  style:grid-row="{rowStart} / span {rowSpan}"
 >
   <slot />
 </section>

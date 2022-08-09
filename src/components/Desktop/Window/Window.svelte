@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onMount } from 'svelte';
-  import { draggable } from 'svelte-drag';
+  import { draggable } from '@neodrag/svelte';
   import { sineInOut } from 'svelte/easing';
   import { elevation } from '🍎/actions';
   import { appsConfig } from '🍎/configs/apps/apps-config';
@@ -30,6 +30,8 @@
   let windowEl: HTMLElement;
 
   const { height, width } = appsConfig[appID];
+
+  const remModifier = +height * 1.2 >= window.innerHeight ? 24 : 16;
 
   const randX = randint(-600, 600);
   const randY = randint(-100, 100);
@@ -76,8 +78,8 @@
       draggingEnabled = true;
       windowEl.style.transform = minimizedTransform;
 
-      windowEl.style.width = `${+width / 16}rem`;
-      windowEl.style.height = `${+height / 16}rem`;
+      windowEl.style.width = `${+width / remModifier}rem`;
+      windowEl.style.height = `${+height / remModifier}rem`;
     }
 
     isMaximized = !isMaximized;
@@ -110,7 +112,9 @@
   class="container"
   class:dark={$theme.scheme === 'dark'}
   class:active={$activeApp === appID}
-  style="width: {+width / 16}rem;height: {+height / 16}rem; z-index: {$appZIndices[appID]}"
+  style:width="{+width / remModifier}rem"
+  style:height="{+height / remModifier}rem"
+  style:z-index={$appZIndices[appID]}
   tabindex="-1"
   bind:this={windowEl}
   use:draggable={{

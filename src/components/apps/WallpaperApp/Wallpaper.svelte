@@ -97,7 +97,7 @@
 
 <div
   class="background-cover"
-  style="background-image: url({visibleBackgroundImage});"
+  style:background-image="url({visibleBackgroundImage})"
   use:elevation={'wallpaper'}
 />
 

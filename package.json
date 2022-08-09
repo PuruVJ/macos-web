@@ -9,29 +9,29 @@
     "check": "svelte-check --tsconfig ./tsconfig.json"
   },
   "devDependencies": {
-    "@iconify-json/gg": "^1.0.1",
-    "@iconify-json/ic": "^1.0.6",
-    "@iconify-json/icon-park-outline": "^1.0.1",
-    "@iconify-json/mdi": "^1.0.8",
-    "@iconify-json/pepicons": "^1.0.1",
-    "@iconify-json/ph": "^1.0.2",
-    "@iconify-json/uil": "^1.0.2",
-    "@sveltejs/vite-plugin-svelte": "^1.0.0-next.30",
-    "autoprefixer": "^10.4.0",
-    "sass": "^1.43.4",
-    "svelte": "^3.44.1",
-    "svelte-check": "^2.2.8",
-    "svelte-preprocess": "^4.9.8",
-    "typescript": "^4.4.4",
-    "vite": "2.6.14",
-    "vite-plugin-pwa": "^0.11.3",
-    "workbox-window": "^6.3.0"
+    "@iconify-json/gg": "^1.1.2",
+    "@iconify-json/ic": "^1.1.7",
+    "@iconify-json/icon-park-outline": "^1.1.5",
+    "@iconify-json/mdi": "^1.1.27",
+    "@iconify-json/pepicons": "^1.1.5",
+    "@iconify-json/ph": "^1.1.2",
+    "@iconify-json/uil": "^1.1.2",
+    "@sveltejs/vite-plugin-svelte": "1.0.1",
+    "autoprefixer": "^10.4.7",
+    "sass": "^1.53.0",
+    "svelte": "^3.49.0",
+    "svelte-check": "^2.8.0",
+    "svelte-preprocess": "^4.10.7",
+    "typescript": "^4.7.4",
+    "vite": "3.0.0",
+    "vite-plugin-pwa": "^0.12.3",
+    "workbox-window": "^6.5.3"
   },
   "dependencies": {
-    "date-fns": "^2.25.0",
-    "popmotion": "^11.0.0",
-    "svelte-drag": "^2.0.4",
+    "@neodrag/svelte": "^1.2.3",
+    "date-fns": "^2.28.0",
+    "popmotion": "^11.0.3",
     "svelte-local-storage-store": "^0.2.6",
-    "unplugin-icons": "^0.12.18"
+    "unplugin-icons": "^0.14.7"
   }
 }

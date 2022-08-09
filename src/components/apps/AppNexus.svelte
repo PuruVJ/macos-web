@@ -26,7 +26,7 @@
     <PurusProfile />
   {/await}
 {:else}
-  {#await import('./Placeholder/Placeholder.svelte') then { default: Placeholder }}
-    <Placeholder {appID} />
+  {#await import('./AppStore/AppStore.svelte') then { default: AppStore }}
+    <AppStore {appID} />
   {/await}
 {/if}

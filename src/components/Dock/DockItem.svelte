@@ -86,7 +86,7 @@
 
   async function bounceEffect() {
     // Animate the icon
-    await appOpenIconBounceTransform.set(-39.2);
+    await appOpenIconBounceTransform.set(-40);
 
     // Now animate it back to its place
     appOpenIconBounceTransform.set(0);
@@ -113,9 +113,6 @@
   $: isAppStore = appID === 'appstore';
   $: showPwaBadge = isAppStore && needsUpdate;
   $: showPwaBadge && bounceEffect();
-  // $: {
-  //   appStore && console.log($widthPX)
-  // }
 </script>
 
 <button on:click={openApp} aria-label="Launch {title} app" class="dock-open-app-button {appID}">
@@ -123,32 +120,27 @@
     class="tooltip"
     class:tooltip-enabled={!$isAppBeingDragged}
     class:dark={$theme.scheme === 'dark'}
-    style="top: {$prefersReducedMotion ? '-50px' : '-35%'};"
+    style:top={$prefersReducedMotion ? '-50px' : '-35%'}
+    style:transform="translate(0, {$appOpenIconBounceTransform}px)"
     use:elevation={'dock-tooltip'}
   >
     {title}
   </p>
 
-  <span style="transform: translate(0, {$appOpenIconBounceTransform}%)">
+  <span style:transform="translate(0, {$appOpenIconBounceTransform}px)">
     <img
       bind:this={imageEl}
       src="/assets/app-icons/{appID}/256.webp"
       alt="{title} app"
-      style="width: {$widthPX / 16}rem"
+      style:width="{$widthPX / 16}rem"
       draggable="false"
     />
   </span>
 
-  <div class="dot" style="--opacity: {+$openApps[appID]}" />
+  <div class="dot" style:--opacity={+$openApps[appID]} />
 
   {#if showPwaBadge}
-    <div
-      class="pwa-badge"
-      style="font-size: 1rem; width: 1.5rem; height: 1.5rem; line-height: 1.5; transform: scale({$widthPX /
-        baseWidth});"
-    >
-      1
-    </div>
+    <div class="pwa-badge" style:transform="scale({$widthPX / baseWidth})">1</div>
   {/if}
 </button>
 
@@ -224,14 +216,25 @@
     position: absolute;
     top: 1px;
     right: -1px;
+
     background-color: rgba(248, 58, 58, 0.85);
+
     box-shadow: hsla(var(--system-color-dark-hsl), 0.4) 0px 0.5px 2px;
-    color: white;
     border-radius: 50%;
+
     pointer-events: none;
     vertical-align: middle;
+
+    width: 1.5rem;
+    height: 1.5rem;
+
     margin: 0;
     padding: 0;
+
     text-align: center;
+    color: white;
+
+    font-size: 1rem;
+    line-height: 1.5;
   }
 </style>

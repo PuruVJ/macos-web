@@ -116,7 +116,7 @@
       <div class="wallpaper-tile">
         <img
           class="wallpaper-thumbnail"
-          src="/assets/wallpapers/{wallpapersConfig[$wallpaper.id].thumbnail}.jpg"
+          src="/wallpapers/{wallpapersConfig[$wallpaper.id].thumbnail}.jpg"
           alt="Current wallpaper"
         />
 

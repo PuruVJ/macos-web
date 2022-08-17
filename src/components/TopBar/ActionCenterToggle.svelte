@@ -36,12 +36,7 @@
 
 <SystemDialog bind:this={themeWarningDialog} on:close={() => (isThemeWarningDialogOpen = false)}>
   <section class="theme-warning-section">
-    <img
-      height="100"
-      width="100"
-      src="/assets/app-icons/wallpapers/256.webp"
-      alt="Wallpapers app logo"
-    />
+    <img height="100" width="100" src="/app-icons/wallpapers/256.webp" alt="Wallpapers app logo" />
 
     <h3>Current Wallpaper Settings prevent changing theme</h3>
     <p>Head over to Wallpapers app to change this setting or choose a standalone wallpaper.</p>

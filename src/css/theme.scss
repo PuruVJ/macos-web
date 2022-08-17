@@ -66,15 +66,15 @@ body[data-theme='light'] {
   --system-color-grey-A700-hsl: 0, 0%, 38%;
 
   // Cursors
-  --system-cursor-default: url('/assets/cursors/normal-select.svg');
-  --system-cursor-pointer: url('/assets/cursors/link-select.svg');
-  --system-cursor-text-select: url('/assets/cursors/text-select.svg');
-  --system-cursor-help-select: url('/assets/cursors/help-select.svg');
+  --system-cursor-default: url('/cursors/normal-select.svg');
+  --system-cursor-pointer: url('/cursors/link-select.svg');
+  --system-cursor-text-select: url('/cursors/text-select.svg');
+  --system-cursor-help-select: url('/cursors/help-select.svg');
 
   // the following two cursors are animated, but will be rendered as a static
   // image by the browser
-  --system-cursor-busy: url('/assets/cursors/busy.webp');
-  --system-cursor-working-in-bg: url('/assets/cursors/working-in-background.webp');
+  --system-cursor-busy: url('/cursors/busy.webp');
+  --system-cursor-working-in-bg: url('/cursors/working-in-background.webp');
 }
 
 body.dark {

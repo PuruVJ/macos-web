@@ -14,7 +14,7 @@
 
   {#if $shouldShowNotch}
     <div class="notch" in:fadeIn out:fadeOut>
-      <span> <img src="/assets/emojis/wink.png" alt="Wink emoji" class="emoji" /> </span>
+      <span> <img src="/emojis/wink.png" alt="Wink emoji" class="emoji" /> </span>
     </div>
   {/if}
 

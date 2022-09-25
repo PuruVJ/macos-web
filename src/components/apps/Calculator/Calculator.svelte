@@ -6,45 +6,66 @@
   import Modulo from '~icons/icon-park-outline/percentage';
   import Division from '~icons/ph/divide-bold';
   import Multiply from '~icons/uil/multiply';
+
+  let init_value: string = "";
+
+  const addItem = (e: string) => {
+    init_value = init_value.concat(e);
+  } 
+
+  const ClearInput = () => {
+    init_value = ""
+  }
+
+  const calculate = () => {
+    try {
+      init_value = eval(init_value).toString()
+    } catch (err) {
+      init_value = "Error"
+      console.log(err)
+    }
+  }
+
+
 </script>
 
 <section class="container">
   <header class="app-window-drag-handle" />
 
-  <section class="show-area">0</section>
+  <section class="show-area">{init_value === "" ? "0" : init_value}</section>
 
   <section class="buttons-container">
-    <button class="top-row-button"> AC </button>
+    <button class="top-row-button" on:click={ClearInput} > AC </button>
     <button class="top-row-button">
       <PlusMinusVariant />
     </button>
-    <button class="top-row-button">
+    <button class="top-row-button" on:click={() => addItem("%")}>
       <Modulo />
     </button>
-    <button class="operation-button">
+    <button class="operation-button" on:click={() => addItem("/")}>
       <Division />
     </button>
-    <button class="number-button"> 7 </button>
-    <button class="number-button"> 8 </button>
-    <button class="number-button"> 9 </button>
-    <button class="operation-button">
+    <button class="number-button" on:click={() => addItem('7')} > 7 </button>
+    <button class="number-button" on:click={() => addItem('8')}> 8 </button>
+    <button class="number-button" on:click={() => addItem('9')}> 9 </button>
+    <button class="operation-button" on:click={() => addItem("*")}>
       <Multiply />
     </button>
-    <button class="number-button"> 4 </button>
-    <button class="number-button"> 5 </button>
-    <button class="number-button"> 6 </button>
-    <button class="operation-button">
+    <button class="number-button" on:click={() => addItem('4')}> 4 </button>
+    <button class="number-button" on:click={() => addItem('5')}> 5 </button>
+    <button class="number-button" on:click={() => addItem('6')}> 6 </button>
+    <button class="operation-button" on:click={() => addItem("-")} >
       <Minus />
     </button>
-    <button class="number-button"> 1 </button>
-    <button class="number-button"> 2 </button>
-    <button class="number-button"> 3 </button>
-    <button class="operation-button"> <Plus /> </button>
-    <button class="number-button curved-bottom-left-button" style:grid-column="1 / span 2">
+    <button class="number-button"name="1" on:click={() => addItem("1")}> 1 </button>
+    <button class="number-button" name="2" on:click={() => addItem("2")}> 2 </button>
+    <button class="number-button" name="3" on:click={() => addItem("3")}> 3 </button>
+    <button class="operation-button" name='+' on:click={() => addItem("+")}> <Plus/> </button>
+    <button class="number-button curved-bottom-left-button" style:grid-column="1 / span 2" on:click={() => addItem("0")}>
       0
     </button>
-    <button class="number-button"> . </button>
-    <button class="operation-button curved-bottom-right-button"> <Equal /> </button>
+    <button class="number-button" on:click={() => addItem(".")}> . </button>
+    <button class="operation-button curved-bottom-right-button" on:click={calculate} > <Equal /> </button>
   </section>
 </section>
 

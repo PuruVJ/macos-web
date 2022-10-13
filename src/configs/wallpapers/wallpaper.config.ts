@@ -6,6 +6,8 @@ export type Wallpaper = {
 
   thumbnail: string;
 
+  photoType?: 'webp' | 'jpg';
+
   /** Timestamps definition in terms of when a new wallpaper should take effect */
   timestamps?: {
     wallpaper?: Record<number, string>;
@@ -16,6 +18,27 @@ export type Wallpaper = {
 const createWallpapersConfig = <TConfig>(et: Record<keyof TConfig, Wallpaper>) => et;
 
 export const wallpapersConfig = createWallpapersConfig({
+  ventura: {
+    name: 'Ventura',
+    type: 'dynamic',
+    photoType: 'webp',
+    thumbnail: '58-2',
+    timestamps: {
+      wallpaper: {
+        7: '58-5',
+        9: '58-2',
+        12: '58-3',
+        15: '58-4',
+        17: '58-5',
+        19: '58-1',
+      },
+      theme: {
+        7: 'light',
+        19: 'dark',
+      },
+    },
+  },
+
   monterey: {
     name: 'Monterey',
     type: 'dynamic',

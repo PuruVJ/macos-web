@@ -15,7 +15,7 @@ export type Wallpaper = {
 
 const optimizedWallpapers = import.meta.glob('../../assets/wallpapers/*.{webp,jpg}', {
   eager: true,
-  query: { width: 2000, quality: 99, format: 'webp' },
+  query: { width: 2000, quality: 95, format: 'webp' },
 }) as Record<string, NodeModule>;
 
 const createWallpapersConfig = <TConfig = string>(

@@ -2,6 +2,7 @@
 /// <reference types="vite/client" />
 /// <reference types="vite-plugin-pwa/client" />
 /// <reference types="unplugin-icons/types/svelte" />
+/// <reference types="@neodrag/svelte/globals" />
 
 type ObjectKeys<Obj> = Obj extends object
   ? (keyof Obj)[]
@@ -25,14 +26,6 @@ type Unpacked<ArrayLike> = ArrayLike extends (infer RootType)[] ? RootType : Arr
 type Unpromisify<PromiseLike> = PromiseLike extends Promise<infer RootType>
   ? RootType
   : PromiseLike;
-
-declare namespace svelte.JSX {
-  interface HTMLAttributes<T> {
-    'onsvelte-drag:start'?: (e: CustomEvent<null>) => void;
-    'onsvelte-drag:end'?: (e: CustomEvent<null>) => void;
-    'onsvelte-drag'?: (e: CustomEvent<{ offsetX: number; offsetY: number }>) => void;
-  }
-}
 
 interface Array<T> {
   fill<T extends any>(value: T, start?: number | undefined, end?: number | undefined): T[];

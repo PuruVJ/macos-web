@@ -3,34 +3,70 @@
   import { appsConfig } from '🍎/configs/apps/apps-config';
   import { appsInFullscreen } from '🍎/stores/apps.store';
   import { systemNeedsUpdate } from '🍎/stores/system.store';
+  import { isDockHidden } from '🍎/stores/dock.store';
   import DockItem from './DockItem.svelte';
 
-  let mouseX: number | null = null;
+  let dockMouseX: number | null = null;
 
-  $: isDockAutoHidden = Object.values($appsInFullscreen).some(Boolean);
+  const HIDDEN_DOCK_THRESHOLD = 30;
+  let bodyHeight = 0;
+  let mouseY = 0;
+
+  let dockContainerEl: HTMLElement;
+
+  $: {
+    // Due to how pointer-events: none works, if dock auto opens, you move away, it won't close automatically.
+    // So close it manually if mouse pointer goes out of the dock area.
+    if (Math.abs(mouseY - bodyHeight) > dockContainerEl?.clientHeight) {
+      dockMouseX = null;
+    }
+
+    /**
+     * if mouseX != null then show the dock. No matter what
+     * When it becomes null, Then use the mouseY and bodyHeight to determine if the dock should be hidden
+     */
+    if (dockMouseX !== null) {
+      $isDockHidden = false;
+      break $;
+    }
+
+    if (!Object.values($appsInFullscreen).some(Boolean)) {
+      $isDockHidden = false;
+      break $;
+    }
+
+    $isDockHidden = Math.abs(mouseY - bodyHeight) > HIDDEN_DOCK_THRESHOLD;
+  }
 </script>
 
-<section class="dock-container" use:elevation={'dock'}>
-  <div class="hover-strip" />
+<svelte:body on:mousemove={({ y }) => (mouseY = y)} />
 
+<svelte:window bind:innerHeight={bodyHeight} />
+
+<section
+  class="dock-container"
+  class:dock-hidden={$isDockHidden}
+  bind:this={dockContainerEl}
+  use:elevation={'dock'}
+>
   <div
     class="dock-el"
-    class:auto-hidden={isDockAutoHidden}
-    on:mousemove={(event) => (mouseX = event.x)}
-    on:mouseleave={() => (mouseX = null)}
+    class:hidden={$isDockHidden}
+    on:mousemove={(event) => (dockMouseX = event.x)}
+    on:mouseleave={() => (dockMouseX = null)}
   >
     {#each Object.entries(appsConfig) as [appID, config]}
       {#if config.dockBreaksBefore}
         <div class="divider" aria-hidden="true" />
       {/if}
-      <DockItem {mouseX} {appID} needsUpdate={$systemNeedsUpdate} />
+      <DockItem mouseX={dockMouseX} {appID} needsUpdate={$systemNeedsUpdate} />
     {/each}
   </div>
 </section>
 
 <style lang="scss">
   .dock-container {
-    margin-bottom: 0.3rem;
+    padding-bottom: 0.7rem;
     left: 0;
     bottom: 0;
 
@@ -41,20 +77,10 @@
 
     display: flex;
     justify-content: center;
-  }
 
-  .hover-strip {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-
-    height: 3rem;
-    width: 100%;
-  }
-
-  .hover-strip:hover ~ .dock-el.auto-hidden,
-  .dock-el.auto-hidden:hover {
-    transform: translate3d(0, 0, 0);
+    &:not(.dock-hidden) {
+      pointer-events: none;
+    }
   }
 
   .dock-el {
@@ -74,9 +100,13 @@
     display: flex;
     align-items: flex-end;
 
-    transition: transform 0.2s ease;
+    transition: transform 0.3s ease;
 
-    &.auto-hidden {
+    &:not(.hidden) {
+      pointer-events: auto;
+    }
+
+    &.hidden {
       transform: translate3d(0, 200%, 0);
 
       &::before {

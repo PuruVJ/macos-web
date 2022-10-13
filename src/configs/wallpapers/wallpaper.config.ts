@@ -6,8 +6,6 @@ export type Wallpaper = {
 
   thumbnail: string;
 
-  photoType?: 'webp' | 'jpg';
-
   /** Timestamps definition in terms of when a new wallpaper should take effect */
   timestamps?: {
     wallpaper?: Record<number, string>;
@@ -15,13 +13,42 @@ export type Wallpaper = {
   };
 };
 
-const createWallpapersConfig = <TConfig>(et: Record<keyof TConfig, Wallpaper>) => et;
+const optimizedWallpapers = import.meta.glob('../../assets/wallpapers/*.{webp,jpg}', {
+  eager: true,
+  query: { width: 2000, q: 98, format: 'webp' },
+}) as Record<string, NodeModule>;
+
+const createWallpapersConfig = <TConfig = string>(
+  et: Record<keyof TConfig, Wallpaper>,
+): Record<keyof TConfig, Wallpaper> => {
+  const wallpaperConfig = et;
+
+  const optimizedWallpapersArr = Object.entries(optimizedWallpapers);
+
+  for (const [wallpaperName, config] of Object.entries(et)) {
+    const wallpaper = wallpaperConfig[wallpaperName as keyof TConfig];
+
+    wallpaper.thumbnail = (
+      optimizedWallpapersArr.find(([path]) => path.includes(config.thumbnail))[1] as any
+    ).default;
+
+    if (wallpaper.type !== 'standalone') {
+      for (const [time, imgName] of Object.entries(config.timestamps.wallpaper)) {
+        wallpaper.timestamps.wallpaper[time] = (
+          optimizedWallpapersArr.find(([path]) => path.includes(imgName))[1] as any
+        ).default;
+      }
+    }
+  }
+
+  return wallpaperConfig;
+};
 
 export const wallpapersConfig = createWallpapersConfig({
   ventura: {
     name: 'Ventura',
     type: 'dynamic',
-    photoType: 'webp',
+
     thumbnail: '58-2',
     timestamps: {
       wallpaper: {

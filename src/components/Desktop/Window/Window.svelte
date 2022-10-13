@@ -1,7 +1,8 @@
 <script lang="ts">
-  import { onMount } from 'svelte';
   import { draggable } from '@neodrag/svelte';
+  import { onMount } from 'svelte';
   import { sineInOut } from 'svelte/easing';
+
   import { elevation } from '🍎/actions';
   import { appsConfig } from '🍎/configs/apps/apps-config';
   import { randint } from '🍎/helpers/random';
@@ -17,6 +18,7 @@
   } from '🍎/stores/apps.store';
   import { prefersReducedMotion } from '🍎/stores/prefers-motion.store';
   import { theme } from '🍎/stores/theme.store';
+
   import AppNexus from '../../apps/AppNexus.svelte';
   import TrafficLights from './TrafficLights.svelte';
 
@@ -49,7 +51,7 @@
 
   function windowCloseTransition(
     el: HTMLElement,
-    { duration = $prefersReducedMotion ? 0 : 300 }: SvelteTransitionConfig,
+    { duration = $prefersReducedMotion ? 0 : 300 }: SvelteTransitionConfig = {},
   ): SvelteTransitionReturnType {
     const existingTransform = getComputedStyle(el).transform;
 
@@ -123,10 +125,12 @@
     bounds: { bottom: -6000, top: 27.2, left: -6000, right: -6000 },
     disabled: !draggingEnabled,
     gpuAcceleration: false,
+
+    onDragStart: onAppDragStart,
+    onDragEnd: onAppDragEnd,
   }}
-  on:svelte-drag:start={onAppDragStart}
-  on:svelte-drag:end={onAppDragEnd}
   on:click={focusApp}
+  on:keydown={() => {}}
   out:windowCloseTransition
 >
   <div class="tl-container {appID}" use:elevation={'window-traffic-lights'}>

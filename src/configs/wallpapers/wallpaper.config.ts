@@ -40,7 +40,7 @@ export const wallpapersConfig = createWallpapersConfig({
   },
 
   monterey: {
-    name: 'Monterey Graphic',
+    name: 'Monterey',
     type: 'dynamic',
     thumbnail: '37-2',
     timestamps: {
@@ -78,7 +78,7 @@ export const wallpapersConfig = createWallpapersConfig({
   },
 
   'big-sur': {
-    name: 'Monterey',
+    name: 'Big sur',
     type: 'dynamic',
     thumbnail: '12-4',
     timestamps: {

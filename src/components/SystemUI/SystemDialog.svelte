@@ -26,7 +26,7 @@
 
   function dialogOpenTransition(
     _: HTMLElement,
-    { duration = $prefersReducedMotion ? 0 : 250 }: SvelteTransitionConfig,
+    { duration = $prefersReducedMotion ? 0 : 250 }: SvelteTransitionConfig = {},
   ): SvelteTransitionReturnType {
     return {
       duration,

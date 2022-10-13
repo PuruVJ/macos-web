@@ -84,11 +84,8 @@
 
 <!-- Prefetch all wallpapers -->
 <svelte:head>
-  {#each Object.values(wallpapersConfig) as { thumbnail }}
-    <link
-      rel="prefetch"
-      href="/wallpapers/{thumbnail}.{wallpapersConfig[$wallpaper.id].photoType ?? 'jpg'}"
-    />
+  {#each Object.values(wallpapersConfig) as { thumbnail, photoType }}
+    <link rel="prefetch" href="/wallpapers/{thumbnail}.{photoType ?? 'jpg'}" />
   {/each}
 </svelte:head>
 

@@ -8,7 +8,7 @@ type WallpaperSettings = {
 };
 
 export const wallpaper = writable<WallpaperSettings>('macos:wallpaper-settings', {
-  image: '37-2',
-  id: 'monterey',
+  image: '58-2',
+  id: 'ventura',
   canControlTheme: true,
 });

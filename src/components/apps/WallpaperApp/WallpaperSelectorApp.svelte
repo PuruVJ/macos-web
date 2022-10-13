@@ -10,7 +10,10 @@
     ([, { type }]) => type === 'standalone',
   );
 
-  $: currentWallpaperThumb = `url(/wallpapers/${wallpapersConfig[$wallpaper.id].thumbnail}.jpg)`;
+  $: console.log(wallpapersConfig[$wallpaper.id].photoType);
+  $: currentWallpaperThumb = `url(/wallpapers/${wallpapersConfig[$wallpaper.id].thumbnail}.${
+    wallpapersConfig[$wallpaper.id].photoType ?? 'jpg'
+  })`;
 
   function changeWallpaper(wallpaperName: WallpaperID) {
     $wallpaper.id = wallpaperName;
@@ -50,7 +53,10 @@
         {#each dynamicWallpapers as [id, { thumbnail, name }]}
           <div class="wallpaper-button">
             <button on:click={() => changeWallpaper(id)}>
-              <img src="/wallpapers/{thumbnail}.jpg" alt="MacOS {name} Wallpapers, dynamic" />
+              <img
+                src="/wallpapers/{thumbnail}.{wallpapersConfig[id].photoType ?? 'jpg'}"
+                alt="MacOS {name} Wallpapers, dynamic"
+              />
             </button>
             <p>{name}</p>
           </div>
@@ -67,7 +73,10 @@
         {#each standaloneWallpapers as [id, { thumbnail, name }]}
           <div class="wallpaper-button">
             <button on:click={() => changeWallpaper(id)}>
-              <img src="/wallpapers/{thumbnail}.jpg" alt="MacOS {name} Wallpapers, dynamic" />
+              <img
+                src="/wallpapers/{thumbnail}.{wallpapersConfig[id].photoType ?? 'jpg'}"
+                alt="MacOS {name} Wallpapers, dynamic"
+              />
             </button>
             <p>{name}</p>
           </div>

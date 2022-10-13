@@ -1,10 +1,10 @@
 > 🛑🛑 Note: This is the new iteration of macOS Web written in Svelte. Previous version written in Preact is available at [PuruVJ/macos-preact](https://github.com/puruvj/macos-preact) 🛑🛑
 
-# Mac OS Monterey Web
+# Mac OS Ventura Web
 
 This open source project aims to replicate some of the Mac OS(Monterey, at the time of writing)'s desktop experience on web, using Svelte!
 
-🔗🔗 [macos.now.sh](https://macos.now.sh)
+🔗🔗 [macos-web.app](https://macos.now.sh)
 
 # Why
 
@@ -16,8 +16,6 @@ I've always been very fascinated with macOS, and have never owned a Mac/book. So
 - Bundler - Vite, for super fast development.
 - Component Library - None!!
 - Styling Solution - SCSS.
-
-[Roadmap](https://www.notion.so/MacOS-Web-Roadmap-274d703460564ea3bb5493b39bf8f886)
 
 # When will it be ready?
 

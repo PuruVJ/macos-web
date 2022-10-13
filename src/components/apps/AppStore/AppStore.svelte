@@ -1,9 +1,9 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import { spring } from 'svelte/motion';
-  import { waitFor } from '__/helpers/wait-for';
-  import type { AppID } from '__/stores/apps.store';
-  import { prefersReducedMotion } from '__/stores/prefers-motion.store';
+  import { waitFor } from '🍎/helpers/wait-for';
+  import type { AppID } from '🍎/stores/apps.store';
+  import { prefersReducedMotion } from '🍎/stores/prefers-motion.store';
 
   export let appID: AppID;
 
@@ -14,19 +14,26 @@
 
     $motionVal = 1;
   });
+
+  $: imageTransform = !$prefersReducedMotion
+    ? `rotate(${180 * ($motionVal + 1)}deg) scale(${$motionVal}) translateZ(0px)`
+    : 'initial';
 </script>
 
 <section class="container">
   <header class="titlebar app-window-drag-handle" />
   <section class="main-area">
-    <img
-      style="transform:{!$prefersReducedMotion
-        ? `rotate(${180 * ($motionVal + 1)}deg) scale(${$motionVal}) translateZ(0px)`
-        : 'initial'};"
-      src="/assets/app-icons/{appID}/256.webp"
-      alt="Placeholder App"
-    />
-    <h1>Apps coming soon!</h1>
+    <img style:transform={imageTransform} src="/app-icons/{appID}/256.webp" alt="Placeholder App" />
+
+    <br />
+
+    <h1 style:display="flex" style:align-items="center" style:gap="0.5rem">
+      Nothing here yet <img
+        style="height: 1em; width: auto; transform: translateY(0.1em);"
+        src="/emojis/wink.png"
+        alt="Wink Emoji"
+      />
+    </h1>
   </section>
 </section>
 

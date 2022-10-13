@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { theme } from '__/stores/theme.store';
+  import { theme } from '🍎/stores/theme.store';
 
   export let grid: [[columnStart: number, columnSpan: number], [rowStart: number, rowSpan: number]];
 
@@ -9,7 +9,8 @@
 <section
   class="container"
   class:dark={$theme.scheme === 'dark'}
-  style="grid-column: {columnStart} / span {columnSpan}; grid-row: {rowStart} / span {rowSpan}"
+  style:grid-column="{columnStart} / span {columnSpan}"
+  style:grid-row="{rowStart} / span {rowSpan}"
 >
   <slot />
 </section>

@@ -1,4 +1,4 @@
-import { createAppConfig } from '__/helpers/create-app-config';
+import { createAppConfig } from '🍎/helpers/create-app-config';
 
 const wallpapers = createAppConfig({
   title: 'Wallpapers',
@@ -6,6 +6,8 @@ const wallpapers = createAppConfig({
 
   height: 600,
   width: 800,
+
+  dockBreaksBefore: true,
 });
 
 const calculator = createAppConfig({
@@ -35,7 +37,8 @@ const finder = createAppConfig({
   title: 'Finder',
   resizable: true,
 
-  dockBreaksBefore: true,
+  // dockBreaksBefore: true,
+  shouldOpenWindow: false,
 });
 
 const safari = createAppConfig({
@@ -49,13 +52,13 @@ const systemPreferences = createAppConfig({
 });
 
 const purusTwitter = createAppConfig({
-  title: `Puru's Twitter`,
+  title: `About the Developer`,
   resizable: true,
 
-  shouldOpenWindow: false,
-  externalAction: () => window.open('https://twitter.com/puruvjdev', '_blank'),
-
   dockBreaksBefore: true,
+
+  height: 600,
+  width: 800,
 });
 
 const viewSource = createAppConfig({
@@ -66,12 +69,23 @@ const viewSource = createAppConfig({
   externalAction: () => window.open('https://github.com/puruvj/macos-web', '_blank'),
 });
 
-const devutils = createAppConfig({
-  title: `DevUtils`,
+const ukraine = createAppConfig({
+  title: `Support Ukraine`,
   resizable: true,
 
   shouldOpenWindow: false,
-  externalAction: () => window.open('https://devutils.app/?ref=puru', '_blank'),
+  externalAction: () => window.open('https://www.stopputin.net/', '_blank'),
+
+  dockBreaksBefore: true,
+});
+
+const vercel = createAppConfig({
+  title: `Powered by Vercel`,
+  resizable: true,
+
+  shouldOpenWindow: false,
+  externalAction: () =>
+    window.open('https://vercel.com/?utm_source=purus-projects&utm_campaign=oss', '_blank'),
 
   dockBreaksBefore: true,
 });
@@ -82,18 +96,18 @@ const appstore = createAppConfig({
 });
 
 export const appsConfig = {
+  finder,
   wallpapers,
   safari,
   calculator,
   calendar,
   vscode,
-  finder,
   appstore,
-
-  'system-preferences': systemPreferences,
 
   'purus-twitter': purusTwitter,
   'view-source': viewSource,
 
-  devutils,
+  vercel,
+
+  ukraine,
 };

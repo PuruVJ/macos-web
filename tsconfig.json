@@ -7,9 +7,10 @@
       enable source maps by default.
      */
     "sourceMap": true,
-
+    "lib": ["ESNext", "DOM"],
     "strict": false,
     "esModuleInterop": true,
+    "noEmit": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "target": "esnext",
@@ -17,7 +18,7 @@
     "resolveJsonModule": true,
     //    "baseUrl": "./src",
     "paths": {
-      "__/*": ["./src/*"]
+      "🍎/*": ["./src/*"]
     },
     "types": ["vite-plugin-pwa/client"],
     /**

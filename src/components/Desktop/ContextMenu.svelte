@@ -1,8 +1,8 @@
 <script lang="ts">
-  import { elevation } from '__/actions';
-  import { contextMenuConfig } from '__/configs/menu/context.menu.config';
-  import { fadeIn, fadeOut } from '__/helpers/fade';
-  import { theme } from '__/stores/theme.store';
+  import { elevation } from '🍎/actions';
+  import { contextMenuConfig } from '🍎/configs/menu/context.menu.config';
+  import { fadeOut } from '🍎/helpers/fade';
+  import { theme } from '🍎/stores/theme.store';
 
   export let targetElement: HTMLElement;
 
@@ -37,8 +37,7 @@
   <div
     class="container"
     class:dark={$theme.scheme === 'dark'}
-    style="transform: translate({xPos}px, {yPos}px);"
-    in:fadeIn={{ duration: 80 }}
+    style:transform="translate({xPos}px, {yPos}px)"
     out:fadeOut
     use:elevation={'context-menu'}
   >
@@ -61,14 +60,14 @@
 
     padding: 0.5rem;
 
-    position: absolute;
+    position: fixed;
+    top: 0;
+    left: 0;
 
     -webkit-font-smoothing: antialiased;
     user-select: none;
-    transition: transform 100ms ease;
 
     background-color: hsla(var(--system-color-light-hsl), 0.3);
-    backdrop-filter: blur(15px);
 
     border-radius: 0.5rem;
 
@@ -77,6 +76,28 @@
     &.dark {
       --additional-shadow: inset 0 0 0 0.9px hsla(var(--system-color-dark-hsl), 0.3),
         0 0 0 1.2px hsla(var(--system-color-light-hsl), 0.3);
+
+      &::before {
+        transform: scale(0.99);
+      }
+    }
+
+    &::before {
+      content: '';
+
+      width: 100%;
+      height: 100%;
+
+      border-radius: inherit;
+
+      position: absolute;
+      left: 0;
+      top: 0;
+
+      transform: scale(0.996);
+
+      z-index: -1;
+      backdrop-filter: blur(15px);
     }
 
     * {

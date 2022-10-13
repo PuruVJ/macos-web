@@ -1,15 +1,14 @@
 <script lang="ts">
   import { createEventDispatcher } from 'svelte';
   import { sineInOut } from 'svelte/easing';
-  import { clickOutside, elevation, portal, trapFocus } from '__/actions';
-  import { fadeOut } from '__/helpers/fade';
-  import { prefersReducedMotion } from '__/stores/prefers-motion.store';
-  import { theme } from '__/stores/theme.store';
-
-  let isOpen: boolean;
+  import { clickOutside, elevation, portal, trapFocus } from '🍎/actions';
+  import { fadeOut } from '🍎/helpers/fade';
+  import { prefersReducedMotion } from '🍎/stores/prefers-motion.store';
+  import { theme } from '🍎/stores/theme.store';
 
   export let backdropDismiss = true;
 
+  let isOpen: boolean;
   const dispatch = createEventDispatcher<{ open: undefined; close: string | undefined }>();
 
   export function open() {
@@ -27,7 +26,7 @@
 
   function dialogOpenTransition(
     _: HTMLElement,
-    { duration = $prefersReducedMotion ? 0 : 250 }: SvelteTransitionConfig,
+    { duration = $prefersReducedMotion ? 0 : 250 }: SvelteTransitionConfig = {},
   ): SvelteTransitionReturnType {
     return {
       duration,

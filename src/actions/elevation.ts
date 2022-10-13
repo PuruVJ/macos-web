@@ -1,13 +1,13 @@
 const zIndexConfig = {
   wallpaper: -1,
-  'bootup-screen': 50,
-  'context-menu': 40,
-  'window-traffic-lights': 1,
-  dock: 20,
-  'dock-tooltip': 10,
-  'system-updates-available': 1,
-  'system-dialog': 30,
-  'menubar-menu-parent': 1,
+  'bootup-screen': 110,
+  'context-menu': 100,
+  'window-traffic-lights': 10,
+  dock: 80,
+  'dock-tooltip': 70,
+  'system-updates-available': 60,
+  'system-dialog': 90,
+  'menubar-menu-parent': 160,
 };
 
 for (const [element, zIndexValue] of Object.entries(zIndexConfig)) {

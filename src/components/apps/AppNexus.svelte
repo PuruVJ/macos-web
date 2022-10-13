@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { AppID } from '__/stores/apps.store';
+  import type { AppID } from '🍎/stores/apps.store';
 
   export let appID: AppID;
   export let isBeingDragged: boolean;
@@ -25,8 +25,12 @@
   {#await import('./WallpaperApp/WallpaperSelectorApp.svelte') then { default: WallpaperSelector }}
     <WallpaperSelector />
   {/await}
+{:else if appID === 'purus-twitter'}
+  {#await import('./PurusProfile/PurusProfile.svelte') then { default: PurusProfile }}
+    <PurusProfile />
+  {/await}
 {:else}
-  {#await import('./Placeholder/Placeholder.svelte') then { default: Placeholder }}
-    <Placeholder {appID} />
+  {#await import('./AppStore/AppStore.svelte') then { default: AppStore }}
+    <AppStore {appID} />
   {/await}
 {/if}

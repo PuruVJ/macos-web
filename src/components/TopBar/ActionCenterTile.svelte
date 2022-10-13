@@ -1,19 +1,20 @@
 <script lang="ts">
   export let grid: [rowStart: number, rowSpan: number];
-  export let focusable = false;
+  export let role = 'button';
 
-  const [rowStart, rowsPan] = grid;
+  const [rowStart, rowSpan] = grid;
 </script>
 
-<div
+<button
   class="container"
-  style="grid-row: {rowStart} / span {rowsPan}"
-  tabindex={focusable ? 0 : -1}
+  style:grid-row="{rowStart} / span {rowSpan}"
+  tabindex={role === 'button' ? 0 : -1}
   on:click
   on:keyup
+  {role}
 >
   <slot />
-</div>
+</button>
 
 <style>
   .container {
@@ -26,5 +27,6 @@
     font-size: 0.85rem;
     font-weight: 600;
     color: var(--system-color-dark);
+    text-align: start;
   }
 </style>

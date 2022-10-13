@@ -1,7 +1,7 @@
 <script lang="ts">
-  import { clickOutside, focusOutside } from '__/actions';
-  import { fadeIn, fadeOut } from '__/helpers/fade';
-  import { activeApp, openApps } from '__/stores/apps.store';
+  import { clickOutside, focusOutside, elevation } from '🍎/actions';
+  import { fadeIn, fadeOut } from '🍎/helpers/fade';
+  import { activeApp, openApps } from '🍎/stores/apps.store';
   import SwitchSvg from '../SVG/SwitchSVG.svelte';
   import SystemDialog from '../SystemUI/SystemDialog.svelte';
   import ActionCenter from './ActionCenter.svelte';
@@ -22,18 +22,13 @@
   }
 </script>
 
-<div
-  class="container"
-  style="height: 100%;"
-  use:clickOutside={{ callback: hide }}
-  use:focusOutside={{ callback: hide }}
->
-  <button style="--scale: {visible ? 1 : 0};" on:click={show} on:focus={show}>
+<div class="container" use:clickOutside={{ callback: hide }} use:focusOutside={{ callback: hide }}>
+  <button style:--scale={visible ? 1 : 0} on:click={show} on:focus={show}>
     <SwitchSvg />
   </button>
 
   {#if visible}
-    <div in:fadeIn out:fadeOut class="menu-parent">
+    <div in:fadeIn out:fadeOut class="menu-parent" use:elevation={'menubar-menu-parent'}>
       <ActionCenter bind:isThemeWarningDialogOpen />
     </div>
   {/if}
@@ -41,12 +36,7 @@
 
 <SystemDialog bind:this={themeWarningDialog} on:close={() => (isThemeWarningDialogOpen = false)}>
   <section class="theme-warning-section">
-    <img
-      height="100"
-      width="100"
-      src="/assets/app-icons/wallpapers/256.webp"
-      alt="Wallpapers app logo"
-    />
+    <img height="100" width="100" src="/app-icons/wallpapers/256.webp" alt="Wallpapers app logo" />
 
     <h3>Current Wallpaper Settings prevent changing theme</h3>
     <p>Head over to Wallpapers app to change this setting or choose a standalone wallpaper.</p>
@@ -78,7 +68,6 @@
     border-radius: 0.25rem;
 
     position: relative;
-    z-index: 1;
 
     &::before {
       content: '';
@@ -116,7 +105,7 @@
     z-index: 1;
     position: absolute;
     right: 1rem;
-    margin-top: 1px;
+    margin-top: 7px;
   }
 
   .theme-warning-section {

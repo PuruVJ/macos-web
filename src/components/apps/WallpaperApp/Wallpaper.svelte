@@ -1,12 +1,12 @@
 <script lang="ts">
-  import { elevation } from '__/actions';
-  import { wallpapersConfig } from '__/configs/wallpapers/wallpaper.config';
-  import { smallerClosestValue } from '__/helpers/smaller-closest-value';
-  import { createIntervalStore } from '__/stores/interval.store';
-  import { theme } from '__/stores/theme.store';
-  import { wallpaper } from '__/stores/wallpaper.store';
+  import { elevation } from '🍎/actions';
+  import { wallpapersConfig } from '🍎/configs/wallpapers/wallpaper.config';
+  import { smallerClosestValue } from '🍎/helpers/smaller-closest-value';
+  import { createIntervalStore } from '🍎/stores/interval.store';
+  import { theme } from '🍎/stores/theme.store';
+  import { wallpaper } from '🍎/stores/wallpaper.store';
 
-  let visibleBackgroundImage = '/assets/wallpapers/37-2.jpg';
+  let visibleBackgroundImage = '/wallpapers/37-2.jpg';
 
   const interval = createIntervalStore(5 * 1000);
 
@@ -76,20 +76,20 @@
   }
 
   function previewImageOnLoad() {
-    visibleBackgroundImage = `/assets/wallpapers/${$wallpaper.image}.jpg`;
+    visibleBackgroundImage = `/wallpapers/${$wallpaper.image}.jpg`;
   }
 </script>
 
 <!-- Prefetch all wallpapers -->
 <svelte:head>
   {#each Object.values(wallpapersConfig) as { thumbnail }}
-    <link rel="prefetch" href="/assets/wallpapers/{thumbnail}.jpg" />
+    <link rel="prefetch" href="/wallpapers/{thumbnail}.jpg" />
   {/each}
 </svelte:head>
 
 <!-- This preload and render the image for browser but invisible to user -->
 <img
-  src="/assets/wallpapers/{$wallpaper.image}.jpg"
+  src="/wallpapers/{$wallpaper.image}.jpg"
   aria-hidden="true"
   alt=""
   on:load={previewImageOnLoad}
@@ -97,7 +97,7 @@
 
 <div
   class="background-cover"
-  style="background-image: url({visibleBackgroundImage});"
+  style:background-image="url({visibleBackgroundImage})"
   use:elevation={'wallpaper'}
 />
 
@@ -105,6 +105,8 @@
   img {
     height: 1px;
     width: 1px;
+
+    display: none;
   }
 
   .background-cover {
@@ -123,6 +125,6 @@
     background-size: cover;
     background-position: center;
 
-    background-image: url(/assets/wallpapers/37-2.jpg);
+    background-image: url(/wallpapers/37-2.jpg);
   }
 </style>

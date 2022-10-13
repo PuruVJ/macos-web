@@ -1,16 +1,18 @@
 <script lang="ts">
   import { onMount } from 'svelte';
-  import { colors } from '__/configs/theme/colors.config';
-  import { wallpapersConfig } from '__/configs/wallpapers/wallpaper.config';
-  import { activeApp, openApps } from '__/stores/apps.store';
-  import { prefersReducedMotion } from '__/stores/prefers-motion.store';
-  import { theme } from '__/stores/theme.store';
-  import { wallpaper } from '__/stores/wallpaper.store';
+  import { colors } from '🍎/configs/theme/colors.config';
+  import { wallpapersConfig } from '🍎/configs/wallpapers/wallpaper.config';
+  import { activeApp, openApps } from '🍎/stores/apps.store';
+  import { prefersReducedMotion } from '🍎/stores/prefers-motion.store';
+  import { theme } from '🍎/stores/theme.store';
+  import { wallpaper } from '🍎/stores/wallpaper.store';
   import DarkMode from '~icons/gg/dark-mode';
   import CheckedIcon from '~icons/ic/outline-check';
   import TransitionMaskedIcon from '~icons/mdi/transition-masked';
   import ActionCenterSurface from './ActionCenterSurface.svelte';
   import ActionCenterTile from './ActionCenterTile.svelte';
+  import NotchIcon from '~icons/pepicons/smartphone-notch';
+  import { shouldShowNotch } from '🍎/stores/menubar.store';
 
   export let isThemeWarningDialogOpen: boolean;
 
@@ -23,6 +25,10 @@
     }
 
     $theme.scheme = $theme.scheme === 'light' ? 'dark' : 'light';
+  }
+
+  function toggleNotch() {
+    $shouldShowNotch = !$shouldShowNotch;
   }
 
   function toggleMotionPreference() {
@@ -50,10 +56,10 @@
       [1, 2],
     ]}
   >
-    <ActionCenterTile grid={[1, 1]}>
-      <button class="toggle" class:filled={$theme.scheme === 'dark'} on:click={toggleTheme}>
+    <ActionCenterTile grid={[1, 1]} on:click={toggleTheme}>
+      <span class="toggle-icon" class:filled={$theme.scheme === 'dark'}>
         <DarkMode />
-      </button>
+      </span>
       Dark mode
     </ActionCenterTile>
   </ActionCenterSurface>
@@ -64,14 +70,10 @@
       [1, 2],
     ]}
   >
-    <ActionCenterTile grid={[1, 1]}>
-      <button
-        class="toggle"
-        class:filled={!$prefersReducedMotion}
-        on:click={toggleMotionPreference}
-      >
+    <ActionCenterTile grid={[1, 1]} on:click={toggleMotionPreference}>
+      <span class="toggle-icon" class:filled={!$prefersReducedMotion}>
         <TransitionMaskedIcon />
-      </button>
+      </span>
       Animations
     </ActionCenterTile>
   </ActionCenterSurface>
@@ -82,14 +84,16 @@
       [3, 2],
     ]}
   >
-    <ActionCenterTile grid={[1, 1]}>
+    <ActionCenterTile grid={[1, 1]} role="region">
       <div class="color-picker">
         <p>System Color</p>
         <div class="color-palette">
           {#each Object.keys(colors) as colorID}
+            {@const { contrastHsl, hsl } = colors[colorID][$theme.scheme]}
+
             <button
-              style="--color-hsl: {colors[colorID][$theme.scheme]
-                .hsl}; --color-contrast-hsl: {colors[colorID][$theme.scheme].contrastHsl}"
+              style:--color-hsl={hsl}
+              style:--color-contrast-hsl={contrastHsl}
               on:click={() => ($theme.primaryColor = colorID)}
             >
               {#if $theme.primaryColor === colorID}
@@ -108,16 +112,11 @@
       [5, 3],
     ]}
   >
-    <ActionCenterTile
-      focusable={true}
-      grid={[1, 1]}
-      on:click={openWallpapersApp}
-      on:keyup={(e) => ['Enter', 'Space Bar'].includes(e.key) && openWallpapersApp()}
-    >
+    <ActionCenterTile grid={[1, 1]} on:click={openWallpapersApp}>
       <div class="wallpaper-tile">
         <img
           class="wallpaper-thumbnail"
-          src="/assets/wallpapers/{wallpapersConfig[$wallpaper.id].thumbnail}.jpg"
+          src="/wallpapers/{wallpapersConfig[$wallpaper.id].thumbnail}.jpg"
           alt="Current wallpaper"
         />
 
@@ -125,6 +124,22 @@
           <h3>{wallpapersConfig[$wallpaper.id].name}</h3>
           <p>{wallpapersConfig[$wallpaper.id].type} wallpaper</p>
         </div>
+      </div>
+    </ActionCenterTile>
+  </ActionCenterSurface>
+
+  <ActionCenterSurface
+    grid={[
+      [1, 12],
+      [8, 2],
+    ]}
+  >
+    <ActionCenterTile grid={[1, 1]} on:click={toggleNotch}>
+      <div class="notch-tile">
+        <span class="toggle-icon" class:filled={$shouldShowNotch}>
+          <NotchIcon />
+        </span>
+        Notch
       </div>
     </ActionCenterTile>
   </ActionCenterSurface>
@@ -148,7 +163,6 @@
     user-select: none;
 
     background-color: hsla(var(--system-color-light-hsl), 0.3);
-    backdrop-filter: blur(12px);
 
     border-radius: 1rem;
 
@@ -159,9 +173,25 @@
     &.dark {
       --border-size: 0.5px;
     }
+
+    &::before {
+      content: '';
+
+      width: 100%;
+      height: 100%;
+
+      border-radius: inherit;
+
+      position: absolute;
+      left: 0;
+      top: 0;
+
+      z-index: -1;
+      backdrop-filter: blur(12px);
+    }
   }
 
-  .toggle {
+  .toggle-icon {
     --size: 1.7rem;
 
     --bgcolor: var(--system-color-dark-hsl);
@@ -176,6 +206,7 @@
     padding: 0;
 
     display: flex;
+    justify-content: center;
     place-items: center;
 
     border-radius: 50%;
@@ -270,5 +301,16 @@
         }
       }
     }
+  }
+
+  .notch-tile {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+
+    padding: 0 0.6rem;
+
+    width: 100%;
+    height: 100%;
   }
 </style>

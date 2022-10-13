@@ -2,7 +2,7 @@ import { sineIn, sineOut } from 'svelte/easing';
 
 export function fadeIn(
   _: HTMLElement,
-  { duration = 150, delay = duration }: SvelteTransitionConfig
+  { duration = 150, delay = duration }: SvelteTransitionConfig = {},
 ): SvelteTransitionReturnType {
   return {
     duration: duration + 10,
@@ -14,7 +14,7 @@ export function fadeIn(
 
 export function fadeOut(
   _: HTMLElement,
-  { duration = 150 }: SvelteTransitionConfig
+  { duration = 150 }: SvelteTransitionConfig = {},
 ): SvelteTransitionReturnType {
   return {
     duration,

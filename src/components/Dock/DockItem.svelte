@@ -27,12 +27,12 @@
   import { onDestroy } from 'svelte';
   import { sineInOut } from 'svelte/easing';
   import { spring, tweened } from 'svelte/motion';
-  import { elevation } from '__/actions';
-  import { appsConfig } from '__/configs/apps/apps-config';
-  import type { AppID } from '__/stores/apps.store';
-  import { activeApp, openApps } from '__/stores/apps.store';
-  import { prefersReducedMotion } from '__/stores/prefers-motion.store';
-  import { theme } from '__/stores/theme.store';
+  import { elevation } from '🍎/actions';
+  import { appsConfig } from '🍎/configs/apps/apps-config';
+  import { AppID, isAppBeingDragged } from '🍎/stores/apps.store';
+  import { activeApp, openApps } from '🍎/stores/apps.store';
+  import { prefersReducedMotion } from '🍎/stores/prefers-motion.store';
+  import { theme } from '🍎/stores/theme.store';
 
   export let mouseX: number | null;
   export let appID: AppID;
@@ -47,7 +47,8 @@
     stiffness: 0.12,
   });
 
-  $: $widthPX = interpolate(distanceInput, widthOutput)(distance);
+  const getWidthFromDistance = interpolate(distanceInput, widthOutput);
+  $: $widthPX = getWidthFromDistance(distance);
 
   let raf: number;
   function animate() {
@@ -70,9 +71,9 @@
 
   $: {
     mouseX;
-    if (!$prefersReducedMotion) {
-      raf = requestAnimationFrame(animate);
-    }
+    if ($prefersReducedMotion || $isAppBeingDragged) break $;
+
+    raf = requestAnimationFrame(animate);
   }
 
   const { title, shouldOpenWindow, externalAction } = appsConfig[appID];
@@ -83,61 +84,63 @@
     easing: sineInOut,
   });
 
+  async function bounceEffect() {
+    // Animate the icon
+    await appOpenIconBounceTransform.set(-40);
+
+    // Now animate it back to its place
+    appOpenIconBounceTransform.set(0);
+  }
+
   async function openApp(e: MouseEvent) {
     if (!shouldOpenWindow) return externalAction?.(e);
+
+    // For the bounce animation
+    const isAppAlreadyOpen = $openApps[appID];
 
     $openApps[appID] = true;
     $activeApp = appID;
 
-    // Animate the icon
-    await appOpenIconBounceTransform.set(-39.2);
+    if (isAppAlreadyOpen) return;
 
-    // Now animate it back to its place
-    await appOpenIconBounceTransform.set(0);
+    bounceEffect();
   }
 
   onDestroy(() => {
     cancelAnimationFrame(raf);
   });
 
-  $: appStore = appID === 'appstore';
-  $: showPwaBadge = appStore && needsUpdate;
-  // $: {
-  //   appStore && console.log($widthPX)
-  // }
+  $: isAppStore = appID === 'appstore';
+  $: showPwaBadge = isAppStore && needsUpdate;
+  $: showPwaBadge && bounceEffect();
 </script>
 
 <button on:click={openApp} aria-label="Launch {title} app" class="dock-open-app-button {appID}">
   <p
     class="tooltip"
+    class:tooltip-enabled={!$isAppBeingDragged}
     class:dark={$theme.scheme === 'dark'}
-    style="top: {$prefersReducedMotion ? '-50px' : '-35%'};"
+    style:top={$prefersReducedMotion ? '-50px' : '-35%'}
+    style:transform="translate(0, {$appOpenIconBounceTransform}px)"
     use:elevation={'dock-tooltip'}
   >
     {title}
   </p>
 
-  <span style="transform: translate3d(0, {$appOpenIconBounceTransform}%, 0)">
+  <span style:transform="translate(0, {$appOpenIconBounceTransform}px)">
     <img
       bind:this={imageEl}
-      src="/assets/app-icons/{appID}/256.webp"
+      src="/app-icons/{appID}/256.webp"
       alt="{title} app"
-      style="width: {$widthPX / 16}rem"
+      style:width="{$widthPX / 16}rem"
       draggable="false"
     />
   </span>
 
-  <div class="dot" style="--opacity: {+$openApps[appID]}" />
+  <div class="dot" style:--opacity={+$openApps[appID]} />
 
   {#if showPwaBadge}
-    <div
-      class="pwa-badge"
-      style="font-size: {$widthPX / 57.6}rem; width: {(1.5 * $widthPX) / 57.6}rem; height: {(1.5 *
-        $widthPX) /
-        57.6}rem; line-height: {(1.5 * $widthPX) / 57.6}rem;"
-    >
-      1
-    </div>
+    <div class="pwa-badge" style:transform="scale({$widthPX / baseWidth})">1</div>
   {/if}
 </button>
 
@@ -156,7 +159,7 @@
 
     &:hover,
     &:focus-visible {
-      .tooltip {
+      .tooltip.tooltip-enabled {
         display: block;
       }
     }
@@ -213,14 +216,25 @@
     position: absolute;
     top: 1px;
     right: -1px;
+
     background-color: rgba(248, 58, 58, 0.85);
+
     box-shadow: hsla(var(--system-color-dark-hsl), 0.4) 0px 0.5px 2px;
-    color: white;
     border-radius: 50%;
+
     pointer-events: none;
     vertical-align: middle;
+
+    width: 1.5rem;
+    height: 1.5rem;
+
     margin: 0;
     padding: 0;
+
     text-align: center;
+    color: white;
+
+    font-size: 1rem;
+    line-height: 1.5;
   }
 </style>

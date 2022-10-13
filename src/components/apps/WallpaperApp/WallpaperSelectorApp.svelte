@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { WallpaperID, wallpapersConfig } from '__/configs/wallpapers/wallpaper.config';
-  import { wallpaper } from '__/stores/wallpaper.store';
+  import { WallpaperID, wallpapersConfig } from '🍎/configs/wallpapers/wallpaper.config';
+  import { wallpaper } from '🍎/stores/wallpaper.store';
 
   const dynamicWallpapers = Object.entries(wallpapersConfig).filter(
     ([, { type }]) => type === 'dynamic',
@@ -9,6 +9,8 @@
   const standaloneWallpapers = Object.entries(wallpapersConfig).filter(
     ([, { type }]) => type === 'standalone',
   );
+
+  $: currentWallpaperThumb = `url(/wallpapers/${wallpapersConfig[$wallpaper.id].thumbnail}.jpg)`;
 
   function changeWallpaper(wallpaperName: WallpaperID) {
     $wallpaper.id = wallpaperName;
@@ -22,11 +24,7 @@
 
   <section class="main-area">
     <section class="selected-wallpaper-section">
-      <div
-        class="image"
-        style="background-image: url(/assets/wallpapers/{wallpapersConfig[$wallpaper.id]
-          .thumbnail}.jpg);"
-      />
+      <div class="image" style:background-image={currentWallpaperThumb} />
 
       <div class="info">
         <h2>{wallpapersConfig[$wallpaper.id].name}</h2>
@@ -52,10 +50,7 @@
         {#each dynamicWallpapers as [id, { thumbnail, name }]}
           <div class="wallpaper-button">
             <button on:click={() => changeWallpaper(id)}>
-              <img
-                src="/assets/wallpapers/{thumbnail}.jpg"
-                alt="MacOS {name} Wallpapers, dynamic"
-              />
+              <img src="/wallpapers/{thumbnail}.jpg" alt="MacOS {name} Wallpapers, dynamic" />
             </button>
             <p>{name}</p>
           </div>
@@ -72,10 +67,7 @@
         {#each standaloneWallpapers as [id, { thumbnail, name }]}
           <div class="wallpaper-button">
             <button on:click={() => changeWallpaper(id)}>
-              <img
-                src="/assets/wallpapers/{thumbnail}.jpg"
-                alt="MacOS {name} Wallpapers, dynamic"
-              />
+              <img src="/wallpapers/{thumbnail}.jpg" alt="MacOS {name} Wallpapers, dynamic" />
             </button>
             <p>{name}</p>
           </div>
@@ -213,7 +205,10 @@
       input {
         margin-left: 0;
 
-        // accent-color: var(--system-color-primary);
+        height: 1.2rem;
+        width: 1.2rem;
+
+        accent-color: var(--system-color-primary);
       }
     }
   }

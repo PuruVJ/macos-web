@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { theme } from '__/stores/theme.store';
+  import { theme } from '🍎/stores/theme.store';
 
   export let menu: any;
 </script>

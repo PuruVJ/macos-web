@@ -8,7 +8,7 @@ This open source project aims to replicate some of the Mac OS(Monterey, at the t
 
 # Why
 
-I've always been very fascinated with macOS, and have never owned a Mac/book. So I'm making the most beautiful aspect of macOS, it's desktop, myself. For web. Inspired from [WinXP](https://winxp.now.sh/).
+I've always been very fascinated with macOS, and have never owned a Mac/book. So I'm making the most beautiful aspect of macOS, its desktop, myself. For web. Inspired from [WinXP](https://winxp.now.sh/).
 
 # Stack
 
@@ -26,3 +26,5 @@ I've always been very fascinated with macOS, and have never owned a Mac/book. So
 # Can I contribute?
 
 Sure, open an issue, point out errors, and what not. Wanna fix something yourselves, you're welcome to open a PR and I appreciate it.
+
+[![Hosted on Vercel](https://www.datocms-assets.com/31049/1618983297-powered-by-vercel.svg)](https://vercel.com/?utm_source=purus-projects&utm_campaign=oss)

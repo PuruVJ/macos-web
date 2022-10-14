@@ -78,13 +78,6 @@
 </section>
 
 <style lang="scss">
-  // h1 {
-  //   font-size: 2.2rem;
-  //   line-height: 1.618;
-
-  //   margin: 0 0 1rem 0;
-  // }
-
   h2 {
     line-height: 1.618;
     font-size: 1.618rem;
@@ -217,6 +210,10 @@
       grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
       gap: 1rem;
     }
+  }
+
+  .dynamic-wallpapers .wallpaper-button button {
+    aspect-ratio: 1 / 1;
   }
 
   .standalone-wallpapers .wallpapers {

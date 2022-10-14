@@ -1,18 +1,21 @@
 <script lang="ts">
   import { onMount } from 'svelte';
-  import { colors } from '🍎/configs/theme/colors.config';
-  import { wallpapersConfig } from '🍎/configs/wallpapers/wallpaper.config';
-  import { activeApp, openApps } from '🍎/stores/apps.store';
-  import { prefersReducedMotion } from '🍎/stores/prefers-motion.store';
-  import { theme } from '🍎/stores/theme.store';
-  import { wallpaper } from '🍎/stores/wallpaper.store';
+
   import DarkMode from '~icons/gg/dark-mode';
   import CheckedIcon from '~icons/ic/outline-check';
   import TransitionMaskedIcon from '~icons/mdi/transition-masked';
+  import NotchIcon from '~icons/pepicons/smartphone-notch';
+
+  import { colors } from '🍎/configs/theme/colors.config';
+  import { wallpapersConfig } from '🍎/configs/wallpapers/wallpaper.config';
+  import { activeApp, openApps } from '🍎/stores/apps.store';
+  import { shouldShowNotch } from '🍎/stores/menubar.store';
+  import { prefersReducedMotion } from '🍎/stores/prefers-motion.store';
+  import { theme } from '🍎/stores/theme.store';
+  import { wallpaper } from '🍎/stores/wallpaper.store';
+
   import ActionCenterSurface from './ActionCenterSurface.svelte';
   import ActionCenterTile from './ActionCenterTile.svelte';
-  import NotchIcon from '~icons/pepicons/smartphone-notch';
-  import { shouldShowNotch } from '🍎/stores/menubar.store';
 
   export let isThemeWarningDialogOpen: boolean;
 
@@ -117,9 +120,7 @@
       <div class="wallpaper-tile">
         <img
           class="wallpaper-thumbnail"
-          src="/wallpapers/{wallpapersConfig[$wallpaper.id].thumbnail}.{wallpapersConfig[
-            $wallpaper.id
-          ].photoType ?? 'jpg'}"
+          src={wallpapersConfig[$wallpaper.id].thumbnail}
           alt="Current wallpaper"
         />
 

@@ -1,6 +1,7 @@
 import { svelte } from '@sveltejs/vite-plugin-svelte';
 import UnpluginIcons from 'unplugin-icons/vite';
 import { defineConfig } from 'vite';
+import { imagetools } from 'vite-imagetools';
 import { VitePWA } from 'vite-plugin-pwa';
 
 import { prefetch } from './prefetch-plugin';
@@ -19,7 +20,7 @@ export default defineConfig({
         'cursors/(normal|link|text|help)-select.svg',
         '**/*.mp3',
         '**/*.webp',
-        'wallpapers/37-[12].jpg',
+        'assets/*.webp',
       ],
       manifest: {
         name: 'Mac OS Monterey Svelte Web',
@@ -88,6 +89,7 @@ export default defineConfig({
         ],
       },
     }),
+    imagetools({}),
   ],
   resolve: {
     alias: {

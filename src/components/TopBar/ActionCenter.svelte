@@ -43,6 +43,7 @@
   onMount(() => containerEl?.focus());
 </script>
 
+<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
 <section
   class="container"
   class:dark={$theme.scheme === 'dark'}
@@ -116,7 +117,9 @@
       <div class="wallpaper-tile">
         <img
           class="wallpaper-thumbnail"
-          src="/wallpapers/{wallpapersConfig[$wallpaper.id].thumbnail}.jpg"
+          src="/wallpapers/{wallpapersConfig[$wallpaper.id].thumbnail}.{wallpapersConfig[
+            $wallpaper.id
+          ].photoType ?? 'jpg'}"
           alt="Current wallpaper"
         />
 

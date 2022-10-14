@@ -19,13 +19,11 @@ const optimizedWallpapers = import.meta.glob('../../assets/wallpapers/*.{webp,jp
 }) as Record<string, NodeModule>;
 
 const createWallpapersConfig = <TConfig = string>(
-  et: Record<keyof TConfig, Wallpaper>,
+  wallpaperConfig: Record<keyof TConfig, Wallpaper>,
 ): Record<keyof TConfig, Wallpaper> => {
-  const wallpaperConfig = et;
-
   const optimizedWallpapersArr = Object.entries(optimizedWallpapers);
 
-  for (const [wallpaperName, config] of Object.entries(et)) {
+  for (const [wallpaperName, config] of Object.entries(wallpaperConfig)) {
     const wallpaper = wallpaperConfig[wallpaperName as keyof TConfig];
 
     wallpaper.thumbnail = (

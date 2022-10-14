@@ -6,7 +6,7 @@
   import { theme } from '🍎/stores/theme.store';
   import { wallpaper } from '🍎/stores/wallpaper.store';
 
-  let visibleBackgroundImage = '/wallpapers/37-2.jpg';
+  let visibleBackgroundImage = wallpapersConfig.ventura.thumbnail;
 
   const interval = createIntervalStore(5 * 1000);
 
@@ -119,7 +119,5 @@
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
-
-    background-image: url(/wallpapers/37-2.jpg);
   }
 </style>

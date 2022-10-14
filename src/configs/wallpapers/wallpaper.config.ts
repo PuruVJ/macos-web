@@ -6,8 +6,6 @@ export type Wallpaper = {
 
   thumbnail: string;
 
-  photoType?: 'webp' | 'jpg';
-
   /** Timestamps definition in terms of when a new wallpaper should take effect */
   timestamps?: {
     wallpaper?: Record<number, string>;
@@ -15,22 +13,49 @@ export type Wallpaper = {
   };
 };
 
-const createWallpapersConfig = <TConfig>(et: Record<keyof TConfig, Wallpaper>) => et;
+const optimizedWallpapers = import.meta.glob('../../assets/wallpapers/*.{webp,jpg}', {
+  eager: true,
+  query: { width: 2000, quality: 95, format: 'webp' },
+}) as Record<string, NodeModule>;
+
+const createWallpapersConfig = <TConfig = string>(
+  wallpaperConfig: Record<keyof TConfig, Wallpaper>,
+): Record<keyof TConfig, Wallpaper> => {
+  const optimizedWallpapersArr = Object.entries(optimizedWallpapers);
+
+  for (const [wallpaperName, config] of Object.entries(wallpaperConfig)) {
+    const wallpaper = wallpaperConfig[wallpaperName as keyof TConfig];
+
+    wallpaper.thumbnail = (
+      optimizedWallpapersArr.find(([path]) => path.includes(config.thumbnail))[1] as any
+    ).default;
+
+    if (wallpaper.type !== 'standalone') {
+      for (const [time, imgName] of Object.entries(config.timestamps.wallpaper)) {
+        wallpaper.timestamps.wallpaper[time] = (
+          optimizedWallpapersArr.find(([path]) => path.includes(imgName))[1] as any
+        ).default;
+      }
+    }
+  }
+
+  return wallpaperConfig;
+};
 
 export const wallpapersConfig = createWallpapersConfig({
   ventura: {
     name: 'Ventura',
     type: 'dynamic',
-    photoType: 'webp',
-    thumbnail: '58-2',
+
+    thumbnail: 'ventura-2',
     timestamps: {
       wallpaper: {
-        7: '58-5',
-        9: '58-2',
-        12: '58-3',
-        15: '58-4',
-        17: '58-5',
-        19: '58-1',
+        7: 'ventura-5',
+        9: 'ventura-2',
+        12: 'ventura-3',
+        17: 'ventura-4',
+        18: 'ventura-5',
+        19: 'ventura-1',
       },
       theme: {
         7: 'light',
@@ -42,17 +67,17 @@ export const wallpapersConfig = createWallpapersConfig({
   monterey: {
     name: 'Monterey',
     type: 'dynamic',
-    thumbnail: '37-2',
+    thumbnail: 'monterey-2',
     timestamps: {
       wallpaper: {
-        7: '37-2',
-        9: '37-3',
-        11: '37-4',
-        13: '37-5',
-        15: '37-6',
-        16: '37-7',
-        17: '37-8',
-        18: '37-1',
+        7: 'monterey-2',
+        9: 'monterey-3',
+        11: 'monterey-4',
+        13: 'monterey-5',
+        15: 'monterey-6',
+        16: 'monterey-7',
+        17: 'monterey-8',
+        18: 'monterey-1',
       },
       theme: {
         7: 'light',
@@ -64,11 +89,11 @@ export const wallpapersConfig = createWallpapersConfig({
   'big-sur-graphic': {
     name: 'Big Sur Graphic',
     type: 'dynamic',
-    thumbnail: '3-2',
+    thumbnail: 'big-sur-graphic-2',
     timestamps: {
       wallpaper: {
-        7: '3-2',
-        18: '3-1',
+        7: 'big-sur-graphic-2',
+        18: 'big-sur-graphic-1',
       },
       theme: {
         7: 'light',
@@ -80,17 +105,17 @@ export const wallpapersConfig = createWallpapersConfig({
   'big-sur': {
     name: 'Big sur',
     type: 'dynamic',
-    thumbnail: '12-4',
+    thumbnail: 'big-sur-4',
     timestamps: {
       wallpaper: {
-        7: '12-2',
-        9: '12-3',
-        11: '12-4',
-        13: '12-5',
-        15: '12-6',
-        16: '12-7',
-        17: '12-8',
-        18: '12-1',
+        7: 'big-sur-2',
+        9: 'big-sur-3',
+        11: 'big-sur-4',
+        13: 'big-sur-5',
+        15: 'big-sur-6',
+        16: 'big-sur-7',
+        17: 'big-sur-8',
+        18: 'big-sur-1',
       },
       theme: {
         7: 'light',
@@ -102,21 +127,158 @@ export const wallpapersConfig = createWallpapersConfig({
   catalina: {
     name: 'Catalina',
     type: 'dynamic',
-    thumbnail: '24-3',
+    thumbnail: 'catalina-3',
     timestamps: {
       wallpaper: {
-        7: '24-2',
-        9: '24-3',
-        11: '24-4',
-        13: '24-5',
-        15: '24-6',
-        16: '24-7',
-        17: '24-8',
-        18: '24-1',
+        7: 'catalina-2',
+        9: 'catalina-3',
+        11: 'catalina-4',
+        13: 'catalina-5',
+        15: 'catalina-6',
+        16: 'catalina-7',
+        17: 'catalina-8',
+        18: 'catalina-1',
       },
       theme: {
         9: 'light',
         17: 'dark',
+      },
+    },
+  },
+
+  mojave: {
+    name: 'Mojave',
+    type: 'dynamic',
+    thumbnail: 'mojave-2',
+    timestamps: {
+      wallpaper: {
+        7: 'mojave-2',
+        18: 'mojave-1',
+      },
+      theme: {
+        7: 'light',
+        18: 'dark',
+      },
+    },
+  },
+
+  desert: {
+    name: 'The Desert',
+    type: 'dynamic',
+    thumbnail: 'desert-5',
+    timestamps: {
+      wallpaper: {
+        7: 'desert-2',
+        9: 'desert-3',
+        11: 'desert-4',
+        13: 'desert-5',
+        15: 'desert-6',
+        16: 'desert-7',
+        17: 'desert-8',
+        18: 'desert-1',
+      },
+      theme: {
+        7: 'light',
+        18: 'dark',
+      },
+    },
+  },
+
+  dome: {
+    name: 'Dome',
+    type: 'dynamic',
+    thumbnail: 'dome-2',
+    timestamps: {
+      wallpaper: {
+        7: 'dome-2',
+        18: 'dome-1',
+      },
+      theme: {
+        7: 'light',
+        18: 'dark',
+      },
+    },
+  },
+
+  peak: {
+    name: 'Peak',
+    type: 'dynamic',
+    thumbnail: 'peak-2',
+    timestamps: {
+      wallpaper: {
+        7: 'peak-2',
+        18: 'peak-1',
+      },
+      theme: {
+        7: 'light',
+        18: 'dark',
+      },
+    },
+  },
+
+  iridescence: {
+    name: 'Iridescence',
+    type: 'dynamic',
+    thumbnail: 'iridescence-2',
+    timestamps: {
+      wallpaper: {
+        7: 'iridescence-2',
+        18: 'iridescence-1',
+      },
+      theme: {
+        7: 'light',
+        18: 'dark',
+      },
+    },
+  },
+
+  lake: {
+    name: 'Lake',
+    type: 'dynamic',
+    thumbnail: 'lake-4',
+    timestamps: {
+      wallpaper: {
+        7: 'lake-2',
+        9: 'lake-3',
+        11: 'lake-4',
+        13: 'lake-5',
+        15: 'lake-6',
+        16: 'lake-7',
+        17: 'lake-8',
+        18: 'lake-1',
+      },
+      theme: {
+        7: 'light',
+        18: 'dark',
+      },
+    },
+  },
+
+  'solar-grad': {
+    name: 'Solar Grad',
+    type: 'dynamic',
+    thumbnail: 'solar-grad-11',
+    timestamps: {
+      wallpaper: {
+        6: 'solar-grad-2',
+        7: 'solar-grad-3',
+        8: 'solar-grad-4',
+        9: 'solar-grad-5',
+        10: 'solar-grad-6',
+        11: 'solar-grad-7',
+        12: 'solar-grad-8',
+        13: 'solar-grad-9',
+        14: 'solar-grad-10',
+        15: 'solar-grad-11',
+        16: 'solar-grad-12',
+        17: 'solar-grad-13',
+        18: 'solar-grad-14',
+        19: 'solar-grad-5',
+        20: 'solar-grad-6',
+      },
+      theme: {
+        6: 'light',
+        20: 'dark',
       },
     },
   },

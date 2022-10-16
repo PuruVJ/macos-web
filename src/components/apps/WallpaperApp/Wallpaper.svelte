@@ -6,7 +6,7 @@
   import { theme } from '🍎/stores/theme.store';
   import { wallpaper } from '🍎/stores/wallpaper.store';
 
-  let visibleBackgroundImage = '/wallpapers/37-2.jpg';
+  let visibleBackgroundImage = wallpapersConfig.ventura.thumbnail;
 
   const interval = createIntervalStore(5 * 1000);
 
@@ -76,26 +76,19 @@
   }
 
   function previewImageOnLoad() {
-    visibleBackgroundImage = `/wallpapers/${$wallpaper.image}.${
-      wallpapersConfig[$wallpaper.id].photoType ?? 'jpg'
-    }`;
+    visibleBackgroundImage = $wallpaper.image;
   }
 </script>
 
 <!-- Prefetch all wallpapers -->
 <svelte:head>
-  {#each Object.values(wallpapersConfig) as { thumbnail, photoType }}
-    <link rel="prefetch" href="/wallpapers/{thumbnail}.{photoType ?? 'jpg'}" />
+  {#each Object.values(wallpapersConfig) as { thumbnail }}
+    <link rel="prefetch" href={thumbnail} />
   {/each}
 </svelte:head>
 
 <!-- This preload and render the image for browser but invisible to user -->
-<img
-  src="/wallpapers/{$wallpaper.image}.{wallpapersConfig[$wallpaper.id].photoType ?? 'jpg'}"
-  aria-hidden="true"
-  alt=""
-  on:load={previewImageOnLoad}
-/>
+<img src={$wallpaper.image} aria-hidden="true" alt="" on:load={previewImageOnLoad} />
 
 <div
   class="background-cover"
@@ -126,7 +119,5 @@
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
-
-    background-image: url(/wallpapers/37-2.jpg);
   }
 </style>

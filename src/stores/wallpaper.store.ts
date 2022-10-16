@@ -7,8 +7,8 @@ type WallpaperSettings = {
   canControlTheme: boolean;
 };
 
-export const wallpaper = writable<WallpaperSettings>('macos:wallpaper-settings', {
-  image: '58-2',
+export const wallpaper = writable<WallpaperSettings>('macos:wallpaper-settings:v2', {
+  image: 'ventura-2',
   id: 'ventura',
   canControlTheme: true,
 });

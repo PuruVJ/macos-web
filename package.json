@@ -30,6 +30,7 @@
     "workbox-window": "^6.5.4"
   },
   "dependencies": {
+    "@fontsource/inter": "^4.5.14",
     "@neodrag/svelte": "^1.2.4",
     "date-fns": "^2.29.3",
     "popmotion": "^11.0.5",

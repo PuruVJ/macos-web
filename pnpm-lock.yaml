@@ -1,6 +1,7 @@
 lockfileVersion: 5.4
 
 specifiers:
+  '@fontsource/inter': ^4.5.14
   '@iconify-json/gg': ^1.1.2
   '@iconify-json/ic': ^1.1.9
   '@iconify-json/icon-park-outline': ^1.1.6
@@ -27,6 +28,7 @@ specifiers:
   workbox-window: ^6.5.4
 
 dependencies:
+  '@fontsource/inter': 4.5.14
   '@neodrag/svelte': 1.2.4
   date-fns: 2.29.3
   popmotion: 11.0.5
@@ -1244,6 +1246,10 @@ packages:
     requiresBuild: true
     dev: true
     optional: true
+
+  /@fontsource/inter/4.5.14:
+    resolution: {integrity: sha512-JDC9AocdPLuGsASkvWw9hS5gtHE7K9dOwL98XLrk5yjYqxy4uVnScG58NUvFMJDVJRl/7c8Wnap6PEs+7Zvj1Q==}
+    dev: false
 
   /@iconify-json/gg/1.1.2:
     resolution: {integrity: sha512-JHTw0OeMSiGEDcQcNIUtVdkzUCQ/o+TeNsKpr2SGyzJ6etl1LK1aBhXfTrdpgB84iaMp/+FYFpD1+ju4HkoE7Q==}

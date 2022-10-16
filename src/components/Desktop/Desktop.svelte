@@ -7,11 +7,18 @@
   import SystemUpdate from './SystemUpdate.svelte';
   import WindowsArea from './Window/WindowsArea.svelte';
 
-  import '@fontsource/inter/300.css';
-  import '@fontsource/inter/400.css';
-  import '@fontsource/inter/500.css';
-  import '@fontsource/inter/600.css';
+  const isMac = /(Mac|iPhone|iPod|iPad)/i.test(navigator.platform);
 
+  if (!isMac) {
+    Promise.all([
+      import('@fontsource/inter/latin-ext-300.css'),
+      import('@fontsource/inter/latin-ext-400.css'),
+      import('@fontsource/inter/latin-ext-500.css'),
+      import('@fontsource/inter/latin-ext-600.css'),
+    ]).then(() => {
+      console.log(1);
+    });
+  }
   let mainEl: HTMLElement;
 </script>
 

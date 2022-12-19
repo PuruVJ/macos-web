@@ -397,11 +397,16 @@ export const wallpapersConfig = createWallpapersConfig({
     thumbnail: '56',
   },
 
-  tron: {
+  'tron': {
     name: 'Tron',
     type: 'standalone',
     thumbnail: '57',
   },
+  'retro-90s': {
+    name: 'Retro 90s',
+    type: 'standalone',
+    thumbnail: '58'
+  }
 });
 
 export type WallpaperID = keyof typeof wallpapersConfig;

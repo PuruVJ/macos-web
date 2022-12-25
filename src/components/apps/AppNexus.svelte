@@ -1,5 +1,6 @@
 <script lang="ts">
   import type { AppID } from '🍎/stores/apps.store';
+  import Notes from './Notes/Notes.svelte';
 
   export let appID: AppID;
   export let isBeingDragged: boolean;
@@ -12,6 +13,10 @@
 {:else if appID === 'vscode'}
   {#await import('./VSCode/VSCode.svelte') then { default: VSCode }}
     <VSCode {isBeingDragged} />
+  {/await}
+{:else if appID === 'notes'}
+  {#await import('./Notes/Notes.svelte') then { default: Notes }}
+    <Notes />
   {/await}
 {:else if appID === 'calculator'}
   {#await import('./Calculator/Calculator.svelte') then { default: Calculator }}

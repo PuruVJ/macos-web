@@ -1,6 +1,5 @@
-<script lang="ts">
+<script>
   import { theme } from '🍎/stores/theme.store';
-  import Count from './count.svelte';
 	import {addNote, notesStore} from './stores';
 	
 	const NEW_NOTE = {title: '', text: ''};
@@ -66,9 +65,6 @@
         
         <form on:submit|preventDefault={handleSubmit}>
             <textarea readonly={!editing} rows="10" bind:this={textInput} bind:value={note.text} />
-            {#if note.text}
-              <Count text={note.text} />
-            {/if}
         </form>
         
     </section>
@@ -136,8 +132,8 @@
         background: none;
         color: hsla(var(--system-color-dark-hsl), 0.8);
         resize: none;
-        height: 600%;
-        width: 600%;
+        height: 350%;
+        width: 95%;
     }
 
     input{

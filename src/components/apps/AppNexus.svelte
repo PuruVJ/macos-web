@@ -1,6 +1,5 @@
 <script lang="ts">
   import type { AppID } from '🍎/stores/apps.store';
-  import Notes from './Notes/Notes.svelte';
 
   export let appID: AppID;
   export let isBeingDragged: boolean;

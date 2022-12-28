@@ -1,6 +1,6 @@
-<script>
+<script lang='ts'>
   import { theme } from '🍎/stores/theme.store';
-	import {addNote, notesStore} from './stores';
+	import {addNote, notesStore} from './store';
 	
 	const NEW_NOTE = {title: '', text: ''};
 	
@@ -15,10 +15,10 @@
 	
 	function deleteNote() {
 		if (confirm('Are you sure you want to delete this note?')) {
-	    notesStore.update(notes => {
-        delete notes[note.id];
-		    return notes;
-		  });
+	             notesStore.update(notes => {
+                       delete notes[note.id];
+		       return notes;
+		     });
 		}
 	}
 	
@@ -28,7 +28,7 @@
 	}
 	
 	function handleSubmit() {
-    // do nothing for now
+           // do nothing for now
 	}
 	
 	function newNote() {

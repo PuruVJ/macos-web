@@ -15,12 +15,13 @@
 	
 	function deleteNote() {
 		if (confirm('Are you sure you want to delete this note?')) {
-	             notesStore.update(notes => {
-                       delete notes[note.id];
-		       return notes;
-		     });
+	    notesStore.update(notes => {
+        delete notes[note.id];
+		    return notes;
+		  });
 		}
 	}
+
 	
 	function editNote() {
 		textInput.focus();
@@ -28,7 +29,7 @@
 	}
 	
 	function handleSubmit() {
-           // do nothing for now
+    // do nothing for now
 	}
 	
 	function newNote() {
@@ -36,6 +37,7 @@
 		editing = true;
 		titleInput.focus();
 	}
+
 </script>
   
 <section class="container">
@@ -53,20 +55,20 @@
     </header>
 
     <aside class:light={$theme.scheme === 'light'}>
-        <select bind:value={selectedId}>
+        <div>
+          <select bind:value={selectedId}>
             <option>Select note</option>
-        {#each sortedNotes as note}
+          {#each sortedNotes as note}
             <option value={note.id}>{note.title}</option>
-        {/each}
-      </select>
+          {/each}
+          </select>
+        </div>
     </aside>
 
     <section class="content">
-        
         <form on:submit|preventDefault={handleSubmit}>
             <textarea readonly={!editing} rows="10" bind:this={textInput} bind:value={note.text} />
         </form>
-        
     </section>
 </section>
 

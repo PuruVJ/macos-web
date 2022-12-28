@@ -2,10 +2,16 @@ import {writable} from 'svelte/store';
 
 let lastId = 0;
 
-// Keys are ids and values are objects with id, title, and text properties.
-export const notesStore = writable({});
+type Note = {
+	id: number;
+	title: string;
+	text: string;
+}
 
-export function addNote(title, text) {
+// Keys are ids and values are objects with id, title, and text properties.
+export const notesStore = writable<Record<number, Note>>({});
+
+export function addNote(title: string, text: string) {
 	lastId++;
   const note = {id: lastId, title, text};
 	notesStore.update(notes => {

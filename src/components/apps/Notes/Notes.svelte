@@ -1,6 +1,11 @@
 <script lang='ts'>
-  import { theme } from '🍎/stores/theme.store';
+        import { theme } from '🍎/stores/theme.store';
 	import {addNote, notesStore} from './store';
+	import SystemDialog from '../SystemUI/SystemDialog.svelte';
+
+	
+        let noteDeleteDialog: SystemDialog;
+
 	
 	const NEW_NOTE = {title: '', text: ''};
 	
@@ -10,17 +15,24 @@
 	let textInput;
 	let titleInput;
 	
+	let noteDeleteTrigger = false;
+        let noteDelete = false;
+	
 	$: sortedNotes = Object.values($notesStore).sort();
 	$: note = $notesStore[selectedId] || NEW_NOTE;
 	
 	function deleteNote() {
-		if (confirm('Are you sure you want to delete this note?')) {
-	    notesStore.update(notes => {
-        delete notes[note.id];
-		    return notes;
-		  });
+		noteDeleteTrigger = true;
+		if (noteDelete == true) {
+	            notesStore.update(notes => {
+                      delete notes[note.id];
+		      return notes;
+		    });
 		}
 	}
+	
+	noteDeleteTrigger = false;
+        noteDelete = false;
 
 	
 	function editNote() {
@@ -29,16 +41,48 @@
 	}
 	
 	function handleSubmit() {
-    // do nothing for now
+           // do nothing for now
 	}
 	
 	function newNote() {
-		selectedId = addNote('', '');
-		editing = true;
-		titleInput.focus();
+	    selectedId = addNote('', '');
+            editing = true;
+	    titleInput.focus();
 	}
+	
+	
+  function handleClick() {
+    noteDelete = true;
+  }
+
+  function close() {
+    noteDeleteDialog.close();
+  }
+
 
 </script>
+
+{#if noteDeleteTrigger === true }
+<SystemDialog bind:this={noteDeleteDialog}>
+  <section class="note-delete">
+    <img
+      width="128"
+      height="128"
+      src="/app-icons/notes/256.webp"
+      alt="AppStore app"
+      draggable="false"
+    />
+
+    <h3>Delete Note</h3>
+    <p>Are you sure you want to delete this note?</p>
+
+    <div class="buttons">
+      <button on:click={close}> Cancel </button>
+      <button class="confirm" on:click={handleClick}> Delete </button>
+    </div>
+  </section>
+</SystemDialog>
+{/if}
   
 <section class="container">
     <header class="titlebar app-window-drag-handle">
@@ -144,4 +188,64 @@
         color: hsla(var(--system-color-dark-hsl), 0.8);
         font-size: large;
     }
+    
+    .note-delete {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+
+    padding: 1rem 0 0;
+
+    width: 20rem;
+
+    color: var(--system-color-dark);
+
+    h3,
+    p {
+      text-align: center;
+    }
+
+    h3 {
+      font-size: 1.2rem;
+      font-weight: 500;
+    }
+
+    p {
+      font-size: 0.9rem;
+    }
+
+    .buttons {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.5rem;
+
+      width: 100%;
+
+      button {
+        width: 100%;
+        height: 2rem;
+
+        font-weight: 500;
+
+        border-radius: 0.5rem;
+
+        background-color: hsla(var(--system-color-dark-hsl), 0.2);
+
+        &:hover {
+          background-color: hsla(var(--system-color-dark-hsl), 0.3);
+        }
+
+        &.confirm {
+          background-color: var(--system-color-primary);
+
+          color: var(--system-color-primary-contrast);
+
+          &:hover {
+            background-color: hsla(var(--system-color-primary-hsl), 0.8);
+          }
+        }
+      }
+    }
+  }
 </style>

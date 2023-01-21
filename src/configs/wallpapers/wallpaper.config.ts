@@ -408,7 +408,7 @@ export const wallpapersConfig = createWallpapersConfig({
     thumbnail: '58',
   },
   'retro-90s': {
-    name: 'Tron',
+    name: 'Retro 90s',
     type: 'standalone',
     thumbnail: '59',
   },

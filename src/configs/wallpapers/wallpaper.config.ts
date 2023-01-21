@@ -425,7 +425,7 @@ export const wallpapersConfig = createWallpapersConfig({
   'cherry-blossoms': {
     name: 'Cherry Blossoms',
     type: 'standalone',
-    thumbnail: '60',
+    thumbnail: '62',
   }
 });
 

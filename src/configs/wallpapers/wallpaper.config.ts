@@ -426,6 +426,16 @@ export const wallpapersConfig = createWallpapersConfig({
     name: 'Cherry Blossoms',
     type: 'standalone',
     thumbnail: '62',
+  },
+  'indian-gardens': {
+    name: 'Indian Gardens',
+    type: 'standalone',
+    thumbnail: '63',
+  },
+  'along-the-ganges': {
+    name: 'Along the Ganges',
+    type: 'standalone',
+    thumbnail: '64',
   }
 });
 

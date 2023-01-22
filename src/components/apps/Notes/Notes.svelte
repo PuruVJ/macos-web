@@ -14,12 +14,10 @@
 	$: note = $notesStore[selectedId] || NEW_NOTE;
 	
 	function deleteNote() {
-		if (confirm('are you sure you want to delete  this note?')) {
 	            notesStore.update(notes => {
                       delete notes[note.id];
 		      return notes;
 		    });
-		}
 	}
 	
 	function editNote() {

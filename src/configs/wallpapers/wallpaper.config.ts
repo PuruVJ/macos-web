@@ -402,6 +402,41 @@ export const wallpapersConfig = createWallpapersConfig({
     type: 'standalone',
     thumbnail: '57',
   },
+  leopard: {
+    name: 'Leopard',
+    type: 'standalone',
+    thumbnail: '58',
+  },
+  'retro-90s': {
+    name: 'Retro 90s',
+    type: 'standalone',
+    thumbnail: '59',
+  },
+  'lost-lands': {
+    name: 'Lost Lands',
+    type: 'standalone',
+    thumbnail: '60',
+  },
+  'flower-field': {
+    name: 'Flower Field',
+    type: 'standalone',
+    thumbnail: '61',
+  },
+  'cherry-blossoms': {
+    name: 'Cherry Blossoms',
+    type: 'standalone',
+    thumbnail: '62',
+  },
+  'indian-gardens': {
+    name: 'Indian Gardens',
+    type: 'standalone',
+    thumbnail: '63',
+  },
+  'along-the-ganges': {
+    name: 'Along the Ganges',
+    type: 'standalone',
+    thumbnail: '64',
+  }
 });
 
 export type WallpaperID = keyof typeof wallpapersConfig;

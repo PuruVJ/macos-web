@@ -9,7 +9,7 @@ export const openApps = writable<Record<AppID, boolean>>({
   finder: true,
   vscode: false,
   calculator: false,
-  safari: false,
+  safari: true,
   appstore: false,
   calendar: false,
   // 'system-preferences': false,

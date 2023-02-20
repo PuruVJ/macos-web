@@ -7,8 +7,8 @@ body[data-theme='light'] {
   --system-color-primary-contrast-hsl: 240, 24%, 100%;
 
   /* // Dark */
-  --system-color-dark: hsl(240, 3%, 11%);
-  --system-color-dark-hsl: 240, 3%, 11%;
+  --system-color-dark: hsl(0, 0%, 17%);
+  --system-color-dark-hsl: 0, 0%, 17%;
   --system-color-dark-contrast: hsl(240, 24%, 100%);
   --system-color-dark-contrast-hsl: 240, 24%, 100%;
 
@@ -91,8 +91,14 @@ body.dark {
   --system-color-dark-contrast-hsl: 0, 0%, 11%;
 
   /* // Light */
-  --system-color-light: hsl(240, 3%, 11%);
-  --system-color-light-hsl: 240, 3%, 11%;
+  --system-color-light: #2b2b2b;
+  --system-color-light-hsl: 0, 0%, 17%;
   --system-color-light-contrast: hsl(240, 24%, 100%);
   --system-color-light-contrast-hsl: 240, 24%, 100%;
+
+  // Because this is dark, tint actually means darker
+  --system-color-light-tint: hsl(0, 0%, 6%);
+  --system-color-light-tint-hsl: 0, 0%, 6%;
+  --system-color-light-tint-contrast: hsl(240, 24%, 100%);
+  --system-color-light-tint-contrast-hsl: 240, 24%, 100%;
 }

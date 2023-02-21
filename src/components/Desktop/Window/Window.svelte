@@ -157,7 +157,7 @@
     border-radius: 0.75rem;
     box-shadow: var(--elevated-shadow);
 
-    cursor: var(--system-cursor-default), auto;
+    // cursor: var(--system-cursor-default), auto;
 
     &.active {
       // --elevated-shadow: 0px 6.7px 12px rgba(0, 0, 0, 0.218), 0px 22.3px 40.2px rgba(0, 0, 0, 0.322),

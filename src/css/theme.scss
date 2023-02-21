@@ -13,10 +13,15 @@ body[data-theme='light'] {
   --system-color-dark-contrast-hsl: 240, 24%, 100%;
 
   /* // Light */
-  --system-color-light: hsl(240, 24%, 100%);
+  --system-color-light: #ffffff;
   --system-color-light-hsl: 240, 24%, 100%;
   --system-color-light-contrast: hsl(0, 0%, 11%);
   --system-color-light-contrast-hsl: 0, 0%, 11%;
+
+  --system-color-light-shade: hsl(0, 0%, 65%);
+  --system-color-light-shade-hsl: 0, 0%, 65%;
+  --system-color-light-shade-contrast: hsl(0, 0%, 11%);
+  --system-color-light-shade-contrast-hsl: 0, 0%, 11%;
 
   --system-font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Helvetica Neue', 'Helvetica',
     'Arial', sans-serif;

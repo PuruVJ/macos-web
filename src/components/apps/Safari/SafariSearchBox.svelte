@@ -1,23 +1,32 @@
 <script lang="ts">
+  import { createEventDispatcher } from 'svelte';
   import SearchIcon from '~icons/material-symbols/search';
   import { clickOutside, focusOutside } from '🍎/actions';
+  import { theme } from '🍎/stores/theme.store';
+
+  const dispatch = createEventDispatcher<{ search: { query: string } }>();
 
   let searchbarVal = '';
   let placeholderValue = 'Search or enter address';
 
   let searchFocused = false;
+
+  let inputEl: HTMLInputElement;
 </script>
 
-<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
-<section
+<button
   class="search-box"
+  class:dark={$theme.scheme === 'dark'}
   tabindex={0}
-  use:clickOutside={{ callback: () => (searchFocused = false) }}
-  use:focusOutside={{ callback: () => (searchFocused = false) }}
+  use:clickOutside={() => (searchFocused = false)}
+  use:focusOutside={() => (searchFocused = false)}
   on:click={() => (searchFocused = true)}
-  on:keyup={(e) => e.key === ' ' && (searchFocused = true)}
+  on:focus={() => {
+    inputEl.focus();
+    searchFocused = true;
+  }}
 >
-  <div class="facade" class:focus-state={searchFocused}>
+  <div class="facade" class:focus-state={searchbarVal || searchFocused}>
     <span class="search-icon" aria-hidden="true"><SearchIcon /></span>
 
     <span class="placeholder" style:visibility={searchbarVal ? 'hidden' : 'visible'}>
@@ -25,32 +34,41 @@
     >
   </div>
 
-  <input type="text" bind:value={searchbarVal} />
-</section>
+  <form on:submit|preventDefault={() => dispatch('search', { query: searchbarVal })}>
+    <input
+      type="text"
+      bind:value={searchbarVal}
+      bind:this={inputEl}
+      on:focusin={() => (searchFocused = true)}
+    />
+  </form>
+</button>
 
 <style lang="scss">
   .search-box {
+    display: block;
+
     position: relative;
 
-    width: 39%;
     height: 1.8rem;
 
     border-radius: 0.4rem;
 
     font-size: 0.87rem;
     font-weight: 300;
-    color: hsl(var(--system-color-dark-hsl));
+    color: var(--system-color-dark);
 
-    background-color: hsla(var(--system-color-light-tint-hsl), 0.8);
-    // backdrop-filter: blur(10px);
+    background-color: hsla(var(--system-color-light-shade-hsl), 0.8);
+
+    &.dark {
+      background-color: hsla(var(--system-color-light-tint-hsl), 0.7);
+    }
   }
 
   .facade {
     position: absolute;
     top: 50%;
     left: 50%;
-    width: 100%;
-    height: 100%;
 
     display: grid;
     grid-template-columns: auto auto;
@@ -67,19 +85,27 @@
     pointer-events: none;
 
     &.focus-state {
-      left: -19%;
+      left: 8px;
       transform: translate(0, -50%);
     }
   }
 
   .facade .placeholder {
     color: hsla(var(--system-color-dark-hsl), 0.5);
+    font-size: 0.75rem;
+    font-weight: 400;
+    white-space: nowrap;
   }
 
   .search-icon {
     color: hsla(var(--system-color-dark-hsl), 0.7);
 
     transform: translateY(1px);
+  }
+
+  form {
+    display: contents;
+    border-radius: inherit;
   }
 
   input {

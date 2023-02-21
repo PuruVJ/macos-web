@@ -48,7 +48,7 @@
       in:dialogOpenTransition
       out:fadeOut
       use:trapFocus
-      use:clickOutside={{ callback: () => backdropDismiss && close() }}
+      use:clickOutside={() => backdropDismiss && close()}
       on:click|stopPropagation={() => {}}
     >
       <slot />

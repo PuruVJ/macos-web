@@ -97,6 +97,9 @@
     height: 100% !important;
     max-height: 100%;
 
+    // To prevent the images from cutting the inset border in dark mode
+    padding-bottom: 1px;
+
     overflow-y: hidden;
   }
 

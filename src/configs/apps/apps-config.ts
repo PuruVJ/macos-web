@@ -44,6 +44,9 @@ const finder = createAppConfig({
 const safari = createAppConfig({
   title: 'Safari',
   resizable: true,
+
+  width: 800,
+  height: 600,
 });
 
 const systemPreferences = createAppConfig({
@@ -98,13 +101,11 @@ const appstore = createAppConfig({
 export const appsConfig = {
   finder,
   wallpapers,
+  safari,
   calculator,
   calendar,
   vscode,
   appstore,
-  // safari,
-
-  // 'system-preferences': systemPreferences,
 
   'purus-twitter': purusTwitter,
   'view-source': viewSource,

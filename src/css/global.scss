@@ -7,7 +7,7 @@ body {
 }
 
 body {
-  cursor: var(--system-cursor-default), auto;
+  // cursor: var(--system-cursor-default), auto;
 
   font-family: var(--system-font-family);
 
@@ -62,17 +62,12 @@ button {
 
   user-select: none;
   appearance: none;
-  cursor: var(--system-cursor-default), auto;
+  // cursor: var(--system-cursor-default), auto;
 
   background-color: transparent;
 
   -webkit-tap-highlight-color: transparent;
 }
-
-* {
-  cursor: var(--system-cursor-default), auto;
-}
-
 
 /* Scrollbar Stuffs */
 ::-webkit-scrollbar {
@@ -104,4 +99,3 @@ button {
 ::-webkit-scrollbar-thumb:active {
   background-color: #444;
 }
-

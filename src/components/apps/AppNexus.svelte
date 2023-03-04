@@ -17,6 +17,10 @@
   {#await import('./Calculator/Calculator.svelte') then { default: Calculator }}
     <Calculator />
   {/await}
+{:else if appID === 'safari'}
+  {#await import('./Safari/Safari.svelte') then { default: Safari }}
+    <Safari />
+  {/await}
 {:else if appID === 'wallpapers'}
   {#await import('./WallpaperApp/WallpaperSelectorApp.svelte') then { default: WallpaperSelector }}
     <WallpaperSelector />

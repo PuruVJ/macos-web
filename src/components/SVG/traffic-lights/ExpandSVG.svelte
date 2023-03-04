@@ -5,7 +5,7 @@
     fill="none"
     stroke="black"
     stroke-linecap="round"
-    strok-linejoin="round"
+    stroke-linejoin="round"
     stroke-width="1.5"
   />
 </svg>

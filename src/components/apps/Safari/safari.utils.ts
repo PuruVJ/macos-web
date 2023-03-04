@@ -11,3 +11,28 @@ export function isValidURL(str: string) {
 
   return !!pattern.test(str);
 }
+
+export const prefixURlWithProtocol = (url: string) => {
+  if (url.startsWith('http://') || url.startsWith('https://')) {
+    return url;
+  }
+  return `http://${url}`;
+};
+
+export const loadURL = (url: string) =>
+  new Promise<boolean>((resolve) => {
+    const iframeEl = document.createElement('iframe');
+
+    iframeEl.src = url;
+
+    iframeEl.addEventListener('load', () => {
+      resolve(true);
+      // document.body.removeChild(iframeEl);
+    });
+    iframeEl.onerror = () => {
+      resolve(false);
+      // document.body.removeChild(iframeEl);
+    };
+
+    document.body.appendChild(iframeEl);
+  });

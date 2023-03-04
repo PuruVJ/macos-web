@@ -1,13 +1,16 @@
 <script lang="ts">
-  import SafariSearchBox from './SafariSearchBox.svelte';
   import NewTabIcon from '~icons/ic/baseline-plus';
   import TabsViewIcons from '~icons/ion/copy-outline';
+  import { isValidURL, loadURL, prefixURlWithProtocol } from './safari.utils';
+  import SafariSearchBox from './SafariSearchBox.svelte';
 
   let tabOpen = 'new-tab';
 
   let browsingState: 'searching' | 'idle' | 'successful' | 'error' = 'idle';
 
-  function search(searchStr: string) {
+  let url = '';
+
+  async function search(searchStr: string) {
     if (!searchStr) {
       browsingState = 'idle';
       return;
@@ -15,9 +18,20 @@
 
     browsingState = 'searching';
 
-    setTimeout(() => {
-      browsingState = 'successful';
-    }, 1000);
+    const _url = isValidURL(searchStr)
+      ? prefixURlWithProtocol(searchStr)
+      : `https://google.com/search?igu=1&q=${encodeURI(searchStr)}`;
+
+    // const isLoaded = await loadURL(_url);
+
+    // if (!isLoaded) {
+    //   browsingState = 'error';
+    //   return;
+    // }
+
+    url = _url;
+
+    browsingState = 'successful';
   }
 </script>
 
@@ -34,7 +48,7 @@
   </header>
 
   <main>
-    {#if browsingState === 'searching'}
+    <!--  {#if browsingState === 'searching'}
       <div class="searching">
         <h1>Searching...</h1>
       </div>
@@ -46,14 +60,26 @@
       <div class="error">
         <h1>Search error!</h1>
       </div>
-    {/if}
+    {/if} -->
 
-    <!-- <iframe src="https://www.google.com/search?igu=1&q=" frameborder="0" /> -->
+    {#if browsingState === 'successful'}
+      <iframe
+        src={url}
+        title="Iframe with content"
+        frameborder="0"
+        on:load={() => {
+          browsingState = 'successful';
+        }}
+      />
+    {/if}
   </main>
 </section>
 
 <style lang="scss">
   .container {
+    display: grid;
+    grid-template-rows: auto 1fr;
+
     // background-image: url(/assets/safari-wallpapers/2.webp);
     background-position: center center;
     background-size: cover;
@@ -91,6 +117,23 @@
     button {
       font-size: 1.1rem;
       color: hsla(var(--system-color-dark-hsl), 0.6);
+    }
+  }
+
+  main {
+    height: 100%;
+    width: calc(100% - 2px);
+    margin-left: 1px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    iframe {
+      height: 100%;
+      width: 100%;
+
+      border-radius: 0 0 0.85rem 0.85rem;
     }
   }
 </style>

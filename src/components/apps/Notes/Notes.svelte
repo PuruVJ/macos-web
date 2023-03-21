@@ -44,9 +44,9 @@
           <input id="title" readonly={!editing} bind:this={titleInput} bind:value={note.title}  />
         </span>
       <div>
-          <button disabled={!note.id} on:click={editNote}>Edit</button>
-          <button disabled={!note.id} on:click={deleteNote}>Delete</button>
-          <button on:click={newNote}>New</button>
+          <button disabled={!note.id} on:click={editNote}><img src="/Notes-icons/edit.webp" alt="edit"></button>
+          <button disabled={!note.id} on:click={deleteNote}><img src="/Notes-icons/delete.webp" alt="delete"></button>
+          <button on:click={newNote}><img src="/Notes-icons/New.webp" alt="new"></button>
 
       </div>
     </header>
@@ -131,7 +131,7 @@
       background: none;
       color: hsla(var(--system-color-dark-hsl), 0.8);
       resize: none;
-      height: 350%;
+      height: 295%;
       width: 95%;
     }
 

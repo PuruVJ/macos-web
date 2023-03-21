@@ -14,25 +14,25 @@
 	$: note = $notesStore[selectedId] || NEW_NOTE;
 	
 	function deleteNote() {
-	            notesStore.update(notes => {
-                      delete notes[note.id];
-		      return notes;
-		    });
+	  notesStore.update(notes => {
+            delete notes[note.id];
+            return notes;
+          });
 	}
 	
 	function editNote() {
-		textInput.focus();
-		editing = true;
+          textInput.focus();
+	  editing = true;
 	}
 	
 	function handleSubmit() {
-           // do nothing for now
+          // do nothing for now
 	}
 	
 	function newNote() {
-	    selectedId = addNote('', '');
-            editing = true;
-	    titleInput.focus();
+	  selectedId = addNote('', '');
+          editing = true;
+	  titleInput.focus();
 	}
 
 </script>
@@ -121,24 +121,24 @@
     }
 
     select{
-        border: none;
-        background: none;
-        color: hsla(var(--system-color-dark-hsl), 0.8);
+      border: none;
+      background: none;
+      color: hsla(var(--system-color-dark-hsl), 0.8);
     }
 
     textarea{
-        border: none;
-        background: none;
-        color: hsla(var(--system-color-dark-hsl), 0.8);
-        resize: none;
-        height: 350%;
-        width: 95%;
+      border: none;
+      background: none;
+      color: hsla(var(--system-color-dark-hsl), 0.8);
+      resize: none;
+      height: 350%;
+      width: 95%;
     }
 
     input{
-        border: none;
-        background: none;
-        color: hsla(var(--system-color-dark-hsl), 0.8);
-        font-size: large;
+      border: none;
+      background: none;
+      color: hsla(var(--system-color-dark-hsl), 0.8);
+      font-size: large;
     }
 </style>

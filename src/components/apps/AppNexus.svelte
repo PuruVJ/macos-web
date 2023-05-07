@@ -9,6 +9,10 @@
   {#await import('./Calendar/Calendar.svelte') then { default: Calendar }}
     <Calendar />
   {/await}
+{:else if appID === 'finder'}
+  {#await import('./Finder/Finder.svelte') then { default: Finder }}
+    <Finder />
+  {/await}
 {:else if appID === 'vscode'}
   {#await import('./VSCode/VSCode.svelte') then { default: VSCode }}
     <VSCode {isBeingDragged} />

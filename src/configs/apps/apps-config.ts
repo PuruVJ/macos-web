@@ -43,7 +43,7 @@ const finder = createAppConfig({
   resizable: true,
 
   // dockBreaksBefore: true,
-  shouldOpenWindow: true,
+  shouldOpenWindow: false,
 });
 
 const purusTwitter = createAppConfig({

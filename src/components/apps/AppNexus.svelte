@@ -13,6 +13,10 @@
   {#await import('./VSCode/VSCode.svelte') then { default: VSCode }}
     <VSCode {isBeingDragged} />
   {/await}
+{:else if appID === 'finder'}
+  {#await import('./Finder/Finder.svelte') then { default: Finder }}
+    <Finder />
+  {/await}
 {:else if appID === 'calculator'}
   {#await import('./Calculator/Calculator.svelte') then { default: Calculator }}
     <Calculator />

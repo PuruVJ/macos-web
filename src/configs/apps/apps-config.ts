@@ -90,7 +90,6 @@ export const appsConfig = {
   wallpapers,
   calculator,
   calendar,
-  notes,
   vscode,
   appstore,
   // safari,

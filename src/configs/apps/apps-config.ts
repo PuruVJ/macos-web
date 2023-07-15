@@ -33,6 +33,11 @@ const vscode = createAppConfig({
   width: 800,
 });
 
+const notes = createAppConfig({
+  title: 'Notes',
+  resizable: true,
+});
+
 const finder = createAppConfig({
   title: 'Finder',
   resizable: true,

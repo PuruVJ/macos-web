@@ -25,11 +25,6 @@ const calendar = createAppConfig({
   resizable: true,
 });
 
-const notes = createAppConfig({
-  title: 'Notes',
-  resizable: true,
-});
-
 const vscode = createAppConfig({
   title: 'VSCode',
   resizable: true,

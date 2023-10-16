@@ -52,7 +52,7 @@ const systemPreferences = createAppConfig({
 });
 
 const purusTwitter = createAppConfig({
-  title: `About the Developer`,
+  title: `Devloper Profile`,
   resizable: true,
 
   dockBreaksBefore: true,
@@ -62,19 +62,19 @@ const purusTwitter = createAppConfig({
 });
 
 const viewSource = createAppConfig({
-  title: `View Source`,
+  title: `Youtube`,
   resizable: true,
 
   shouldOpenWindow: false,
-  externalAction: () => window.open('https://github.com/puruvj/macos-web', '_blank'),
+  externalAction: () => window.open('https://youtube.com/@Iamayussshkhurana?si=2Ao_h6s9mtulqgOf', '_blank'),
 });
 
 const ukraine = createAppConfig({
-  title: `Support Ukraine`,
+  title: `Video Portfolio`,
   resizable: true,
 
   shouldOpenWindow: false,
-  externalAction: () => window.open('https://www.stopputin.net/', '_blank'),
+  externalAction: () => window.open('https://youtube.com/@AyusshPortfolio-rr7zm?si=20KLJlibCO0NfrGw', '_blank'),
 
   dockBreaksBefore: true,
 });

@@ -50,7 +50,7 @@ importers:
         version: 1.1.8
       '@sveltejs/vite-plugin-svelte':
         specifier: 3.1.0
-        version: 3.1.0(svelte@4.2.15)(vite@5.2.10(@types/node@20.12.7)(sass@1.75.0)(terser@5.30.4))
+        version: 3.1.0(svelte@4.2.15)(vite@5.2.10(sass@1.75.0)(terser@5.30.4))
       autoprefixer:
         specifier: ^10.4.12
         version: 10.4.19(postcss@8.4.38)
@@ -74,13 +74,13 @@ importers:
         version: 5.4.5
       vite:
         specifier: 5.2.10
-        version: 5.2.10(@types/node@20.12.7)(sass@1.75.0)(terser@5.30.4)
+        version: 5.2.10(sass@1.75.0)(terser@5.30.4)
       vite-imagetools:
         specifier: ^7.0.1
         version: 7.0.1(rollup@4.17.1)
       vite-plugin-pwa:
         specifier: ^0.19.8
-        version: 0.19.8(vite@5.2.10(@types/node@20.12.7)(sass@1.75.0)(terser@5.30.4))(workbox-build@7.1.0)(workbox-window@7.1.0)
+        version: 0.19.8(vite@5.2.10(sass@1.75.0)(terser@5.30.4))(workbox-build@7.1.0)(workbox-window@7.1.0)
       workbox-window:
         specifier: ^7.1.0
         version: 7.1.0
@@ -1158,9 +1158,6 @@ packages:
 
   '@types/estree@1.0.5':
     resolution: {integrity: sha512-/kYRxGDLWzHOB7q+wtSUQlFrtcdUccpfy+X+9iMBpHK8QLLhx2wIPYuS5DYtR9Wa/YlZAbIovy7qVdB1Aq6Lyw==}
-
-  '@types/node@20.12.7':
-    resolution: {integrity: sha512-wq0cICSkRLVaf3UGLMGItu/PtdY7oaXaI/RVU+xliKVOtRna3PRY57ZDfztpDL0n11vfymMUnXv8QwYCO7L1wg==}
 
   '@types/pug@2.0.10':
     resolution: {integrity: sha512-Sk/uYFOBAB7mb74XcpizmH0KOR2Pv3D2Hmrh1Dmy5BmK3MpdSa5kqZcg6EKBdklU0bFXX9gCfzvpnyUehrPIuA==}
@@ -2287,9 +2284,6 @@ packages:
 
   unbox-primitive@1.0.2:
     resolution: {integrity: sha512-61pPlCD9h51VoreyJ0BReideM3MDKMKnh6+V9L08331ipq6Q8OFXZYiqP6n/tbHx4s5I9uRhcye6BrbkizkBDw==}
-
-  undici-types@5.26.5:
-    resolution: {integrity: sha512-JlCMO+ehdEIKqlFxk6IfVoAUVmgz7cU7zD/h9XZ0qzeosSHmUJVOzSQvvYSYWXkFXC+IfLKSIffhv0sVZup6pA==}
 
   unicode-canonical-property-names-ecmascript@2.0.0:
     resolution: {integrity: sha512-yY5PpDlfVIU5+y/BSCxAJRBIS1Zc2dDG3Ujq+sR0U+JjUevW2JhocOF+soROYDSaAezOzOKuyyixhD6mBknSmQ==}
@@ -3571,37 +3565,32 @@ snapshots:
       magic-string: 0.25.9
       string.prototype.matchall: 4.0.11
 
-  '@sveltejs/vite-plugin-svelte-inspector@2.1.0(@sveltejs/vite-plugin-svelte@3.1.0(svelte@4.2.15)(vite@5.2.10(@types/node@20.12.7)(sass@1.75.0)(terser@5.30.4)))(svelte@4.2.15)(vite@5.2.10(@types/node@20.12.7)(sass@1.75.0)(terser@5.30.4))':
+  '@sveltejs/vite-plugin-svelte-inspector@2.1.0(@sveltejs/vite-plugin-svelte@3.1.0(svelte@4.2.15)(vite@5.2.10(sass@1.75.0)(terser@5.30.4)))(svelte@4.2.15)(vite@5.2.10(sass@1.75.0)(terser@5.30.4))':
     dependencies:
-      '@sveltejs/vite-plugin-svelte': 3.1.0(svelte@4.2.15)(vite@5.2.10(@types/node@20.12.7)(sass@1.75.0)(terser@5.30.4))
+      '@sveltejs/vite-plugin-svelte': 3.1.0(svelte@4.2.15)(vite@5.2.10(sass@1.75.0)(terser@5.30.4))
       debug: 4.3.4
       svelte: 4.2.15
-      vite: 5.2.10(@types/node@20.12.7)(sass@1.75.0)(terser@5.30.4)
+      vite: 5.2.10(sass@1.75.0)(terser@5.30.4)
     transitivePeerDependencies:
       - supports-color
 
-  '@sveltejs/vite-plugin-svelte@3.1.0(svelte@4.2.15)(vite@5.2.10(@types/node@20.12.7)(sass@1.75.0)(terser@5.30.4))':
+  '@sveltejs/vite-plugin-svelte@3.1.0(svelte@4.2.15)(vite@5.2.10(sass@1.75.0)(terser@5.30.4))':
     dependencies:
-      '@sveltejs/vite-plugin-svelte-inspector': 2.1.0(@sveltejs/vite-plugin-svelte@3.1.0(svelte@4.2.15)(vite@5.2.10(@types/node@20.12.7)(sass@1.75.0)(terser@5.30.4)))(svelte@4.2.15)(vite@5.2.10(@types/node@20.12.7)(sass@1.75.0)(terser@5.30.4))
+      '@sveltejs/vite-plugin-svelte-inspector': 2.1.0(@sveltejs/vite-plugin-svelte@3.1.0(svelte@4.2.15)(vite@5.2.10(sass@1.75.0)(terser@5.30.4)))(svelte@4.2.15)(vite@5.2.10(sass@1.75.0)(terser@5.30.4))
       debug: 4.3.4
       deepmerge: 4.3.1
       kleur: 4.1.5
       magic-string: 0.30.10
       svelte: 4.2.15
       svelte-hmr: 0.16.0(svelte@4.2.15)
-      vite: 5.2.10(@types/node@20.12.7)(sass@1.75.0)(terser@5.30.4)
-      vitefu: 0.2.5(vite@5.2.10(@types/node@20.12.7)(sass@1.75.0)(terser@5.30.4))
+      vite: 5.2.10(sass@1.75.0)(terser@5.30.4)
+      vitefu: 0.2.5(vite@5.2.10(sass@1.75.0)(terser@5.30.4))
     transitivePeerDependencies:
       - supports-color
 
   '@types/estree@0.0.39': {}
 
   '@types/estree@1.0.5': {}
-
-  '@types/node@20.12.7':
-    dependencies:
-      undici-types: 5.26.5
-    optional: true
 
   '@types/pug@2.0.10': {}
 
@@ -4865,9 +4854,6 @@ snapshots:
       has-symbols: 1.0.3
       which-boxed-primitive: 1.0.2
 
-  undici-types@5.26.5:
-    optional: true
-
   unicode-canonical-property-names-ecmascript@2.0.0: {}
 
   unicode-match-property-ecmascript@2.0.0:
@@ -4923,31 +4909,30 @@ snapshots:
     transitivePeerDependencies:
       - rollup
 
-  vite-plugin-pwa@0.19.8(vite@5.2.10(@types/node@20.12.7)(sass@1.75.0)(terser@5.30.4))(workbox-build@7.1.0)(workbox-window@7.1.0):
+  vite-plugin-pwa@0.19.8(vite@5.2.10(sass@1.75.0)(terser@5.30.4))(workbox-build@7.1.0)(workbox-window@7.1.0):
     dependencies:
       debug: 4.3.4
       fast-glob: 3.3.2
       pretty-bytes: 6.1.1
-      vite: 5.2.10(@types/node@20.12.7)(sass@1.75.0)(terser@5.30.4)
+      vite: 5.2.10(sass@1.75.0)(terser@5.30.4)
       workbox-build: 7.1.0
       workbox-window: 7.1.0
     transitivePeerDependencies:
       - supports-color
 
-  vite@5.2.10(@types/node@20.12.7)(sass@1.75.0)(terser@5.30.4):
+  vite@5.2.10(sass@1.75.0)(terser@5.30.4):
     dependencies:
       esbuild: 0.20.2
       postcss: 8.4.38
       rollup: 4.17.1
     optionalDependencies:
-      '@types/node': 20.12.7
       fsevents: 2.3.3
       sass: 1.75.0
       terser: 5.30.4
 
-  vitefu@0.2.5(vite@5.2.10(@types/node@20.12.7)(sass@1.75.0)(terser@5.30.4)):
+  vitefu@0.2.5(vite@5.2.10(sass@1.75.0)(terser@5.30.4)):
     optionalDependencies:
-      vite: 5.2.10(@types/node@20.12.7)(sass@1.75.0)(terser@5.30.4)
+      vite: 5.2.10(sass@1.75.0)(terser@5.30.4)
 
   webidl-conversions@4.0.2: {}
 

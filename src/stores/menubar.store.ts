@@ -1,5 +1,5 @@
 import { writable } from 'svelte/store';
-import { writable as localWritable } from 'svelte-local-storage-store';
+import { persisted } from 'svelte-local-storage-store';
 import { finderMenuConfig } from '🍎/configs/menu/finder.menu.config';
 
 const menuConfigs = { finder: finderMenuConfig };
@@ -12,4 +12,4 @@ export const menuBarMenus = writable(
 
 export const activeMenu = writable('');
 
-export const shouldShowNotch = localWritable('macos:setting:should-show-notch', false);
+export const shouldShowNotch = persisted('macos:setting:should-show-notch', false);

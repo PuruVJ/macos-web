@@ -1,6 +1,4 @@
 <script lang="ts">
-  import { isDockHidden } from '🍎/stores/dock.store';
-
   export let isBeingDragged: boolean;
 
   $: console.log(isBeingDragged);
@@ -10,7 +8,6 @@
   <header class="app-window-drag-handle" />
   <div>
     <iframe
-      class:iframe-dragged={isBeingDragged || !$isDockHidden}
       src="https://stackblitz.com/github/puruvj/macos-web?embed=1&file=src/components/Desktop/Desktop.svelte&hideNavigation=1&theme=dark&view=editor"
       title="VS Code for macOS Web"
     />
@@ -33,10 +30,6 @@
     height: 100%;
 
     border-radius: 0 0 0.75rem 0.75rem;
-
-    &.iframe-dragged {
-      pointer-events: none;
-    }
   }
 
   header {

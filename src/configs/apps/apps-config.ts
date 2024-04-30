@@ -69,16 +69,6 @@ const viewSource = createAppConfig({
   externalAction: () => window.open('https://github.com/puruvj/macos-web', '_blank'),
 });
 
-const ukraine = createAppConfig({
-  title: `Support Ukraine`,
-  resizable: true,
-
-  shouldOpenWindow: false,
-  externalAction: () => window.open('https://www.stopputin.net/', '_blank'),
-
-  dockBreaksBefore: true,
-});
-
 const vercel = createAppConfig({
   title: `Powered by Vercel`,
   resizable: true,
@@ -110,6 +100,4 @@ export const appsConfig = {
   'view-source': viewSource,
 
   vercel,
-
-  ukraine,
 };

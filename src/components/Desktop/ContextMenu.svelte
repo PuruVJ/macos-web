@@ -4,14 +4,14 @@
   import { fadeOut } from '🍎/helpers/fade';
   import { theme } from '🍎/stores/theme.store';
 
-  export let targetElement: HTMLElement;
+  const { targetElement }: { targetElement: HTMLElement } = $props();
 
-  let xPos = 0;
-  let yPos = 0;
-  let isMenuVisible = false;
+  let x_pos = $state(0);
+  let y_pos = $state(0);
+  let is_menu_visible = $state(false);
 
   function handleContextMenu(e: MouseEvent) {
-    if (!targetElement?.contains(e.target as HTMLElement)) return (isMenuVisible = false);
+    if (!targetElement?.contains(e.target as HTMLElement)) return (is_menu_visible = false);
 
     let x = e.pageX;
     let y = e.pageY;
@@ -20,24 +20,30 @@
     if (window.innerWidth - x < 250) x -= 250;
     if (window.innerHeight - y < 300) y -= 250;
 
-    xPos = x;
-    yPos = y;
+    x_pos = x;
+    y_pos = y;
 
-    isMenuVisible = true;
+    is_menu_visible = true;
   }
 
   function hideMenu() {
-    isMenuVisible = false;
+    is_menu_visible = false;
   }
 </script>
 
-<svelte:body on:contextmenu|preventDefault={handleContextMenu} on:click={hideMenu} />
+<svelte:body
+  oncontextmenu={(e) => {
+    e.preventDefault();
+    handleContextMenu(e);
+  }}
+  on:click={hideMenu}
+/>
 
-{#if isMenuVisible}
+{#if is_menu_visible}
   <div
     class="container"
     class:dark={$theme.scheme === 'dark'}
-    style:transform="translate({xPos}px, {yPos}px)"
+    style:transform="translate({x_pos}px, {y_pos}px)"
     out:fadeOut
     use:elevation={'context-menu'}
   >

@@ -1,8 +1,9 @@
 import { readable } from 'svelte/store';
 
-export const createIntervalStore = (duration: number) =>
-  readable(new Date(), (setTime) => {
+export function create_interval(duration: number) {
+  return readable(new Date(), (setTime) => {
     let interval = setInterval(() => setTime(new Date()), duration);
 
     return () => clearInterval(interval);
   });
+}

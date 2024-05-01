@@ -1,9 +1,10 @@
 <script lang="ts">
+  import { untrack } from 'svelte';
   import { useRegisterSW } from 'virtual:pwa-register/svelte';
-  import { systemNeedsUpdate } from '🍎/stores/system.store';
+  import { system_needs_update } from '🍎/state/system.svelte';
   import SystemDialog from '../SystemUI/SystemDialog.svelte';
 
-  let systemUpdateDialog: SystemDialog;
+  let system_update_dialog = $state<SystemDialog>();
 
   // replaced dynamically
   const buildDate = '__DATE__';
@@ -23,20 +24,29 @@
     },
   });
 
-  $: $needRefresh && systemUpdateDialog?.open();
-  $: $systemNeedsUpdate = $needRefresh;
+  $effect(() => {
+    if ($needRefresh) {
+      untrack(() => system_update_dialog?.open());
+    }
+  });
+
+  $effect(() => {
+    $needRefresh;
+
+    untrack(() => (system_needs_update.value = $needRefresh));
+  });
 
   function close() {
-    systemUpdateDialog.close();
+    system_update_dialog.close();
     needRefresh.set(false);
   }
 
-  async function handleUpdateApp() {
+  async function handle_update_app() {
     updateServiceWorker();
   }
 </script>
 
-<SystemDialog bind:this={systemUpdateDialog}>
+<SystemDialog bind:this={system_update_dialog}>
   <section class="system-update-section">
     <img
       width="128"
@@ -50,8 +60,8 @@
     <p>Do you want to restart to install these updates now?</p>
 
     <div class="buttons">
-      <button on:click={close}>Later</button>
-      <button class="confirm" on:click={handleUpdateApp}> Update </button>
+      <button onclick={close}>Later</button>
+      <button class="confirm" onclick={handle_update_app}> Update </button>
     </div>
   </section>
 </SystemDialog>

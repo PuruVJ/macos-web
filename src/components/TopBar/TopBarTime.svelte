@@ -1,8 +1,8 @@
 <script lang="ts">
   import { format } from 'date-fns';
-  import { createIntervalStore } from '🍎/stores/interval.store';
+  import { create_interval } from '🍎/state/interval.svelte';
 
-  const time = createIntervalStore(1000);
+  const time = create_interval(1000);
 </script>
 
 <div style:margin="0 0.5rem">

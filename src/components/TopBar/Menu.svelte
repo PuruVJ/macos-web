@@ -1,14 +1,14 @@
 <script lang="ts">
   import { theme } from '🍎/stores/theme.store';
 
-  export let menu: any;
+  const { menu }: { menu: any } = $props();
 </script>
 
 <section class="container" class:dark={$theme.scheme === 'dark'}>
-  {#each Object.entries(menu) as [, val]}
+  {#each Object.entries(menu) as Array<[any, any]> as [val]}
     <button class="menu-item" disabled={val.disabled}>{val.title}</button>
     {#if val.breakAfter}
-      <div class="divider" />
+      <div class="divider"></div>
     {/if}
   {/each}
 </section>
@@ -34,7 +34,9 @@
 
     border-radius: 0.5rem;
 
-    box-shadow: hsla(0, 0%, 0%, 0.3) 0px 0px 11px 0px, var(--additional-box-shadow);
+    box-shadow:
+      hsla(0, 0%, 0%, 0.3) 0px 0px 11px 0px,
+      var(--additional-box-shadow);
 
     &.dark {
       --additional-box-shadow: inset 0 0 0 0.9px hsla(var(--system-color-dark-hsl), 0.3),

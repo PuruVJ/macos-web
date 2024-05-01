@@ -1,6 +1,6 @@
 <script lang="ts">
   import { fadeIn, fadeOut } from '🍎/helpers/fade';
-  import { shouldShowNotch } from '🍎/stores/menubar.store';
+  import { shouldShowNotch } from '🍎/state/menubar.svelte.ts';
 
   import ActionCenterToggle from './ActionCenterToggle.svelte';
   import MenuBar from './MenuBar.svelte';

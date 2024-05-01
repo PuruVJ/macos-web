@@ -1,7 +1,14 @@
 <script lang="ts">
+  import type { Snippet } from 'svelte';
   import { theme } from '🍎/stores/theme.store';
 
-  export let grid: [[columnStart: number, columnSpan: number], [rowStart: number, rowSpan: number]];
+  const {
+    grid,
+    children,
+  }: {
+    grid: [[columnStart: number, columnSpan: number], [rowStart: number, rowSpan: number]];
+    children: Snippet;
+  } = $props();
 
   const [[columnStart, columnSpan], [rowStart, rowSpan]] = grid;
 </script>
@@ -12,7 +19,7 @@
   style:grid-column="{columnStart} / span {columnSpan}"
   style:grid-row="{rowStart} / span {rowSpan}"
 >
-  <slot />
+  {@render children?.()}
 </section>
 
 <style lang="scss">
@@ -28,7 +35,8 @@
     padding: 0.5rem;
 
     border-radius: 0.75rem;
-    box-shadow: hsla(0, 0%, 0%, 0.3) 0px 1px 4px -1px,
+    box-shadow:
+      hsla(0, 0%, 0%, 0.3) 0px 1px 4px -1px,
       inset 0 0 0 var(--border-size) hsla(var(--system-color-dark-hsl), 0.3),
       0 0 0 var(--border-size) hsla(var(--system-color-light-hsl), 0.3);
 

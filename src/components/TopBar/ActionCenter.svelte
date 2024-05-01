@@ -8,8 +8,8 @@
 
   import { colors } from '🍎/configs/theme/colors.config';
   import { wallpapersConfig } from '🍎/configs/wallpapers/wallpaper.config';
-  import { activeApp, openApps } from '🍎/stores/apps.store';
-  import { shouldShowNotch } from '🍎/stores/menubar.store';
+  import { apps_store } from '🍎/state/apps.svelte';
+  import { shouldShowNotch } from '🍎/state/menubar.svelte';
   import { prefersReducedMotion } from '🍎/stores/prefers-motion.store';
   import { theme } from '🍎/stores/theme.store';
   import { wallpaper } from '🍎/stores/wallpaper.store';
@@ -17,13 +17,15 @@
   import ActionCenterSurface from './ActionCenterSurface.svelte';
   import ActionCenterTile from './ActionCenterTile.svelte';
 
-  export let isThemeWarningDialogOpen: boolean;
+  let {
+    is_theme_warning_dialog_open: _is_theme_warning_dialog_open = $bindable(),
+  }: { is_theme_warning_dialog_open: boolean } = $props();
 
   let containerEl: HTMLElement;
 
   function toggleTheme() {
     if (wallpapersConfig[$wallpaper.id].type === 'dynamic' && $wallpaper.canControlTheme) {
-      isThemeWarningDialogOpen = true;
+      _is_theme_warning_dialog_open = true;
       return;
     }
 
@@ -39,14 +41,14 @@
   }
 
   function openWallpapersApp() {
-    $openApps.wallpapers = true;
-    $activeApp = 'wallpapers';
+    apps_store.open.wallpapers = true;
+    apps_store.active = 'wallpapers';
   }
 
   onMount(() => containerEl?.focus());
 </script>
 
-<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
+<!-- svelte-ignore a11y_no_noninteractive_tabindex -->
 <section
   class="container"
   class:dark={$theme.scheme === 'dark'}
@@ -60,7 +62,7 @@
       [1, 2],
     ]}
   >
-    <ActionCenterTile grid={[1, 1]} on:click={toggleTheme}>
+    <ActionCenterTile grid={[1, 1]} onclick={toggleTheme}>
       <span class="toggle-icon" class:filled={$theme.scheme === 'dark'}>
         <DarkMode />
       </span>
@@ -98,7 +100,7 @@
             <button
               style:--color-hsl={hsl}
               style:--color-contrast-hsl={contrastHsl}
-              on:click={() => ($theme.primaryColor = colorID)}
+              onclick={() => ($theme.primaryColor = colorID)}
             >
               {#if $theme.primaryColor === colorID}
                 <CheckedIcon />
@@ -170,7 +172,8 @@
 
     border-radius: 1rem;
 
-    box-shadow: hsla(0, 0%, 0%, 0.3) 0px 0px 11px 0px,
+    box-shadow:
+      hsla(0, 0%, 0%, 0.3) 0px 0px 11px 0px,
       inset 0 0 0 var(--border-size) hsla(var(--system-color-dark-hsl), 0.3),
       0 0 0 var(--border-size) hsla(var(--system-color-light-hsl), 0.3);
 
@@ -217,7 +220,9 @@
 
     background-color: hsla(var(--bgcolor), var(--bgalpha));
 
-    transition: box-shadow 100ms ease, background-color 150ms ease;
+    transition:
+      box-shadow 100ms ease,
+      background-color 150ms ease;
 
     :global(svg) {
       color: hsla(var(--svgcolor), var(--svgalpha));

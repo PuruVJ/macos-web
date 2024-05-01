@@ -1,16 +1,21 @@
 <script lang="ts">
-  export let isBeingDragged: boolean;
+  const {
+    is_being_dragged,
+  }: {
+    is_being_dragged: boolean;
+  } = $props();
 
-  $: console.log(isBeingDragged);
+  $inspect(is_being_dragged);
 </script>
 
 <section class="container">
-  <header class="app-window-drag-handle" />
+  <header class="app-window-drag-handle"></header>
+
   <div>
     <iframe
       src="https://stackblitz.com/github/puruvj/macos-web?embed=1&file=src/components/Desktop/Desktop.svelte&hideNavigation=1&theme=dark&view=editor"
       title="VS Code for macOS Web"
-    />
+    ></iframe>
   </div>
 </section>
 

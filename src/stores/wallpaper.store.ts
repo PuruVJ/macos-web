@@ -1,4 +1,4 @@
-import { persisted } from 'svelte-local-storage-store';
+import { persisted } from 'svelte-persisted-store';
 import type { WallpaperID } from '🍎/configs/wallpapers/wallpaper.config';
 
 type WallpaperSettings = {

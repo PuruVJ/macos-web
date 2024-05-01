@@ -20,9 +20,9 @@ importers:
       popmotion:
         specifier: ^11.0.5
         version: 11.0.5
-      svelte-local-storage-store:
-        specifier: ^0.6.4
-        version: 0.6.4(svelte@5.0.0-next.120)
+      svelte-persisted-store:
+        specifier: ^0.9.2
+        version: 0.9.2(svelte@5.0.0-next.120)
       unplugin-icons:
         specifier: ^0.18.5
         version: 0.18.5
@@ -57,6 +57,9 @@ importers:
       postcss:
         specifier: ^8.4.18
         version: 8.4.38
+      prettier-plugin-svelte:
+        specifier: ^3.2.3
+        version: 3.2.3(prettier@3.2.5)(svelte@5.0.0-next.120)
       sass:
         specifier: ^1.55.0
         version: 1.75.0
@@ -1932,6 +1935,17 @@ packages:
     resolution: {integrity: sha512-Wglpdk03BSfXkHoQa3b/oulrotAkwrlLDRSOb9D0bN86FdRyE9lppSp33aHNPgBa0JKCoB+drFLZkQoRRYae5A==}
     engines: {node: ^10 || ^12 || >=14}
 
+  prettier-plugin-svelte@3.2.3:
+    resolution: {integrity: sha512-wJq8RunyFlWco6U0WJV5wNCM7zpBFakS76UBSbmzMGpncpK98NZABaE+s7n8/APDCEVNHXC5Mpq+MLebQtsRlg==}
+    peerDependencies:
+      prettier: ^3.0.0
+      svelte: ^3.2.0 || ^4.0.0-next.0 || ^5.0.0-next.0
+
+  prettier@3.2.5:
+    resolution: {integrity: sha512-3/GWa9aOC0YeD7LUfvOG2NiDyhOWRvt1k+rcKhOuYnMY24iiCphgneUfJDyFXd6rZCAnuLBv6UeAULtrhT/F4A==}
+    engines: {node: '>=14'}
+    hasBin: true
+
   pretty-bytes@5.6.0:
     resolution: {integrity: sha512-FFw039TmrBqFK8ma/7OL3sDz/VytdtJr044/QUJtH0wK9lb9jLq9tJyIxUwtQJHwar2BqtiA4iCWSwo9JLkzFg==}
     engines: {node: '>=6'}
@@ -2165,11 +2179,11 @@ packages:
     peerDependencies:
       svelte: ^3.19.0 || ^4.0.0
 
-  svelte-local-storage-store@0.6.4:
-    resolution: {integrity: sha512-45WoY2vSGPQM1sIQJ9jTkPPj20hYeqm+af6mUGRFSPP5WglZf36YYoZqwmZZ8Dt/2SU8lem+BTA8/Z/8TkqNLg==}
+  svelte-persisted-store@0.9.2:
+    resolution: {integrity: sha512-jp7W98yMgBhgz5fWnjZBCmCX89Rse13iqVpjK+1ByS6iYkvW9WT+F2vwsep3f0Zy/tnGYbb8MI+9Vx7W0NQsPg==}
     engines: {node: '>=0.14'}
     peerDependencies:
-      svelte: ^3.48.0 || >4.0.0
+      svelte: ^3.48.0 || ^4.0.0 || ^5.0.0-next.0
 
   svelte-preprocess@5.1.4:
     resolution: {integrity: sha512-IvnbQ6D6Ao3Gg6ftiM5tdbR6aAETwjhHV+UKGf5bHGYR69RQvF1ho0JKPcbUON4vy4R7zom13jPjgdOWCQ5hDA==}
@@ -4410,6 +4424,13 @@ snapshots:
       picocolors: 1.0.0
       source-map-js: 1.2.0
 
+  prettier-plugin-svelte@3.2.3(prettier@3.2.5)(svelte@5.0.0-next.120):
+    dependencies:
+      prettier: 3.2.5
+      svelte: 5.0.0-next.120
+
+  prettier@3.2.5: {}
+
   pretty-bytes@5.6.0: {}
 
   pretty-bytes@6.1.1: {}
@@ -4722,7 +4743,7 @@ snapshots:
     dependencies:
       svelte: 5.0.0-next.120
 
-  svelte-local-storage-store@0.6.4(svelte@5.0.0-next.120):
+  svelte-persisted-store@0.9.2(svelte@5.0.0-next.120):
     dependencies:
       svelte: 5.0.0-next.120
 

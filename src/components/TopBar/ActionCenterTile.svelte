@@ -1,6 +1,19 @@
 <script lang="ts">
-  export let grid: [rowStart: number, rowSpan: number];
-  export let role = 'button';
+  import type { Snippet } from 'svelte';
+
+  const {
+    grid,
+    role,
+    onclick,
+    onkeyup,
+    children,
+  }: {
+    role?: 'button' | 'link' | 'region';
+    grid: [rowStart: number, rowSpan: number];
+    children: () => any;
+    onclick?: (e: MouseEvent) => void;
+    onkeyup?: (e: KeyboardEvent) => void;
+  } = $props();
 
   const [rowStart, rowSpan] = grid;
 </script>
@@ -9,11 +22,11 @@
   class="container"
   style:grid-row="{rowStart} / span {rowSpan}"
   tabindex={role === 'button' ? 0 : -1}
-  on:click
-  on:keyup
+  {onclick}
+  {onkeyup}
   {role}
 >
-  <slot />
+  {@render children?.()}
 </button>
 
 <style>

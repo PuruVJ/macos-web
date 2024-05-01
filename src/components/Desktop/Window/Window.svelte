@@ -1,37 +1,29 @@
 <script lang="ts">
   import { draggable } from '@neodrag/svelte';
-  import { onMount } from 'svelte';
+  import { onMount, untrack } from 'svelte';
   import { sineInOut } from 'svelte/easing';
 
   import { elevation } from '🍎/actions';
   import { appsConfig } from '🍎/configs/apps/apps-config';
   import { randint } from '🍎/helpers/random';
   import { waitFor } from '🍎/helpers/wait-for';
-  import {
-    activeApp,
-    activeAppZIndex,
-    appZIndices,
-    appsInFullscreen,
-    isAppBeingDragged,
-    openApps,
-    type AppID,
-  } from '🍎/stores/apps.store';
+  import { apps_store, type AppID } from '🍎/state/apps.svelte';
   import { prefersReducedMotion } from '🍎/stores/prefers-motion.store';
   import { theme } from '🍎/stores/theme.store';
 
   import AppNexus from '../../apps/AppNexus.svelte';
   import TrafficLights from './TrafficLights.svelte';
 
-  export let appID: AppID;
+  const { app_id }: { app_id: AppID } = $props();
 
-  let draggingEnabled = true;
+  let dragging_enabled = $state(true);
 
-  let isMaximized = false;
-  let minimizedTransform: string;
+  let is_maximized = $state(false);
+  let minimized_transform = $state<string>();
 
-  let windowEl: HTMLElement;
+  let windowEl = $state<HTMLElement>();
 
-  const { height, width } = appsConfig[appID];
+  const { height, width } = appsConfig[app_id];
 
   const remModifier = +height * 1.2 >= window.innerHeight ? 24 : 16;
 
@@ -43,10 +35,16 @@
     y: (100 + randY) / 2,
   };
 
-  $: $activeApp === appID && ($appZIndices[appID] = $activeAppZIndex);
+  $effect(() => {
+    apps_store.active_z_index;
+
+    if (apps_store.active === app_id) {
+      untrack(() => (apps_store.z_indices[app_id] = apps_store.active_z_index));
+    }
+  });
 
   function focusApp() {
-    $activeApp = appID;
+    apps_store.active = app_id;
   }
 
   function windowCloseTransition(
@@ -67,26 +65,26 @@
       windowEl.style.transition = 'height 0.3s ease, width 0.3s ease, transform 0.3s ease';
     }
 
-    if (!isMaximized) {
-      draggingEnabled = false;
+    if (!is_maximized) {
+      dragging_enabled = false;
 
-      minimizedTransform = windowEl.style.transform;
+      minimized_transform = windowEl.style.transform;
       windowEl.style.transform = `translate(0px, 0px)`;
 
       windowEl.style.width = `100%`;
       // windowEl.style.height = 'calc(100vh - 1.7rem - 5.25rem)';
       windowEl.style.height = 'calc(100vh - 1.7rem)';
     } else {
-      draggingEnabled = true;
-      windowEl.style.transform = minimizedTransform;
+      dragging_enabled = true;
+      windowEl.style.transform = minimized_transform;
 
       windowEl.style.width = `${+width / remModifier}rem`;
       windowEl.style.height = `${+height / remModifier}rem`;
     }
 
-    isMaximized = !isMaximized;
+    is_maximized = !is_maximized;
 
-    $appsInFullscreen[appID] = isMaximized;
+    apps_store.fullscreen[app_id] = is_maximized;
 
     await waitFor(300);
 
@@ -94,17 +92,17 @@
   }
 
   function closeApp() {
-    $openApps[appID] = false;
-    $appsInFullscreen[appID] = false;
+    apps_store.open[app_id] = false;
+    apps_store.fullscreen[app_id] = false;
   }
 
   function onAppDragStart() {
     focusApp();
-    $isAppBeingDragged = true;
+    apps_store.is_being_dragged = true;
   }
 
   function onAppDragEnd() {
-    $isAppBeingDragged = false;
+    apps_store.is_being_dragged = false;
   }
 
   onMount(() => windowEl?.focus());
@@ -115,31 +113,31 @@
   role="application"
   class="container"
   class:dark={$theme.scheme === 'dark'}
-  class:active={$activeApp === appID}
+  class:active={apps_store.active === app_id}
   style:width="{+width / remModifier}rem"
   style:height="{+height / remModifier}rem"
-  style:z-index={$appZIndices[appID]}
+  style:z-index={apps_store.z_indices[app_id]}
   tabindex="-1"
   bind:this={windowEl}
   use:draggable={{
     defaultPosition,
     handle: '.app-window-drag-handle',
     bounds: { bottom: -6000, top: 27.2, left: -6000, right: -6000 },
-    disabled: !draggingEnabled,
+    disabled: !dragging_enabled,
     gpuAcceleration: false,
 
     onDragStart: onAppDragStart,
     onDragEnd: onAppDragEnd,
   }}
-  on:click={focusApp}
-  on:keydown={() => {}}
+  onclick={focusApp}
+  onkeydown={() => {}}
   out:windowCloseTransition
 >
-  <div class="tl-container {appID}" use:elevation={'window-traffic-lights'}>
-    <TrafficLights {appID} on:maximize-click={maximizeApp} on:close-app={closeApp} />
+  <div class="tl-container {app_id}" use:elevation={'window-traffic-lights'}>
+    <TrafficLights {app_id} on_maximize_click={maximizeApp} on_close_app={closeApp} />
   </div>
 
-  <AppNexus {appID} isBeingDragged={$isAppBeingDragged} />
+  <AppNexus {app_id} is_being_dragged={apps_store.is_being_dragged} />
 </section>
 
 <style lang="scss">

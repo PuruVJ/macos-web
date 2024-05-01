@@ -9,7 +9,7 @@
 </script>
 
 <section class="container">
-  <header class="app-window-drag-handle" />
+  <header class="app-window-drag-handle"></header>
 
   <section class="show-area">0</section>
 

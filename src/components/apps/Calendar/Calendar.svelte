@@ -1,56 +1,56 @@
 <script lang="ts">
   import { addMonths, format } from 'date-fns';
-  import { theme } from '🍎/stores/theme.store';
   import LeftArrow from '~icons/ic/round-chevron-left';
   import RightArrow from '~icons/ic/round-chevron-right';
+  import { theme } from '🍎/stores/theme.store';
   import MonthView from './MonthView.svelte';
 
-  export let view: 'year' | 'month' | 'week' | 'day' = 'month';
+  const { view = 'month' }: { view?: 'year' | 'month' | 'week' | 'day' } = $props();
 
-  let selectedDate = new Date();
+  let selected_date = $state(new Date());
 
   function goToToday() {
-    selectedDate = new Date();
+    selected_date = new Date();
   }
 
   function goPreviousMonth() {
-    selectedDate = addMonths(selectedDate, -1);
+    selected_date = addMonths(selected_date, -1);
   }
 
   function goNextMonth() {
-    selectedDate = addMonths(selectedDate, 1);
+    selected_date = addMonths(selected_date, 1);
   }
 </script>
 
 <section class="container" class:dark={$theme.scheme === 'dark'}>
-  <header class="app-window-drag-handle titlebar" />
+  <header class="app-window-drag-handle titlebar"></header>
 
   <section class="main-area">
     <div class="calendar-header">
       <div>
-        <span class="month">{format(selectedDate, 'MMMM')}</span>
-        <span class="year">{format(selectedDate, 'yyyy')}</span>
+        <span class="month">{format(selected_date, 'MMMM')}</span>
+        <span class="year">{format(selected_date, 'yyyy')}</span>
       </div>
 
       <div class="control-buttons">
-        <button on:click={goPreviousMonth}>
+        <button onclick={goPreviousMonth}>
           <LeftArrow />
         </button>
-        <button on:click={goToToday}>Today</button>
-        <button on:click={goNextMonth}>
+        <button onclick={goToToday}>Today</button>
+        <button onclick={goNextMonth}>
           <RightArrow />
         </button>
       </div>
     </div>
 
     {#if view === 'year'}
-      <div />
+      <div></div>
     {:else if view === 'month'}
-      <MonthView {selectedDate} />
+      <MonthView {selected_date} />
     {:else if view === 'week'}
-      <div />
+      <div></div>
     {:else}
-      <div />
+      <div></div>
     {/if}
   </section>
 </section>
@@ -64,7 +64,8 @@
     overflow: hidden;
 
     &.dark {
-      box-shadow: inset 0 0 0 0.9px hsla(var(--system-color-dark-hsl), 0.2),
+      box-shadow:
+        inset 0 0 0 0.9px hsla(var(--system-color-dark-hsl), 0.2),
         0 0 0 1.5px hsla(var(--system-color-light-hsl), 0.5);
     }
   }

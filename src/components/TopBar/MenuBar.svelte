@@ -1,26 +1,26 @@
 <script lang="ts">
   import AppleIcon from '~icons/mdi/apple';
   import { clickOutside, elevation, focusOutside } from '🍎/actions';
-  import { activeMenu, menuBarMenus } from '🍎/stores/menubar.store';
+  import { menubar_state } from '🍎/state/menubar.svelte';
   import Menu from './Menu.svelte';
 </script>
 
 <div
   class="container"
-  use:clickOutside={{ callback: () => ($activeMenu = '') }}
-  use:focusOutside={{ callback: () => ($activeMenu = '') }}
+  use:clickOutside={{ callback: () => (menubar_state.active = '') }}
+  use:focusOutside={{ callback: () => (menubar_state.active = '') }}
 >
-  {#each Object.entries($menuBarMenus) as [menuID, menuConfig]}
+  {#each Object.entries(menubar_state.menus) as [menuID, menuConfig]}
     <div>
       <div style:height="100%">
         <button
           class="menu-button"
           class:default-menu={menuID === 'default'}
           class:apple-icon-button={menuID === 'apple'}
-          style:--scale={$activeMenu === menuID ? 1 : 0}
-          on:click={() => ($activeMenu = menuID)}
-          on:mouseover={() => $activeMenu && ($activeMenu = menuID)}
-          on:focus={() => ($activeMenu = menuID)}
+          style:--scale={menubar_state.active === menuID ? 1 : 0}
+          onclick={() => (menubar_state.active = menuID)}
+          onmouseover={() => menubar_state.active && (menubar_state.active = menuID)}
+          onfocus={() => (menubar_state.active = menuID)}
         >
           {#if menuID === 'apple'}
             <AppleIcon />
@@ -32,7 +32,7 @@
 
       <div
         class="menu-parent"
-        style:visibility={$activeMenu === menuID ? 'visible' : 'hidden'}
+        style:visibility={menubar_state.active === menuID ? 'visible' : 'hidden'}
         use:elevation={'menubar-menu-parent'}
       >
         <Menu menu={menuConfig.menu} />

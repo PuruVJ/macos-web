@@ -4,24 +4,24 @@
   import { DAYS_OF_THE_WEEK } from './calendar-constants';
   import { getDisplayDays } from './calendar-utils';
 
-  export let selectedDate: Date;
+  const { selected_date }: { selected_date: Date } = $props();
 
   const today = new Date();
 
-  function isToday(date: number, isThisMonth: boolean) {
+  const display_days = $derived(getDisplayDays(selected_date));
+
+  function is_today(date: number, is_this_month: boolean) {
     return (
-      selectedDate.getFullYear() === today.getFullYear() &&
-      isThisMonth &&
-      selectedDate.getMonth() === today.getMonth() &&
+      selected_date.getFullYear() === today.getFullYear() &&
+      is_this_month &&
+      selected_date.getMonth() === today.getMonth() &&
       date === today.getDate()
     );
   }
 
-  function dayKey(date) {
-    return [date, selectedDate.getMonth()].join('-');
+  function dayKey(date: number) {
+    return [date, selected_date.getMonth()].join('-');
   }
-
-  $: ({ daysInPrevMonth, daysInThisMonth, daysInNextMonth } = getDisplayDays(selectedDate));
 </script>
 
 <div class="container" class:dark={$theme.scheme === 'dark'}>
@@ -29,20 +29,20 @@
     <div class="weekday" class:weekend={[5, 6].includes(i)}>{day}</div>
   {/each}
 
-  {#each daysInPrevMonth as date (dayKey(date))}
-    <div class="day" class:today={isToday(date, false)}>
+  {#each display_days.daysInPrevMonth as date (dayKey(date))}
+    <div class="day" class:today={is_today(date, false)}>
       <div class="date-number" class:this-month={false}>{date}</div>
     </div>
   {/each}
 
-  {#each daysInThisMonth as date (dayKey(date))}
-    <div class="day" class:today={isToday(date, true)}>
+  {#each display_days.daysInThisMonth as date (dayKey(date))}
+    <div class="day" class:today={is_today(date, true)}>
       <div class="date-number" class:this-month={true}>{date}</div>
     </div>
   {/each}
 
-  {#each daysInNextMonth as date (dayKey(date))}
-    <div class="day" class:today={isToday(date, false)}>
+  {#each display_days.daysInNextMonth as date (dayKey(date))}
+    <div class="day" class:today={is_today(date, false)}>
       <div class="date-number" class:this-month={false}>{date}</div>
     </div>
   {/each}

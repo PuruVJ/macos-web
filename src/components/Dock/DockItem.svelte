@@ -1,3 +1,5 @@
+<svelte:options runes={true} />
+
 <script context="module">
   const baseWidth = 57.6;
   const distanceLimit = baseWidth * 6;
@@ -24,22 +26,29 @@
 
 <script lang="ts">
   import { interpolate } from 'popmotion';
-  import { onDestroy } from 'svelte';
+  import { onDestroy, untrack } from 'svelte';
   import { sineInOut } from 'svelte/easing';
-  import { spring, tweened } from 'svelte/motion';
+  import { tweened } from 'svelte/motion';
   import { elevation } from '🍎/actions';
   import { appsConfig } from '🍎/configs/apps/apps-config';
-  import { activeApp, isAppBeingDragged, openApps, type AppID } from '🍎/stores/apps.store';
+  import { spring } from '🍎/state/spring.svelte.ts';
+  import { apps_store, type AppID } from '🍎/state/apps.svelte';
   import { prefersReducedMotion } from '🍎/stores/prefers-motion.store';
   import { theme } from '🍎/stores/theme.store';
 
-  export let mouseX: number | null;
-  export let appID: AppID;
-  export let needsUpdate: boolean = false;
+  const {
+    mouseX,
+    appID,
+    needs_update = false,
+  }: {
+    mouseX: number | null;
+    appID: AppID;
+    needs_update: boolean;
+  } = $props();
 
-  let imageEl: HTMLImageElement;
+  let imageEl = $state<HTMLImageElement>();
 
-  let distance = beyondTheDistanceLimit;
+  let distance = $state(beyondTheDistanceLimit);
 
   const widthPX = spring(baseWidth, {
     damping: 0.47,
@@ -47,7 +56,12 @@
   });
 
   const getWidthFromDistance = interpolate(distanceInput, widthOutput);
-  $: $widthPX = getWidthFromDistance(distance);
+
+  $effect(() => {
+    distance;
+
+    untrack(() => (widthPX.value = getWidthFromDistance(distance)));
+  });
 
   let raf: number;
   function animate() {
@@ -68,12 +82,12 @@
     distance = beyondTheDistanceLimit;
   }
 
-  $: {
+  $effect(() => {
     mouseX;
-    if ($prefersReducedMotion || $isAppBeingDragged) break $;
+    if ($prefersReducedMotion || apps_store.is_being_dragged) return;
 
     raf = requestAnimationFrame(animate);
-  }
+  });
 
   const { title, shouldOpenWindow, externalAction } = appsConfig[appID];
 
@@ -95,10 +109,10 @@
     if (!shouldOpenWindow) return externalAction?.(e);
 
     // For the bounce animation
-    const isAppAlreadyOpen = $openApps[appID];
+    const isAppAlreadyOpen = apps_store.open[appID];
 
-    $openApps[appID] = true;
-    $activeApp = appID;
+    apps_store.open[appID] = true;
+    apps_store.active = appID;
 
     if (isAppAlreadyOpen) return;
 
@@ -109,15 +123,18 @@
     cancelAnimationFrame(raf);
   });
 
-  $: isAppStore = appID === 'appstore';
-  $: showPwaBadge = isAppStore && needsUpdate;
-  $: showPwaBadge && bounceEffect();
+  const is_app_store = $derived(appID === 'appstore');
+  const show_pwa_badge = $derived(is_app_store && needs_update);
+
+  $effect(() => {
+    if (show_pwa_badge) bounceEffect();
+  });
 </script>
 
-<button on:click={openApp} aria-label="Launch {title} app" class="dock-open-app-button {appID}">
+<button onclick={openApp} aria-label="Launch {title} app" class="dock-open-app-button {appID}">
   <p
     class="tooltip"
-    class:tooltip-enabled={!$isAppBeingDragged}
+    class:tooltip-enabled={!apps_store.is_being_dragged}
     class:dark={$theme.scheme === 'dark'}
     style:top={$prefersReducedMotion ? '-50px' : '-35%'}
     style:transform="translate(0, {$appOpenIconBounceTransform}px)"
@@ -131,15 +148,15 @@
       bind:this={imageEl}
       src="/app-icons/{appID}/256.webp"
       alt="{title} app"
-      style:width="{$widthPX / 16}rem"
+      style:width="{widthPX.value / 16}rem"
       draggable="false"
     />
   </span>
 
-  <div class="dot" style:--opacity={+$openApps[appID]}></div>
+  <div class="dot" style:--opacity={+apps_store.open[appID]}></div>
 
-  {#if showPwaBadge}
-    <div class="pwa-badge" style:transform="scale({$widthPX / baseWidth})">1</div>
+  {#if show_pwa_badge}
+    <div class="pwa-badge" style:transform="scale({widthPX.value / baseWidth})">1</div>
   {/if}
 </button>
 

@@ -1,17 +1,23 @@
 <script lang="ts">
-  import { clickOutside, focusOutside, elevation } from '🍎/actions';
+  import { clickOutside, elevation, focusOutside } from '🍎/actions';
   import { fadeIn, fadeOut } from '🍎/helpers/fade';
-  import { activeApp, openApps } from '🍎/stores/apps.store';
+  import { apps_store } from '🍎/state/apps.svelte';
   import SwitchSvg from '../SVG/SwitchSVG.svelte';
   import SystemDialog from '../SystemUI/SystemDialog.svelte';
   import ActionCenter from './ActionCenter.svelte';
+  import { untrack } from 'svelte';
 
-  let visible = false;
-  let themeWarningDialog: SystemDialog;
+  let visible = $state(false);
+  let theme_warning_dialog: SystemDialog;
 
   /* LOGIC FOR THEME SWITCHING WHEN IT ISN'T ALLOWED */
-  let isThemeWarningDialogOpen = false;
-  $: isThemeWarningDialogOpen && themeWarningDialog.open();
+  let is_theme_warning_dialog_open = $state(false);
+
+  $effect(() => {
+    if (is_theme_warning_dialog_open) {
+      untrack(() => theme_warning_dialog.open());
+    }
+  });
 
   function show() {
     visible = true;
@@ -23,18 +29,21 @@
 </script>
 
 <div class="container" use:clickOutside={{ callback: hide }} use:focusOutside={{ callback: hide }}>
-  <button style:--scale={visible ? 1 : 0} on:click={show} on:focus={show}>
+  <button style:--scale={visible ? 1 : 0} onclick={show} onfocus={show}>
     <SwitchSvg />
   </button>
 
   {#if visible}
     <div in:fadeIn out:fadeOut class="menu-parent" use:elevation={'menubar-menu-parent'}>
-      <ActionCenter bind:isThemeWarningDialogOpen />
+      <ActionCenter bind:is_theme_warning_dialog_open />
     </div>
   {/if}
 </div>
 
-<SystemDialog bind:this={themeWarningDialog} on:close={() => (isThemeWarningDialogOpen = false)}>
+<SystemDialog
+  bind:this={theme_warning_dialog}
+  on:close={() => (is_theme_warning_dialog_open = false)}
+>
   <section class="theme-warning-section">
     <img height="100" width="100" src="/app-icons/wallpapers/256.webp" alt="Wallpapers app logo" />
 
@@ -42,14 +51,14 @@
     <p>Head over to Wallpapers app to change this setting or choose a standalone wallpaper.</p>
 
     <div class="buttons">
-      <button on:click={() => themeWarningDialog.close()}>Close</button>
+      <button onclick={() => theme_warning_dialog.close()}>Close</button>
       <button
         class="confirm"
-        on:click={() => {
-          themeWarningDialog.close();
+        onclick={() => {
+          theme_warning_dialog.close();
 
-          $openApps.wallpapers = true;
-          $activeApp = 'wallpapers';
+          apps_store.open.wallpapers = true;
+          apps_store.active = 'wallpapers';
         }}
       >
         Go to Wallpapers

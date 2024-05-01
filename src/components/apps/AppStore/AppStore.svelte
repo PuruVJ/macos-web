@@ -1,29 +1,35 @@
 <script lang="ts">
   import { onMount } from 'svelte';
-  import { spring } from 'svelte/motion';
   import { waitFor } from '🍎/helpers/wait-for';
-  import type { AppID } from '🍎/stores/apps.store';
+  import type { AppID } from '🍎/state/apps.svelte';
+  import { spring } from '🍎/state/spring.svelte.ts';
   import { prefersReducedMotion } from '🍎/stores/prefers-motion.store';
 
-  export let appID: AppID;
+  const { app_id }: { app_id: AppID } = $props();
 
-  const motionVal = spring(0, { damping: 0.28, stiffness: 0.1 });
+  const motion_val = spring(0, { damping: 0.28, stiffness: 0.1 });
 
   onMount(async () => {
     await waitFor(100);
 
-    $motionVal = 1;
+    motion_val.value = 1;
   });
 
-  $: imageTransform = !$prefersReducedMotion
-    ? `rotate(${180 * ($motionVal + 1)}deg) scale(${$motionVal}) translateZ(0px)`
-    : 'initial';
+  const image_transform = $derived(
+    !$prefersReducedMotion
+      ? `rotate(${180 * (motion_val.value + 1)}deg) scale(${motion_val.value}) translateZ(0px)`
+      : 'initial',
+  );
 </script>
 
 <section class="container">
-  <header class="titlebar app-window-drag-handle" />
+  <header class="titlebar app-window-drag-handle"></header>
   <section class="main-area">
-    <img style:transform={imageTransform} src="/app-icons/{appID}/256.webp" alt="Placeholder App" />
+    <img
+      style:transform={image_transform}
+      src="/app-icons/{app_id}/256.webp"
+      alt="Placeholder App"
+    />
 
     <br />
 

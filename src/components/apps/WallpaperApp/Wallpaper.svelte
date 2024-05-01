@@ -24,7 +24,7 @@
     // Now check if user really wants the change to happen.
 
     untrack(handleTheme);
-    untrack(handleWallpaper);
+    // untrack(handleWallpaper);
   });
 
   function handleWallpaper() {

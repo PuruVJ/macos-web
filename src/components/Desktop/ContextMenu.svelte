@@ -45,7 +45,7 @@
       <button class="menu-item">{contents.title}</button>
 
       {#if contents.breakAfter}
-        <div class="divider" />
+        <div class="divider"></div>
       {/if}
     {/each}
   </div>
@@ -71,7 +71,9 @@
 
     border-radius: 0.5rem;
 
-    box-shadow: hsla(0, 0%, 0%, 0.3) 0px 0px 11px 0px, var(--additional-shadow);
+    box-shadow:
+      hsla(0, 0%, 0%, 0.3) 0px 0px 11px 0px,
+      var(--additional-shadow);
 
     &.dark {
       --additional-shadow: inset 0 0 0 0.9px hsla(var(--system-color-dark-hsl), 0.3),

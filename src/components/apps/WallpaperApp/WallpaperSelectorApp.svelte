@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { WallpaperID, wallpapersConfig } from '🍎/configs/wallpapers/wallpaper.config';
+  import { wallpapersConfig, type WallpaperID } from '🍎/configs/wallpapers/wallpaper.config';
   import { wallpaper } from '🍎/stores/wallpaper.store';
 
   const dynamicWallpapers = Object.entries(wallpapersConfig).filter(
@@ -24,7 +24,7 @@
 
   <section class="main-area">
     <section class="selected-wallpaper-section">
-      <div class="image" style:background-image={currentWallpaperThumb} />
+      <div class="image" style:background-image={currentWallpaperThumb}></div>
 
       <div class="info">
         <h2>{wallpapersConfig[$wallpaper.id].name}</h2>

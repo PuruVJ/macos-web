@@ -10,7 +10,7 @@
 <header>
   <MenuBar />
 
-  <span style:flex="1 1 auto" />
+  <span style:flex="1 1 auto"></span>
 
   {#if $shouldShowNotch}
     <div class="notch" in:fadeIn out:fadeOut>

@@ -10,11 +10,11 @@
   import {
     activeApp,
     activeAppZIndex,
-    AppID,
-    appsInFullscreen,
     appZIndices,
+    appsInFullscreen,
     isAppBeingDragged,
     openApps,
+    type AppID,
   } from '🍎/stores/apps.store';
   import { prefersReducedMotion } from '🍎/stores/prefers-motion.store';
   import { theme } from '🍎/stores/theme.store';
@@ -110,7 +110,9 @@
   onMount(() => windowEl?.focus());
 </script>
 
+<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
 <section
+  role="application"
   class="container"
   class:dark={$theme.scheme === 'dark'}
   class:active={$activeApp === appID}
@@ -169,8 +171,10 @@
       & > :global(section),
       & > :global(div) {
         border-radius: inherit;
-        box-shadow: inset 0 0 0 0.9px hsla(var(--system-color-dark-hsl), 0.3),
-          0 0 0 1px hsla(var(--system-color-light-hsl), 0.5), var(--elevated-shadow);
+        box-shadow:
+          inset 0 0 0 0.9px hsla(var(--system-color-dark-hsl), 0.3),
+          0 0 0 1px hsla(var(--system-color-light-hsl), 0.5),
+          var(--elevated-shadow);
       }
     }
   }

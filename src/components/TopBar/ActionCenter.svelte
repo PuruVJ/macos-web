@@ -170,7 +170,8 @@
 
     border-radius: 1rem;
 
-    box-shadow: hsla(0, 0%, 0%, 0.3) 0px 0px 11px 0px,
+    box-shadow:
+      hsla(0, 0%, 0%, 0.3) 0px 0px 11px 0px,
       inset 0 0 0 var(--border-size) hsla(var(--system-color-dark-hsl), 0.3),
       0 0 0 var(--border-size) hsla(var(--system-color-light-hsl), 0.3);
 
@@ -217,7 +218,9 @@
 
     background-color: hsla(var(--bgcolor), var(--bgalpha));
 
-    transition: box-shadow 100ms ease, background-color 150ms ease;
+    transition:
+      box-shadow 100ms ease,
+      background-color 150ms ease;
 
     :global(svg) {
       color: hsla(var(--svgcolor), var(--svgalpha));

@@ -16,7 +16,7 @@
     $interval;
 
     if (wallpapersConfig[$wallpaper.id].type === 'standalone') {
-      untrack(() => ($wallpaper.image = wallpapersConfig[$wallpaper.id].thumbnail));
+      // untrack(() => ($wallpaper.image = wallpapersConfig[$wallpaper.id].thumbnail));
       return;
     }
 

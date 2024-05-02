@@ -7,29 +7,29 @@
   import { fadeOut } from '🍎/helpers/fade';
   import { waitFor } from '🍎/helpers/wait-for';
 
-  let hiddenSplashScreen = $state(false);
-  let progressVal = tweened(100, { duration: 3000, easing: quintInOut });
+  let hidden_splash_screen = $state(false);
+  let progress_val = tweened(100, { duration: 3000, easing: quintInOut });
 
   onMount(async () => {
-    $progressVal = 0;
+    $progress_val = 0;
     await waitFor(3000);
-    hiddenSplashScreen = true;
+    hidden_splash_screen = true;
   });
 </script>
 
-{#if !(hiddenSplashScreen || import.meta.env.DEV)}
+{#if !(hidden_splash_screen || import.meta.env.DEV)}
   <div out:fadeOut={{ duration: 500 }} class="splash-screen" use:elevation={'bootup-screen'}>
     <AppleIcon />
 
     <div
       class="progress"
       role="progressbar"
-      aria-valuenow={100 - $progressVal}
+      aria-valuenow={100 - $progress_val}
       aria-valuemin={0}
       aria-valuemax={100}
       aria-valuetext="Loading up macOS Web"
     >
-      <div class="indicator" style:transform="translateX(-{$progressVal}%)"></div>
+      <div class="indicator" style:transform="translateX(-{$progress_val}%)"></div>
     </div>
   </div>
 {/if}

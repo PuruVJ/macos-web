@@ -1,7 +1,8 @@
+import { mount } from 'svelte';
 import Desktop from './components/Desktop/Desktop.svelte';
 import './css/global.scss';
 
-const desktop = new Desktop({
+const desktop = mount(Desktop, {
   target: document.getElementById('root'),
 });
 

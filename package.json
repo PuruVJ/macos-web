@@ -16,25 +16,25 @@
     "@iconify-json/pepicons": "^1.1.7",
     "@iconify-json/ph": "^1.1.2",
     "@iconify-json/uil": "^1.1.2",
-    "@sveltejs/vite-plugin-svelte": "1.0.9",
+    "@sveltejs/vite-plugin-svelte": "3.1.0",
     "autoprefixer": "^10.4.12",
     "postcss": "^8.4.18",
     "sass": "^1.55.0",
-    "svelte": "^3.51.0",
-    "svelte-check": "^2.9.2",
-    "svelte-preprocess": "^4.10.7",
-    "typescript": "^4.8.4",
-    "vite": "3.1.7",
-    "vite-imagetools": "^4.0.11",
-    "vite-plugin-pwa": "^0.13.1",
-    "workbox-window": "^6.5.4"
+    "svelte": "^4.2.15",
+    "svelte-check": "^3.7.0",
+    "svelte-preprocess": "^5.1.4",
+    "typescript": "^5.4.5",
+    "vite": "5.2.10",
+    "vite-imagetools": "^7.0.1",
+    "vite-plugin-pwa": "^0.19.8",
+    "workbox-window": "^7.1.0"
   },
   "dependencies": {
-    "@fontsource/inter": "^4.5.14",
-    "@neodrag/svelte": "^1.2.4",
-    "date-fns": "^2.29.3",
+    "@fontsource/inter": "^5.0.18",
+    "@neodrag/svelte": "^2.0.6",
+    "date-fns": "^3.6.0",
     "popmotion": "^11.0.5",
-    "svelte-local-storage-store": "^0.3.1",
-    "unplugin-icons": "^0.14.11"
+    "svelte-local-storage-store": "^0.6.4",
+    "unplugin-icons": "^0.18.5"
   }
 }

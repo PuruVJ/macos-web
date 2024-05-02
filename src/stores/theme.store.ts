@@ -1,4 +1,4 @@
-import { writable } from 'svelte-local-storage-store';
+import { persisted } from 'svelte-local-storage-store';
 import { colors } from '🍎/configs/theme/colors.config';
 
 export type Theme = {
@@ -6,7 +6,7 @@ export type Theme = {
   primaryColor: keyof typeof colors;
 };
 
-export const theme = writable<Theme>('macos:theme-settings', {
+export const theme = persisted<Theme>('macos:theme-settings', {
   scheme: matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light',
   primaryColor: 'blue',
 });

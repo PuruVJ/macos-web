@@ -18,8 +18,6 @@ export const openApps = writable<Record<AppID, boolean>>({
   'view-source': true,
 
   vercel: true,
-
-  ukraine: true,
 });
 
 /** Which app is currently focused */
@@ -45,8 +43,6 @@ export const appZIndices = writable<Record<AppID, number>>({
   'view-source': 0,
 
   vercel: 0,
-
-  ukraine: 0,
 });
 
 export const isAppBeingDragged = writable(false);
@@ -65,6 +61,4 @@ export const appsInFullscreen = writable<Record<AppID, boolean>>({
   'view-source': false,
 
   vercel: false,
-
-  ukraine: false,
 });

@@ -4,7 +4,7 @@
   import { tweened } from 'svelte/motion';
   import AppleIcon from '~icons/mdi/apple';
   import { elevation } from '🍎/actions';
-  import { fadeOut } from '🍎/helpers/fade';
+  import { fade_out } from '🍎/helpers/fade';
   import { waitFor } from '🍎/helpers/wait-for';
 
   let hidden_splash_screen = $state(false);
@@ -18,7 +18,7 @@
 </script>
 
 {#if !(hidden_splash_screen || import.meta.env.DEV)}
-  <div out:fadeOut={{ duration: 500 }} class="splash-screen" use:elevation={'bootup-screen'}>
+  <div out:fade_out={{ duration: 500 }} class="splash-screen" use:elevation={'bootup-screen'}>
     <AppleIcon />
 
     <div

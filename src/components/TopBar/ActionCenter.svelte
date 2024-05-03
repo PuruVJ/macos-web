@@ -34,12 +34,11 @@
   }
 
   function toggleNotch() {
-    console.log(1);
     should_show_notch.value = !should_show_notch.value;
   }
 
   function toggleMotionPreference() {
-    preferences.value.reduced_motion = preferences.value.reduced_motion;
+    preferences.value.reduced_motion = !preferences.value.reduced_motion;
   }
 
   function openWallpapersApp() {

@@ -2,7 +2,7 @@
   import type { Snippet } from 'svelte';
   import { sineInOut } from 'svelte/easing';
   import { clickOutside, elevation, portal, trapFocus } from '🍎/actions';
-  import { fadeOut } from '🍎/helpers/fade.ts';
+  import { fade_out } from '🍎/helpers/fade.ts';
   import { preferences } from '🍎/state/preferences.svelte.ts';
 
   const {
@@ -57,7 +57,7 @@
       aria-labelledby="info-title"
       aria-describedby="info-description"
       in:dialog_open_transition
-      out:fadeOut
+      out:fade_out
       use:trapFocus
       use:clickOutside={{ callback: () => backdrop_dismiss && close() }}
       onclick={(e) => e.stopPropagation()}

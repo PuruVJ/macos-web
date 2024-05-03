@@ -1,11 +1,13 @@
 <script lang="ts">
   import { untrack } from 'svelte';
   import { clickOutside, elevation, focusOutside } from '🍎/actions';
-  import { fadeIn, fadeOut } from '🍎/helpers/fade';
-  import { apps } from '🍎/state/apps.svelte';
+  import { fade_in, fade_out } from '🍎/helpers/fade.ts';
+  import { apps } from '🍎/state/apps.svelte.ts';
   import SwitchSvg from '../SVG/SwitchSVG.svelte';
   import SystemDialog from '../SystemUI/SystemDialog.svelte';
   import ActionCenter from './ActionCenter.svelte';
+  import { fade } from 'svelte/transition';
+  import { sineIn } from 'svelte/easing';
 
   let visible = $state(false);
   let theme_warning_dialog: SystemDialog;
@@ -34,7 +36,12 @@
   </button>
 
   {#if visible}
-    <div in:fadeIn out:fadeOut class="menu-parent" use:elevation={'menubar-menu-parent'}>
+    <div
+      in:fade={{ easing: sineIn, duration: 150 }}
+      out:fade_out
+      class="menu-parent"
+      use:elevation={'menubar-menu-parent'}
+    >
       <ActionCenter bind:is_theme_warning_dialog_open />
     </div>
   {/if}

@@ -6,5 +6,5 @@
 </script>
 
 <div style:margin="0 0.5rem">
-  {format($time, 'EEE MMM dd')}&nbsp; {format($time, 'h:mm aa')}
+  {format(time.value, 'EEE MMM dd')}&nbsp; {format(time.value, 'h:mm aa')}
 </div>

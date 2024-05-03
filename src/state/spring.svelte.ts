@@ -1,5 +1,3 @@
-import { writable } from 'svelte/store';
-
 export function spring(value: number, { stiffness = 0.15, damping = 0.8, precision = 0.01 }) {
   let inner_value = $state(value);
 

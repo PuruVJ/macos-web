@@ -12,7 +12,7 @@
 
   console.log(wallpapersConfig[preferences.value.wallpaper.id]);
   $effect(() => {
-    $interval;
+    interval.value;
 
     if (wallpapersConfig[preferences.value.wallpaper.id].type === 'standalone') {
       untrack(

@@ -1,9 +1,24 @@
-import { readable } from 'svelte/store';
+import { untrack } from 'svelte';
+import { auto_destroy_effect_root } from './auto-destroy-effect-root.svelte.ts';
 
 export function create_interval(duration: number) {
-  return readable(new Date(), (setTime) => {
-    let interval = setInterval(() => setTime(new Date()), duration);
+  let time = $state(Date.now());
 
-    return () => clearInterval(interval);
+  auto_destroy_effect_root(() => {
+    $effect(() => {
+      const interval = setInterval(() => {
+        untrack(() => (time = Date.now()));
+      }, duration);
+
+      return () => {
+        clearInterval(interval);
+      };
+    });
   });
+
+  return {
+    get value() {
+      return time;
+    },
+  };
 }

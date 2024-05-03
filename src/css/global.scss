@@ -20,7 +20,9 @@ body {
 * {
   box-sizing: border-box;
 
-  transition: background-color 150ms ease-in, background 150ms ease-in;
+  transition:
+    background-color 150ms ease-in,
+    background 150ms ease-in;
 }
 
 *:focus {
@@ -73,7 +75,6 @@ button {
   cursor: var(--system-cursor-default), auto;
 }
 
-
 /* Scrollbar Stuffs */
 ::-webkit-scrollbar {
   width: 5px;
@@ -104,4 +105,3 @@ button {
 ::-webkit-scrollbar-thumb:active {
   background-color: #444;
 }
-

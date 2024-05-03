@@ -17,7 +17,7 @@ export function prefetch(): Plugin {
               rel: 'prefetch',
               href: `/${chunkName}`,
             },
-          } as HtmlTagDescriptor),
+          }) as HtmlTagDescriptor,
       );
 
       return {

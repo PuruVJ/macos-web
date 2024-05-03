@@ -7,10 +7,10 @@
 type ObjectKeys<Obj> = Obj extends object
   ? (keyof Obj)[]
   : Obj extends number
-  ? []
-  : Obj extends Array<any> | string
-  ? string[]
-  : never;
+    ? []
+    : Obj extends Array<any> | string
+      ? string[]
+      : never;
 
 interface ObjectConstructor {
   keys<ObjectType>(o: ObjectType): ObjectKeys<ObjectType>;
@@ -23,9 +23,8 @@ interface Storage {
 
 type Unpacked<ArrayLike> = ArrayLike extends (infer RootType)[] ? RootType : ArrayLike;
 
-type Unpromisify<PromiseLike> = PromiseLike extends Promise<infer RootType>
-  ? RootType
-  : PromiseLike;
+type Unpromisify<PromiseLike> =
+  PromiseLike extends Promise<infer RootType> ? RootType : PromiseLike;
 
 interface Array<T> {
   fill<T extends any>(value: T, start?: number | undefined, end?: number | undefined): T[];

@@ -1,22 +1,25 @@
 <script lang="ts">
   import { untrack } from 'svelte';
-  import { get } from 'svelte/store';
   import { elevation } from '🍎/actions';
-  import { wallpapersConfig } from '🍎/configs/wallpapers/wallpaper.config';
-  import { smallerClosestValue } from '🍎/helpers/smaller-closest-value';
-  import { create_interval } from '🍎/state/interval.svelte';
-  import { theme } from '🍎/stores/theme.store';
-  import { wallpaper } from '🍎/stores/wallpaper.store';
+  import { wallpapersConfig } from '🍎/configs/wallpapers/wallpaper.config.ts';
+  import { smallerClosestValue } from '🍎/helpers/smaller-closest-value.ts';
+  import { create_interval } from '🍎/state/interval.svelte.ts';
+  import { preferences } from '🍎/state/preferences.svelte.ts';
 
   let visible_background_image = $state(wallpapersConfig.ventura.thumbnail);
 
   const interval = create_interval(5 * 1000);
 
+  console.log(wallpapersConfig[preferences.value.wallpaper.id]);
   $effect(() => {
     $interval;
 
-    if (wallpapersConfig[$wallpaper.id].type === 'standalone') {
-      // untrack(() => ($wallpaper.image = wallpapersConfig[$wallpaper.id].thumbnail));
+    if (wallpapersConfig[preferences.value.wallpaper.id].type === 'standalone') {
+      untrack(
+        () =>
+          (preferences.value.wallpaper.image =
+            wallpapersConfig[preferences.value.wallpaper.id].thumbnail),
+      );
       return;
     }
 
@@ -24,16 +27,15 @@
     // Now check if user really wants the change to happen.
 
     untrack(handleTheme);
-    // untrack(handleWallpaper);
+    untrack(handleWallpaper);
   });
 
   function handleWallpaper() {
     const date = new Date();
     const hour = date.getHours();
 
-    const { id } = get(wallpaper);
-
-    const wallpaperTimestampsMap = wallpapersConfig[id].timestamps.wallpaper;
+    const wallpaperTimestampsMap =
+      wallpapersConfig[preferences.value.wallpaper.id].timestamps.wallpaper;
     const timestamps = Object.keys(wallpaperTimestampsMap);
 
     const minTimestamp = Math.min(...timestamps);
@@ -42,7 +44,7 @@
     if (hour > maxTimestamp || hour < minTimestamp) {
       // Go for the min timestamp value
       if (wallpaperTimestampsMap[maxTimestamp]) {
-        wallpaper.update((s) => ({ ...s, image: wallpaperTimestampsMap[maxTimestamp] }));
+        preferences.value.wallpaper.image = wallpaperTimestampsMap[maxTimestamp];
       }
 
       return;
@@ -52,17 +54,17 @@
     const chosenTimeStamp = smallerClosestValue(timestamps, hour);
 
     if (wallpaperTimestampsMap[chosenTimeStamp]) {
-      wallpaper.update((s) => ({ ...s, image: wallpaperTimestampsMap[chosenTimeStamp] }));
+      preferences.value.wallpaper.image = wallpaperTimestampsMap[chosenTimeStamp];
     }
   }
 
   function handleTheme() {
-    if (!$wallpaper.canControlTheme) return;
+    if (!preferences.value.wallpaper.canControlTheme) return;
 
     const date = new Date();
     const hour = date.getHours();
 
-    const themeTimestampsMap = wallpapersConfig[$wallpaper.id].timestamps.theme;
+    const themeTimestampsMap = wallpapersConfig[preferences.value.wallpaper.id].timestamps.theme;
     const timestamps = Object.keys(themeTimestampsMap);
 
     const minTimestamp = Math.min(...timestamps);
@@ -70,17 +72,17 @@
 
     if (hour > maxTimestamp || hour < minTimestamp) {
       // Go for the min timestamp value
-      $theme.scheme = 'dark';
+      preferences.value.theme.scheme = 'dark';
       return;
     }
 
     // Now set the right timestamp
     const chosenTimeStamp = smallerClosestValue(timestamps, hour);
-    $theme.scheme = themeTimestampsMap?.[chosenTimeStamp] || 'light';
+    preferences.value.theme.scheme = themeTimestampsMap?.[chosenTimeStamp] || 'light';
   }
 
   function previewImageOnLoad() {
-    visible_background_image = $wallpaper.image;
+    visible_background_image = preferences.value.wallpaper.image;
   }
 </script>
 
@@ -92,7 +94,12 @@
 </svelte:head>
 
 <!-- This preload and render the image for browser but invisible to user -->
-<img src={$wallpaper.image} aria-hidden="true" alt="" onload={previewImageOnLoad} />
+<img
+  src={preferences.value.wallpaper.image}
+  aria-hidden="true"
+  alt=""
+  onload={previewImageOnLoad}
+/>
 
 <div
   class="background-cover"

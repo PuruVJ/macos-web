@@ -33,8 +33,7 @@
   import { appsConfig } from '🍎/configs/apps/apps-config';
   import { spring } from '🍎/state/spring.svelte.ts';
   import { apps_store, type AppID } from '🍎/state/apps.svelte';
-  import { prefersReducedMotion } from '🍎/stores/prefers-motion.store';
-  import { theme } from '🍎/stores/theme.store';
+  import { preferences } from '🍎/state/preferences.svelte.ts';
 
   const {
     mouseX,
@@ -84,7 +83,7 @@
 
   $effect(() => {
     mouseX;
-    if ($prefersReducedMotion || apps_store.is_being_dragged) return;
+    if (preferences.value.reduced_motion || apps_store.is_being_dragged) return;
 
     raf = requestAnimationFrame(animate);
   });
@@ -135,8 +134,8 @@
   <p
     class="tooltip"
     class:tooltip-enabled={!apps_store.is_being_dragged}
-    class:dark={$theme.scheme === 'dark'}
-    style:top={$prefersReducedMotion ? '-50px' : '-35%'}
+    class:dark={preferences.value.theme.scheme === 'dark'}
+    style:top={preferences.value.reduced_motion ? '-50px' : '-35%'}
     style:transform="translate(0, {$appOpenIconBounceTransform}px)"
     use:elevation={'dock-tooltip'}
   >

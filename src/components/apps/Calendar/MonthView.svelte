@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { theme } from '🍎/stores/theme.store';
+  import { preferences } from '🍎/state/preferences.svelte.ts';
 
   import { DAYS_OF_THE_WEEK } from './calendar-constants';
   import { getDisplayDays } from './calendar-utils';
@@ -24,7 +24,7 @@
   }
 </script>
 
-<div class="container" class:dark={$theme.scheme === 'dark'}>
+<div class="container" class:dark={preferences.value.theme.scheme === 'dark'}>
   {#each DAYS_OF_THE_WEEK as day, i}
     <div class="weekday" class:weekend={[5, 6].includes(i)}>{day}</div>
   {/each}

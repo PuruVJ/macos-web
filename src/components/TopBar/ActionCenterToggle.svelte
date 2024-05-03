@@ -1,11 +1,11 @@
 <script lang="ts">
+  import { untrack } from 'svelte';
   import { clickOutside, elevation, focusOutside } from '🍎/actions';
   import { fadeIn, fadeOut } from '🍎/helpers/fade';
   import { apps_store } from '🍎/state/apps.svelte';
   import SwitchSvg from '../SVG/SwitchSVG.svelte';
   import SystemDialog from '../SystemUI/SystemDialog.svelte';
   import ActionCenter from './ActionCenter.svelte';
-  import { untrack } from 'svelte';
 
   let visible = $state(false);
   let theme_warning_dialog: SystemDialog;
@@ -42,7 +42,7 @@
 
 <SystemDialog
   bind:this={theme_warning_dialog}
-  on:close={() => (is_theme_warning_dialog_open = false)}
+  on_close={() => (is_theme_warning_dialog_open = false)}
 >
   <section class="theme-warning-section">
     <img height="100" width="100" src="/app-icons/wallpapers/256.webp" alt="Wallpapers app logo" />

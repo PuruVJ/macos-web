@@ -1,8 +1,8 @@
 <script lang="ts">
   import { elevation } from '🍎/actions';
-  import { contextMenuConfig } from '🍎/configs/menu/context.menu.config';
-  import { fadeOut } from '🍎/helpers/fade';
-  import { theme } from '🍎/stores/theme.store';
+  import { contextMenuConfig } from '🍎/configs/menu/context.menu.config.ts';
+  import { fadeOut } from '🍎/helpers/fade.ts';
+  import { preferences } from '🍎/state/preferences.svelte.ts';
 
   const { targetElement }: { targetElement: HTMLElement } = $props();
 
@@ -36,13 +36,13 @@
     e.preventDefault();
     handleContextMenu(e);
   }}
-  on:click={hideMenu}
+  onclick={hideMenu}
 />
 
 {#if is_menu_visible}
   <div
     class="container"
-    class:dark={$theme.scheme === 'dark'}
+    class:dark={preferences.value.theme.scheme === 'dark'}
     style:transform="translate({x_pos}px, {y_pos}px)"
     out:fadeOut
     use:elevation={'context-menu'}

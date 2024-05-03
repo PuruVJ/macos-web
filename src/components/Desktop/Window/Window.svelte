@@ -2,14 +2,12 @@
   import { draggable } from '@neodrag/svelte';
   import { onMount, untrack } from 'svelte';
   import { sineInOut } from 'svelte/easing';
-
   import { elevation } from '🍎/actions';
-  import { appsConfig } from '🍎/configs/apps/apps-config';
-  import { randint } from '🍎/helpers/random';
-  import { waitFor } from '🍎/helpers/wait-for';
-  import { apps_store, type AppID } from '🍎/state/apps.svelte';
-  import { prefersReducedMotion } from '🍎/stores/prefers-motion.store';
-  import { theme } from '🍎/stores/theme.store';
+  import { appsConfig } from '🍎/configs/apps/apps-config.ts';
+  import { randint } from '🍎/helpers/random.ts';
+  import { waitFor } from '🍎/helpers/wait-for.ts';
+  import { apps_store, type AppID } from '🍎/state/apps.svelte.ts';
+  import { preferences } from '🍎/state/preferences.svelte.ts';
 
   import AppNexus from '../../apps/AppNexus.svelte';
   import TrafficLights from './TrafficLights.svelte';
@@ -49,7 +47,7 @@
 
   function windowCloseTransition(
     el: HTMLElement,
-    { duration = $prefersReducedMotion ? 0 : 300 }: SvelteTransitionConfig = {},
+    { duration = preferences.value.reduced_motion ? 0 : 300 }: SvelteTransitionConfig = {},
   ): SvelteTransitionReturnType {
     const existingTransform = getComputedStyle(el).transform;
 
@@ -61,7 +59,7 @@
   }
 
   async function maximizeApp() {
-    if (!$prefersReducedMotion) {
+    if (!preferences.value.reduced_motion) {
       windowEl.style.transition = 'height 0.3s ease, width 0.3s ease, transform 0.3s ease';
     }
 
@@ -88,7 +86,7 @@
 
     await waitFor(300);
 
-    if (!$prefersReducedMotion) windowEl.style.transition = '';
+    if (!preferences.value.reduced_motion) windowEl.style.transition = '';
   }
 
   function closeApp() {
@@ -112,7 +110,7 @@
 <section
   role="application"
   class="container"
-  class:dark={$theme.scheme === 'dark'}
+  class:dark={preferences.value.theme.scheme === 'dark'}
   class:active={apps_store.active === app_id}
   style:width="{+width / remModifier}rem"
   style:height="{+height / remModifier}rem"

@@ -2,9 +2,8 @@
   import type { Snippet } from 'svelte';
   import { sineInOut } from 'svelte/easing';
   import { clickOutside, elevation, portal, trapFocus } from '🍎/actions';
-  import { fadeOut } from '🍎/helpers/fade';
-  import { prefersReducedMotion } from '🍎/stores/prefers-motion.store';
-  import { theme } from '🍎/stores/theme.store';
+  import { fadeOut } from '🍎/helpers/fade.ts';
+  import { preferences } from '🍎/state/preferences.svelte.ts';
 
   const {
     backdrop_dismiss = true,
@@ -35,7 +34,7 @@
 
   function dialog_open_transition(
     _: HTMLElement,
-    { duration = $prefersReducedMotion ? 0 : 250 }: SvelteTransitionConfig = {},
+    { duration = preferences.value.reduced_motion ? 0 : 250 }: SvelteTransitionConfig = {},
   ): SvelteTransitionReturnType {
     return {
       duration,
@@ -52,7 +51,7 @@
     <!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
     <div
       class="dialog"
-      class:dark={$theme.scheme === 'dark'}
+      class:dark={preferences.value.theme.scheme === 'dark'}
       tabindex={0}
       role="dialog"
       aria-labelledby="info-title"

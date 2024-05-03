@@ -10,7 +10,7 @@
   }: {
     role?: 'button' | 'link' | 'region';
     grid: [rowStart: number, rowSpan: number];
-    children: () => any;
+    children?: Snippet;
     onclick?: (e: MouseEvent) => void;
     onkeyup?: (e: KeyboardEvent) => void;
   } = $props();

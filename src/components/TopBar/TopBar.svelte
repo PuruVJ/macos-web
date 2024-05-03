@@ -1,10 +1,12 @@
 <script lang="ts">
   import { fadeIn, fadeOut } from '🍎/helpers/fade';
-  import { shouldShowNotch } from '🍎/state/menubar.svelte.ts';
+  import { should_show_notch } from '🍎/state/menubar.svelte.ts';
 
   import ActionCenterToggle from './ActionCenterToggle.svelte';
   import MenuBar from './MenuBar.svelte';
   import TopBarTime from './TopBarTime.svelte';
+
+  $inspect(should_show_notch.value);
 </script>
 
 <header>
@@ -12,7 +14,7 @@
 
   <span style:flex="1 1 auto"></span>
 
-  {#if $shouldShowNotch}
+  {#if should_show_notch.value}
     <div class="notch" in:fadeIn out:fadeOut>
       <span> <img src="/emojis/wink.png" alt="Wink emoji" class="emoji" /> </span>
     </div>

@@ -1,11 +1,11 @@
 <script lang="ts">
-  import { theme } from '🍎/stores/theme.store';
+  import { preferences } from '🍎/state/preferences.svelte.ts';
 
   const { menu }: { menu: any } = $props();
 </script>
 
-<section class="container" class:dark={$theme.scheme === 'dark'}>
-  {#each Object.entries(menu) as Array<[any, any]> as [val]}
+<section class="container" class:dark={preferences.value.theme.scheme === 'dark'}>
+  {#each Object.entries(menu) as Array<[any, any]> as [_, val]}
     <button class="menu-item" disabled={val.disabled}>{val.title}</button>
     {#if val.breakAfter}
       <div class="divider"></div>

@@ -9,10 +9,8 @@
   import { colors } from '🍎/configs/theme/colors.config';
   import { wallpapersConfig } from '🍎/configs/wallpapers/wallpaper.config';
   import { apps_store } from '🍎/state/apps.svelte';
-  import { shouldShowNotch } from '🍎/state/menubar.svelte';
-  import { prefersReducedMotion } from '🍎/stores/prefers-motion.store';
-  import { theme } from '🍎/stores/theme.store';
-  import { wallpaper } from '🍎/stores/wallpaper.store';
+  import { should_show_notch } from '🍎/state/menubar.svelte';
+  import { preferences } from '🍎/state/preferences.svelte.ts';
 
   import ActionCenterSurface from './ActionCenterSurface.svelte';
   import ActionCenterTile from './ActionCenterTile.svelte';
@@ -24,20 +22,24 @@
   let containerEl: HTMLElement;
 
   function toggleTheme() {
-    if (wallpapersConfig[$wallpaper.id].type === 'dynamic' && $wallpaper.canControlTheme) {
+    if (
+      wallpapersConfig[preferences.value.wallpaper.id].type === 'dynamic' &&
+      preferences.value.wallpaper.canControlTheme
+    ) {
       _is_theme_warning_dialog_open = true;
       return;
     }
 
-    $theme.scheme = $theme.scheme === 'light' ? 'dark' : 'light';
+    preferences.value.theme.scheme = preferences.value.theme.scheme === 'light' ? 'dark' : 'light';
   }
 
   function toggleNotch() {
-    $shouldShowNotch = !$shouldShowNotch;
+    console.log(1);
+    should_show_notch.value = !should_show_notch.value;
   }
 
   function toggleMotionPreference() {
-    $prefersReducedMotion = !$prefersReducedMotion;
+    preferences.value.reduced_motion = preferences.value.reduced_motion;
   }
 
   function openWallpapersApp() {
@@ -51,7 +53,7 @@
 <!-- svelte-ignore a11y_no_noninteractive_tabindex -->
 <section
   class="container"
-  class:dark={$theme.scheme === 'dark'}
+  class:dark={preferences.value.theme.scheme === 'dark'}
   tabindex={-1}
   bind:this={containerEl}
 >
@@ -63,7 +65,7 @@
     ]}
   >
     <ActionCenterTile grid={[1, 1]} onclick={toggleTheme}>
-      <span class="toggle-icon" class:filled={$theme.scheme === 'dark'}>
+      <span class="toggle-icon" class:filled={preferences.value.theme.scheme === 'dark'}>
         <DarkMode />
       </span>
       Dark mode
@@ -76,8 +78,8 @@
       [1, 2],
     ]}
   >
-    <ActionCenterTile grid={[1, 1]} on:click={toggleMotionPreference}>
-      <span class="toggle-icon" class:filled={!$prefersReducedMotion}>
+    <ActionCenterTile grid={[1, 1]} onclick={toggleMotionPreference}>
+      <span class="toggle-icon" class:filled={!preferences.value.reduced_motion}>
         <TransitionMaskedIcon />
       </span>
       Animations
@@ -95,14 +97,14 @@
         <p>System Color</p>
         <div class="color-palette">
           {#each Object.keys(colors) as colorID}
-            {@const { contrastHsl, hsl } = colors[colorID][$theme.scheme]}
+            {@const { contrastHsl, hsl } = colors[colorID][preferences.value.theme.scheme]}
 
             <button
               style:--color-hsl={hsl}
               style:--color-contrast-hsl={contrastHsl}
-              onclick={() => ($theme.primaryColor = colorID)}
+              onclick={() => (preferences.value.theme.primaryColor = colorID)}
             >
-              {#if $theme.primaryColor === colorID}
+              {#if preferences.value.theme.primaryColor === colorID}
                 <CheckedIcon />
               {/if}
             </button>
@@ -118,17 +120,17 @@
       [5, 3],
     ]}
   >
-    <ActionCenterTile grid={[1, 1]} on:click={openWallpapersApp}>
+    <ActionCenterTile grid={[1, 1]} onclick={openWallpapersApp}>
       <div class="wallpaper-tile">
         <img
           class="wallpaper-thumbnail"
-          src={wallpapersConfig[$wallpaper.id].thumbnail}
+          src={wallpapersConfig[preferences.value.wallpaper.id].thumbnail}
           alt="Current wallpaper"
         />
 
         <div class="wallpaper-info">
-          <h3>{wallpapersConfig[$wallpaper.id].name}</h3>
-          <p>{wallpapersConfig[$wallpaper.id].type} wallpaper</p>
+          <h3>{wallpapersConfig[preferences.value.wallpaper.id].name}</h3>
+          <p>{wallpapersConfig[preferences.value.wallpaper.id].type} wallpaper</p>
         </div>
       </div>
     </ActionCenterTile>
@@ -140,9 +142,9 @@
       [8, 2],
     ]}
   >
-    <ActionCenterTile grid={[1, 1]} on:click={toggleNotch}>
+    <ActionCenterTile grid={[1, 1]} onclick={toggleNotch}>
       <div class="notch-tile">
-        <span class="toggle-icon" class:filled={$shouldShowNotch}>
+        <span class="toggle-icon" class:filled={should_show_notch.value}>
           <NotchIcon />
         </span>
         Notch

@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { Snippet } from 'svelte';
-  import { theme } from '🍎/stores/theme.store';
+  import { preferences } from '🍎/state/preferences.svelte.ts';
 
   const {
     grid,
@@ -15,7 +15,7 @@
 
 <section
   class="container"
-  class:dark={$theme.scheme === 'dark'}
+  class:dark={preferences.value.theme.scheme === 'dark'}
   style:grid-column="{columnStart} / span {columnSpan}"
   style:grid-row="{rowStart} / span {rowSpan}"
 >

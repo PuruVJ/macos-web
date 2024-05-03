@@ -1,9 +1,9 @@
 <script lang="ts">
   import { onMount } from 'svelte';
-  import { waitFor } from '🍎/helpers/wait-for';
-  import type { AppID } from '🍎/state/apps.svelte';
+  import { waitFor } from '🍎/helpers/wait-for.ts';
+  import type { AppID } from '🍎/state/apps.svelte.ts';
+  import { preferences } from '🍎/state/preferences.svelte.ts';
   import { spring } from '🍎/state/spring.svelte.ts';
-  import { prefersReducedMotion } from '🍎/stores/prefers-motion.store';
 
   const { app_id }: { app_id: AppID } = $props();
 
@@ -16,7 +16,7 @@
   });
 
   const image_transform = $derived(
-    !$prefersReducedMotion
+    !preferences.value.reduced_motion
       ? `rotate(${180 * (motion_val.value + 1)}deg) scale(${motion_val.value}) translateZ(0px)`
       : 'initial',
   );

@@ -42,7 +42,7 @@
   });
 </script>
 
-<svelte:body on:mousemove={({ y }) => (mouseY = y)} />
+<svelte:body onmousemove={({ y }) => (mouseY = y)} />
 
 <svelte:window bind:innerHeight={bodyHeight} />
 

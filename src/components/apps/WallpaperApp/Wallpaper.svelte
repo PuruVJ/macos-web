@@ -10,7 +10,6 @@
 
   const interval = create_interval(5 * 1000);
 
-  console.log(wallpapersConfig[preferences.value.wallpaper.id]);
   $effect(() => {
     interval.value;
 

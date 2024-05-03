@@ -26,7 +26,7 @@
 
   $effect(() => {
     if ($needRefresh) {
-      untrack(() => system_update_dialog?.open());
+      system_update_dialog?.open();
     }
   });
 

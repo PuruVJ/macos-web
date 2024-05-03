@@ -2,7 +2,7 @@
   import { untrack } from 'svelte';
   import { clickOutside, elevation, focusOutside } from '🍎/actions';
   import { fadeIn, fadeOut } from '🍎/helpers/fade';
-  import { apps_store } from '🍎/state/apps.svelte';
+  import { apps } from '🍎/state/apps.svelte';
   import SwitchSvg from '../SVG/SwitchSVG.svelte';
   import SystemDialog from '../SystemUI/SystemDialog.svelte';
   import ActionCenter from './ActionCenter.svelte';
@@ -57,8 +57,8 @@
         onclick={() => {
           theme_warning_dialog.close();
 
-          apps_store.open.wallpapers = true;
-          apps_store.active = 'wallpapers';
+          apps.open.wallpapers = true;
+          apps.active = 'wallpapers';
         }}
       >
         Go to Wallpapers

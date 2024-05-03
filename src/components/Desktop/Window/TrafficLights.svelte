@@ -3,7 +3,7 @@
   import GreenLight from '🍎/components/SVG/traffic-lights/GreenLight.svelte';
   import MinimizeSvg from '🍎/components/SVG/traffic-lights/MinimizeSVG.svelte';
   import { appsConfig } from '🍎/configs/apps/apps-config';
-  import { apps_store, type AppID } from '🍎/state/apps.svelte';
+  import { apps, type AppID } from '🍎/state/apps.svelte';
 
   const {
     app_id,
@@ -12,7 +12,7 @@
   }: { app_id: AppID; on_close_app: () => void; on_maximize_click: () => void } = $props();
 </script>
 
-<div class="container" class:unfocused={apps_store.active !== app_id}>
+<div class="container" class:unfocused={apps.active !== app_id}>
   <button class="close-light" onclick={on_close_app}> <CloseIcon /> </button>
   <button class="minimize-light"> <MinimizeSvg /> </button>
   <button class="stretch-light" onclick={on_maximize_click}>

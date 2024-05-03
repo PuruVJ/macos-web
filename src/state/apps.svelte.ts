@@ -2,7 +2,7 @@ import type { appsConfig } from '🍎/configs/apps/apps-config';
 
 export type AppID = keyof typeof appsConfig;
 
-export const apps_store = $state({
+export const apps = $state({
   open: {
     wallpapers: false,
     finder: true,

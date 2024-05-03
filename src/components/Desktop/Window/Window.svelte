@@ -6,7 +6,7 @@
   import { appsConfig } from '🍎/configs/apps/apps-config.ts';
   import { randint } from '🍎/helpers/random.ts';
   import { waitFor } from '🍎/helpers/wait-for.ts';
-  import { apps_store, type AppID } from '🍎/state/apps.svelte.ts';
+  import { apps, type AppID } from '🍎/state/apps.svelte.ts';
   import { preferences } from '🍎/state/preferences.svelte.ts';
 
   import AppNexus from '../../apps/AppNexus.svelte';
@@ -34,15 +34,15 @@
   };
 
   $effect(() => {
-    apps_store.active_z_index;
+    apps.active_z_index;
 
-    if (apps_store.active === app_id) {
-      untrack(() => (apps_store.z_indices[app_id] = apps_store.active_z_index));
+    if (apps.active === app_id) {
+      untrack(() => (apps.z_indices[app_id] = apps.active_z_index));
     }
   });
 
   function focusApp() {
-    apps_store.active = app_id;
+    apps.active = app_id;
   }
 
   function windowCloseTransition(
@@ -82,7 +82,7 @@
 
     is_maximized = !is_maximized;
 
-    apps_store.fullscreen[app_id] = is_maximized;
+    apps.fullscreen[app_id] = is_maximized;
 
     await waitFor(300);
 
@@ -90,17 +90,17 @@
   }
 
   function closeApp() {
-    apps_store.open[app_id] = false;
-    apps_store.fullscreen[app_id] = false;
+    apps.open[app_id] = false;
+    apps.fullscreen[app_id] = false;
   }
 
   function onAppDragStart() {
     focusApp();
-    apps_store.is_being_dragged = true;
+    apps.is_being_dragged = true;
   }
 
   function onAppDragEnd() {
-    apps_store.is_being_dragged = false;
+    apps.is_being_dragged = false;
   }
 
   onMount(() => windowEl?.focus());
@@ -111,10 +111,10 @@
   role="application"
   class="container"
   class:dark={preferences.value.theme.scheme === 'dark'}
-  class:active={apps_store.active === app_id}
+  class:active={apps.active === app_id}
   style:width="{+width / remModifier}rem"
   style:height="{+height / remModifier}rem"
-  style:z-index={apps_store.z_indices[app_id]}
+  style:z-index={apps.z_indices[app_id]}
   tabindex="-1"
   bind:this={windowEl}
   use:draggable={{
@@ -135,7 +135,7 @@
     <TrafficLights {app_id} on_maximize_click={maximizeApp} on_close_app={closeApp} />
   </div>
 
-  <AppNexus {app_id} is_being_dragged={apps_store.is_being_dragged} />
+  <AppNexus {app_id} is_being_dragged={apps.is_being_dragged} />
 </section>
 
 <style lang="scss">

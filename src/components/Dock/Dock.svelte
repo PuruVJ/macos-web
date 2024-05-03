@@ -3,7 +3,7 @@
 <script lang="ts">
   import { elevation } from '🍎/actions';
   import { appsConfig } from '🍎/configs/apps/apps-config';
-  import { apps_store } from '🍎/state/apps.svelte';
+  import { apps } from '🍎/state/apps.svelte';
   import { system_needs_update } from '🍎/state/system.svelte';
   import { is_dock_hidden } from '🍎/state/dock.svelte';
   import DockItem from './DockItem.svelte';
@@ -33,7 +33,7 @@
       return;
     }
 
-    if (!Object.values(apps_store.fullscreen).some(Boolean)) {
+    if (!Object.values(apps.fullscreen).some(Boolean)) {
       untrack(() => (is_dock_hidden.value = false));
       return;
     }

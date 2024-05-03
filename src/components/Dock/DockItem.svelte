@@ -32,7 +32,7 @@
   import { elevation } from '🍎/actions';
   import { appsConfig } from '🍎/configs/apps/apps-config';
   import { spring } from '🍎/state/spring.svelte.ts';
-  import { apps_store, type AppID } from '🍎/state/apps.svelte';
+  import { apps, type AppID } from '🍎/state/apps.svelte';
   import { preferences } from '🍎/state/preferences.svelte.ts';
 
   const {
@@ -83,7 +83,7 @@
 
   $effect(() => {
     mouseX;
-    if (preferences.value.reduced_motion || apps_store.is_being_dragged) return;
+    if (preferences.value.reduced_motion || apps.is_being_dragged) return;
 
     raf = requestAnimationFrame(animate);
   });
@@ -108,10 +108,10 @@
     if (!shouldOpenWindow) return externalAction?.(e);
 
     // For the bounce animation
-    const isAppAlreadyOpen = apps_store.open[appID];
+    const isAppAlreadyOpen = apps.open[appID];
 
-    apps_store.open[appID] = true;
-    apps_store.active = appID;
+    apps.open[appID] = true;
+    apps.active = appID;
 
     if (isAppAlreadyOpen) return;
 
@@ -133,7 +133,7 @@
 <button onclick={openApp} aria-label="Launch {title} app" class="dock-open-app-button {appID}">
   <p
     class="tooltip"
-    class:tooltip-enabled={!apps_store.is_being_dragged}
+    class:tooltip-enabled={!apps.is_being_dragged}
     class:dark={preferences.value.theme.scheme === 'dark'}
     style:top={preferences.value.reduced_motion ? '-50px' : '-35%'}
     style:transform="translate(0, {$appOpenIconBounceTransform}px)"
@@ -152,7 +152,7 @@
     />
   </span>
 
-  <div class="dot" style:--opacity={+apps_store.open[appID]}></div>
+  <div class="dot" style:--opacity={+apps.open[appID]}></div>
 
   {#if show_pwa_badge}
     <div class="pwa-badge" style:transform="scale({widthPX.value / baseWidth})">1</div>

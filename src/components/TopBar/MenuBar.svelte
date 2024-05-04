@@ -7,8 +7,8 @@
 
 <div
   class="container"
-  use:click_outside={{ callback: () => (menubar_state.active = '') }}
-  use:focus_outside={{ callback: () => (menubar_state.active = '') }}
+  use:click_outside={() => (menubar_state.active = '')}
+  use:focus_outside={() => (menubar_state.active = '')}
 >
   {#each Object.entries(menubar_state.menus) as [menuID, menuConfig]}
     <div>

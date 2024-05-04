@@ -34,7 +34,7 @@
 
   function dialog_open_transition(
     _: HTMLElement,
-    { duration = preferences.value.reduced_motion ? 0 : 250 }: SvelteTransitionConfig = {},
+    { duration = preferences.reduced_motion ? 0 : 250 }: SvelteTransitionConfig = {},
   ): SvelteTransitionReturnType {
     return {
       duration,
@@ -51,7 +51,7 @@
     <!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
     <div
       class="dialog"
-      class:dark={preferences.value.theme.scheme === 'dark'}
+      class:dark={preferences.theme.scheme === 'dark'}
       tabindex={0}
       role="dialog"
       aria-labelledby="info-title"

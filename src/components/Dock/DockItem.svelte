@@ -83,7 +83,7 @@
 
   $effect(() => {
     mouse_x;
-    if (preferences.value.reduced_motion || apps.is_being_dragged) return;
+    if (preferences.reduced_motion || apps.is_being_dragged) return;
 
     raf = requestAnimationFrame(animate);
   });
@@ -138,8 +138,8 @@
   <p
     class="tooltip"
     class:tooltip-enabled={!apps.is_being_dragged}
-    class:dark={preferences.value.theme.scheme === 'dark'}
-    style:top={preferences.value.reduced_motion ? '-50px' : '-35%'}
+    class:dark={preferences.theme.scheme === 'dark'}
+    style:top={preferences.reduced_motion ? '-50px' : '-35%'}
     style:transform="translate(0, {$appOpenIconBounceTransform}px)"
     use:elevation={'dock-tooltip'}
   >

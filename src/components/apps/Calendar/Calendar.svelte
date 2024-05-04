@@ -22,7 +22,7 @@
   }
 </script>
 
-<section class="container" class:dark={preferences.value.theme.scheme === 'dark'}>
+<section class="container" class:dark={preferences.theme.scheme === 'dark'}>
   <header class="app-window-drag-handle titlebar"></header>
 
   <section class="main-area">

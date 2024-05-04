@@ -42,7 +42,7 @@
 {#if is_menu_visible}
   <div
     class="container"
-    class:dark={preferences.value.theme.scheme === 'dark'}
+    class:dark={preferences.theme.scheme === 'dark'}
     style:transform="translate({x_pos}px, {y_pos}px)"
     out:fade_out
     use:elevation={'context-menu'}

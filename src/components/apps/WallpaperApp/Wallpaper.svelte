@@ -13,11 +13,9 @@
   $effect(() => {
     interval.value;
 
-    if (wallpapers_config[preferences.value.wallpaper.id].type === 'standalone') {
+    if (wallpapers_config[preferences.wallpaper.id].type === 'standalone') {
       untrack(
-        () =>
-          (preferences.value.wallpaper.image =
-            wallpapers_config[preferences.value.wallpaper.id].thumbnail),
+        () => (preferences.wallpaper.image = wallpapers_config[preferences.wallpaper.id].thumbnail),
       );
       return;
     }
@@ -33,8 +31,7 @@
     const date = new Date();
     const hour = date.getHours();
 
-    const wallpaperTimestampsMap =
-      wallpapers_config[preferences.value.wallpaper.id].timestamps.wallpaper;
+    const wallpaperTimestampsMap = wallpapers_config[preferences.wallpaper.id].timestamps.wallpaper;
     const timestamps = Object.keys(wallpaperTimestampsMap);
 
     const minTimestamp = Math.min(...timestamps);
@@ -43,7 +40,7 @@
     if (hour > maxTimestamp || hour < minTimestamp) {
       // Go for the min timestamp value
       if (wallpaperTimestampsMap[maxTimestamp]) {
-        preferences.value.wallpaper.image = wallpaperTimestampsMap[maxTimestamp];
+        preferences.wallpaper.image = wallpaperTimestampsMap[maxTimestamp];
       }
 
       return;
@@ -53,17 +50,17 @@
     const chosenTimeStamp = smaller_closest_value(timestamps, hour);
 
     if (wallpaperTimestampsMap[chosenTimeStamp]) {
-      preferences.value.wallpaper.image = wallpaperTimestampsMap[chosenTimeStamp];
+      preferences.wallpaper.image = wallpaperTimestampsMap[chosenTimeStamp];
     }
   }
 
   function handleTheme() {
-    if (!preferences.value.wallpaper.canControlTheme) return;
+    if (!preferences.wallpaper.canControlTheme) return;
 
     const date = new Date();
     const hour = date.getHours();
 
-    const themeTimestampsMap = wallpapers_config[preferences.value.wallpaper.id].timestamps.theme;
+    const themeTimestampsMap = wallpapers_config[preferences.wallpaper.id].timestamps.theme;
     const timestamps = Object.keys(themeTimestampsMap);
 
     const minTimestamp = Math.min(...timestamps);
@@ -71,17 +68,17 @@
 
     if (hour > maxTimestamp || hour < minTimestamp) {
       // Go for the min timestamp value
-      preferences.value.theme.scheme = 'dark';
+      preferences.theme.scheme = 'dark';
       return;
     }
 
     // Now set the right timestamp
     const chosenTimeStamp = smaller_closest_value(timestamps, hour);
-    preferences.value.theme.scheme = themeTimestampsMap?.[chosenTimeStamp] || 'light';
+    preferences.theme.scheme = themeTimestampsMap?.[chosenTimeStamp] || 'light';
   }
 
   function previewImageOnLoad() {
-    visible_background_image = preferences.value.wallpaper.image;
+    visible_background_image = preferences.wallpaper.image;
   }
 </script>
 
@@ -93,12 +90,7 @@
 </svelte:head>
 
 <!-- This preload and render the image for browser but invisible to user -->
-<img
-  src={preferences.value.wallpaper.image}
-  aria-hidden="true"
-  alt=""
-  onload={previewImageOnLoad}
-/>
+<img src={preferences.wallpaper.image} aria-hidden="true" alt="" onload={previewImageOnLoad} />
 
 <div
   class="background-cover"

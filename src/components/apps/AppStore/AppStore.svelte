@@ -16,7 +16,7 @@
   });
 
   const image_transform = $derived(
-    !preferences.value.reduced_motion
+    !preferences.reduced_motion
       ? `rotate(${180 * (motion_val.value + 1)}deg) scale(${motion_val.value}) translateZ(0px)`
       : 'initial',
   );

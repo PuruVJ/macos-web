@@ -23,14 +23,14 @@
 
   function toggleTheme() {
     if (
-      wallpapers_config[preferences.value.wallpaper.id].type === 'dynamic' &&
-      preferences.value.wallpaper.canControlTheme
+      wallpapers_config[preferences.wallpaper.id].type === 'dynamic' &&
+      preferences.wallpaper.canControlTheme
     ) {
       _is_theme_warning_dialog_open = true;
       return;
     }
 
-    preferences.value.theme.scheme = preferences.value.theme.scheme === 'light' ? 'dark' : 'light';
+    preferences.theme.scheme = preferences.theme.scheme === 'light' ? 'dark' : 'light';
   }
 
   function toggleNotch() {
@@ -38,7 +38,7 @@
   }
 
   function toggleMotionPreference() {
-    preferences.value.reduced_motion = !preferences.value.reduced_motion;
+    preferences.reduced_motion = !preferences.reduced_motion;
   }
 
   function openWallpapersApp() {
@@ -52,7 +52,7 @@
 <!-- svelte-ignore a11y_no_noninteractive_tabindex -->
 <section
   class="container"
-  class:dark={preferences.value.theme.scheme === 'dark'}
+  class:dark={preferences.theme.scheme === 'dark'}
   tabindex={-1}
   bind:this={containerEl}
 >
@@ -64,7 +64,7 @@
     ]}
   >
     <ActionCenterTile grid={[1, 1]} onclick={toggleTheme}>
-      <span class="toggle-icon" class:filled={preferences.value.theme.scheme === 'dark'}>
+      <span class="toggle-icon" class:filled={preferences.theme.scheme === 'dark'}>
         <DarkMode />
       </span>
       Dark mode
@@ -78,7 +78,7 @@
     ]}
   >
     <ActionCenterTile grid={[1, 1]} onclick={toggleMotionPreference}>
-      <span class="toggle-icon" class:filled={!preferences.value.reduced_motion}>
+      <span class="toggle-icon" class:filled={!preferences.reduced_motion}>
         <TransitionMaskedIcon />
       </span>
       Animations
@@ -96,14 +96,14 @@
         <p>System Color</p>
         <div class="color-palette">
           {#each Object.keys(colors) as colorID}
-            {@const { contrastHsl, hsl } = colors[colorID][preferences.value.theme.scheme]}
+            {@const { contrastHsl, hsl } = colors[colorID][preferences.theme.scheme]}
 
             <button
               style:--color-hsl={hsl}
               style:--color-contrast-hsl={contrastHsl}
-              onclick={() => (preferences.value.theme.primaryColor = colorID)}
+              onclick={() => (preferences.theme.primaryColor = colorID)}
             >
-              {#if preferences.value.theme.primaryColor === colorID}
+              {#if preferences.theme.primaryColor === colorID}
                 <CheckedIcon />
               {/if}
             </button>
@@ -123,13 +123,13 @@
       <div class="wallpaper-tile">
         <img
           class="wallpaper-thumbnail"
-          src={wallpapers_config[preferences.value.wallpaper.id].thumbnail}
+          src={wallpapers_config[preferences.wallpaper.id].thumbnail}
           alt="Current wallpaper"
         />
 
         <div class="wallpaper-info">
-          <h3>{wallpapers_config[preferences.value.wallpaper.id].name}</h3>
-          <p>{wallpapers_config[preferences.value.wallpaper.id].type} wallpaper</p>
+          <h3>{wallpapers_config[preferences.wallpaper.id].name}</h3>
+          <p>{wallpapers_config[preferences.wallpaper.id].type} wallpaper</p>
         </div>
       </div>
     </ActionCenterTile>

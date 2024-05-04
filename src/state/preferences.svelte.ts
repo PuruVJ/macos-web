@@ -31,10 +31,10 @@ $effect.root(() => {
     // Color scheme
     const { classList } = document.body;
     classList.remove('light', 'dark');
-    classList.add(preferences.value.theme.scheme);
+    classList.add(preferences.theme.scheme);
 
     // Primary color
-    const colorObj = colors[preferences.value.theme.primaryColor][preferences.value.theme.scheme];
+    const colorObj = colors[preferences.theme.primaryColor][preferences.theme.scheme];
     document.body.style.setProperty('--system-color-primary', `hsl(${colorObj.hsl})`);
     document.body.style.setProperty('--system-color-primary-hsl', `${colorObj.hsl}`);
     document.body.style.setProperty(

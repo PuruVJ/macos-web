@@ -23,7 +23,7 @@
   }
 </script>
 
-<div class="container" class:dark={preferences.value.theme.scheme === 'dark'}>
+<div class="container" class:dark={preferences.theme.scheme === 'dark'}>
   {#each DAYS_OF_THE_WEEK as day, i}
     <div class="weekday" class:weekend={[5, 6].includes(i)}>{day}</div>
   {/each}

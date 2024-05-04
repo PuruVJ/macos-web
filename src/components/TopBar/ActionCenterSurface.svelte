@@ -15,7 +15,7 @@
 
 <section
   class="container"
-  class:dark={preferences.value.theme.scheme === 'dark'}
+  class:dark={preferences.theme.scheme === 'dark'}
   style:grid-column="{columnStart} / span {columnSpan}"
   style:grid-row="{rowStart} / span {rowSpan}"
 >

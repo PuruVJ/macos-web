@@ -17,7 +17,7 @@
     <span>About the Developer</span>
   </header>
 
-  <aside class:light={preferences.value.theme.scheme === 'light'}>
+  <aside class:light={preferences.theme.scheme === 'light'}>
     <nav>
       <a href="https://www.puruvj.dev/blog" use:external> <BlogIcon /> Blog </a>
       <a href="https://www.puruvj.dev/works" use:external> <WorksIcon /> Works </a>

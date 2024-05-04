@@ -4,7 +4,7 @@
   const { menu }: { menu: any } = $props();
 </script>
 
-<section class="container" class:dark={preferences.value.theme.scheme === 'dark'}>
+<section class="container" class:dark={preferences.theme.scheme === 'dark'}>
   {#each Object.entries(menu) as Array<[any, any]> as [_, val]}
     <button class="menu-item" disabled={val.disabled}>{val.title}</button>
     {#if val.breakAfter}

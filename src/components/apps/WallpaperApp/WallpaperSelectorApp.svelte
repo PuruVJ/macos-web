@@ -11,11 +11,11 @@
   );
 
   const current_wallpaper_thumbnail = $derived(
-    `url(${wallpapers_config[preferences.value.wallpaper.id].thumbnail})`,
+    `url(${wallpapers_config[preferences.wallpaper.id].thumbnail})`,
   );
 
   function change_wallpaper(wallpaperName: WallpaperID) {
-    preferences.value.wallpaper.id = wallpaperName;
+    preferences.wallpaper.id = wallpaperName;
   }
 </script>
 
@@ -29,16 +29,16 @@
       <div class="image" style:background-image={current_wallpaper_thumbnail}></div>
 
       <div class="info">
-        <h2>{wallpapers_config[preferences.value.wallpaper.id].name}</h2>
+        <h2>{wallpapers_config[preferences.wallpaper.id].name}</h2>
         <p class="wallpaper-type">
-          {wallpapers_config[preferences.value.wallpaper.id].type} wallpaper
+          {wallpapers_config[preferences.wallpaper.id].type} wallpaper
         </p>
 
         <br /> <br />
 
-        {#if wallpapers_config[preferences.value.wallpaper.id].type !== 'standalone'}
+        {#if wallpapers_config[preferences.wallpaper.id].type !== 'standalone'}
           <label>
-            <input type="checkbox" bind:checked={preferences.value.wallpaper.canControlTheme} />
+            <input type="checkbox" bind:checked={preferences.wallpaper.canControlTheme} />
             Change dark/light mode as wallpapers change
           </label>
         {/if}

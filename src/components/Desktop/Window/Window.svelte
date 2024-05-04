@@ -47,7 +47,7 @@
 
   function windowCloseTransition(
     el: HTMLElement,
-    { duration = preferences.value.reduced_motion ? 0 : 300 }: SvelteTransitionConfig = {},
+    { duration = preferences.reduced_motion ? 0 : 300 }: SvelteTransitionConfig = {},
   ): SvelteTransitionReturnType {
     const existingTransform = getComputedStyle(el).transform;
 
@@ -59,7 +59,7 @@
   }
 
   async function maximizeApp() {
-    if (!preferences.value.reduced_motion) {
+    if (!preferences.reduced_motion) {
       windowEl.style.transition = 'height 0.3s ease, width 0.3s ease, transform 0.3s ease';
     }
 
@@ -86,7 +86,7 @@
 
     await sleep(300);
 
-    if (!preferences.value.reduced_motion) windowEl.style.transition = '';
+    if (!preferences.reduced_motion) windowEl.style.transition = '';
   }
 
   function closeApp() {
@@ -110,7 +110,7 @@
 <section
   role="application"
   class="container"
-  class:dark={preferences.value.theme.scheme === 'dark'}
+  class:dark={preferences.theme.scheme === 'dark'}
   class:active={apps.active === app_id}
   style:width="{+width / remModifier}rem"
   style:height="{+height / remModifier}rem"

@@ -3,7 +3,7 @@ import { auto_destroy_effect_root } from './auto-destroy-effect-root.svelte.ts';
 type Primitive = string | null | symbol | boolean | number | undefined | bigint;
 
 const is_primitive = (val: any): val is Primitive => {
-  return val !== Object(val);
+  return val !== Object(val) || val === null;
 };
 
 export function persisted<T>(key: string, initial: T) {

@@ -1,9 +1,8 @@
 <script lang="ts">
   import Plus from '~icons/ic/outline-plus';
-  import PlusMinusVariant from '~icons/ic/outline-plus-minus';
   import Equal from '~icons/ic/round-equals';
   import Minus from '~icons/ic/round-minus';
-  import Modulo from '~icons/icon-park-outline/percentage';
+  import PlusMinus from '~icons/majesticons/plus-minus-2';
   import Division from '~icons/ph/divide-bold';
   import Multiply from '~icons/uil/multiply';
 </script>
@@ -16,11 +15,9 @@
   <section class="buttons-container">
     <button class="top-row-button"> AC </button>
     <button class="top-row-button">
-      <PlusMinusVariant />
+      <PlusMinus />
     </button>
-    <button class="top-row-button">
-      <Modulo />
-    </button>
+    <button class="top-row-button"> % </button>
     <button class="operation-button">
       <Division />
     </button>
@@ -57,8 +54,8 @@
     height: 100%;
     width: 100%;
 
-    background-color: hsla(0, 0%, 27%, 0.7);
-    backdrop-filter: blur(40px);
+    background-color: hsla(240, 5%, 12%, 0.7);
+    backdrop-filter: blur(15px);
 
     border-radius: inherit;
 
@@ -72,13 +69,13 @@
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: repeat(5, 1fr);
-    gap: 0.9px;
+    gap: 1px;
 
     margin: 1.5px;
 
     & > button {
-      font-size: 1.618rem;
-      font-weight: 300 !important;
+      font-size: 1.414rem;
+      font-weight: 400 !important;
       color: white;
       fill: white;
     }
@@ -89,15 +86,15 @@
   }
 
   .top-row-button {
-    background-color: hsla(0, 0%, 35%, 0.6);
+    background-color: hsla(240, 5%, 12%, 0.2);
   }
 
   .number-button {
-    background-color: hsla(0, 0%, 45%, 0.6);
+    background-color: hsla(240, 5%, 80%, 0.25);
   }
 
   .operation-button {
-    background-color: hsla(33, 87%, 59%, 1);
+    background-color: hsl(37deg 98% 51%);
   }
 
   .curved-bottom-left-button {

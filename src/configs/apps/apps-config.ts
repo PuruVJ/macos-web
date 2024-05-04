@@ -16,8 +16,8 @@ const calculator = create_app_config({
   expandable: true,
   resizable: false,
 
-  height: 300 * 1.414,
-  width: 300,
+  height: 250 * 1.414,
+  width: 250,
 });
 
 const calendar = create_app_config({

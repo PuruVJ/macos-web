@@ -33,6 +33,12 @@ importers:
       '@iconify-json/icon-park-outline':
         specifier: ^1.1.6
         version: 1.1.15
+      '@iconify-json/iconamoon':
+        specifier: ^1.1.4
+        version: 1.1.4
+      '@iconify-json/majesticons':
+        specifier: ^1.1.11
+        version: 1.1.11
       '@iconify-json/mdi':
         specifier: ^1.1.33
         version: 1.1.66
@@ -828,6 +834,12 @@ packages:
 
   '@iconify-json/icon-park-outline@1.1.15':
     resolution: {integrity: sha512-jQbk/ETARyYPjX6HolkdjSLJHsNCfSBfYUqcUQLXYK/1tfuVnQsUdWG2IM2a7VBpxJtrK7r4n1iwPOFaZ5T46g==}
+
+  '@iconify-json/iconamoon@1.1.4':
+    resolution: {integrity: sha512-ciU8YeoMqWWMRurM7c7PqodEyvd/dGAV5zeLC5+IwqTfcPVI71RUDrhOsE656FjxADcyKh2ZkN64gVqFAZOVng==}
+
+  '@iconify-json/majesticons@1.1.11':
+    resolution: {integrity: sha512-8iSktgGbIInt/4y3tvZ/Dyzvzeze/2cc//ZtHMx5zPuHSiENE/nORGZAlO7yGf29oC2oECwl5a7YYqCPChiYiA==}
 
   '@iconify-json/mdi@1.1.66':
     resolution: {integrity: sha512-7KPF2RVUUWav/hXCM8Ti/smqu3cmgePJpiX9CSkldiL+80+eBRBeKlc4vPOc9jhAItlqIU1vKsbKoPP0JIfgbg==}
@@ -3347,6 +3359,14 @@ snapshots:
       '@iconify/types': 2.0.0
 
   '@iconify-json/icon-park-outline@1.1.15':
+    dependencies:
+      '@iconify/types': 2.0.0
+
+  '@iconify-json/iconamoon@1.1.4':
+    dependencies:
+      '@iconify/types': 2.0.0
+
+  '@iconify-json/majesticons@1.1.11':
     dependencies:
       '@iconify/types': 2.0.0
 

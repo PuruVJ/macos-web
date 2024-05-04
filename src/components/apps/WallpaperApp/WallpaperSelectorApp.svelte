@@ -1,17 +1,17 @@
 <script lang="ts">
-  import { wallpapersConfig, type WallpaperID } from '🍎/configs/wallpapers/wallpaper.config';
+  import { wallpapers_config, type WallpaperID } from '🍎/configs/wallpapers/wallpaper.config.ts';
   import { preferences } from '🍎/state/preferences.svelte.ts';
 
-  const dynamicWallpapers = Object.entries(wallpapersConfig).filter(
+  const dynamic_wallpapers = Object.entries(wallpapers_config).filter(
     ([, { type }]) => type === 'dynamic',
   );
 
-  const standaloneWallpapers = Object.entries(wallpapersConfig).filter(
+  const standalone_wallpapers = Object.entries(wallpapers_config).filter(
     ([, { type }]) => type === 'standalone',
   );
 
   const current_wallpaper_thumbnail = $derived(
-    `url(${wallpapersConfig[preferences.value.wallpaper.id].thumbnail})`,
+    `url(${wallpapers_config[preferences.value.wallpaper.id].thumbnail})`,
   );
 
   function change_wallpaper(wallpaperName: WallpaperID) {
@@ -29,14 +29,14 @@
       <div class="image" style:background-image={current_wallpaper_thumbnail}></div>
 
       <div class="info">
-        <h2>{wallpapersConfig[preferences.value.wallpaper.id].name}</h2>
+        <h2>{wallpapers_config[preferences.value.wallpaper.id].name}</h2>
         <p class="wallpaper-type">
-          {wallpapersConfig[preferences.value.wallpaper.id].type} wallpaper
+          {wallpapers_config[preferences.value.wallpaper.id].type} wallpaper
         </p>
 
         <br /> <br />
 
-        {#if wallpapersConfig[preferences.value.wallpaper.id].type !== 'standalone'}
+        {#if wallpapers_config[preferences.value.wallpaper.id].type !== 'standalone'}
           <label>
             <input type="checkbox" bind:checked={preferences.value.wallpaper.canControlTheme} />
             Change dark/light mode as wallpapers change
@@ -51,7 +51,7 @@
       <h2>Dynamic Wallpapers</h2>
 
       <div class="wallpapers">
-        {#each dynamicWallpapers as [id, { thumbnail, name }]}
+        {#each dynamic_wallpapers as [id, { thumbnail, name }]}
           <div class="wallpaper-button">
             <button onclick={() => change_wallpaper(id)}>
               <img src={thumbnail} alt="MacOS {name} Wallpapers, dynamic" />
@@ -68,7 +68,7 @@
       <h2>Standalone Wallpapers</h2>
 
       <div class="wallpapers">
-        {#each standaloneWallpapers as [id, { thumbnail, name }]}
+        {#each standalone_wallpapers as [id, { thumbnail, name }]}
           <div class="wallpaper-button">
             <button onclick={() => change_wallpaper(id)}>
               <img src={thumbnail} alt="MacOS {name} Wallpapers, dynamic" />

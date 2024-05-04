@@ -1,36 +1,36 @@
 let trapFocusList: HTMLElement[] = [];
 
-const isNext = (event: KeyboardEvent) => event.key === 'Tab' && !event.shiftKey;
-const isPrevious = (event: KeyboardEvent) => event.key === 'Tab' && event.shiftKey;
-const trapFocusListener = (event: KeyboardEvent) => {
+const is_next = (event: KeyboardEvent) => event.key === 'Tab' && !event.shiftKey;
+const is_previous = (event: KeyboardEvent) => event.key === 'Tab' && event.shiftKey;
+const trap_focus_listener = (event: KeyboardEvent) => {
   if (event.target === window) {
     return;
   }
 
-  const eventTarget = event.target as Element;
+  const event_target = event.target as Element;
 
-  const parentNode = trapFocusList.find((node) => node.contains(eventTarget));
-  if (!parentNode) {
+  const parent_node = trapFocusList.find((node) => node.contains(event_target));
+  if (!parent_node) {
     return;
   }
 
-  const focusable = parentNode.querySelectorAll<HTMLElement>(
+  const focusable = parent_node.querySelectorAll<HTMLElement>(
     'a[href], area[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), iframe, object, embed, *[tabindex], *[contenteditable]',
   );
   const first = focusable[0];
   const last = focusable[focusable.length - 1];
-  if (isNext(event) && event.target === last) {
+  if (is_next(event) && event.target === last) {
     event.preventDefault();
     first.focus();
-  } else if (isPrevious(event) && event.target === first) {
+  } else if (is_previous(event) && event.target === first) {
     event.preventDefault();
     last.focus();
   }
 };
 
-document.addEventListener('keydown', trapFocusListener);
+document.addEventListener('keydown', trap_focus_listener);
 
-export const trapFocus = (node: HTMLElement) => {
+export const trap_focus = (node: HTMLElement) => {
   trapFocusList.push(node);
   return {
     destroy() {

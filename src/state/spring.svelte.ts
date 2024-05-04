@@ -19,15 +19,15 @@ export function spring(value: number, { stiffness = 0.15, damping = 0.8, precisi
   }
 
   function loop() {
-    const currentTime = performance.now();
-    const deltaTime = Math.min(currentTime - last_time, 42) * 0.06;
+    const current_time = performance.now();
+    const delta_time = Math.min(current_time - last_time, 42) * 0.06;
 
     const delta = target_value - current_value;
-    const velocity = (current_value - last_value) / deltaTime;
+    const velocity = (current_value - last_value) / delta_time;
     const spring = stiffness * delta;
     const damper = damping * velocity;
     const acceleration = spring - damper;
-    const d = (velocity + acceleration) * deltaTime;
+    const d = (velocity + acceleration) * delta_time;
 
     last_value = current_value;
 
@@ -36,7 +36,7 @@ export function spring(value: number, { stiffness = 0.15, damping = 0.8, precisi
       running = false;
     } else {
       inner_value = current_value = current_value + d;
-      last_time = currentTime;
+      last_time = current_time;
       requestAnimationFrame(loop);
     }
   }

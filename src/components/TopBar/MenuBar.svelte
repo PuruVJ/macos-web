@@ -1,14 +1,14 @@
 <script lang="ts">
   import AppleIcon from '~icons/mdi/apple';
-  import { clickOutside, elevation, focusOutside } from '🍎/actions';
+  import { click_outside, elevation, focus_outside } from '🍎/actions';
   import { menubar_state } from '🍎/state/menubar.svelte';
   import Menu from './Menu.svelte';
 </script>
 
 <div
   class="container"
-  use:clickOutside={{ callback: () => (menubar_state.active = '') }}
-  use:focusOutside={{ callback: () => (menubar_state.active = '') }}
+  use:click_outside={{ callback: () => (menubar_state.active = '') }}
+  use:focus_outside={{ callback: () => (menubar_state.active = '') }}
 >
   {#each Object.entries(menubar_state.menus) as [menuID, menuConfig]}
     <div>

@@ -1,23 +1,23 @@
 <script lang="ts">
   import { untrack } from 'svelte';
   import { elevation } from '🍎/actions';
-  import { wallpapersConfig } from '🍎/configs/wallpapers/wallpaper.config.ts';
-  import { smallerClosestValue } from '🍎/helpers/smaller-closest-value.ts';
+  import { wallpapers_config } from '🍎/configs/wallpapers/wallpaper.config.ts';
+  import { smaller_closest_value } from '🍎/helpers/smaller-closest-value.ts';
   import { create_interval } from '🍎/state/interval.svelte.ts';
   import { preferences } from '🍎/state/preferences.svelte.ts';
 
-  let visible_background_image = $state(wallpapersConfig.ventura.thumbnail);
+  let visible_background_image = $state(wallpapers_config.ventura.thumbnail);
 
   const interval = create_interval(5 * 1000);
 
   $effect(() => {
     interval.value;
 
-    if (wallpapersConfig[preferences.value.wallpaper.id].type === 'standalone') {
+    if (wallpapers_config[preferences.value.wallpaper.id].type === 'standalone') {
       untrack(
         () =>
           (preferences.value.wallpaper.image =
-            wallpapersConfig[preferences.value.wallpaper.id].thumbnail),
+            wallpapers_config[preferences.value.wallpaper.id].thumbnail),
       );
       return;
     }
@@ -34,7 +34,7 @@
     const hour = date.getHours();
 
     const wallpaperTimestampsMap =
-      wallpapersConfig[preferences.value.wallpaper.id].timestamps.wallpaper;
+      wallpapers_config[preferences.value.wallpaper.id].timestamps.wallpaper;
     const timestamps = Object.keys(wallpaperTimestampsMap);
 
     const minTimestamp = Math.min(...timestamps);
@@ -50,7 +50,7 @@
     }
 
     // Now set the right timestamp
-    const chosenTimeStamp = smallerClosestValue(timestamps, hour);
+    const chosenTimeStamp = smaller_closest_value(timestamps, hour);
 
     if (wallpaperTimestampsMap[chosenTimeStamp]) {
       preferences.value.wallpaper.image = wallpaperTimestampsMap[chosenTimeStamp];
@@ -63,7 +63,7 @@
     const date = new Date();
     const hour = date.getHours();
 
-    const themeTimestampsMap = wallpapersConfig[preferences.value.wallpaper.id].timestamps.theme;
+    const themeTimestampsMap = wallpapers_config[preferences.value.wallpaper.id].timestamps.theme;
     const timestamps = Object.keys(themeTimestampsMap);
 
     const minTimestamp = Math.min(...timestamps);
@@ -76,7 +76,7 @@
     }
 
     // Now set the right timestamp
-    const chosenTimeStamp = smallerClosestValue(timestamps, hour);
+    const chosenTimeStamp = smaller_closest_value(timestamps, hour);
     preferences.value.theme.scheme = themeTimestampsMap?.[chosenTimeStamp] || 'light';
   }
 
@@ -87,7 +87,7 @@
 
 <!-- Prefetch all wallpapers -->
 <svelte:head>
-  {#each Object.values(wallpapersConfig) as { thumbnail }}
+  {#each Object.values(wallpapers_config) as { thumbnail }}
     <link rel="prefetch" href={thumbnail} />
   {/each}
 </svelte:head>

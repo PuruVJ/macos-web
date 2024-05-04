@@ -1,6 +1,6 @@
-import type { appsConfig } from '🍎/configs/apps/apps-config';
+import type { apps_config } from '🍎/configs/apps/apps-config';
 
-export type AppID = keyof typeof appsConfig;
+export type AppID = keyof typeof apps_config;
 
 export const apps = $state({
   open: {

@@ -6,23 +6,24 @@ export type AppConfig = {
   height?: string | number;
   width?: string | number;
 
-  shouldOpenWindow?: boolean;
+  should_open_window?: boolean;
 
   /** The action to do when dock button is clicked */
-  externalAction?: (e: unknown) => void;
+  external_action?: (e: unknown) => void;
 
   /** Break before this app */
-  dockBreaksBefore?: boolean;
+  dock_breaks_before?: boolean;
 };
 
-export const createAppConfig = (et: AppConfig) => ({
-  shouldOpenWindow: true,
-  dockBreaksBefore: false,
+export const create_app_config = (et: AppConfig) =>
+  ({
+    should_open_window: true,
+    dock_breaks_before: false,
 
-  resizable: true,
-  expandable: false,
+    resizable: true,
+    expandable: false,
 
-  width: 600,
-  height: 500,
-  ...et,
-});
+    width: 600,
+    height: 500,
+    ...et,
+  }) satisfies AppConfig;

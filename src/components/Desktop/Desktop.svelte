@@ -32,7 +32,7 @@
   <BootupScreen />
   <SystemUpdate />
 
-  <ContextMenu targetElement={mainEl} />
+  <ContextMenu target_element={mainEl} />
 </div>
 
 <style lang="scss">

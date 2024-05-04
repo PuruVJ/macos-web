@@ -4,15 +4,15 @@
   import { tweened } from 'svelte/motion';
   import AppleIcon from '~icons/mdi/apple';
   import { elevation } from '🍎/actions';
-  import { fade_out } from '🍎/helpers/fade';
-  import { waitFor } from '🍎/helpers/wait-for';
+  import { fade_out } from '🍎/helpers/fade.ts';
+  import { sleep } from '🍎/helpers/sleep';
 
   let hidden_splash_screen = $state(false);
   let progress_val = tweened(100, { duration: 3000, easing: quintInOut });
 
   onMount(async () => {
     $progress_val = 0;
-    await waitFor(3000);
+    await sleep(3000);
     hidden_splash_screen = true;
   });
 </script>

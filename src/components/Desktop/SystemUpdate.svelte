@@ -7,7 +7,7 @@
   let system_update_dialog = $state<SystemDialog>();
 
   // replaced dynamically
-  const buildDate = '__DATE__';
+  const build_date = '__DATE__';
 
   // Will store the update event, so we can use this value on AppStore to show the badge.
   // If the user click on Later instead Restart, the dialog is closed but the update is still there.
@@ -66,7 +66,7 @@
   </section>
 </SystemDialog>
 
-<div class="pwa-date">{buildDate}</div>
+<div class="pwa-date">{build_date}</div>
 
 <style lang="scss">
   .pwa-date {

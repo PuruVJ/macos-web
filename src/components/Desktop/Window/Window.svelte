@@ -3,9 +3,9 @@
   import { onMount, untrack } from 'svelte';
   import { sineInOut } from 'svelte/easing';
   import { elevation } from '🍎/actions';
-  import { appsConfig } from '🍎/configs/apps/apps-config.ts';
-  import { randint } from '🍎/helpers/random.ts';
-  import { waitFor } from '🍎/helpers/wait-for.ts';
+  import { apps_config } from '🍎/configs/apps/apps-config.ts';
+  import { rand_int } from '🍎/helpers/random.ts';
+  import { sleep } from '🍎/helpers/sleep';
   import { apps, type AppID } from '🍎/state/apps.svelte.ts';
   import { preferences } from '🍎/state/preferences.svelte.ts';
 
@@ -21,12 +21,12 @@
 
   let windowEl = $state<HTMLElement>();
 
-  const { height, width } = appsConfig[app_id];
+  const { height, width } = apps_config[app_id];
 
   const remModifier = +height * 1.2 >= window.innerHeight ? 24 : 16;
 
-  const randX = randint(-600, 600);
-  const randY = randint(-100, 100);
+  const randX = rand_int(-600, 600);
+  const randY = rand_int(-100, 100);
 
   let defaultPosition = {
     x: (document.body.clientWidth / 2 + randX) / 2,
@@ -84,7 +84,7 @@
 
     apps.fullscreen[app_id] = is_maximized;
 
-    await waitFor(300);
+    await sleep(300);
 
     if (!preferences.value.reduced_motion) windowEl.style.transition = '';
   }

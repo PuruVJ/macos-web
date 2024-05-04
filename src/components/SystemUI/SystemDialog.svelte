@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { Snippet } from 'svelte';
   import { sineInOut } from 'svelte/easing';
-  import { clickOutside, elevation, portal, trapFocus } from '🍎/actions';
+  import { click_outside, elevation, portal, trapFocus } from '🍎/actions';
   import { fade_out } from '🍎/helpers/fade.ts';
   import { preferences } from '🍎/state/preferences.svelte.ts';
 
@@ -59,7 +59,7 @@
       in:dialog_open_transition
       out:fade_out
       use:trapFocus
-      use:clickOutside={{ callback: () => backdrop_dismiss && close() }}
+      use:click_outside={{ callback: () => backdrop_dismiss && close() }}
       onclick={(e) => e.stopPropagation()}
     >
       {@render children?.()}

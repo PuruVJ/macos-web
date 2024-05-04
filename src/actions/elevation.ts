@@ -1,4 +1,4 @@
-const zIndexConfig = {
+const z_index_config = {
   wallpaper: -1,
   'bootup-screen': 110,
   'context-menu': 100,
@@ -10,10 +10,10 @@ const zIndexConfig = {
   'menubar-menu-parent': 160,
 };
 
-for (const [element, zIndexValue] of Object.entries(zIndexConfig)) {
+for (const [element, zIndexValue] of Object.entries(z_index_config)) {
   document.body.style.setProperty(`--system-z-index-${element}`, zIndexValue + '');
 }
 
-export function elevation(node: HTMLElement, uiElement: keyof typeof zIndexConfig) {
+export function elevation(node: HTMLElement, uiElement: keyof typeof z_index_config) {
   node.style.zIndex = `var(--system-z-index-${uiElement})`;
 }

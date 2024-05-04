@@ -1,6 +1,6 @@
 <script lang="ts">
   import { untrack } from 'svelte';
-  import { appsConfig } from '🍎/configs/apps/apps-config';
+  import { apps_config } from '🍎/configs/apps/apps-config';
   import { apps } from '🍎/state/apps.svelte';
 
   $effect(() => {
@@ -31,8 +31,8 @@
 </script>
 
 <section id="windows-area">
-  {#each Object.keys(appsConfig) as app_id}
-    {#if apps.open[app_id] && appsConfig[app_id].shouldOpenWindow}
+  {#each Object.keys(apps_config) as app_id}
+    {#if apps.open[app_id] && apps_config[app_id].should_open_window}
       {#await import('./Window.svelte') then { default: Window }}
         <Window {app_id} />
       {/await}

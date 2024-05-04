@@ -3,7 +3,7 @@
 <script context="module">
   const baseWidth = 57.6;
   const distanceLimit = baseWidth * 6;
-  const beyondTheDistanceLimit = distanceLimit + 1;
+  const beyond_the_distance_limit = distanceLimit + 1;
   const distanceInput = [
     -distanceLimit,
     -distanceLimit / 1.25,
@@ -30,65 +30,69 @@
   import { sineInOut } from 'svelte/easing';
   import { tweened } from 'svelte/motion';
   import { elevation } from '🍎/actions';
-  import { appsConfig } from '🍎/configs/apps/apps-config';
-  import { spring } from '🍎/state/spring.svelte.ts';
-  import { apps, type AppID } from '🍎/state/apps.svelte';
+  import { apps_config } from '🍎/configs/apps/apps-config.ts';
+  import { apps, type AppID } from '🍎/state/apps.svelte.ts';
   import { preferences } from '🍎/state/preferences.svelte.ts';
+  import { spring } from '🍎/state/spring.svelte.ts';
 
   const {
-    mouseX,
-    appID,
+    mouse_x,
+    app_id,
     needs_update = false,
   }: {
-    mouseX: number | null;
-    appID: AppID;
-    needs_update: boolean;
+    mouse_x: number | null;
+    app_id: AppID;
+    needs_update?: boolean;
   } = $props();
 
-  let imageEl = $state<HTMLImageElement>();
+  let image_el = $state<HTMLImageElement>();
 
-  let distance = $state(beyondTheDistanceLimit);
+  let distance = $state(beyond_the_distance_limit);
 
-  const widthPX = spring(baseWidth, {
+  const width_px = spring(baseWidth, {
     damping: 0.47,
     stiffness: 0.12,
   });
 
-  const getWidthFromDistance = interpolate(distanceInput, widthOutput);
+  const get_width_from_distance = interpolate(distanceInput, widthOutput);
 
   $effect(() => {
     distance;
 
-    untrack(() => (widthPX.value = getWidthFromDistance(distance)));
+    untrack(() => (width_px.value = get_width_from_distance(distance)));
   });
 
   let raf: number;
   function animate() {
-    if (imageEl && mouseX !== null) {
-      const rect = imageEl.getBoundingClientRect();
+    if (image_el && mouse_x !== null) {
+      const rect = image_el.getBoundingClientRect();
 
       // get the x coordinate of the img DOMElement's center
       // the left x coordinate plus the half of the width
-      const imgCenterX = rect.left + rect.width / 2;
+      const img_center_x = rect.left + rect.width / 2;
 
       // difference between the x coordinate value of the mouse pointer
       // and the img center x coordinate value
-      const distanceDelta = mouseX - imgCenterX;
-      distance = distanceDelta;
+      const distance_delta = mouse_x - img_center_x;
+      distance = distance_delta;
       return;
     }
 
-    distance = beyondTheDistanceLimit;
+    distance = beyond_the_distance_limit;
   }
 
   $effect(() => {
-    mouseX;
+    mouse_x;
     if (preferences.value.reduced_motion || apps.is_being_dragged) return;
 
     raf = requestAnimationFrame(animate);
   });
 
-  const { title, shouldOpenWindow, externalAction } = appsConfig[appID];
+  const {
+    title,
+    should_open_window: shouldOpenWindow,
+    external_action: externalAction,
+  } = apps_config[app_id];
 
   // Spring animation for the click animation
   const appOpenIconBounceTransform = tweened(0, {
@@ -108,10 +112,10 @@
     if (!shouldOpenWindow) return externalAction?.(e);
 
     // For the bounce animation
-    const isAppAlreadyOpen = apps.open[appID];
+    const isAppAlreadyOpen = apps.open[app_id];
 
-    apps.open[appID] = true;
-    apps.active = appID;
+    apps.open[app_id] = true;
+    apps.active = app_id;
 
     if (isAppAlreadyOpen) return;
 
@@ -122,7 +126,7 @@
     cancelAnimationFrame(raf);
   });
 
-  const is_app_store = $derived(appID === 'appstore');
+  const is_app_store = $derived(app_id === 'appstore');
   const show_pwa_badge = $derived(is_app_store && needs_update);
 
   $effect(() => {
@@ -130,7 +134,7 @@
   });
 </script>
 
-<button onclick={openApp} aria-label="Launch {title} app" class="dock-open-app-button {appID}">
+<button onclick={openApp} aria-label="Launch {title} app" class="dock-open-app-button {app_id}">
   <p
     class="tooltip"
     class:tooltip-enabled={!apps.is_being_dragged}
@@ -144,18 +148,18 @@
 
   <span style:transform="translate(0, {$appOpenIconBounceTransform}px)">
     <img
-      bind:this={imageEl}
-      src="/app-icons/{appID}/256.webp"
+      bind:this={image_el}
+      src="/app-icons/{app_id}/256.webp"
       alt="{title} app"
-      style:width="{widthPX.value / 16}rem"
+      style:width="{width_px.value / 16}rem"
       draggable="false"
     />
   </span>
 
-  <div class="dot" style:--opacity={+apps.open[appID]}></div>
+  <div class="dot" style:--opacity={+apps.open[app_id]}></div>
 
   {#if show_pwa_badge}
-    <div class="pwa-badge" style:transform="scale({widthPX.value / baseWidth})">1</div>
+    <div class="pwa-badge" style:transform="scale({width_px.value / baseWidth})">1</div>
   {/if}
 </button>
 

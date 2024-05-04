@@ -1,13 +1,13 @@
 <script lang="ts">
   import { untrack } from 'svelte';
-  import { clickOutside, elevation, focusOutside } from '🍎/actions';
-  import { fade_in, fade_out } from '🍎/helpers/fade.ts';
+  import { sineIn } from 'svelte/easing';
+  import { fade } from 'svelte/transition';
+  import { click_outside, elevation, focus_outside } from '🍎/actions';
+  import { fade_out } from '🍎/helpers/fade.ts';
   import { apps } from '🍎/state/apps.svelte.ts';
   import SwitchSvg from '../SVG/SwitchSVG.svelte';
   import SystemDialog from '../SystemUI/SystemDialog.svelte';
   import ActionCenter from './ActionCenter.svelte';
-  import { fade } from 'svelte/transition';
-  import { sineIn } from 'svelte/easing';
 
   let visible = $state(false);
   let theme_warning_dialog: SystemDialog;
@@ -30,7 +30,7 @@
   }
 </script>
 
-<div class="container" use:clickOutside={{ callback: hide }} use:focusOutside={{ callback: hide }}>
+<div class="container" use:click_outside={hide} use:focus_outside={hide}>
   <button style:--scale={visible ? 1 : 0} onclick={show} onfocus={show}>
     <SwitchSvg />
   </button>

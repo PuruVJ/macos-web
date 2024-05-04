@@ -7,7 +7,7 @@
   import NotchIcon from '~icons/pepicons/smartphone-notch';
 
   import { colors } from '🍎/configs/theme/colors.config';
-  import { wallpapersConfig } from '🍎/configs/wallpapers/wallpaper.config';
+  import { wallpapers_config } from '🍎/configs/wallpapers/wallpaper.config';
   import { apps } from '🍎/state/apps.svelte.ts';
   import { should_show_notch } from '🍎/state/menubar.svelte';
   import { preferences } from '🍎/state/preferences.svelte.ts';
@@ -23,7 +23,7 @@
 
   function toggleTheme() {
     if (
-      wallpapersConfig[preferences.value.wallpaper.id].type === 'dynamic' &&
+      wallpapers_config[preferences.value.wallpaper.id].type === 'dynamic' &&
       preferences.value.wallpaper.canControlTheme
     ) {
       _is_theme_warning_dialog_open = true;
@@ -123,13 +123,13 @@
       <div class="wallpaper-tile">
         <img
           class="wallpaper-thumbnail"
-          src={wallpapersConfig[preferences.value.wallpaper.id].thumbnail}
+          src={wallpapers_config[preferences.value.wallpaper.id].thumbnail}
           alt="Current wallpaper"
         />
 
         <div class="wallpaper-info">
-          <h3>{wallpapersConfig[preferences.value.wallpaper.id].name}</h3>
-          <p>{wallpapersConfig[preferences.value.wallpaper.id].type} wallpaper</p>
+          <h3>{wallpapers_config[preferences.value.wallpaper.id].name}</h3>
+          <p>{wallpapers_config[preferences.value.wallpaper.id].type} wallpaper</p>
         </div>
       </div>
     </ActionCenterTile>

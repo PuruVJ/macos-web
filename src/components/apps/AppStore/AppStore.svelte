@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onMount } from 'svelte';
-  import { waitFor } from '🍎/helpers/wait-for.ts';
+  import { sleep } from '🍎/helpers/sleep';
   import type { AppID } from '🍎/state/apps.svelte.ts';
   import { preferences } from '🍎/state/preferences.svelte.ts';
   import { spring } from '🍎/state/spring.svelte.ts';
@@ -10,7 +10,7 @@
   const motion_val = spring(0, { damping: 0.28, stiffness: 0.1 });
 
   onMount(async () => {
-    await waitFor(100);
+    await sleep(100);
 
     motion_val.value = 1;
   });

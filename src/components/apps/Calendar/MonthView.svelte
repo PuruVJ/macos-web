@@ -1,14 +1,13 @@
 <script lang="ts">
   import { preferences } from '🍎/state/preferences.svelte.ts';
-
-  import { DAYS_OF_THE_WEEK } from './calendar-constants';
-  import { getDisplayDays } from './calendar-utils';
+  import { DAYS_OF_THE_WEEK } from './calendar-constants.ts';
+  import { get_display_days } from './calendar-utils.ts';
 
   const { selected_date }: { selected_date: Date } = $props();
 
   const today = new Date();
 
-  const display_days = $derived(getDisplayDays(selected_date));
+  const display_days = $derived(get_display_days(selected_date));
 
   function is_today(date: number, is_this_month: boolean) {
     return (
@@ -29,19 +28,19 @@
     <div class="weekday" class:weekend={[5, 6].includes(i)}>{day}</div>
   {/each}
 
-  {#each display_days.daysInPrevMonth as date (dayKey(date))}
+  {#each display_days.days_in_prev_month as date (dayKey(date))}
     <div class="day" class:today={is_today(date, false)}>
       <div class="date-number" class:this-month={false}>{date}</div>
     </div>
   {/each}
 
-  {#each display_days.daysInThisMonth as date (dayKey(date))}
+  {#each display_days.days_in_this_month as date (dayKey(date))}
     <div class="day" class:today={is_today(date, true)}>
       <div class="date-number" class:this-month={true}>{date}</div>
     </div>
   {/each}
 
-  {#each display_days.daysInNextMonth as date (dayKey(date))}
+  {#each display_days.days_in_next_month as date (dayKey(date))}
     <div class="day" class:today={is_today(date, false)}>
       <div class="date-number" class:this-month={false}>{date}</div>
     </div>

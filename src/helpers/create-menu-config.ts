@@ -1,4 +1,4 @@
-const appleMenu = {
+const apple_menu = {
   title: 'apple',
   menu: {
     'about-this-mac': {
@@ -39,4 +39,4 @@ const appleMenu = {
   },
 };
 
-export const createMenuConfig = <T extends {}>(et: T) => ({ apple: appleMenu, ...et });
+export const create_menu_config = <T extends {}>(et: T) => ({ apple: apple_menu, ...et });

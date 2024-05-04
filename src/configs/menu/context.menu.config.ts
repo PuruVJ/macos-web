@@ -1,4 +1,4 @@
-export const contextMenuConfig = {
+export const context_menu_config = {
   default: {
     'new-folder': {
       title: 'New Folder',

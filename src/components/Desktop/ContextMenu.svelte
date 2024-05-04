@@ -1,17 +1,17 @@
 <script lang="ts">
   import { elevation } from '🍎/actions';
-  import { contextMenuConfig } from '🍎/configs/menu/context.menu.config.ts';
+  import { context_menu_config } from '🍎/configs/menu/context.menu.config.ts';
   import { fade_out } from '🍎/helpers/fade.ts';
   import { preferences } from '🍎/state/preferences.svelte.ts';
 
-  const { targetElement }: { targetElement: HTMLElement } = $props();
+  const { target_element }: { target_element: HTMLElement } = $props();
 
   let x_pos = $state(0);
   let y_pos = $state(0);
   let is_menu_visible = $state(false);
 
-  function handleContextMenu(e: MouseEvent) {
-    if (!targetElement?.contains(e.target as HTMLElement)) return (is_menu_visible = false);
+  function handle_context_menu(e: MouseEvent) {
+    if (!target_element?.contains(e.target as HTMLElement)) return (is_menu_visible = false);
 
     let x = e.pageX;
     let y = e.pageY;
@@ -34,7 +34,7 @@
 <svelte:body
   oncontextmenu={(e) => {
     e.preventDefault();
-    handleContextMenu(e);
+    handle_context_menu(e);
   }}
   onclick={hideMenu}
 />
@@ -47,7 +47,7 @@
     out:fade_out
     use:elevation={'context-menu'}
   >
-    {#each Object.values(contextMenuConfig.default) as contents}
+    {#each Object.values(context_menu_config.default) as contents}
       <button class="menu-item">{contents.title}</button>
 
       {#if contents.breakAfter}

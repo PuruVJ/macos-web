@@ -48,7 +48,7 @@
   </section>
 </section>
 
-<style lang="scss">
+<style>
   header {
     padding: 1rem;
   }

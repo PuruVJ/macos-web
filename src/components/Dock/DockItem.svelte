@@ -163,7 +163,7 @@
   {/if}
 </button>
 
-<style lang="scss">
+<style>
   img {
     will-change: width;
   }

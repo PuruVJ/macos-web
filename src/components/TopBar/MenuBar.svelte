@@ -41,7 +41,7 @@
   {/each}
 </div>
 
-<style lang="scss">
+<style>
   .container {
     height: 100%;
 

@@ -20,11 +20,11 @@
   </button>
 </div>
 
-<style lang="scss">
+<style>
   .container {
     --button-size: 0.8rem;
 
-    // pointer-events: none;
+    /* // pointer-events: none; */
 
     display: grid;
     grid-template-columns: repeat(3, var(--button-size));
@@ -57,7 +57,7 @@
     height: var(--button-size);
     width: var(--button-size);
 
-    // pointer-events: initial;
+    /* // pointer-events: initial; */
 
     border-radius: 50%;
 

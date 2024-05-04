@@ -55,8 +55,10 @@
   </section>
 </section>
 
-<style lang="scss">
+<style>
   .container {
+    --title-bar-height: 2.5rem;
+
     background-color: var(--system-color-light);
 
     border-radius: inherit;
@@ -70,13 +72,11 @@
     }
   }
 
-  $title-bar-height: 2.5rem;
-
   .titlebar {
     padding: 1rem 1rem;
 
     width: 100%;
-    height: $title-bar-height;
+    height: var(--title-bar-height);
 
     position: absolute;
     top: 0;
@@ -86,9 +86,9 @@
   .main-area {
     color: var(--system-color-light-contrast);
 
-    margin-top: $title-bar-height;
+    margin-top: var(--title-bar-height);
 
-    height: calc(100% - #{$title-bar-height});
+    height: calc(100% - var(--title-bar-height));
     width: 100%;
 
     overflow: hidden;

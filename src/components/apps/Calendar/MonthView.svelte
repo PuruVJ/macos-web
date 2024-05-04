@@ -47,7 +47,7 @@
   {/each}
 </div>
 
-<style lang="scss">
+<style>
   .container {
     display: grid;
     grid-template-columns: repeat(7, 1fr);

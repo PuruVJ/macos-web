@@ -68,7 +68,7 @@
 
 <div class="pwa-date">{build_date}</div>
 
-<style lang="scss">
+<style>
   .pwa-date {
     visibility: hidden;
 

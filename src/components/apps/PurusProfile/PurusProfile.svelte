@@ -62,7 +62,7 @@
   </section>
 </section>
 
-<style lang="scss">
+<style>
   .container {
     --color: var(--system-color-light-hsl);
 

@@ -69,7 +69,7 @@
   </div>
 </section>
 
-<style lang="scss">
+<style>
   .dock-container {
     padding-bottom: 0.7rem;
     left: 0;

@@ -39,7 +39,7 @@
   <iframe id="audio" src="/sounds/mac-startup-sound.mp3" allow="autoplay" title="hello"></iframe>
 {/if}
 
-<style lang="scss">
+<style>
   .splash-screen {
     position: fixed;
     top: 0;

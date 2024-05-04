@@ -59,7 +59,7 @@
       in:dialog_open_transition
       out:fade_out
       use:trapFocus
-      use:click_outside={{ callback: () => backdrop_dismiss && close() }}
+      use:click_outside={() => backdrop_dismiss && close()}
       onclick={(e) => e.stopPropagation()}
     >
       {@render children?.()}
@@ -67,7 +67,7 @@
   </section>
 {/if}
 
-<style lang="scss">
+<style>
   .overlay {
     position: sticky;
     top: 0;
@@ -96,7 +96,7 @@
     box-shadow: var(--elevation);
 
     &.dark {
-      // border-radius: inherit;
+      /* // border-radius: inherit; */
       box-shadow:
         var(--elevation),
         inset 0 0 0 0.9px hsla(var(--system-color-dark-hsl), 0.3),

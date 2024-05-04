@@ -1,5 +1,5 @@
-@import './reset';
-@import './theme';
+@import './reset.css';
+@import './theme.css';
 
 html,
 body {

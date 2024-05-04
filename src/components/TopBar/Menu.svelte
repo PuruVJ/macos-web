@@ -13,9 +13,9 @@
   {/each}
 </section>
 
-<style lang="scss">
+<style>
   .container {
-    // Initial invisible border
+    /* // Initial invisible border */
     --additional-box-shadow: 0 0 0 0 white;
 
     display: block;

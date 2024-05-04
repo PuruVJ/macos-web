@@ -19,7 +19,7 @@
   </div>
 </section>
 
-<style lang="scss">
+<style>
   .container {
     background-color: #202327;
     padding: 1px;

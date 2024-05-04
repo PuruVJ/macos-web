@@ -57,7 +57,7 @@
   </div>
 {/if}
 
-<style lang="scss">
+<style>
   .container {
     --additional-shadow: 0 0 0 0 white;
     display: block;

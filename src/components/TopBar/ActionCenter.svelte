@@ -152,7 +152,7 @@
   </ActionCenterSurface>
 </section>
 
-<style lang="scss">
+<style>
   .container {
     --border-size: 0;
 

@@ -27,7 +27,7 @@
   </button>
 </header>
 
-<style lang="scss">
+<style>
   header {
     display: flex;
     align-items: center;
@@ -86,7 +86,7 @@
       }
     }
 
-    // for outward curves
+    /* // for outward curves */
     &::before,
     &::after {
       content: '';

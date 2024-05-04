@@ -81,7 +81,7 @@
   </section>
 </section>
 
-<style lang="scss">
+<style>
   h2 {
     line-height: 1.618;
     font-size: 1.618rem;

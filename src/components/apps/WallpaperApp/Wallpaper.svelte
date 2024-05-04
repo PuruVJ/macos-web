@@ -106,7 +106,7 @@
   use:elevation={'wallpaper'}
 ></div>
 
-<style lang="scss">
+<style>
   img {
     height: 1px;
     width: 1px;

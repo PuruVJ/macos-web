@@ -43,7 +43,7 @@
   </section>
 </section>
 
-<style lang="scss">
+<style>
   .container {
     background-color: var(--system-color-light);
 

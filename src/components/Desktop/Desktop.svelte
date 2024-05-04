@@ -35,7 +35,7 @@
   <ContextMenu target_element={mainEl} />
 </div>
 
-<style lang="scss">
+<style>
   .container {
     height: 100%;
     width: 100%;

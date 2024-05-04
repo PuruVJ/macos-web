@@ -74,7 +74,7 @@
   </section>
 </SystemDialog>
 
-<style lang="scss">
+<style>
   .container button {
     height: 100%;
     width: max-content;

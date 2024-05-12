@@ -8,8 +8,8 @@
   <header class="app-window-drag-handle" />
   <div>
     <iframe
-      src="https://stackblitz.com/github/puruvj/macos-web?embed=1&file=src/components/Desktop/Desktop.svelte&hideNavigation=1&theme=dark&view=editor"
-      title="VS Code for macOS Web"
+      src="https://vscode.dev"
+      title="Visual Studio Code"
     />
   </div>
 </section>

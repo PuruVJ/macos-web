@@ -22,7 +22,7 @@ export function auto_destroy_effect_root(fn: () => void | VoidFunction) {
     onDestroy(destroy);
   } catch {
     // Ignore the error. The user is responsible for manually
-    // cleaning up builders created outside Svelte components.
+    // cleaning up effects created outside Svelte components.
   }
 
   return destroy;

@@ -9,7 +9,7 @@ export function prefetch(): Plugin {
 
     transformIndexHtml: (html, ctx) => {
       const tags = Object.keys(ctx.bundle)
-        .filter((v) => !v.toString().endsWith('.webp'))
+        .filter((v) => !v.toString().endsWith('webp'))
         .map(
           (chunkName) =>
             ({

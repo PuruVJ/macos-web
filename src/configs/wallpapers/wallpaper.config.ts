@@ -6,6 +6,8 @@ export type Wallpaper = {
 
   thumbnail: string;
 
+  image?: string;
+
   /** Timestamps definition in terms of when a new wallpaper should take effect */
   timestamps?: {
     wallpaper?: Record<number, string>;
@@ -15,7 +17,12 @@ export type Wallpaper = {
 
 const optimized_wallpapers = import.meta.glob('../../assets/wallpapers/*.{webp,jpg}', {
   eager: true,
-  query: { width: 2000, quality: 98, format: 'webp' },
+  query: { w: 3000, quality: 98, format: 'webp' },
+}) as Record<string, any>;
+
+const wallpaperThumbnails = import.meta.glob('../../assets/wallpapers/*.{webp,jpg}', {
+  eager: true,
+  query: { w: 800, format: 'webp' },
 }) as Record<string, any>;
 
 const create_wallpapers_config = <TConfig = string>(
@@ -23,11 +30,16 @@ const create_wallpapers_config = <TConfig = string>(
 ): Record<keyof TConfig, Wallpaper> => {
   const optimized_wallpapers_arr = Object.entries(optimized_wallpapers);
 
-  for (const [wallpaper_name, config] of Object.entries(wallpaper_config)) {
-    const wallpaper = wallpaper_config[wallpaper_name as keyof TConfig];
+  for (const [wallpaperName, config] of Object.entries(wallpaper_config)) {
+    const wallpaper = wallpaper_config[wallpaperName as keyof TConfig];
+    const thumbnail = config.thumbnail;
 
     wallpaper.thumbnail = (
-      optimized_wallpapers_arr.find(([path]) => path.includes(config.thumbnail))[1] as any
+      Object.entries(wallpaperThumbnails).find(([path]) => path.includes(thumbnail))[1] as any
+    ).default;
+
+    wallpaper.image = (
+      optimized_wallpapers_arr.find(([path]) => path.includes(thumbnail))[1] as any
     ).default;
 
     if (wallpaper.type !== 'standalone') {

@@ -6,7 +6,7 @@
   import { create_interval } from '🍎/state/interval.svelte.ts';
   import { preferences } from '🍎/state/preferences.svelte.ts';
 
-  let visible_background_image = $state(wallpapers_config.ventura.thumbnail);
+  let visible_background_image = $state(wallpapers_config.ventura.image);
 
   const interval = create_interval(5 * 1000);
 
@@ -15,7 +15,7 @@
 
     if (wallpapers_config[preferences.wallpaper.id].type === 'standalone') {
       untrack(
-        () => (preferences.wallpaper.image = wallpapers_config[preferences.wallpaper.id].thumbnail),
+        () => (preferences.wallpaper.image = wallpapers_config[preferences.wallpaper.id].image),
       );
       return;
     }
@@ -81,13 +81,6 @@
     visible_background_image = preferences.wallpaper.image;
   }
 </script>
-
-<!-- Prefetch all wallpapers -->
-<svelte:head>
-  {#each Object.values(wallpapers_config) as { thumbnail }}
-    <link rel="prefetch" href={thumbnail} />
-  {/each}
-</svelte:head>
 
 <!-- This preload and render the image for browser but invisible to user -->
 <img src={preferences.wallpaper.image} aria-hidden="true" alt="" onload={previewImageOnLoad} />

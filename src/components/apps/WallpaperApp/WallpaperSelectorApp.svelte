@@ -10,12 +10,20 @@
     ([, { type }]) => type === 'standalone',
   );
 
-  const current_wallpaper_thumbnail = $derived(
-    `url(${wallpapers_config[preferences.wallpaper.id].thumbnail})`,
-  );
+  const current_wallpaper_thumb = $derived(`url(${preferences.wallpaper.image})`);
 
   function change_wallpaper(wallpaperName: WallpaperID) {
     preferences.wallpaper.id = wallpaperName;
+  }
+
+  function preload(url: string) {
+    const link = document.createElement('link');
+    link.rel = 'prefetch';
+
+    link.href = url;
+    link.as = 'image';
+
+    document.head.appendChild(link);
   }
 </script>
 
@@ -26,7 +34,7 @@
 
   <section class="main-area">
     <section class="selected-wallpaper-section">
-      <div class="image" style:background-image={current_wallpaper_thumbnail}></div>
+      <div class="image" style:background-image={current_wallpaper_thumb}></div>
 
       <div class="info">
         <h2>{wallpapers_config[preferences.wallpaper.id].name}</h2>
@@ -51,9 +59,9 @@
       <h2>Dynamic Wallpapers</h2>
 
       <div class="wallpapers">
-        {#each dynamic_wallpapers as [id, { thumbnail, name }]}
+        {#each dynamic_wallpapers as [id, { thumbnail, name, image }]}
           <div class="wallpaper-button">
-            <button onclick={() => change_wallpaper(id)}>
+            <button onclick={() => change_wallpaper(id)} onpointerenter={() => preload(image)}>
               <img src={thumbnail} alt="MacOS {name} Wallpapers, dynamic" />
             </button>
             <p>{name}</p>
@@ -68,9 +76,9 @@
       <h2>Standalone Wallpapers</h2>
 
       <div class="wallpapers">
-        {#each standalone_wallpapers as [id, { thumbnail, name }]}
+        {#each standalone_wallpapers as [id, { thumbnail, name, image }]}
           <div class="wallpaper-button">
-            <button onclick={() => change_wallpaper(id)}>
+            <button onclick={() => change_wallpaper(id)} onpointerenter={() => preload(image)}>
               <img src={thumbnail} alt="MacOS {name} Wallpapers, dynamic" />
             </button>
             <p>{name}</p>

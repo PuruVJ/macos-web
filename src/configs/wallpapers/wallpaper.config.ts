@@ -6,6 +6,8 @@ export type Wallpaper = {
 
   thumbnail: string;
 
+  image?: string;
+
   /** Timestamps definition in terms of when a new wallpaper should take effect */
   timestamps?: {
     wallpaper?: Record<number, string>;
@@ -15,7 +17,12 @@ export type Wallpaper = {
 
 const optimizedWallpapers = import.meta.glob('../../assets/wallpapers/*.{webp,jpg}', {
   eager: true,
-  query: { width: 2000, quality: 98, format: 'webp' },
+  query: { w: 3000, quality: 98, format: 'webp' },
+}) as Record<string, any>;
+
+const wallpaperThumbnails = import.meta.glob('../../assets/wallpapers/*.{webp,jpg}', {
+  eager: true,
+  query: { w: 800, format: 'webp' },
 }) as Record<string, any>;
 
 const createWallpapersConfig = <TConfig = string>(
@@ -25,9 +32,14 @@ const createWallpapersConfig = <TConfig = string>(
 
   for (const [wallpaperName, config] of Object.entries(wallpaperConfig)) {
     const wallpaper = wallpaperConfig[wallpaperName as keyof TConfig];
+    const thumbnail = config.thumbnail;
 
     wallpaper.thumbnail = (
-      optimizedWallpapersArr.find(([path]) => path.includes(config.thumbnail))[1] as any
+      Object.entries(wallpaperThumbnails).find(([path]) => path.includes(thumbnail))[1] as any
+    ).default;
+
+    wallpaper.image = (
+      optimizedWallpapersArr.find(([path]) => path.includes(thumbnail))[1] as any
     ).default;
 
     if (wallpaper.type !== 'standalone') {
@@ -440,3 +452,5 @@ export const wallpapersConfig = createWallpapersConfig({
 });
 
 export type WallpaperID = keyof typeof wallpapersConfig;
+
+console.log(wallpapersConfig);

@@ -10,10 +10,21 @@
     ([, { type }]) => type === 'standalone',
   );
 
-  $: currentWallpaperThumb = `url(${wallpapersConfig[$wallpaper.id].thumbnail})`;
+  $: currentWallpaperThumb = `url(${$wallpaper.image})`;
 
   function changeWallpaper(wallpaperName: WallpaperID) {
     $wallpaper.id = wallpaperName;
+  }
+
+  function preload(url: string) {
+    console.log(1);
+    const link = document.createElement('link');
+    link.rel = 'prefetch';
+
+    link.href = url;
+    link.as = 'image';
+
+    document.head.appendChild(link);
   }
 </script>
 
@@ -47,9 +58,9 @@
       <h2>Dynamic Wallpapers</h2>
 
       <div class="wallpapers">
-        {#each dynamicWallpapers as [id, { thumbnail, name }]}
+        {#each dynamicWallpapers as [id, { thumbnail, name, image }]}
           <div class="wallpaper-button">
-            <button on:click={() => changeWallpaper(id)}>
+            <button on:click={() => changeWallpaper(id)} on:pointerenter={() => preload(image)}>
               <img src={thumbnail} alt="MacOS {name} Wallpapers, dynamic" />
             </button>
             <p>{name}</p>
@@ -64,9 +75,9 @@
       <h2>Standalone Wallpapers</h2>
 
       <div class="wallpapers">
-        {#each standaloneWallpapers as [id, { thumbnail, name }]}
+        {#each standaloneWallpapers as [id, { thumbnail, name, image }]}
           <div class="wallpaper-button">
-            <button on:click={() => changeWallpaper(id)}>
+            <button on:click={() => changeWallpaper(id)} on:pointerenter={() => preload(image)}>
               <img src={thumbnail} alt="MacOS {name} Wallpapers, dynamic" />
             </button>
             <p>{name}</p>

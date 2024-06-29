@@ -3,6 +3,8 @@ import UnpluginIcons from 'unplugin-icons/vite';
 import { defineConfig } from 'vite';
 import { imagetools } from 'vite-imagetools';
 import { VitePWA } from 'vite-plugin-pwa';
+import { browserslistToTargets } from 'lightningcss';
+import browserslist from 'browserslist';
 
 import { prefetch } from './prefetch-plugin';
 
@@ -19,8 +21,6 @@ export default defineConfig({
         'cover-image.png',
         'cursors/(normal|link|text|help)-select.svg',
         '**/*.mp3',
-        '**/*.webp',
-        'assets/*.webp',
       ],
       manifest: {
         name: 'Mac OS Monterey Svelte Web',
@@ -56,38 +56,6 @@ export default defineConfig({
           },
         ],
       },
-      workbox: {
-        runtimeCaching: [
-          {
-            urlPattern: /^https:\/\/fonts\.googleapis\.com\/.*/i,
-            handler: 'CacheFirst',
-            options: {
-              cacheName: 'google-fonts-cache',
-              expiration: {
-                maxEntries: 10,
-                maxAgeSeconds: 60 * 60 * 24 * 365, // <== 365 days
-              },
-              cacheableResponse: {
-                statuses: [0, 200],
-              },
-            },
-          },
-          {
-            urlPattern: /^https:\/\/fonts\.gstatic\.com\/.*/i,
-            handler: 'CacheFirst',
-            options: {
-              cacheName: 'gstatic-fonts-cache',
-              expiration: {
-                maxEntries: 10,
-                maxAgeSeconds: 60 * 60 * 24 * 365, // <== 365 days
-              },
-              cacheableResponse: {
-                statuses: [0, 200],
-              },
-            },
-          },
-        ],
-      },
     }),
     imagetools({}),
   ],
@@ -98,5 +66,12 @@ export default defineConfig({
   },
   build: {
     minify: 'terser',
+    cssMinify: 'lightningcss',
+  },
+  css: {
+    transformer: 'lightningcss',
+    lightningcss: {
+      targets: browserslistToTargets(browserslist('defaults, not IE 11, not IE_Mob 11, not dead')),
+    },
   },
 });

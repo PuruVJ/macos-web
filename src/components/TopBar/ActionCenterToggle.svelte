@@ -1,17 +1,25 @@
 <script lang="ts">
-  import { clickOutside, focusOutside, elevation } from '🍎/actions';
-  import { fadeIn, fadeOut } from '🍎/helpers/fade';
-  import { activeApp, openApps } from '🍎/stores/apps.store';
+  import { untrack } from 'svelte';
+  import { sineIn } from 'svelte/easing';
+  import { fade } from 'svelte/transition';
+  import { click_outside, elevation, focus_outside } from '🍎/actions';
+  import { fade_out } from '🍎/helpers/fade.ts';
+  import { apps } from '🍎/state/apps.svelte.ts';
   import SwitchSvg from '../SVG/SwitchSVG.svelte';
   import SystemDialog from '../SystemUI/SystemDialog.svelte';
   import ActionCenter from './ActionCenter.svelte';
 
-  let visible = false;
-  let themeWarningDialog: SystemDialog;
+  let visible = $state(false);
+  let theme_warning_dialog: SystemDialog;
 
   /* LOGIC FOR THEME SWITCHING WHEN IT ISN'T ALLOWED */
-  let isThemeWarningDialogOpen = false;
-  $: isThemeWarningDialogOpen && themeWarningDialog.open();
+  let is_theme_warning_dialog_open = $state(false);
+
+  $effect(() => {
+    if (is_theme_warning_dialog_open) {
+      untrack(() => theme_warning_dialog.open());
+    }
+  });
 
   function show() {
     visible = true;
@@ -22,19 +30,27 @@
   }
 </script>
 
-<div class="container" use:clickOutside={{ callback: hide }} use:focusOutside={{ callback: hide }}>
-  <button style:--scale={visible ? 1 : 0} on:click={show} on:focus={show}>
+<div class="container" use:click_outside={hide} use:focus_outside={hide}>
+  <button style:--scale={visible ? 1 : 0} onclick={show} onfocus={show}>
     <SwitchSvg />
   </button>
 
   {#if visible}
-    <div in:fadeIn out:fadeOut class="menu-parent" use:elevation={'menubar-menu-parent'}>
-      <ActionCenter bind:isThemeWarningDialogOpen />
+    <div
+      in:fade={{ easing: sineIn, duration: 150 }}
+      out:fade_out
+      class="menu-parent"
+      use:elevation={'menubar-menu-parent'}
+    >
+      <ActionCenter bind:is_theme_warning_dialog_open />
     </div>
   {/if}
 </div>
 
-<SystemDialog bind:this={themeWarningDialog} on:close={() => (isThemeWarningDialogOpen = false)}>
+<SystemDialog
+  bind:this={theme_warning_dialog}
+  on_close={() => (is_theme_warning_dialog_open = false)}
+>
   <section class="theme-warning-section">
     <img height="100" width="100" src="/app-icons/wallpapers/256.webp" alt="Wallpapers app logo" />
 
@@ -42,14 +58,14 @@
     <p>Head over to Wallpapers app to change this setting or choose a standalone wallpaper.</p>
 
     <div class="buttons">
-      <button on:click={() => themeWarningDialog.close()}>Close</button>
+      <button onclick={() => theme_warning_dialog.close()}>Close</button>
       <button
         class="confirm"
-        on:click={() => {
-          themeWarningDialog.close();
+        onclick={() => {
+          theme_warning_dialog.close();
 
-          $openApps.wallpapers = true;
-          $activeApp = 'wallpapers';
+          apps.open.wallpapers = true;
+          apps.active = 'wallpapers';
         }}
       >
         Go to Wallpapers
@@ -58,7 +74,7 @@
   </section>
 </SystemDialog>
 
-<style lang="scss">
+<style>
   .container button {
     height: 100%;
     width: max-content;

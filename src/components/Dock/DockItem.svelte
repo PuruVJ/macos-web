@@ -1,7 +1,9 @@
+<svelte:options runes={true} />
+
 <script context="module">
   const baseWidth = 57.6;
   const distanceLimit = baseWidth * 6;
-  const beyondTheDistanceLimit = distanceLimit + 1;
+  const beyond_the_distance_limit = distanceLimit + 1;
   const distanceInput = [
     -distanceLimit,
     -distanceLimit / 1.25,
@@ -24,59 +26,73 @@
 
 <script lang="ts">
   import { interpolate } from 'popmotion';
-  import { onDestroy } from 'svelte';
+  import { onDestroy, untrack } from 'svelte';
   import { sineInOut } from 'svelte/easing';
-  import { spring, tweened } from 'svelte/motion';
+  import { tweened } from 'svelte/motion';
   import { elevation } from '🍎/actions';
-  import { appsConfig } from '🍎/configs/apps/apps-config';
-  import { AppID, isAppBeingDragged } from '🍎/stores/apps.store';
-  import { activeApp, openApps } from '🍎/stores/apps.store';
-  import { prefersReducedMotion } from '🍎/stores/prefers-motion.store';
-  import { theme } from '🍎/stores/theme.store';
+  import { apps_config } from '🍎/configs/apps/apps-config.ts';
+  import { apps, type AppID } from '🍎/state/apps.svelte.ts';
+  import { preferences } from '🍎/state/preferences.svelte.ts';
+  import { spring } from '🍎/state/spring.svelte.ts';
 
-  export let mouseX: number | null;
-  export let appID: AppID;
-  export let needsUpdate: boolean = false;
+  const {
+    mouse_x,
+    app_id,
+    needs_update = false,
+  }: {
+    mouse_x: number | null;
+    app_id: AppID;
+    needs_update?: boolean;
+  } = $props();
 
-  let imageEl: HTMLImageElement;
+  let image_el = $state<HTMLImageElement>();
 
-  let distance = beyondTheDistanceLimit;
+  let distance = $state(beyond_the_distance_limit);
 
-  const widthPX = spring(baseWidth, {
+  const width_px = spring(baseWidth, {
     damping: 0.47,
     stiffness: 0.12,
   });
 
-  const getWidthFromDistance = interpolate(distanceInput, widthOutput);
-  $: $widthPX = getWidthFromDistance(distance);
+  const get_width_from_distance = interpolate(distanceInput, widthOutput);
+
+  $effect(() => {
+    distance;
+
+    untrack(() => (width_px.value = get_width_from_distance(distance)));
+  });
 
   let raf: number;
   function animate() {
-    if (imageEl && mouseX !== null) {
-      const rect = imageEl.getBoundingClientRect();
+    if (image_el && mouse_x !== null) {
+      const rect = image_el.getBoundingClientRect();
 
       // get the x coordinate of the img DOMElement's center
       // the left x coordinate plus the half of the width
-      const imgCenterX = rect.left + rect.width / 2;
+      const img_center_x = rect.left + rect.width / 2;
 
       // difference between the x coordinate value of the mouse pointer
       // and the img center x coordinate value
-      const distanceDelta = mouseX - imgCenterX;
-      distance = distanceDelta;
+      const distance_delta = mouse_x - img_center_x;
+      distance = distance_delta;
       return;
     }
 
-    distance = beyondTheDistanceLimit;
+    distance = beyond_the_distance_limit;
   }
 
-  $: {
-    mouseX;
-    if ($prefersReducedMotion || $isAppBeingDragged) break $;
+  $effect(() => {
+    mouse_x;
+    if (preferences.reduced_motion || apps.is_being_dragged) return;
 
     raf = requestAnimationFrame(animate);
-  }
+  });
 
-  const { title, shouldOpenWindow, externalAction } = appsConfig[appID];
+  const {
+    title,
+    should_open_window: shouldOpenWindow,
+    external_action: externalAction,
+  } = apps_config[app_id];
 
   // Spring animation for the click animation
   const appOpenIconBounceTransform = tweened(0, {
@@ -96,10 +112,10 @@
     if (!shouldOpenWindow) return externalAction?.(e);
 
     // For the bounce animation
-    const isAppAlreadyOpen = $openApps[appID];
+    const isAppAlreadyOpen = apps.open[app_id];
 
-    $openApps[appID] = true;
-    $activeApp = appID;
+    apps.open[app_id] = true;
+    apps.active = app_id;
 
     if (isAppAlreadyOpen) return;
 
@@ -110,17 +126,20 @@
     cancelAnimationFrame(raf);
   });
 
-  $: isAppStore = appID === 'appstore';
-  $: showPwaBadge = isAppStore && needsUpdate;
-  $: showPwaBadge && bounceEffect();
+  const is_app_store = $derived(app_id === 'appstore');
+  const show_pwa_badge = $derived(is_app_store && needs_update);
+
+  $effect(() => {
+    if (show_pwa_badge) bounceEffect();
+  });
 </script>
 
-<button on:click={openApp} aria-label="Launch {title} app" class="dock-open-app-button {appID}">
+<button onclick={openApp} aria-label="Launch {title} app" class="dock-open-app-button {app_id}">
   <p
     class="tooltip"
-    class:tooltip-enabled={!$isAppBeingDragged}
-    class:dark={$theme.scheme === 'dark'}
-    style:top={$prefersReducedMotion ? '-50px' : '-35%'}
+    class:tooltip-enabled={!apps.is_being_dragged}
+    class:dark={preferences.theme.scheme === 'dark'}
+    style:top={preferences.reduced_motion ? '-50px' : '-35%'}
     style:transform="translate(0, {$appOpenIconBounceTransform}px)"
     use:elevation={'dock-tooltip'}
   >
@@ -129,22 +148,22 @@
 
   <span style:transform="translate(0, {$appOpenIconBounceTransform}px)">
     <img
-      bind:this={imageEl}
-      src="/app-icons/{appID}/256.webp"
+      bind:this={image_el}
+      src="/app-icons/{app_id}/256.webp"
       alt="{title} app"
-      style:width="{$widthPX / 16}rem"
+      style:width="{width_px.value / 16}rem"
       draggable="false"
     />
   </span>
 
-  <div class="dot" style:--opacity={+$openApps[appID]} />
+  <div class="dot" style:--opacity={+apps.open[app_id]}></div>
 
-  {#if showPwaBadge}
-    <div class="pwa-badge" style:transform="scale({$widthPX / baseWidth})">1</div>
+  {#if show_pwa_badge}
+    <div class="pwa-badge" style:transform="scale({width_px.value / baseWidth})">1</div>
   {/if}
 </button>
 
-<style lang="scss">
+<style>
   img {
     will-change: width;
   }
@@ -184,7 +203,9 @@
     padding: 0.5rem 0.75rem;
     border-radius: 0.375rem;
 
-    box-shadow: hsla(0deg, 0%, 0%, 30%) 0px 1px 5px 2px, var(--double-border);
+    box-shadow:
+      hsla(0deg, 0%, 0%, 30%) 0px 1px 5px 2px,
+      var(--double-border);
 
     color: var(--system-color-light-contrast);
     font-family: var(--system-font-family);

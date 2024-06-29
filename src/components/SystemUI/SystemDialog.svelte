@@ -1,32 +1,40 @@
 <script lang="ts">
-  import { createEventDispatcher } from 'svelte';
+  import type { Snippet } from 'svelte';
   import { sineInOut } from 'svelte/easing';
-  import { clickOutside, elevation, portal, trapFocus } from '🍎/actions';
-  import { fadeOut } from '🍎/helpers/fade';
-  import { prefersReducedMotion } from '🍎/stores/prefers-motion.store';
-  import { theme } from '🍎/stores/theme.store';
+  import { click_outside, elevation, portal, trapFocus } from '🍎/actions';
+  import { fade_out } from '🍎/helpers/fade.ts';
+  import { preferences } from '🍎/state/preferences.svelte.ts';
 
-  export let backdropDismiss = true;
+  const {
+    backdrop_dismiss = true,
+    on_close,
+    on_open,
+    children,
+  }: {
+    backdrop_dismiss?: boolean;
+    on_open?: () => void;
+    on_close?: (message: string) => void;
+    children: Snippet<[]>;
+  } = $props();
 
-  let isOpen: boolean;
-  const dispatch = createEventDispatcher<{ open: undefined; close: string | undefined }>();
+  let is_open = $state<boolean>();
 
   export function open() {
-    isOpen = true;
-    dispatch('open');
+    is_open = true;
+    on_open();
   }
 
   export function close(message?: string) {
-    isOpen = false;
+    is_open = false;
 
-    dispatch('close', message);
+    on_close(message);
 
     return message;
   }
 
-  function dialogOpenTransition(
+  function dialog_open_transition(
     _: HTMLElement,
-    { duration = $prefersReducedMotion ? 0 : 250 }: SvelteTransitionConfig = {},
+    { duration = preferences.reduced_motion ? 0 : 250 }: SvelteTransitionConfig = {},
   ): SvelteTransitionReturnType {
     return {
       duration,
@@ -36,27 +44,30 @@
   }
 </script>
 
-{#if isOpen}
+{#if is_open}
   <section class="overlay" use:portal={'#windows-area'} use:elevation={'system-dialog'}>
+    <!-- svelte-ignore a11y_click_events_have_key_events -->
+    <!-- svelte-ignore a11y_no_noninteractive_tabindex -->
+    <!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
     <div
       class="dialog"
-      class:dark={$theme.scheme === 'dark'}
+      class:dark={preferences.theme.scheme === 'dark'}
       tabindex={0}
       role="dialog"
       aria-labelledby="info-title"
       aria-describedby="info-description"
-      in:dialogOpenTransition
-      out:fadeOut
+      in:dialog_open_transition
+      out:fade_out
       use:trapFocus
-      use:clickOutside={{ callback: () => backdropDismiss && close() }}
-      on:click|stopPropagation={() => {}}
+      use:click_outside={() => backdrop_dismiss && close()}
+      onclick={(e) => e.stopPropagation()}
     >
-      <slot />
+      {@render children?.()}
     </div>
   </section>
 {/if}
 
-<style lang="scss">
+<style>
   .overlay {
     position: sticky;
     top: 0;
@@ -85,8 +96,10 @@
     box-shadow: var(--elevation);
 
     &.dark {
-      // border-radius: inherit;
-      box-shadow: var(--elevation), inset 0 0 0 0.9px hsla(var(--system-color-dark-hsl), 0.3),
+      /* // border-radius: inherit; */
+      box-shadow:
+        var(--elevation),
+        inset 0 0 0 0.9px hsla(var(--system-color-dark-hsl), 0.3),
         0 0 0 1px hsla(var(--system-color-light-hsl), 0.5);
     }
   }

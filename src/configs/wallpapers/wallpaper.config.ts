@@ -1,4 +1,4 @@
-import type { Theme } from '🍎/stores/theme.store';
+import type { Theme } from '🍎/state/preferences.svelte.ts';
 
 export type Wallpaper = {
   name: string;
@@ -15,7 +15,7 @@ export type Wallpaper = {
   };
 };
 
-const optimizedWallpapers = import.meta.glob('../../assets/wallpapers/*.{webp,jpg}', {
+const optimized_wallpapers = import.meta.glob('../../assets/wallpapers/*.{webp,jpg}', {
   eager: true,
   query: { w: 3000, quality: 98, format: 'webp' },
 }) as Record<string, any>;
@@ -25,13 +25,13 @@ const wallpaperThumbnails = import.meta.glob('../../assets/wallpapers/*.{webp,jp
   query: { w: 800, format: 'webp' },
 }) as Record<string, any>;
 
-const createWallpapersConfig = <TConfig = string>(
-  wallpaperConfig: Record<keyof TConfig, Wallpaper>,
+const create_wallpapers_config = <TConfig = string>(
+  wallpaper_config: Record<keyof TConfig, Wallpaper>,
 ): Record<keyof TConfig, Wallpaper> => {
-  const optimizedWallpapersArr = Object.entries(optimizedWallpapers);
+  const optimized_wallpapers_arr = Object.entries(optimized_wallpapers);
 
-  for (const [wallpaperName, config] of Object.entries(wallpaperConfig)) {
-    const wallpaper = wallpaperConfig[wallpaperName as keyof TConfig];
+  for (const [wallpaperName, config] of Object.entries(wallpaper_config)) {
+    const wallpaper = wallpaper_config[wallpaperName as keyof TConfig];
     const thumbnail = config.thumbnail;
 
     wallpaper.thumbnail = (
@@ -39,22 +39,22 @@ const createWallpapersConfig = <TConfig = string>(
     ).default;
 
     wallpaper.image = (
-      optimizedWallpapersArr.find(([path]) => path.includes(thumbnail))[1] as any
+      optimized_wallpapers_arr.find(([path]) => path.includes(thumbnail))[1] as any
     ).default;
 
     if (wallpaper.type !== 'standalone') {
       for (const [time, imgName] of Object.entries(config.timestamps.wallpaper)) {
         wallpaper.timestamps.wallpaper[time] = (
-          optimizedWallpapersArr.find(([path]) => path.includes(imgName))[1] as any
+          optimized_wallpapers_arr.find(([path]) => path.includes(imgName))[1] as any
         ).default;
       }
     }
   }
 
-  return wallpaperConfig;
+  return wallpaper_config;
 };
 
-export const wallpapersConfig = createWallpapersConfig({
+export const wallpapers_config = create_wallpapers_config({
   ventura: {
     name: 'Ventura',
     type: 'dynamic',
@@ -451,6 +451,4 @@ export const wallpapersConfig = createWallpapersConfig({
   },
 });
 
-export type WallpaperID = keyof typeof wallpapersConfig;
-
-console.log(wallpapersConfig);
+export type WallpaperID = keyof typeof wallpapers_config;

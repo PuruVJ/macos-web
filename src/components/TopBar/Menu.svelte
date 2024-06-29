@@ -1,21 +1,21 @@
 <script lang="ts">
-  import { theme } from '🍎/stores/theme.store';
+  import { preferences } from '🍎/state/preferences.svelte.ts';
 
-  export let menu: any;
+  const { menu }: { menu: any } = $props();
 </script>
 
-<section class="container" class:dark={$theme.scheme === 'dark'}>
-  {#each Object.entries(menu) as [, val]}
+<section class="container" class:dark={preferences.theme.scheme === 'dark'}>
+  {#each Object.entries(menu) as Array<[any, any]> as [_, val]}
     <button class="menu-item" disabled={val.disabled}>{val.title}</button>
     {#if val.breakAfter}
-      <div class="divider" />
+      <div class="divider"></div>
     {/if}
   {/each}
 </section>
 
-<style lang="scss">
+<style>
   .container {
-    // Initial invisible border
+    /* // Initial invisible border */
     --additional-box-shadow: 0 0 0 0 white;
 
     display: block;
@@ -34,7 +34,9 @@
 
     border-radius: 0.5rem;
 
-    box-shadow: hsla(0, 0%, 0%, 0.3) 0px 0px 11px 0px, var(--additional-box-shadow);
+    box-shadow:
+      hsla(0, 0%, 0%, 0.3) 0px 0px 11px 0px,
+      var(--additional-box-shadow);
 
     &.dark {
       --additional-box-shadow: inset 0 0 0 0.9px hsla(var(--system-color-dark-hsl), 0.3),

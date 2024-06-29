@@ -7,24 +7,24 @@ import { tick } from 'svelte';
  * @param {HTMLElement|string} target DOM Element or CSS Selector
  */
 export function portal(el: HTMLElement, target: HTMLElement | string = 'body') {
-  let targetEl: HTMLElement;
+  let target_el: HTMLElement;
 
-  async function update(newTarget: HTMLElement | string) {
-    target = newTarget;
+  async function update(new_target: HTMLElement | string) {
+    target = new_target;
 
     if (typeof target === 'string') {
-      targetEl = document.querySelector(target);
+      target_el = document.querySelector(target);
 
-      if (targetEl === null) {
+      if (target_el === null) {
         await tick();
-        targetEl = document.querySelector(target);
+        target_el = document.querySelector(target);
       }
 
-      if (targetEl === null) {
+      if (target_el === null) {
         throw new Error(`No element found matching css selector: "${target}"`);
       }
     } else if (target instanceof HTMLElement) {
-      targetEl = target;
+      target_el = target;
     } else {
       throw new TypeError(
         `Unknown portal target type: ${
@@ -32,7 +32,7 @@ export function portal(el: HTMLElement, target: HTMLElement | string = 'body') {
         }. Allowed types: string (CSS selector) or HTMLElement.`,
       );
     }
-    targetEl.appendChild(el);
+    target_el.appendChild(el);
     el.hidden = false;
   }
 

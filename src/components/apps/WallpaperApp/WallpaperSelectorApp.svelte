@@ -1,23 +1,22 @@
 <script lang="ts">
-  import { WallpaperID, wallpapersConfig } from '🍎/configs/wallpapers/wallpaper.config';
-  import { wallpaper } from '🍎/stores/wallpaper.store';
+  import { wallpapers_config, type WallpaperID } from '🍎/configs/wallpapers/wallpaper.config.ts';
+  import { preferences } from '🍎/state/preferences.svelte.ts';
 
-  const dynamicWallpapers = Object.entries(wallpapersConfig).filter(
+  const dynamic_wallpapers = Object.entries(wallpapers_config).filter(
     ([, { type }]) => type === 'dynamic',
   );
 
-  const standaloneWallpapers = Object.entries(wallpapersConfig).filter(
+  const standalone_wallpapers = Object.entries(wallpapers_config).filter(
     ([, { type }]) => type === 'standalone',
   );
 
-  $: currentWallpaperThumb = `url(${$wallpaper.image})`;
+  const current_wallpaper_thumb = $derived(`url(${preferences.wallpaper.image})`);
 
-  function changeWallpaper(wallpaperName: WallpaperID) {
-    $wallpaper.id = wallpaperName;
+  function change_wallpaper(wallpaperName: WallpaperID) {
+    preferences.wallpaper.id = wallpaperName;
   }
 
   function preload(url: string) {
-    console.log(1);
     const link = document.createElement('link');
     link.rel = 'prefetch';
 
@@ -35,17 +34,19 @@
 
   <section class="main-area">
     <section class="selected-wallpaper-section">
-      <div class="image" style:background-image={currentWallpaperThumb} />
+      <div class="image" style:background-image={current_wallpaper_thumb}></div>
 
       <div class="info">
-        <h2>{wallpapersConfig[$wallpaper.id].name}</h2>
-        <p class="wallpaper-type">{wallpapersConfig[$wallpaper.id].type} wallpaper</p>
+        <h2>{wallpapers_config[preferences.wallpaper.id].name}</h2>
+        <p class="wallpaper-type">
+          {wallpapers_config[preferences.wallpaper.id].type} wallpaper
+        </p>
 
         <br /> <br />
 
-        {#if wallpapersConfig[$wallpaper.id].type !== 'standalone'}
+        {#if wallpapers_config[preferences.wallpaper.id].type !== 'standalone'}
           <label>
-            <input type="checkbox" bind:checked={$wallpaper.canControlTheme} />
+            <input type="checkbox" bind:checked={preferences.wallpaper.canControlTheme} />
             Change dark/light mode as wallpapers change
           </label>
         {/if}
@@ -58,9 +59,9 @@
       <h2>Dynamic Wallpapers</h2>
 
       <div class="wallpapers">
-        {#each dynamicWallpapers as [id, { thumbnail, name, image }]}
+        {#each dynamic_wallpapers as [id, { thumbnail, name, image }]}
           <div class="wallpaper-button">
-            <button on:click={() => changeWallpaper(id)} on:pointerenter={() => preload(image)}>
+            <button onclick={() => change_wallpaper(id)} onpointerenter={() => preload(image)}>
               <img src={thumbnail} alt="MacOS {name} Wallpapers, dynamic" />
             </button>
             <p>{name}</p>
@@ -75,9 +76,9 @@
       <h2>Standalone Wallpapers</h2>
 
       <div class="wallpapers">
-        {#each standaloneWallpapers as [id, { thumbnail, name, image }]}
+        {#each standalone_wallpapers as [id, { thumbnail, name, image }]}
           <div class="wallpaper-button">
-            <button on:click={() => changeWallpaper(id)} on:pointerenter={() => preload(image)}>
+            <button onclick={() => change_wallpaper(id)} onpointerenter={() => preload(image)}>
               <img src={thumbnail} alt="MacOS {name} Wallpapers, dynamic" />
             </button>
             <p>{name}</p>
@@ -88,7 +89,7 @@
   </section>
 </section>
 
-<style lang="scss">
+<style>
   h2 {
     line-height: 1.618;
     font-size: 1.618rem;

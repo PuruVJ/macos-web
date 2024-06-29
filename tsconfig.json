@@ -1,6 +1,8 @@
 {
   "compilerOptions": {
-    "moduleResolution": "node",
+    "moduleResolution": "Bundler",
+    "allowImportingTsExtensions": true,
+    "verbatimModuleSyntax": true,
 
     /**
       To have warnings/errors of the Svelte compiler at the correct position,

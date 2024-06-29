@@ -3,11 +3,7 @@ type SingleThemeConfig = {
   contrastHsl: string;
 };
 
-const colorsConfig = <T extends string = string>(
-  et: Record<T, { light: SingleThemeConfig; dark: SingleThemeConfig }>,
-) => et;
-
-export const colors = colorsConfig({
+export const colors = {
   orange: {
     light: {
       hsl: '35deg, 100%, 50%',
@@ -84,4 +80,4 @@ export const colors = colorsConfig({
       contrastHsl: '348deg, 100%, 5%',
     },
   },
-});
+} satisfies Record<string, { light: SingleThemeConfig; dark: SingleThemeConfig }>;

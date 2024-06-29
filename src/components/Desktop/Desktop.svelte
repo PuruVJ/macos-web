@@ -1,6 +1,6 @@
-<script lang="ts">
-  import Dock from '🍎/components/Dock/Dock.svelte';
-  import TopBar from '🍎/components/TopBar/TopBar.svelte';
+<script>
+  import Dock from '../Dock/Dock.svelte';
+  import TopBar from '../TopBar/TopBar.svelte';
   import Wallpaper from '../apps/WallpaperApp/Wallpaper.svelte';
   import BootupScreen from './BootupScreen.svelte';
   import ContextMenu from './ContextMenu.svelte';
@@ -15,11 +15,10 @@
       import('@fontsource/inter/latin-ext-400.css'),
       import('@fontsource/inter/latin-ext-500.css'),
       import('@fontsource/inter/latin-ext-600.css'),
-    ]).then(() => {
-      console.log(1);
-    });
+    ]);
   }
-  let mainEl: HTMLElement;
+  /** @type {HTMLElement} */
+  let mainEl;
 </script>
 
 <div bind:this={mainEl} class="container">
@@ -33,10 +32,10 @@
   <BootupScreen />
   <SystemUpdate />
 
-  <ContextMenu targetElement={mainEl} />
+  <ContextMenu target_element={mainEl} />
 </div>
 
-<style lang="scss">
+<style>
   .container {
     height: 100%;
     width: 100%;

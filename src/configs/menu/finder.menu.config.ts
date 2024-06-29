@@ -1,6 +1,6 @@
-import { createMenuConfig } from '🍎/helpers/create-menu-config';
+import { create_menu_config } from '🍎/helpers/create-menu-config';
 
-export const finderMenuConfig = createMenuConfig({
+export const finder_menu_config = create_menu_config({
   default: {
     title: 'Finder',
     menu: {

@@ -65,14 +65,14 @@ body[data-theme='light'] {
   --system-color-grey-A700: #616161;
   --system-color-grey-A700-hsl: 0, 0%, 38%;
 
-  // Cursors
+  /* // Cursors */
   --system-cursor-default: url('/cursors/normal-select.svg');
   --system-cursor-pointer: url('/cursors/link-select.svg');
   --system-cursor-text-select: url('/cursors/text-select.svg');
   --system-cursor-help-select: url('/cursors/help-select.svg');
 
-  // the following two cursors are animated, but will be rendered as a static
-  // image by the browser
+  /* // the following two cursors are animated, but will be rendered as a static
+  // image by the browser */
   --system-cursor-busy: url('/cursors/busy.webp');
   --system-cursor-working-in-bg: url('/cursors/working-in-background.webp');
 }

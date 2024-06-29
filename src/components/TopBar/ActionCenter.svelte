@@ -7,49 +7,52 @@
   import NotchIcon from '~icons/pepicons/smartphone-notch';
 
   import { colors } from '🍎/configs/theme/colors.config';
-  import { wallpapersConfig } from '🍎/configs/wallpapers/wallpaper.config';
-  import { activeApp, openApps } from '🍎/stores/apps.store';
-  import { shouldShowNotch } from '🍎/stores/menubar.store';
-  import { prefersReducedMotion } from '🍎/stores/prefers-motion.store';
-  import { theme } from '🍎/stores/theme.store';
-  import { wallpaper } from '🍎/stores/wallpaper.store';
+  import { wallpapers_config } from '🍎/configs/wallpapers/wallpaper.config';
+  import { apps } from '🍎/state/apps.svelte.ts';
+  import { should_show_notch } from '🍎/state/menubar.svelte';
+  import { preferences } from '🍎/state/preferences.svelte.ts';
 
   import ActionCenterSurface from './ActionCenterSurface.svelte';
   import ActionCenterTile from './ActionCenterTile.svelte';
 
-  export let isThemeWarningDialogOpen: boolean;
+  let {
+    is_theme_warning_dialog_open: _is_theme_warning_dialog_open = $bindable(),
+  }: { is_theme_warning_dialog_open: boolean } = $props();
 
   let containerEl: HTMLElement;
 
   function toggleTheme() {
-    if (wallpapersConfig[$wallpaper.id].type === 'dynamic' && $wallpaper.canControlTheme) {
-      isThemeWarningDialogOpen = true;
+    if (
+      wallpapers_config[preferences.wallpaper.id].type === 'dynamic' &&
+      preferences.wallpaper.canControlTheme
+    ) {
+      _is_theme_warning_dialog_open = true;
       return;
     }
 
-    $theme.scheme = $theme.scheme === 'light' ? 'dark' : 'light';
+    preferences.theme.scheme = preferences.theme.scheme === 'light' ? 'dark' : 'light';
   }
 
   function toggleNotch() {
-    $shouldShowNotch = !$shouldShowNotch;
+    should_show_notch.value = !should_show_notch.value;
   }
 
   function toggleMotionPreference() {
-    $prefersReducedMotion = !$prefersReducedMotion;
+    preferences.reduced_motion = !preferences.reduced_motion;
   }
 
   function openWallpapersApp() {
-    $openApps.wallpapers = true;
-    $activeApp = 'wallpapers';
+    apps.open.wallpapers = true;
+    apps.active = 'wallpapers';
   }
 
   onMount(() => containerEl?.focus());
 </script>
 
-<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
+<!-- svelte-ignore a11y_no_noninteractive_tabindex -->
 <section
   class="container"
-  class:dark={$theme.scheme === 'dark'}
+  class:dark={preferences.theme.scheme === 'dark'}
   tabindex={-1}
   bind:this={containerEl}
 >
@@ -60,8 +63,8 @@
       [1, 2],
     ]}
   >
-    <ActionCenterTile grid={[1, 1]} on:click={toggleTheme}>
-      <span class="toggle-icon" class:filled={$theme.scheme === 'dark'}>
+    <ActionCenterTile grid={[1, 1]} onclick={toggleTheme}>
+      <span class="toggle-icon" class:filled={preferences.theme.scheme === 'dark'}>
         <DarkMode />
       </span>
       Dark mode
@@ -74,8 +77,8 @@
       [1, 2],
     ]}
   >
-    <ActionCenterTile grid={[1, 1]} on:click={toggleMotionPreference}>
-      <span class="toggle-icon" class:filled={!$prefersReducedMotion}>
+    <ActionCenterTile grid={[1, 1]} onclick={toggleMotionPreference}>
+      <span class="toggle-icon" class:filled={!preferences.reduced_motion}>
         <TransitionMaskedIcon />
       </span>
       Animations
@@ -93,14 +96,14 @@
         <p>System Color</p>
         <div class="color-palette">
           {#each Object.keys(colors) as colorID}
-            {@const { contrastHsl, hsl } = colors[colorID][$theme.scheme]}
+            {@const { contrastHsl, hsl } = colors[colorID][preferences.theme.scheme]}
 
             <button
               style:--color-hsl={hsl}
               style:--color-contrast-hsl={contrastHsl}
-              on:click={() => ($theme.primaryColor = colorID)}
+              onclick={() => (preferences.theme.primaryColor = colorID)}
             >
-              {#if $theme.primaryColor === colorID}
+              {#if preferences.theme.primaryColor === colorID}
                 <CheckedIcon />
               {/if}
             </button>
@@ -116,17 +119,17 @@
       [5, 3],
     ]}
   >
-    <ActionCenterTile grid={[1, 1]} on:click={openWallpapersApp}>
+    <ActionCenterTile grid={[1, 1]} onclick={openWallpapersApp}>
       <div class="wallpaper-tile">
         <img
           class="wallpaper-thumbnail"
-          src={wallpapersConfig[$wallpaper.id].thumbnail}
+          src={wallpapers_config[preferences.wallpaper.id].thumbnail}
           alt="Current wallpaper"
         />
 
         <div class="wallpaper-info">
-          <h3>{wallpapersConfig[$wallpaper.id].name}</h3>
-          <p>{wallpapersConfig[$wallpaper.id].type} wallpaper</p>
+          <h3>{wallpapers_config[preferences.wallpaper.id].name}</h3>
+          <p>{wallpapers_config[preferences.wallpaper.id].type} wallpaper</p>
         </div>
       </div>
     </ActionCenterTile>
@@ -138,9 +141,9 @@
       [8, 2],
     ]}
   >
-    <ActionCenterTile grid={[1, 1]} on:click={toggleNotch}>
+    <ActionCenterTile grid={[1, 1]} onclick={toggleNotch}>
       <div class="notch-tile">
-        <span class="toggle-icon" class:filled={$shouldShowNotch}>
+        <span class="toggle-icon" class:filled={should_show_notch.value}>
           <NotchIcon />
         </span>
         Notch
@@ -149,7 +152,7 @@
   </ActionCenterSurface>
 </section>
 
-<style lang="scss">
+<style>
   .container {
     --border-size: 0;
 

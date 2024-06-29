@@ -1,17 +1,17 @@
 <script lang="ts">
   import { elevation } from '🍎/actions';
-  import { contextMenuConfig } from '🍎/configs/menu/context.menu.config';
-  import { fadeOut } from '🍎/helpers/fade';
-  import { theme } from '🍎/stores/theme.store';
+  import { context_menu_config } from '🍎/configs/menu/context.menu.config.ts';
+  import { fade_out } from '🍎/helpers/fade.ts';
+  import { preferences } from '🍎/state/preferences.svelte.ts';
 
-  export let targetElement: HTMLElement;
+  const { target_element }: { target_element: HTMLElement } = $props();
 
-  let xPos = 0;
-  let yPos = 0;
-  let isMenuVisible = false;
+  let x_pos = $state(0);
+  let y_pos = $state(0);
+  let is_menu_visible = $state(false);
 
-  function handleContextMenu(e: MouseEvent) {
-    if (!targetElement?.contains(e.target as HTMLElement)) return (isMenuVisible = false);
+  function handle_context_menu(e: MouseEvent) {
+    if (!target_element?.contains(e.target as HTMLElement)) return (is_menu_visible = false);
 
     let x = e.pageX;
     let y = e.pageY;
@@ -20,38 +20,44 @@
     if (window.innerWidth - x < 250) x -= 250;
     if (window.innerHeight - y < 300) y -= 250;
 
-    xPos = x;
-    yPos = y;
+    x_pos = x;
+    y_pos = y;
 
-    isMenuVisible = true;
+    is_menu_visible = true;
   }
 
   function hideMenu() {
-    isMenuVisible = false;
+    is_menu_visible = false;
   }
 </script>
 
-<svelte:body on:contextmenu|preventDefault={handleContextMenu} on:click={hideMenu} />
+<svelte:body
+  oncontextmenu={(e) => {
+    e.preventDefault();
+    handle_context_menu(e);
+  }}
+  onclick={hideMenu}
+/>
 
-{#if isMenuVisible}
+{#if is_menu_visible}
   <div
     class="container"
-    class:dark={$theme.scheme === 'dark'}
-    style:transform="translate({xPos}px, {yPos}px)"
-    out:fadeOut
+    class:dark={preferences.theme.scheme === 'dark'}
+    style:transform="translate({x_pos}px, {y_pos}px)"
+    out:fade_out
     use:elevation={'context-menu'}
   >
-    {#each Object.values(contextMenuConfig.default) as contents}
+    {#each Object.values(context_menu_config.default) as contents}
       <button class="menu-item">{contents.title}</button>
 
       {#if contents.breakAfter}
-        <div class="divider" />
+        <div class="divider"></div>
       {/if}
     {/each}
   </div>
 {/if}
 
-<style lang="scss">
+<style>
   .container {
     --additional-shadow: 0 0 0 0 white;
     display: block;
@@ -71,7 +77,9 @@
 
     border-radius: 0.5rem;
 
-    box-shadow: hsla(0, 0%, 0%, 0.3) 0px 0px 11px 0px, var(--additional-shadow);
+    box-shadow:
+      hsla(0, 0%, 0%, 0.3) 0px 0px 11px 0px,
+      var(--additional-shadow);
 
     &.dark {
       --additional-shadow: inset 0 0 0 0.9px hsla(var(--system-color-dark-hsl), 0.3),

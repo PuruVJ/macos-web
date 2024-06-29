@@ -1,35 +1,37 @@
 <script lang="ts">
+  import { untrack } from 'svelte';
   import { elevation } from '🍎/actions';
-  import { wallpapersConfig } from '🍎/configs/wallpapers/wallpaper.config';
-  import { smallerClosestValue } from '🍎/helpers/smaller-closest-value';
-  import { createIntervalStore } from '🍎/stores/interval.store';
-  import { theme } from '🍎/stores/theme.store';
-  import { wallpaper } from '🍎/stores/wallpaper.store';
+  import { wallpapers_config } from '🍎/configs/wallpapers/wallpaper.config.ts';
+  import { smaller_closest_value } from '🍎/helpers/smaller-closest-value.ts';
+  import { create_interval } from '🍎/state/interval.svelte.ts';
+  import { preferences } from '🍎/state/preferences.svelte.ts';
 
-  let visibleBackgroundImage = wallpapersConfig.ventura.image;
+  let visible_background_image = $state(wallpapers_config.ventura.image);
 
-  const interval = createIntervalStore(5 * 1000);
+  const interval = create_interval(5 * 1000);
 
-  $: {
-    $interval;
+  $effect(() => {
+    interval.value;
 
-    if (wallpapersConfig[$wallpaper.id].type === 'standalone') {
-      $wallpaper.image = wallpapersConfig[$wallpaper.id].image;
-      break $;
+    if (wallpapers_config[preferences.wallpaper.id].type === 'standalone') {
+      untrack(
+        () => (preferences.wallpaper.image = wallpapers_config[preferences.wallpaper.id].image),
+      );
+      return;
     }
 
     /** Only dynamic and light/dark wallpaper logic to tackle */
     // Now check if user really wants the change to happen.
 
-    handleTheme();
-    handleWallpaper();
-  }
+    untrack(handleTheme);
+    untrack(handleWallpaper);
+  });
 
   function handleWallpaper() {
     const date = new Date();
     const hour = date.getHours();
 
-    const wallpaperTimestampsMap = wallpapersConfig[$wallpaper.id].timestamps.wallpaper;
+    const wallpaperTimestampsMap = wallpapers_config[preferences.wallpaper.id].timestamps.wallpaper;
     const timestamps = Object.keys(wallpaperTimestampsMap);
 
     const minTimestamp = Math.min(...timestamps);
@@ -38,27 +40,27 @@
     if (hour > maxTimestamp || hour < minTimestamp) {
       // Go for the min timestamp value
       if (wallpaperTimestampsMap[maxTimestamp]) {
-        $wallpaper.image = wallpaperTimestampsMap[maxTimestamp];
+        preferences.wallpaper.image = wallpaperTimestampsMap[maxTimestamp];
       }
 
       return;
     }
 
     // Now set the right timestamp
-    const chosenTimeStamp = smallerClosestValue(timestamps, hour);
+    const chosenTimeStamp = smaller_closest_value(timestamps, hour);
 
     if (wallpaperTimestampsMap[chosenTimeStamp]) {
-      $wallpaper.image = wallpaperTimestampsMap[chosenTimeStamp];
+      preferences.wallpaper.image = wallpaperTimestampsMap[chosenTimeStamp];
     }
   }
 
   function handleTheme() {
-    if (!$wallpaper.canControlTheme) return;
+    if (!preferences.wallpaper.canControlTheme) return;
 
     const date = new Date();
     const hour = date.getHours();
 
-    const themeTimestampsMap = wallpapersConfig[$wallpaper.id].timestamps.theme;
+    const themeTimestampsMap = wallpapers_config[preferences.wallpaper.id].timestamps.theme;
     const timestamps = Object.keys(themeTimestampsMap);
 
     const minTimestamp = Math.min(...timestamps);
@@ -66,37 +68,30 @@
 
     if (hour > maxTimestamp || hour < minTimestamp) {
       // Go for the min timestamp value
-      $theme.scheme = 'dark';
+      preferences.theme.scheme = 'dark';
       return;
     }
 
     // Now set the right timestamp
-    const chosenTimeStamp = smallerClosestValue(timestamps, hour);
-    $theme.scheme = themeTimestampsMap?.[chosenTimeStamp] || 'light';
+    const chosenTimeStamp = smaller_closest_value(timestamps, hour);
+    preferences.theme.scheme = themeTimestampsMap?.[chosenTimeStamp] || 'light';
   }
 
   function previewImageOnLoad() {
-    visibleBackgroundImage = $wallpaper.image;
+    visible_background_image = preferences.wallpaper.image;
   }
 </script>
 
-<!-- Prefetch all wallpapers -->
-<!-- <svelte:head>
-  {#each Object.values(wallpapersConfig) as { thumbnail }}
-    <link rel="prefetch" href={thumbnail} />
-  {/each}
-</svelte:head> -->
-
 <!-- This preload and render the image for browser but invisible to user -->
-<img src={$wallpaper.image} aria-hidden="true" alt="" on:load={previewImageOnLoad} />
+<img src={preferences.wallpaper.image} aria-hidden="true" alt="" onload={previewImageOnLoad} />
 
 <div
   class="background-cover"
-  style:background-image="url({visibleBackgroundImage})"
+  style:background-image="url({visible_background_image})"
   use:elevation={'wallpaper'}
-/>
+></div>
 
-<style lang="scss">
+<style>
   img {
     height: 1px;
     width: 1px;

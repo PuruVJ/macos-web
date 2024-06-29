@@ -2,44 +2,44 @@
   import { onMount } from 'svelte';
   import { quintInOut } from 'svelte/easing';
   import { tweened } from 'svelte/motion';
-  import { elevation } from '🍎/actions';
-  import { fadeOut } from '🍎/helpers/fade';
-  import { waitFor } from '🍎/helpers/wait-for';
   import AppleIcon from '~icons/mdi/apple';
+  import { elevation } from '🍎/actions';
+  import { fade_out } from '🍎/helpers/fade.ts';
+  import { sleep } from '🍎/helpers/sleep';
 
-  let hiddenSplashScreen = false;
-  let progressVal = tweened(100, { duration: 3000, easing: quintInOut });
+  let hidden_splash_screen = $state(false);
+  let progress_val = tweened(100, { duration: 3000, easing: quintInOut });
 
   onMount(async () => {
-    $progressVal = 0;
-    await waitFor(3000);
-    hiddenSplashScreen = true;
+    $progress_val = 0;
+    await sleep(3000);
+    hidden_splash_screen = true;
   });
 </script>
 
-{#if !(hiddenSplashScreen || import.meta.env.DEV)}
-  <div out:fadeOut={{ duration: 500 }} class="splash-screen" use:elevation={'bootup-screen'}>
+{#if !(hidden_splash_screen || import.meta.env.DEV)}
+  <div out:fade_out={{ duration: 500 }} class="splash-screen" use:elevation={'bootup-screen'}>
     <AppleIcon />
 
     <div
       class="progress"
       role="progressbar"
-      aria-valuenow={100 - $progressVal}
+      aria-valuenow={100 - $progress_val}
       aria-valuemin={0}
       aria-valuemax={100}
       aria-valuetext="Loading up macOS Web"
     >
-      <div class="indicator" style:transform="translateX(-{$progressVal}%)" />
+      <div class="indicator" style:translate="-{$progress_val}% 0"></div>
     </div>
   </div>
 {/if}
 
 <!-- iframe => firefox support: will always make sound available on start or F5 -->
 {#if import.meta.env.PROD}
-  <iframe id="audio" src="/sounds/mac-startup-sound.mp3" allow="autoplay" title="hello" />
+  <iframe id="audio" src="/sounds/mac-startup-sound.mp3" allow="autoplay" title="hello"></iframe>
 {/if}
 
-<style lang="scss">
+<style>
   .splash-screen {
     position: fixed;
     top: 0;

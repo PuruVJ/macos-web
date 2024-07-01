@@ -33,22 +33,17 @@ const vscode = createAppConfig({
   width: 800,
 });
 
+const notes = createAppConfig({
+  title: 'Notes',
+  resizable: true,
+});
+
 const finder = createAppConfig({
   title: 'Finder',
   resizable: true,
 
   // dockBreaksBefore: true,
-  shouldOpenWindow: false,
-});
-
-const safari = createAppConfig({
-  title: 'Safari',
-  resizable: true,
-});
-
-const systemPreferences = createAppConfig({
-  title: 'System Preferences',
-  resizable: true,
+  shouldOpenWindow: true,
 });
 
 const purusTwitter = createAppConfig({
@@ -90,6 +85,7 @@ export const appsConfig = {
   wallpapers,
   calculator,
   calendar,
+  notes,
   vscode,
   appstore,
   // safari,

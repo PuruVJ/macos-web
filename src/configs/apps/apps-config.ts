@@ -38,17 +38,7 @@ const finder = createAppConfig({
   resizable: true,
 
   // dockBreaksBefore: true,
-  shouldOpenWindow: false,
-});
-
-const safari = createAppConfig({
-  title: 'Safari',
-  resizable: true,
-});
-
-const systemPreferences = createAppConfig({
-  title: 'System Preferences',
-  resizable: true,
+  shouldOpenWindow: true,
 });
 
 const purusTwitter = createAppConfig({

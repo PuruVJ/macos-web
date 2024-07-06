@@ -1,261 +1,261 @@
 <svelte:options runes={true} />
 
 <script context="module">
-  const baseWidth = 57.6;
-  const distanceLimit = baseWidth * 6;
-  const beyond_the_distance_limit = distanceLimit + 1;
-  const distanceInput = [
-    -distanceLimit,
-    -distanceLimit / 1.25,
-    -distanceLimit / 2,
-    0,
-    distanceLimit / 2,
-    distanceLimit / 1.25,
-    distanceLimit,
-  ];
-  const widthOutput = [
-    baseWidth,
-    baseWidth * 1.1,
-    baseWidth * 1.414,
-    baseWidth * 2,
-    baseWidth * 1.414,
-    baseWidth * 1.1,
-    baseWidth,
-  ];
+	const baseWidth = 57.6;
+	const distanceLimit = baseWidth * 6;
+	const beyond_the_distance_limit = distanceLimit + 1;
+	const distanceInput = [
+		-distanceLimit,
+		-distanceLimit / 1.25,
+		-distanceLimit / 2,
+		0,
+		distanceLimit / 2,
+		distanceLimit / 1.25,
+		distanceLimit,
+	];
+	const widthOutput = [
+		baseWidth,
+		baseWidth * 1.1,
+		baseWidth * 1.414,
+		baseWidth * 2,
+		baseWidth * 1.414,
+		baseWidth * 1.1,
+		baseWidth,
+	];
 </script>
 
 <script lang="ts">
-  import { interpolate } from 'popmotion';
-  import { onDestroy, untrack } from 'svelte';
-  import { sineInOut } from 'svelte/easing';
-  import { tweened } from 'svelte/motion';
-  import { elevation } from '🍎/actions';
-  import { apps_config } from '🍎/configs/apps/apps-config.ts';
-  import { apps, type AppID } from '🍎/state/apps.svelte.ts';
-  import { preferences } from '🍎/state/preferences.svelte.ts';
-  import { spring } from '🍎/state/spring.svelte.ts';
+	import { interpolate } from 'popmotion';
+	import { onDestroy, untrack } from 'svelte';
+	import { sineInOut } from 'svelte/easing';
+	import { tweened } from 'svelte/motion';
+	import { elevation } from '🍎/actions';
+	import { apps_config } from '🍎/configs/apps/apps-config.ts';
+	import { apps, type AppID } from '🍎/state/apps.svelte.ts';
+	import { preferences } from '🍎/state/preferences.svelte.ts';
+	import { spring } from '🍎/state/spring.svelte.ts';
 
-  const {
-    mouse_x,
-    app_id,
-    needs_update = false,
-  }: {
-    mouse_x: number | null;
-    app_id: AppID;
-    needs_update?: boolean;
-  } = $props();
+	const {
+		mouse_x,
+		app_id,
+		needs_update = false,
+	}: {
+		mouse_x: number | null;
+		app_id: AppID;
+		needs_update?: boolean;
+	} = $props();
 
-  let image_el = $state<HTMLImageElement>();
+	let image_el = $state<HTMLImageElement>();
 
-  let distance = $state(beyond_the_distance_limit);
+	let distance = $state(beyond_the_distance_limit);
 
-  const width_px = spring(baseWidth, {
-    damping: 0.47,
-    stiffness: 0.12,
-  });
+	const width_px = spring(baseWidth, {
+		damping: 0.47,
+		stiffness: 0.12,
+	});
 
-  const get_width_from_distance = interpolate(distanceInput, widthOutput);
+	const get_width_from_distance = interpolate(distanceInput, widthOutput);
 
-  $effect(() => {
-    distance;
+	$effect(() => {
+		distance;
 
-    untrack(() => (width_px.value = get_width_from_distance(distance)));
-  });
+		untrack(() => (width_px.value = get_width_from_distance(distance)));
+	});
 
-  let raf: number;
-  function animate() {
-    if (image_el && mouse_x !== null) {
-      const rect = image_el.getBoundingClientRect();
+	let raf: number;
+	function animate() {
+		if (image_el && mouse_x !== null) {
+			const rect = image_el.getBoundingClientRect();
 
-      // get the x coordinate of the img DOMElement's center
-      // the left x coordinate plus the half of the width
-      const img_center_x = rect.left + rect.width / 2;
+			// get the x coordinate of the img DOMElement's center
+			// the left x coordinate plus the half of the width
+			const img_center_x = rect.left + rect.width / 2;
 
-      // difference between the x coordinate value of the mouse pointer
-      // and the img center x coordinate value
-      const distance_delta = mouse_x - img_center_x;
-      distance = distance_delta;
-      return;
-    }
+			// difference between the x coordinate value of the mouse pointer
+			// and the img center x coordinate value
+			const distance_delta = mouse_x - img_center_x;
+			distance = distance_delta;
+			return;
+		}
 
-    distance = beyond_the_distance_limit;
-  }
+		distance = beyond_the_distance_limit;
+	}
 
-  $effect(() => {
-    mouse_x;
-    if (preferences.reduced_motion || apps.is_being_dragged) return;
+	$effect(() => {
+		mouse_x;
+		if (preferences.reduced_motion || apps.is_being_dragged) return;
 
-    raf = requestAnimationFrame(animate);
-  });
+		raf = requestAnimationFrame(animate);
+	});
 
-  const {
-    title,
-    should_open_window: shouldOpenWindow,
-    external_action: externalAction,
-  } = apps_config[app_id];
+	const {
+		title,
+		should_open_window: shouldOpenWindow,
+		external_action: externalAction,
+	} = apps_config[app_id];
 
-  // Spring animation for the click animation
-  const appOpenIconBounceTransform = tweened(0, {
-    duration: 400,
-    easing: sineInOut,
-  });
+	// Spring animation for the click animation
+	const appOpenIconBounceTransform = tweened(0, {
+		duration: 400,
+		easing: sineInOut,
+	});
 
-  async function bounceEffect() {
-    // Animate the icon
-    await appOpenIconBounceTransform.set(-40);
+	async function bounceEffect() {
+		// Animate the icon
+		await appOpenIconBounceTransform.set(-40);
 
-    // Now animate it back to its place
-    appOpenIconBounceTransform.set(0);
-  }
+		// Now animate it back to its place
+		appOpenIconBounceTransform.set(0);
+	}
 
-  async function openApp(e: MouseEvent) {
-    if (!shouldOpenWindow) return externalAction?.(e);
+	async function openApp(e: MouseEvent) {
+		if (!shouldOpenWindow) return externalAction?.(e);
 
-    // For the bounce animation
-    const isAppAlreadyOpen = apps.open[app_id];
+		// For the bounce animation
+		const isAppAlreadyOpen = apps.open[app_id];
 
-    apps.open[app_id] = true;
-    apps.active = app_id;
+		apps.open[app_id] = true;
+		apps.active = app_id;
 
-    if (isAppAlreadyOpen) return;
+		if (isAppAlreadyOpen) return;
 
-    bounceEffect();
-  }
+		bounceEffect();
+	}
 
-  onDestroy(() => {
-    cancelAnimationFrame(raf);
-  });
+	onDestroy(() => {
+		cancelAnimationFrame(raf);
+	});
 
-  const is_app_store = $derived(app_id === 'appstore');
-  const show_pwa_badge = $derived(is_app_store && needs_update);
+	const is_app_store = $derived(app_id === 'appstore');
+	const show_pwa_badge = $derived(is_app_store && needs_update);
 
-  $effect(() => {
-    if (show_pwa_badge) bounceEffect();
-  });
+	$effect(() => {
+		if (show_pwa_badge) bounceEffect();
+	});
 </script>
 
 <button onclick={openApp} aria-label="Launch {title} app" class="dock-open-app-button {app_id}">
-  <p
-    class="tooltip"
-    class:tooltip-enabled={!apps.is_being_dragged}
-    class:dark={preferences.theme.scheme === 'dark'}
-    style:top={preferences.reduced_motion ? '-50px' : '-35%'}
-    style:transform="translate(0, {$appOpenIconBounceTransform}px)"
-    use:elevation={'dock-tooltip'}
-  >
-    {title}
-  </p>
+	<p
+		class="tooltip"
+		class:tooltip-enabled={!apps.is_being_dragged}
+		class:dark={preferences.theme.scheme === 'dark'}
+		style:top={preferences.reduced_motion ? '-50px' : '-35%'}
+		style:transform="translate(0, {$appOpenIconBounceTransform}px)"
+		use:elevation={'dock-tooltip'}
+	>
+		{title}
+	</p>
 
-  <span style:transform="translate(0, {$appOpenIconBounceTransform}px)">
-    <img
-      bind:this={image_el}
-      src="/app-icons/{app_id}/256.webp"
-      alt="{title} app"
-      style:width="{width_px.value / 16}rem"
-      draggable="false"
-    />
-  </span>
+	<span style:transform="translate(0, {$appOpenIconBounceTransform}px)">
+		<img
+			bind:this={image_el}
+			src="/app-icons/{app_id}/256.webp"
+			alt="{title} app"
+			style:width="{width_px.value / 16}rem"
+			draggable="false"
+		/>
+	</span>
 
-  <div class="dot" style:--opacity={+apps.open[app_id]}></div>
+	<div class="dot" style:--opacity={+apps.open[app_id]}></div>
 
-  {#if show_pwa_badge}
-    <div class="pwa-badge" style:transform="scale({width_px.value / baseWidth})">1</div>
-  {/if}
+	{#if show_pwa_badge}
+		<div class="pwa-badge" style:transform="scale({width_px.value / baseWidth})">1</div>
+	{/if}
 </button>
 
 <style>
-  img {
-    will-change: width;
-  }
+	img {
+		will-change: width;
+	}
 
-  button {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    position: relative;
+	button {
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-end;
+		position: relative;
 
-    border-radius: 0.5rem;
+		border-radius: 0.5rem;
 
-    &:hover,
-    &:focus-visible {
-      .tooltip.tooltip-enabled {
-        display: block;
-      }
-    }
+		&:hover,
+		&:focus-visible {
+			.tooltip.tooltip-enabled {
+				display: block;
+			}
+		}
 
-    & > span {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-  }
+		& > span {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+	}
 
-  .tooltip {
-    --double-border: 0 0 0 0 white;
+	.tooltip {
+		--double-border: 0 0 0 0 white;
 
-    white-space: nowrap;
+		white-space: nowrap;
 
-    position: absolute;
+		position: absolute;
 
-    background-color: hsla(var(--system-color-light-hsl), 0.5);
-    backdrop-filter: blur(5px);
+		background-color: hsla(var(--system-color-light-hsl), 0.5);
+		backdrop-filter: blur(5px);
 
-    padding: 0.5rem 0.75rem;
-    border-radius: 0.375rem;
+		padding: 0.5rem 0.75rem;
+		border-radius: 0.375rem;
 
-    box-shadow:
-      hsla(0deg, 0%, 0%, 30%) 0px 1px 5px 2px,
-      var(--double-border);
+		box-shadow:
+			hsla(0deg, 0%, 0%, 30%) 0px 1px 5px 2px,
+			var(--double-border);
 
-    color: var(--system-color-light-contrast);
-    font-family: var(--system-font-family);
-    font-weight: 400;
-    font-size: 0.9rem;
-    letter-spacing: 0.4px;
+		color: var(--system-color-light-contrast);
+		font-family: var(--system-font-family);
+		font-weight: 400;
+		font-size: 0.9rem;
+		letter-spacing: 0.4px;
 
-    display: none;
+		display: none;
 
-    &.dark {
-      --double-border: inset 0 0 0 0.9px hsla(var(--system-color-dark-hsl), 0.3),
-        0 0 0 1.2px hsla(var(--system-color-light-hsl), 0.3);
-    }
-  }
+		&.dark {
+			--double-border: inset 0 0 0 0.9px hsla(var(--system-color-dark-hsl), 0.3),
+				0 0 0 1.2px hsla(var(--system-color-light-hsl), 0.3);
+		}
+	}
 
-  .dot {
-    height: 4px;
-    width: 4px;
+	.dot {
+		height: 4px;
+		width: 4px;
 
-    margin: 0px;
+		margin: 0px;
 
-    border-radius: 50%;
+		border-radius: 50%;
 
-    background-color: var(--system-color-dark);
+		background-color: var(--system-color-dark);
 
-    opacity: var(--opacity);
-  }
-  .pwa-badge {
-    position: absolute;
-    top: 1px;
-    right: -1px;
+		opacity: var(--opacity);
+	}
+	.pwa-badge {
+		position: absolute;
+		top: 1px;
+		right: -1px;
 
-    background-color: rgba(248, 58, 58, 0.85);
+		background-color: rgba(248, 58, 58, 0.85);
 
-    box-shadow: hsla(var(--system-color-dark-hsl), 0.4) 0px 0.5px 2px;
-    border-radius: 50%;
+		box-shadow: hsla(var(--system-color-dark-hsl), 0.4) 0px 0.5px 2px;
+		border-radius: 50%;
 
-    pointer-events: none;
-    vertical-align: middle;
+		pointer-events: none;
+		vertical-align: middle;
 
-    width: 1.5rem;
-    height: 1.5rem;
+		width: 1.5rem;
+		height: 1.5rem;
 
-    margin: 0;
-    padding: 0;
+		margin: 0;
+		padding: 0;
 
-    text-align: center;
-    color: white;
+		text-align: center;
+		color: white;
 
-    font-size: 1rem;
-    line-height: 1.5;
-  }
+		font-size: 1rem;
+		line-height: 1.5;
+	}
 </style>

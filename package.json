@@ -1,40 +1,40 @@
 {
-  "name": "macos-svelte",
-  "version": "13.0.0",
-  "type": "module",
-  "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "serve": "vite preview",
-    "check": "svelte-check --tsconfig ./tsconfig.json"
-  },
-  "devDependencies": {
-    "@iconify-json/gg": "^1.1.2",
-    "@iconify-json/ic": "^1.1.9",
-    "@iconify-json/icon-park-outline": "^1.1.6",
-    "@iconify-json/iconamoon": "^1.1.4",
-    "@iconify-json/majesticons": "^1.1.11",
-    "@iconify-json/mdi": "^1.1.67",
-    "@iconify-json/pepicons": "^1.1.7",
-    "@iconify-json/ph": "^1.1.13",
-    "@iconify-json/uil": "^1.1.2",
-    "@sveltejs/vite-plugin-svelte": "3.1.1",
-    "browserslist": "^4.23.1",
-    "lightningcss": "^1.25.1",
-    "prettier-plugin-svelte": "^3.2.5",
-    "svelte": "5.0.0-next.166",
-    "svelte-check": "^3.8.4",
-    "typescript": "^5.5.2",
-    "vite": "5.3.2",
-    "vite-imagetools": "^7.0.1",
-    "vite-plugin-pwa": "^0.20.0",
-    "workbox-window": "^7.1.0"
-  },
-  "dependencies": {
-    "@fontsource/inter": "^5.0.18",
-    "@neodrag/svelte": "^2.0.6",
-    "date-fns": "^3.6.0",
-    "popmotion": "^11.0.5",
-    "unplugin-icons": "^0.19.0"
-  }
+	"name": "macos-svelte",
+	"version": "13.0.0",
+	"type": "module",
+	"scripts": {
+		"dev": "vite",
+		"build": "vite build",
+		"serve": "vite preview",
+		"check": "svelte-check --tsconfig ./tsconfig.json"
+	},
+	"devDependencies": {
+		"@iconify-json/gg": "^1.1.2",
+		"@iconify-json/ic": "^1.1.9",
+		"@iconify-json/icon-park-outline": "^1.1.6",
+		"@iconify-json/iconamoon": "^1.1.4",
+		"@iconify-json/majesticons": "^1.1.11",
+		"@iconify-json/mdi": "^1.1.67",
+		"@iconify-json/pepicons": "^1.1.7",
+		"@iconify-json/ph": "^1.1.13",
+		"@iconify-json/uil": "^1.1.2",
+		"@sveltejs/vite-plugin-svelte": "3.1.1",
+		"browserslist": "^4.23.1",
+		"lightningcss": "^1.25.1",
+		"prettier-plugin-svelte": "^3.2.5",
+		"svelte": "5.0.0-next.166",
+		"svelte-check": "^3.8.4",
+		"typescript": "^5.5.2",
+		"vite": "5.3.2",
+		"vite-imagetools": "^7.0.1",
+		"vite-plugin-pwa": "^0.20.0",
+		"workbox-window": "^7.1.0"
+	},
+	"dependencies": {
+		"@fontsource/inter": "^5.0.18",
+		"@neodrag/svelte": "^2.0.6",
+		"date-fns": "^3.6.0",
+		"popmotion": "^11.0.5",
+		"unplugin-icons": "^0.19.0"
+	}
 }

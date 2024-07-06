@@ -7,23 +7,23 @@ import { onDestroy } from 'svelte';
  * @returns Cleanup function to manually cleanup the effect.
  */
 export function auto_destroy_effect_root(fn: () => void | VoidFunction) {
-  let cleanup: VoidFunction | null = $effect.root(fn);
+	let cleanup: VoidFunction | null = $effect.root(fn);
 
-  function destroy() {
-    if (cleanup === null) {
-      return;
-    }
+	function destroy() {
+		if (cleanup === null) {
+			return;
+		}
 
-    cleanup();
-    cleanup = null;
-  }
+		cleanup();
+		cleanup = null;
+	}
 
-  try {
-    onDestroy(destroy);
-  } catch {
-    // Ignore the error. The user is responsible for manually
-    // cleaning up effects created outside Svelte components.
-  }
+	try {
+		onDestroy(destroy);
+	} catch {
+		// Ignore the error. The user is responsible for manually
+		// cleaning up effects created outside Svelte components.
+	}
 
-  return destroy;
+	return destroy;
 }

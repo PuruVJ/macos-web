@@ -1,32 +1,45 @@
 <script lang="ts">
-  export let grid: [rowStart: number, rowSpan: number];
-  export let role = 'button';
+	import type { Snippet } from 'svelte';
 
-  const [rowStart, rowSpan] = grid;
+	const {
+		grid,
+		role,
+		onclick,
+		onkeyup,
+		children,
+	}: {
+		role?: 'button' | 'link' | 'region';
+		grid: [rowStart: number, rowSpan: number];
+		children?: Snippet;
+		onclick?: (e: MouseEvent) => void;
+		onkeyup?: (e: KeyboardEvent) => void;
+	} = $props();
+
+	const [rowStart, rowSpan] = grid;
 </script>
 
 <button
-  class="container"
-  style:grid-row="{rowStart} / span {rowSpan}"
-  tabindex={role === 'button' ? 0 : -1}
-  on:click
-  on:keyup
-  {role}
+	class="container"
+	style:grid-row="{rowStart} / span {rowSpan}"
+	tabindex={role === 'button' ? 0 : -1}
+	{onclick}
+	{onkeyup}
+	{role}
 >
-  <slot />
+	{@render children?.()}
 </button>
 
 <style>
-  .container {
-    display: flex;
-    gap: 0.4rem;
-    align-items: center;
+	.container {
+		display: flex;
+		gap: 0.4rem;
+		align-items: center;
 
-    border-radius: inherit;
+		border-radius: inherit;
 
-    font-size: 0.85rem;
-    font-weight: 600;
-    color: var(--system-color-dark);
-    text-align: start;
-  }
+		font-size: 0.85rem;
+		font-weight: 600;
+		color: var(--system-color-dark);
+		text-align: start;
+	}
 </style>

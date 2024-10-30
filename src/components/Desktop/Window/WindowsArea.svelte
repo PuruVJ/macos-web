@@ -1,53 +1,56 @@
 <script lang="ts">
-  import { appsConfig } from '🍎/configs/apps/apps-config';
-  import { activeApp, activeAppZIndex, appZIndices, openApps } from '🍎/stores/apps.store';
+	import { untrack } from 'svelte';
+	import { apps_config } from '🍎/configs/apps/apps-config';
+	import { apps } from '🍎/state/apps.svelte';
 
-  $: $activeApp, ($activeAppZIndex += 2);
+	$effect(() => {
+		apps.active;
 
-  // Keeps all the app z indices under 50 so they don't go above the UI elements
-  function normalizeAppZIndices() {
-    if (!Object.values($appZIndices).some((zIndex) => zIndex > 50)) return;
+		untrack(() => (apps.active_z_index += 2));
+	});
 
-    // Get the lowest non-zero z-index
-    const lowestZIndex = Math.min(
-      ...[...new Set(Object.values($appZIndices))].filter((val) => val !== 0),
-    );
+	// Keeps all the app z indices under 50 so they don't go above the UI elements
+	$effect(() => {
+		if (!Object.values(apps.z_indices).some((z_index) => z_index > 50)) return;
 
-    $activeAppZIndex -= lowestZIndex;
+		// Get the lowest non-zero z-index
+		const lowest_z_index = Math.min(
+			...[...new Set(Object.values(apps.z_indices))].filter((val) => val !== 0),
+		);
 
-    const keys = Object.keys($appZIndices);
+		untrack(() => (apps.active_z_index -= lowest_z_index));
 
-    for (const app of keys) {
-      if ($appZIndices[app] >= lowestZIndex) {
-        $appZIndices[app] -= lowestZIndex;
-      }
-    }
-  }
+		const keys = Object.keys(apps.z_indices);
 
-  $: $appZIndices, normalizeAppZIndices();
+		for (const app of keys) {
+			if (apps.z_indices[app] >= lowest_z_index) {
+				untrack(() => (apps.z_indices[app] -= lowest_z_index));
+			}
+		}
+	});
 </script>
 
 <section id="windows-area">
-  {#each Object.keys(appsConfig) as appID}
-    {#if $openApps[appID] && appsConfig[appID].shouldOpenWindow}
-      {#await import('./Window.svelte') then { default: Window }}
-        <Window {appID} />
-      {/await}
-    {/if}
-  {/each}
+	{#each Object.keys(apps_config) as app_id}
+		{#if apps.open[app_id] && apps_config[app_id].should_open_window}
+			{#await import('./Window.svelte') then { default: Window }}
+				<Window {app_id} />
+			{/await}
+		{/if}
+	{/each}
 </section>
 
-<style lang="scss">
-  section {
-    display: block;
+<style>
+	section {
+		display: block;
 
-    // 1.7 rem is the heigh of the header
+		/* // 1.7 rem is the heigh of the header
     // 5.25 rem is the height of dock
-    // top: 1.75rem;
-    height: 100%;
+    // top: 1.75rem; */
+		height: 100%;
 
-    width: 100vw;
+		width: 100vw;
 
-    justify-self: center;
-  }
+		justify-self: center;
+	}
 </style>

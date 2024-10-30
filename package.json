@@ -1,40 +1,40 @@
 {
-  "name": "macos-svelte",
-  "version": "13.0.0",
-  "type": "module",
-  "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "serve": "vite preview",
-    "check": "svelte-check --tsconfig ./tsconfig.json"
-  },
-  "devDependencies": {
-    "@iconify-json/gg": "^1.1.2",
-    "@iconify-json/ic": "^1.1.9",
-    "@iconify-json/icon-park-outline": "^1.1.6",
-    "@iconify-json/mdi": "^1.1.33",
-    "@iconify-json/pepicons": "^1.1.7",
-    "@iconify-json/ph": "^1.1.2",
-    "@iconify-json/uil": "^1.1.2",
-    "@sveltejs/vite-plugin-svelte": "3.1.0",
-    "autoprefixer": "^10.4.12",
-    "postcss": "^8.4.18",
-    "sass": "^1.55.0",
-    "svelte": "^4.2.15",
-    "svelte-check": "^3.7.0",
-    "svelte-preprocess": "^5.1.4",
-    "typescript": "^5.4.5",
-    "vite": "5.2.10",
-    "vite-imagetools": "^7.0.1",
-    "vite-plugin-pwa": "^0.19.8",
-    "workbox-window": "^7.1.0"
-  },
-  "dependencies": {
-    "@fontsource/inter": "^5.0.18",
-    "@neodrag/svelte": "^2.0.6",
-    "date-fns": "^3.6.0",
-    "popmotion": "^11.0.5",
-    "svelte-local-storage-store": "^0.6.4",
-    "unplugin-icons": "^0.18.5"
-  }
+	"name": "macos-svelte",
+	"version": "13.0.0",
+	"type": "module",
+	"scripts": {
+		"dev": "vite",
+		"build": "vite build",
+		"serve": "vite preview",
+		"check": "svelte-check --tsconfig ./tsconfig.json"
+	},
+	"devDependencies": {
+		"@iconify-json/gg": "^1.2.1",
+		"@iconify-json/ic": "^1.2.1",
+		"@iconify-json/icon-park-outline": "^1.2.1",
+		"@iconify-json/iconamoon": "^1.2.1",
+		"@iconify-json/majesticons": "^1.2.1",
+		"@iconify-json/mdi": "^1.2.1",
+		"@iconify-json/pepicons": "^1.2.0",
+		"@iconify-json/ph": "^1.2.1",
+		"@iconify-json/uil": "^1.2.1",
+		"@sveltejs/vite-plugin-svelte": "4.0.0",
+		"browserslist": "^4.24.2",
+		"lightningcss": "^1.27.0",
+		"prettier-plugin-svelte": "^3.2.7",
+		"svelte": "5.1.4",
+		"svelte-check": "^4.0.5",
+		"typescript": "^5.6.3",
+		"vite": "5.4.10",
+		"vite-imagetools": "^7.0.4",
+		"vite-plugin-pwa": "^0.20.5",
+		"workbox-window": "^7.3.0"
+	},
+	"dependencies": {
+		"@fontsource/inter": "^5.1.0",
+		"@neodrag/svelte": "^2.0.6",
+		"date-fns": "^4.1.0",
+		"popmotion": "^11.0.5",
+		"unplugin-icons": "^0.19.3"
+	}
 }

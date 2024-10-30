@@ -1,74 +1,80 @@
 <script lang="ts">
-  import { onMount } from 'svelte';
-  import { spring } from 'svelte/motion';
-  import { waitFor } from '🍎/helpers/wait-for';
-  import type { AppID } from '🍎/stores/apps.store';
-  import { prefersReducedMotion } from '🍎/stores/prefers-motion.store';
+	import { onMount } from 'svelte';
+	import { sleep } from '🍎/helpers/sleep';
+	import type { AppID } from '🍎/state/apps.svelte.ts';
+	import { preferences } from '🍎/state/preferences.svelte.ts';
+	import { spring } from '🍎/state/spring.svelte.ts';
 
-  export let appID: AppID;
+	const { app_id }: { app_id: AppID } = $props();
 
-  const motionVal = spring(0, { damping: 0.28, stiffness: 0.1 });
+	const motion_val = spring(0, { damping: 0.28, stiffness: 0.1 });
 
-  onMount(async () => {
-    await waitFor(100);
+	onMount(async () => {
+		await sleep(100);
 
-    $motionVal = 1;
-  });
+		motion_val.value = 1;
+	});
 
-  $: imageTransform = !$prefersReducedMotion
-    ? `rotate(${180 * ($motionVal + 1)}deg) scale(${$motionVal}) translateZ(0px)`
-    : 'initial';
+	const image_transform = $derived(
+		!preferences.reduced_motion
+			? `rotate(${180 * (motion_val.value + 1)}deg) scale(${motion_val.value}) translateZ(0px)`
+			: 'initial',
+	);
 </script>
 
 <section class="container">
-  <header class="titlebar app-window-drag-handle" />
-  <section class="main-area">
-    <img style:transform={imageTransform} src="/app-icons/{appID}/256.webp" alt="Placeholder App" />
+	<header class="titlebar app-window-drag-handle"></header>
+	<section class="main-area">
+		<img
+			style:transform={image_transform}
+			src="/app-icons/{app_id}/256.webp"
+			alt="Placeholder App"
+		/>
 
-    <br />
+		<br />
 
-    <h1 style:display="flex" style:align-items="center" style:gap="0.5rem">
-      Nothing here yet <img
-        style="height: 1em; width: auto; transform: translateY(0.1em);"
-        src="/emojis/wink.png"
-        alt="Wink Emoji"
-      />
-    </h1>
-  </section>
+		<h1 style:display="flex" style:align-items="center" style:gap="0.5rem">
+			Nothing here yet <img
+				style="height: 1em; width: auto; transform: translateY(0.1em);"
+				src="/emojis/wink.png"
+				alt="Wink Emoji"
+			/>
+		</h1>
+	</section>
 </section>
 
-<style lang="scss">
-  .container {
-    background-color: var(--system-color-light);
+<style>
+	.container {
+		background-color: var(--system-color-light);
 
-    border-radius: inherit;
-  }
+		border-radius: inherit;
+	}
 
-  .titlebar {
-    padding: 1rem 1rem;
+	.titlebar {
+		padding: 1rem 1rem;
 
-    width: 100%;
+		width: 100%;
 
-    position: absolute;
-    top: 0;
-    left: 0;
-  }
+		position: absolute;
+		top: 0;
+		left: 0;
+	}
 
-  .main-area {
-    font-size: 1.618rem;
-    color: var(--system-color-light-contrast);
+	.main-area {
+		font-size: 1.618rem;
+		color: var(--system-color-light-contrast);
 
-    height: 100%;
-    width: 100%;
+		height: 100%;
+		width: 100%;
 
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+	}
 
-  img {
-    max-width: 8rem;
-    aspect-ratio: 1 / 1;
-  }
+	img {
+		max-width: 8rem;
+		aspect-ratio: 1 / 1;
+	}
 </style>

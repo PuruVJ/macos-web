@@ -1,123 +1,118 @@
 <script lang="ts">
-  import { elevation } from '🍎/actions';
-  import { wallpapersConfig } from '🍎/configs/wallpapers/wallpaper.config';
-  import { smallerClosestValue } from '🍎/helpers/smaller-closest-value';
-  import { createIntervalStore } from '🍎/stores/interval.store';
-  import { theme } from '🍎/stores/theme.store';
-  import { wallpaper } from '🍎/stores/wallpaper.store';
+	import { untrack } from 'svelte';
+	import { elevation } from '🍎/actions';
+	import { wallpapers_config } from '🍎/configs/wallpapers/wallpaper.config.ts';
+	import { smaller_closest_value } from '🍎/helpers/smaller-closest-value.ts';
+	import { create_interval } from '🍎/state/interval.svelte.ts';
+	import { preferences } from '🍎/state/preferences.svelte.ts';
 
-  let visibleBackgroundImage = wallpapersConfig.ventura.image;
+	let visible_background_image = $state(wallpapers_config.ventura.image);
 
-  const interval = createIntervalStore(5 * 1000);
+	const interval = create_interval(5 * 1000);
 
-  $: {
-    $interval;
+	$effect(() => {
+		interval.value;
 
-    if (wallpapersConfig[$wallpaper.id].type === 'standalone') {
-      $wallpaper.image = wallpapersConfig[$wallpaper.id].image;
-      break $;
-    }
+		if (wallpapers_config[preferences.wallpaper.id].type === 'standalone') {
+			untrack(
+				() => (preferences.wallpaper.image = wallpapers_config[preferences.wallpaper.id].image),
+			);
+			return;
+		}
 
-    /** Only dynamic and light/dark wallpaper logic to tackle */
-    // Now check if user really wants the change to happen.
+		/** Only dynamic and light/dark wallpaper logic to tackle */
+		// Now check if user really wants the change to happen.
 
-    handleTheme();
-    handleWallpaper();
-  }
+		untrack(handleTheme);
+		untrack(handleWallpaper);
+	});
 
-  function handleWallpaper() {
-    const date = new Date();
-    const hour = date.getHours();
+	function handleWallpaper() {
+		const date = new Date();
+		const hour = date.getHours();
 
-    const wallpaperTimestampsMap = wallpapersConfig[$wallpaper.id].timestamps.wallpaper;
-    const timestamps = Object.keys(wallpaperTimestampsMap);
+		const wallpaperTimestampsMap = wallpapers_config[preferences.wallpaper.id].timestamps.wallpaper;
+		const timestamps = Object.keys(wallpaperTimestampsMap);
 
-    const minTimestamp = Math.min(...timestamps);
-    const maxTimestamp = Math.max(...timestamps);
+		const minTimestamp = Math.min(...timestamps);
+		const maxTimestamp = Math.max(...timestamps);
 
-    if (hour > maxTimestamp || hour < minTimestamp) {
-      // Go for the min timestamp value
-      if (wallpaperTimestampsMap[maxTimestamp]) {
-        $wallpaper.image = wallpaperTimestampsMap[maxTimestamp];
-      }
+		if (hour > maxTimestamp || hour < minTimestamp) {
+			// Go for the min timestamp value
+			if (wallpaperTimestampsMap[maxTimestamp]) {
+				preferences.wallpaper.image = wallpaperTimestampsMap[maxTimestamp];
+			}
 
-      return;
-    }
+			return;
+		}
 
-    // Now set the right timestamp
-    const chosenTimeStamp = smallerClosestValue(timestamps, hour);
+		// Now set the right timestamp
+		const chosenTimeStamp = smaller_closest_value(timestamps, hour);
 
-    if (wallpaperTimestampsMap[chosenTimeStamp]) {
-      $wallpaper.image = wallpaperTimestampsMap[chosenTimeStamp];
-    }
-  }
+		if (wallpaperTimestampsMap[chosenTimeStamp]) {
+			preferences.wallpaper.image = wallpaperTimestampsMap[chosenTimeStamp];
+		}
+	}
 
-  function handleTheme() {
-    if (!$wallpaper.canControlTheme) return;
+	function handleTheme() {
+		if (!preferences.wallpaper.canControlTheme) return;
 
-    const date = new Date();
-    const hour = date.getHours();
+		const date = new Date();
+		const hour = date.getHours();
 
-    const themeTimestampsMap = wallpapersConfig[$wallpaper.id].timestamps.theme;
-    const timestamps = Object.keys(themeTimestampsMap);
+		const themeTimestampsMap = wallpapers_config[preferences.wallpaper.id].timestamps.theme;
+		const timestamps = Object.keys(themeTimestampsMap);
 
-    const minTimestamp = Math.min(...timestamps);
-    const maxTimestamp = Math.max(...timestamps);
+		const minTimestamp = Math.min(...timestamps);
+		const maxTimestamp = Math.max(...timestamps);
 
-    if (hour > maxTimestamp || hour < minTimestamp) {
-      // Go for the min timestamp value
-      $theme.scheme = 'dark';
-      return;
-    }
+		if (hour > maxTimestamp || hour < minTimestamp) {
+			// Go for the min timestamp value
+			preferences.theme.scheme = 'dark';
+			return;
+		}
 
-    // Now set the right timestamp
-    const chosenTimeStamp = smallerClosestValue(timestamps, hour);
-    $theme.scheme = themeTimestampsMap?.[chosenTimeStamp] || 'light';
-  }
+		// Now set the right timestamp
+		const chosenTimeStamp = smaller_closest_value(timestamps, hour);
+		preferences.theme.scheme = themeTimestampsMap?.[chosenTimeStamp] || 'light';
+	}
 
-  function previewImageOnLoad() {
-    visibleBackgroundImage = $wallpaper.image;
-  }
+	function previewImageOnLoad() {
+		visible_background_image = preferences.wallpaper.image;
+	}
 </script>
 
-<!-- Prefetch all wallpapers -->
-<!-- <svelte:head>
-  {#each Object.values(wallpapersConfig) as { thumbnail }}
-    <link rel="prefetch" href={thumbnail} />
-  {/each}
-</svelte:head> -->
-
 <!-- This preload and render the image for browser but invisible to user -->
-<img src={$wallpaper.image} aria-hidden="true" alt="" on:load={previewImageOnLoad} />
+<img src={preferences.wallpaper.image} aria-hidden="true" alt="" onload={previewImageOnLoad} />
 
 <div
-  class="background-cover"
-  style:background-image="url({visibleBackgroundImage})"
-  use:elevation={'wallpaper'}
-/>
+	class="background-cover"
+	style:background-image="url({visible_background_image})"
+	use:elevation={'wallpaper'}
+></div>
 
-<style lang="scss">
-  img {
-    height: 1px;
-    width: 1px;
+<style>
+	img {
+		height: 1px;
+		width: 1px;
 
-    display: none;
-  }
+		display: none;
+	}
 
-  .background-cover {
-    height: 100%;
-    width: 100%;
+	.background-cover {
+		height: 100%;
+		width: 100%;
 
-    position: fixed;
-    top: 0;
-    left: 0;
+		position: fixed;
+		top: 0;
+		left: 0;
 
-    will-change: background-image;
+		will-change: background-image;
 
-    transition: background-image 150ms ease-in;
+		transition: background-image 150ms ease-in;
 
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-  }
+		background-repeat: no-repeat;
+		background-size: cover;
+		background-position: center;
+	}
 </style>

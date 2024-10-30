@@ -1,106 +1,106 @@
 <script lang="ts">
-  import { clickOutside, elevation, focusOutside } from '🍎/actions';
-  import { activeMenu, menuBarMenus } from '🍎/stores/menubar.store';
-  import AppleIcon from '~icons/mdi/apple';
-  import Menu from './Menu.svelte';
+	import AppleIcon from '~icons/mdi/apple';
+	import { click_outside, elevation, focus_outside } from '🍎/actions';
+	import { menubar_state } from '🍎/state/menubar.svelte';
+	import Menu from './Menu.svelte';
 </script>
 
 <div
-  class="container"
-  use:clickOutside={{ callback: () => ($activeMenu = '') }}
-  use:focusOutside={{ callback: () => ($activeMenu = '') }}
+	class="container"
+	use:click_outside={() => (menubar_state.active = '')}
+	use:focus_outside={() => (menubar_state.active = '')}
 >
-  {#each Object.entries($menuBarMenus) as [menuID, menuConfig]}
-    <div>
-      <div style:height="100%">
-        <button
-          class="menu-button"
-          class:default-menu={menuID === 'default'}
-          class:apple-icon-button={menuID === 'apple'}
-          style:--scale={$activeMenu === menuID ? 1 : 0}
-          on:click={() => ($activeMenu = menuID)}
-          on:mouseover={() => $activeMenu && ($activeMenu = menuID)}
-          on:focus={() => ($activeMenu = menuID)}
-        >
-          {#if menuID === 'apple'}
-            <AppleIcon />
-          {:else}
-            {menuConfig.title}
-          {/if}
-        </button>
-      </div>
+	{#each Object.entries(menubar_state.menus) as [menuID, menuConfig]}
+		<div>
+			<div style:height="100%">
+				<button
+					class="menu-button"
+					class:default-menu={menuID === 'default'}
+					class:apple-icon-button={menuID === 'apple'}
+					style:--scale={menubar_state.active === menuID ? 1 : 0}
+					onclick={() => (menubar_state.active = menuID)}
+					onmouseover={() => menubar_state.active && (menubar_state.active = menuID)}
+					onfocus={() => (menubar_state.active = menuID)}
+				>
+					{#if menuID === 'apple'}
+						<AppleIcon />
+					{:else}
+						{menuConfig.title}
+					{/if}
+				</button>
+			</div>
 
-      <div
-        class="menu-parent"
-        style:visibility={$activeMenu === menuID ? 'visible' : 'hidden'}
-        use:elevation={'menubar-menu-parent'}
-      >
-        <Menu menu={menuConfig.menu} />
-      </div>
-    </div>
-  {/each}
+			<div
+				class="menu-parent"
+				style:visibility={menubar_state.active === menuID ? 'visible' : 'hidden'}
+				use:elevation={'menubar-menu-parent'}
+			>
+				<Menu menu={menuConfig.menu} />
+			</div>
+		</div>
+	{/each}
 </div>
 
-<style lang="scss">
-  .container {
-    height: 100%;
+<style>
+	.container {
+		height: 100%;
 
-    display: flex;
-    position: relative;
-  }
+		display: flex;
+		position: relative;
+	}
 
-  .menu-parent {
-    position: absolute;
-    margin-top: 1.5px;
-  }
+	.menu-parent {
+		position: absolute;
+		margin-top: 1.5px;
+	}
 
-  .menu-button {
-    font-weight: 500;
+	.menu-button {
+		font-weight: 500;
 
-    border-radius: 0.25rem;
+		border-radius: 0.25rem;
 
-    position: relative;
-    z-index: 1;
+		position: relative;
+		z-index: 1;
 
-    padding: 0 0.5rem;
+		padding: 0 0.5rem;
 
-    height: 100%;
+		height: 100%;
 
-    &.default-menu {
-      font-weight: 600 !important;
-      margin: 0 6px;
-    }
+		&.default-menu {
+			font-weight: 600 !important;
+			margin: 0 6px;
+		}
 
-    &::after {
-      content: '';
+		&::after {
+			content: '';
 
-      position: absolute;
-      top: 0;
-      left: 0;
-      z-index: -1;
+			position: absolute;
+			top: 0;
+			left: 0;
+			z-index: -1;
 
-      height: 100%;
-      width: 100%;
+			height: 100%;
+			width: 100%;
 
-      border-radius: inherit;
+			border-radius: inherit;
 
-      transform: scale(var(--scale), var(--scale));
-      transform-origin: center center;
+			transform: scale(var(--scale), var(--scale));
+			transform-origin: center center;
 
-      transition: transform 100ms ease;
+			transition: transform 100ms ease;
 
-      background-color: hsla(var(--system-color-dark-hsl), 0.2);
-    }
-  }
+			background-color: hsla(var(--system-color-dark-hsl), 0.2);
+		}
+	}
 
-  .apple-icon-button {
-    margin: 0 0rem 0 0.5rem;
-    padding: 0 0.7rem;
+	.apple-icon-button {
+		margin: 0 0rem 0 0.5rem;
+		padding: 0 0.7rem;
 
-    display: block;
+		display: block;
 
-    :global(svg) {
-      font-size: 1rem;
-    }
-  }
+		:global(svg) {
+			font-size: 1rem;
+		}
+	}
 </style>

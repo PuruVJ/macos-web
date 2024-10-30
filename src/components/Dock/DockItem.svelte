@@ -1,6 +1,4 @@
-<svelte:options runes={true} />
-
-<script context="module">
+<script module>
 	const baseWidth = 57.6;
 	const distanceLimit = baseWidth * 6;
 	const beyond_the_distance_limit = distanceLimit + 1;
@@ -28,12 +26,11 @@
 	import { interpolate } from 'popmotion';
 	import { onDestroy, untrack } from 'svelte';
 	import { sineInOut } from 'svelte/easing';
-	import { tweened } from 'svelte/motion';
+	import { spring, tweened } from 'svelte/motion';
 	import { elevation } from '🍎/actions';
 	import { apps_config } from '🍎/configs/apps/apps-config.ts';
 	import { apps, type AppID } from '🍎/state/apps.svelte.ts';
 	import { preferences } from '🍎/state/preferences.svelte.ts';
-	import { spring } from '🍎/state/spring.svelte.ts';
 
 	const {
 		mouse_x,
@@ -59,7 +56,7 @@
 	$effect(() => {
 		distance;
 
-		untrack(() => (width_px.value = get_width_from_distance(distance)));
+		untrack(() => ($width_px = get_width_from_distance(distance)));
 	});
 
 	let raf: number;
@@ -151,7 +148,7 @@
 			bind:this={image_el}
 			src="/app-icons/{app_id}/256.webp"
 			alt="{title} app"
-			style:width="{width_px.value / 16}rem"
+			style:width="{$width_px / 16}rem"
 			draggable="false"
 		/>
 	</span>
@@ -159,7 +156,7 @@
 	<div class="dot" style:--opacity={+apps.open[app_id]}></div>
 
 	{#if show_pwa_badge}
-		<div class="pwa-badge" style:transform="scale({width_px.value / baseWidth})">1</div>
+		<div class="pwa-badge" style:transform="scale({$width_px / baseWidth})">1</div>
 	{/if}
 </button>
 

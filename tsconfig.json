@@ -22,7 +22,7 @@
 		"paths": {
 			"🍎/*": ["./src/*"]
 		},
-		"types": ["vite-plugin-pwa/client"],
+		"types": ["vite-plugin-pwa/svelte", "unplugin-icons/types/svelte"],
 		/**
 		 * Typecheck JS in `.svelte` and `.js` files by default.
 		 * Disable checkJs if you'd like to use dynamic types in JS.

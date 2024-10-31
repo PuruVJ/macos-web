@@ -35,6 +35,6 @@
 		"@neodrag/svelte": "^2.0.6",
 		"date-fns": "^4.1.0",
 		"popmotion": "^11.0.5",
-		"unplugin-icons": "^0.19.3"
+		"unplugin-icons": "^0.20.0"
 	}
 }

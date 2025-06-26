@@ -1,5 +1,15 @@
 <script lang="ts">
-	import { draggable } from '@neodrag/svelte';
+	import {
+		bounds,
+		BoundsFrom,
+		Compartment,
+		ControlFrom,
+		controls,
+		disabled,
+		draggable,
+		events,
+		position,
+	} from '@neodrag/svelte';
 	import { onMount, untrack } from 'svelte';
 	import { sineInOut } from 'svelte/easing';
 	import { elevation } from '🍎/actions';
@@ -32,6 +42,8 @@
 		x: (document.body.clientWidth / 2 + randX) / 2,
 		y: (100 + randY) / 2,
 	};
+
+	const disabledComp = Compartment.of(() => disabled(!dragging_enabled));
 
 	$effect(() => {
 		apps.active_z_index;
@@ -117,16 +129,13 @@
 	style:z-index={apps.z_indices[app_id]}
 	tabindex="-1"
 	bind:this={windowEl}
-	use:draggable={{
-		defaultPosition,
-		handle: '.app-window-drag-handle',
-		bounds: { bottom: -6000, top: 27.2, left: -6000, right: -6000 },
-		disabled: !dragging_enabled,
-		gpuAcceleration: false,
-
-		onDragStart: onAppDragStart,
-		onDragEnd: onAppDragEnd,
-	}}
+	{@attach draggable(() => [
+		controls({ allow: ControlFrom.selector('.app-window-drag-handle') }),
+		bounds(BoundsFrom.viewport({ bottom: -6000, top: 27.2, left: -6000, right: -6000 })),
+		disabledComp,
+		position({ default: defaultPosition }),
+		events({ onDragStart: onAppDragStart, onDragEnd: onAppDragEnd }),
+	])}
 	onclick={focusApp}
 	onkeydown={() => {}}
 	out:windowCloseTransition

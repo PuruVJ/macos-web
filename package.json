@@ -21,8 +21,8 @@
 		"@sveltejs/vite-plugin-svelte": "4.0.0",
 		"browserslist": "^4.24.2",
 		"lightningcss": "^1.27.0",
-		"prettier-plugin-svelte": "^3.2.7",
-		"svelte": "5.1.4",
+		"prettier-plugin-svelte": "^3.4.0",
+		"svelte": "5.34.8",
 		"svelte-check": "^4.0.5",
 		"typescript": "^5.6.3",
 		"vite": "5.4.10",
@@ -32,7 +32,8 @@
 	},
 	"dependencies": {
 		"@fontsource/inter": "^5.1.0",
-		"@neodrag/svelte": "^2.0.6",
+		"@neodrag/core": "3.0.0-next.3",
+		"@neodrag/svelte": "3.0.0-next.3",
 		"date-fns": "^4.1.0",
 		"popmotion": "^11.0.5",
 		"unplugin-icons": "^0.19.3"

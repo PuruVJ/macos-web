@@ -1,0 +1,39 @@
+.splashScreen {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  z-index: 999999999999;
+
+  height: 100vh;
+  width: 100vw;
+  
+  cursor: none;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  animation-fill-mode: forwards;
+
+  background-color: #000;
+
+  &.hidden {
+    // animation: fade-out 200ms 1;
+    // animation-timing-function: ease-in;
+    display: none;
+  }
+}
+
+@keyframes fade-out {
+  0% {
+    opacity: 1;
+  }
+  99.9999% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+    display: none;
+    z-index: -23;
+  }
+}

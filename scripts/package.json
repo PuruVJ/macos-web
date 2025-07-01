@@ -1,0 +1,20 @@
+{
+  "name": "scripts",
+  "version": "1.0.0",
+  "description": "",
+  "main": "optimize-wallpapers.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "image-size": "^0.9.3",
+    "imagemin": "^7.0.1",
+    "imagemin-mozjpeg": "^9.0.0",
+    "ora": "^5.1.0",
+    "resize-img": "^2.0.0",
+    "rimraf": "^3.0.2"
+  }
+}

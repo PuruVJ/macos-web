@@ -1,0 +1,29 @@
+.main {
+  height: 100%;
+  width: 100%;
+
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+}
+
+.backgroundCover {
+  height: 100%;
+  width: 100%;
+
+  z-index: -1;
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  will-change: background-image;
+
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+
+  background-image: url(/assets/wallpapers/37-2.jpg);
+
+  :global(body.dark) & {
+    background-image: url(/assets/wallpapers/37-1.jpg);
+  }
+}

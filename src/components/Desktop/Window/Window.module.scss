@@ -1,0 +1,45 @@
+.container {
+  width: 100%;
+  height: 100%;
+
+  display: grid;
+  grid-template-rows: 1fr;
+
+  position: relative;
+
+  border-radius: 0.75rem;
+  box-shadow: 0 33px 81px rgba(0, 0, 0, 0.31);
+
+  cursor: var(--app-cursor-default), auto;
+
+  :global(body.dark) & > section,
+  :global(body.dark) & > div {
+    border-radius: inherit;
+    box-shadow: inset 0 0 0 0.9px hsla(var(--app-color-dark-hsl), 0.3),
+      0 0 0 1px hsla(var(--app-color-light-hsl), 0.5);
+  }
+}
+
+.titleBar {
+  height: 2.5rem;
+  width: 100%;
+
+  padding: 0 0.75rem;
+}
+
+.divider {
+  width: 100%;
+  height: 0.2px;
+
+  background-color: hsla(var(--app-color-dark-hsl), 0.2);
+}
+
+.trafficLightsContainer {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  z-index: 1;
+
+  // Necessary, as `.container` tries to apply shadow on it
+  box-shadow: none !important;
+}

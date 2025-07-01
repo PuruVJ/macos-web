@@ -1,0 +1,92 @@
+.monthView {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-template-rows: 30px repeat(6, 1fr);
+
+  flex-grow: 1;
+
+  font-size: 0.95rem;
+
+  > div {
+    padding: 0.5rem;
+    text-align: right;
+  }
+
+  .weekday,
+  .weekend {
+    border-bottom: 1.5px solid #c7c7cc;
+  }
+
+  .weekend {
+    color: #808080;
+  }
+
+  .day {
+    border: 1px solid #e6e5e6;
+    border-top: none;
+
+    display: flex;
+    justify-content: flex-end;
+
+    &:nth-child(7n) {
+      border-right: none;
+    }
+
+    &:nth-child(1n) {
+      border-left: none;
+    }
+
+    &:nth-child(n + 43) {
+      border-bottom: none;
+    }
+
+    &:nth-child(7n),
+    &:nth-child(7n-1) {
+      --bgcolor: var(--app-color-grey-100);
+      --color: var(--app-color-dark);
+
+      background-color: var(--bgcolor);
+      color: var(--color);
+
+      :global(body.dark) & {
+        --bgcolor: var(--app-color-grey-900);
+        --color: #eee;
+      }
+    }
+
+    .dateNumber {
+      --size: 1.5rem;
+
+      height: var(--size);
+      width: var(--size);
+
+      line-height: var(--size);
+      text-align: center;
+
+      border-radius: 50%;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      color: var(--app-color-grey-500);
+    }
+
+    .thisMonth {
+      color: var(--app-color-dark);
+
+      :global(body.dark) & {
+        color: var(--app-color-dark);
+      }
+    }
+
+    &.today {
+      .dateNumber {
+        color: #fff;
+        background-color: #ec4d3c;
+
+        --size: 1.7rem;
+      }
+    }
+  }
+}

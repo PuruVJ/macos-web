@@ -1,0 +1,26 @@
+.container {
+  --border-size: 0;
+
+  display: block;
+
+  width: 19.5rem;
+
+  padding: 0.75rem;
+
+  position: relative;
+
+  user-select: none;
+
+  background-color: hsla(var(--app-color-light-hsl), 0.3);
+  backdrop-filter: blur(12px);
+
+  border-radius: 1rem;
+
+  box-shadow: hsla(0, 0%, 0%, 0.3) 0px 0px 11px 0px,
+    inset 0 0 0 var(--border-size) hsla(var(--app-color-dark-hsl), 0.3),
+    0 0 0 var(--border-size) hsla(var(--app-color-light-hsl), 0.3);
+
+  :global(body.dark) & {
+    --border-size: 0.5px;
+  }
+}

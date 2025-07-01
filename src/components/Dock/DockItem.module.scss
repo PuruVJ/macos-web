@@ -1,0 +1,70 @@
+.dockItemButton {
+  height: 100%;
+  width: auto !important;
+
+  cursor: var(--app-cursor-default), auto;
+
+  transition: all 200ms ease-in;
+
+  transform-origin: bottom;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  position: relative;
+
+  & > span {
+    display: flex;
+    place-items: center;
+  }
+
+  .tooltip {
+    --double-border: 0 0 0 0 white;
+
+    white-space: nowrap;
+
+    position: absolute;
+    top: -35%;
+
+    background-color: hsla(var(--app-color-light-hsl), 0.5);
+    backdrop-filter: blur(5px);
+
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.375rem;
+
+    box-shadow: hsla(0deg, 0%, 0%, 30%) 0px 1px 5px 2px, var(--double-border);
+
+    color: var(--app-color-light-contrast);
+    font-family: var(--app-font-family);
+    font-weight: 400;
+    font-size: 0.9rem;
+    letter-spacing: 0.4px;
+
+    display: none;
+
+    :global(body.dark) & {
+      --double-border: inset 0 0 0 0.9px hsla(var(--app-color-dark-hsl), 0.3),
+        0 0 0 1.2px hsla(var(--app-color-light-hsl), 0.3);
+    }
+  }
+
+  &:hover,
+  &:focus-visible {
+    .tooltip {
+      display: block;
+    }
+  }
+}
+
+.dot {
+  height: 4px;
+  width: 4px;
+
+  margin: 0px;
+
+  border-radius: 50%;
+
+  background-color: var(--app-color-dark);
+
+  opacity: var(--opacity);
+}

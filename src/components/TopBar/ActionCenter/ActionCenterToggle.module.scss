@@ -1,0 +1,10 @@
+.menuParent {
+  z-index: 1;
+  position: absolute;
+  right: 1rem;
+  margin-top: 4.5px;
+
+  &.hidden {
+    visibility: hidden;
+  }
+}

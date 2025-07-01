@@ -1,29 +1,31 @@
 export type AppConfig = {
-	title: string;
+  title: string;
 
-	resizable?: boolean;
-	expandable?: boolean;
-	height?: string | number;
-	width?: string | number;
+  resizable?: boolean;
+  expandable?: boolean;
+  height?: string | number;
+  width?: string | number;
 
-	should_open_window?: boolean;
+  shouldOpenWindow?: boolean;
 
-	/** The action to do when dock button is clicked */
-	external_action?: (e: unknown) => void;
+  /** The action to do when dock button is clicked */
+  externalAction?: (e: unknown) => void;
 
-	/** Break before this app */
-	dock_breaks_before?: boolean;
+  /** Break before this app */
+  dockBreaksBefore?: boolean;
+
+  trafficLightsStyle?: React.CSSProperties;
 };
 
-export const create_app_config = (et: AppConfig) =>
-	({
-		should_open_window: true,
-		dock_breaks_before: false,
+export const createAppConfig = (et: AppConfig) => ({
+  shouldOpenWindow: true,
+  dockBreaksBefore: false,
 
-		resizable: true,
-		expandable: false,
+  resizable: true,
+  expandable: false,
 
-		width: 600,
-		height: 500,
-		...et,
-	}) satisfies AppConfig;
+  trafficLightsStyle: { top: '0.9rem', left: '0.9rem' } as React.CSSProperties,
+  width: 600,
+  height: 500,
+  ...et,
+});

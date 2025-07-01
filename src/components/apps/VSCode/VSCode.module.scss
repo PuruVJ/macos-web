@@ -1,0 +1,24 @@
+.container {
+  background-color: #252526;
+  padding: 1px;
+
+  border-radius: inherit;
+
+  display: grid;
+  grid-template-rows: auto 1fr;
+}
+
+.iframe {
+  width: 100%;
+  height: 100%;
+
+  border-radius: 0 0 0.75rem 0.75rem;
+
+  &.iframeDragged {
+    pointer-events: none;
+  }
+}
+
+.header {
+  padding: 0.9rem;
+}

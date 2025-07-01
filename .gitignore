@@ -1,5 +1,6 @@
-/node_modules/
-/dist/
-/.vscode/
-.DS_Store
-.idea/
+.build
+build
+web_modules
+node_modules
+dist/
+yarn.lock

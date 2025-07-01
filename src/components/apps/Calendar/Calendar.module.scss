@@ -1,0 +1,85 @@
+.container {
+  background-color: var(--app-color-light);
+
+  border-radius: inherit;
+
+  overflow: hidden;
+
+  :global(body.dark) & {
+    box-shadow: inset 0 0 0 0.9px hsla(var(--app-color-dark-hsl), 0.2),
+      0 0 0 1.5px hsla(var(--app-color-light-hsl), 0.5);
+  }
+}
+
+$title-bar-height: 2.5rem;
+
+.titleBar {
+  padding: 1rem 1rem;
+
+  width: 100%;
+  height: $title-bar-height;
+
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.mainArea {
+  color: var(--app-color-light-contrast);
+
+  margin-top: $title-bar-height;
+
+  height: calc(100% - #{$title-bar-height});
+  width: 100%;
+
+  overflow: hidden;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.calendarHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 10px;
+}
+
+.month {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.year {
+  font-size: 1.5rem;
+}
+
+.controlButtons {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+
+  button {
+    --bgcolor: hsla(var(--app-color-light-hsl), 0.5);
+
+    border-radius: 0.375rem;
+    box-shadow: hsla(var(--app-color-dark-hsl), 0.4) 0px 0.5px 2px;
+
+    background-color: var(--bgcolor);
+
+    color: var(--app-color-dark);
+    fill: var(--app-color-dark);
+    font-weight: bold;
+
+    padding: 0.2rem 0.5rem;
+    margin: 0 0.05rem;
+
+    height: 1.3rem;
+
+    :global(body.dark) & {
+      --bgcolor: var(--app-color-grey-800);
+      box-shadow: 0 0 white;
+    }
+  }
+}

@@ -1,0 +1,59 @@
+.container {
+  position: fixed;
+  margin-bottom: 0.3rem;
+  bottom: 0;
+  left: 0;
+  z-index: 9900;
+
+  width: 100%;
+  height: 5.2rem;
+
+  padding: 0.4rem;
+
+  display: flex;
+  justify-content: center;
+}
+
+.dockEl {
+  background-color: hsla(var(--app-color-light-hsl), 0.4);
+
+  box-shadow: inset 0 0 0 0.2px hsla(var(--app-color-grey-100-hsl), 0.7),
+    0 0 0 0.2px hsla(var(--app-color-grey-900-hsl), 0.7), hsla(0, 0%, 0%, 0.3) 2px 5px 19px 7px;
+
+  position: relative;
+
+  padding: 0.3rem;
+
+  border-radius: 1.2rem;
+
+  height: 100%;
+
+  display: flex;
+  align-items: flex-end;
+
+  &::before {
+    content: '';
+
+    width: 100%;
+    height: 100%;
+
+    border: inherit;
+
+    backdrop-filter: blur(10px);
+
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    z-index: -1;
+  }
+}
+
+.divider {
+  height: 100%;
+  width: 0.2px;
+
+  background-color: hsla(var(--app-color-dark-hsl), 0.3);
+
+  margin: 0 2px;
+}

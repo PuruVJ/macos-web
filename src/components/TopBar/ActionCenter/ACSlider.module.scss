@@ -1,0 +1,33 @@
+.slider {
+  --size: 1.4rem;
+  width: 100%;
+  height: var(--size);
+
+  box-shadow: 0 0 0 0.35px hsla(var(--app-color-grey-600-hsl), 0.7);
+  border-radius: 1rem;
+
+  background-color: hsla(var(--app-color-dark-hsl), 0.1);
+
+  display: flex;
+}
+
+.track {
+  height: inherit;
+
+  background-color: var(--bgcolor);
+
+  border-radius: inherit;
+}
+
+.thumb {
+  height: var(--size);
+  width: var(--size);
+
+  background-color: white;
+
+  border-radius: 50%;
+
+  box-shadow: hsla(0, 0%, 0%, 0.3) 0px 0px 3px 1px;
+
+  cursor: grab;
+}

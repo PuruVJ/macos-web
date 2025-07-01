@@ -1,0 +1,74 @@
+.header {
+  padding: 1rem;
+}
+
+.container {
+  height: 100%;
+  width: 100%;
+
+  background-color: hsla(0, 0%, 27%, 0.7);
+  backdrop-filter: blur(40px);
+
+  border-radius: inherit;
+
+  display: grid;
+  grid-template-rows: auto auto 1fr;
+
+  font-family: var(--app-font-family) !important;
+}
+
+.buttonsContainer {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+  gap: 1px;
+
+  & > button {
+    font-size: 1.618rem;
+    font-weight: 300 !important;
+    color: white;
+    fill: white;
+  }
+}
+
+.topRowButton {
+  background-color: hsla(0, 0%, 35%, 0.6);
+
+  &:active {
+    background-color: hsla(0, 0%, 54%, 0.6);
+  }
+}
+
+.numberButton {
+  background-color: hsla(0, 0%, 54%, 0.6);
+
+  &:active {
+    background-color: hsla(0, 0%, 90%, 0.6);
+  }
+}
+
+.operationButton {
+  background-color: hsla(32, 87%, 56%, 1);
+
+  &:active {
+    background-color: hsla(32, 68%, 47%, 1);
+  }
+}
+
+.curvedBottomLeftButton {
+  border-radius: 0 0 0 0.7rem;
+}
+
+.curvedBottomRightButton {
+  border-radius: 0 0 0.7rem 0;
+}
+
+.showArea {
+  min-height: 4rem;
+  font-size: 3rem;
+  color: white;
+  text-align: end;
+  font-weight: 200;
+  overflow: auto;
+  padding: 0.5rem 1rem;
+}

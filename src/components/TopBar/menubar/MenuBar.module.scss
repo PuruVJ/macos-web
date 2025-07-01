@@ -1,0 +1,57 @@
+.container {
+  height: 100%;
+
+  display: flex;
+  position: relative;
+
+  height: 100%;
+}
+
+.menuParent {
+  z-index: 1;
+  position: absolute;
+  margin-top: 1.5px;
+}
+
+.menuButton {
+  font-weight: 500;
+
+  border-radius: 0.25rem;
+
+  position: relative;
+
+  z-index: 1;
+
+  padding: 0 0.5rem;
+
+  &.defaultMenu {
+    font-weight: 600 !important;
+    margin: 0 6px;
+  }
+
+  &::after {
+    content: '';
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+
+    height: 100%;
+    width: 100%;
+
+    border-radius: inherit;
+
+    transform: scale(var(--scale), var(--scale));
+    transform-origin: center center;
+
+    transition: transform 100ms ease;
+
+    background-color: hsla(var(--app-color-grey-100-hsl), 0.3);
+  }
+}
+
+.appleIconButton {
+  margin: 0 0rem 0 0.5rem;
+  padding: 0 0.7rem;
+}

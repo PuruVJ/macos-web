@@ -1,0 +1,25 @@
+.container {
+  --border-size: 0;
+
+  display: grid;
+  grid-auto-rows: 1fr;
+  gap: 0.25rem;
+
+  position: relative;
+
+  padding: 0.5rem;
+
+  border-radius: 0.75rem;
+  box-shadow: hsla(0, 0%, 0%, 0.3) 0px 1px 4px -1px,
+    inset 0 0 0 var(--border-size) hsla(var(--app-color-dark-hsl), 0.3),
+    0 0 0 var(--border-size) hsla(var(--app-color-light-hsl), 0.3);
+
+  background-color: hsla(var(--app-color-light-hsl), 0.5);
+
+  grid-column: var(--column-start) / span var(--column-span);
+  grid-row: var(--row-start) / span var(--row-span);
+
+  :global(body.dark) & {
+    --border-size: 0.4px;
+  }
+}

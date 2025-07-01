@@ -1,37 +1,27 @@
 {
-	"compilerOptions": {
-		"moduleResolution": "Bundler",
-		"allowImportingTsExtensions": true,
-		"verbatimModuleSyntax": true,
-
-		/**
-      To have warnings/errors of the Svelte compiler at the correct position,
-      enable source maps by default.
-     */
-		"sourceMap": true,
-		"lib": ["ESNext", "DOM"],
-		"strict": false,
-		"esModuleInterop": true,
-		"noEmit": true,
-		"skipLibCheck": true,
-		"forceConsistentCasingInFileNames": true,
-		"target": "esnext",
-		"module": "esnext",
-		"resolveJsonModule": true,
-		//    "baseUrl": "./src",
-		"paths": {
-			"🍎/*": ["./src/*"]
-		},
-		"types": ["vite-plugin-pwa/client"],
-		/**
-		 * Typecheck JS in `.svelte` and `.js` files by default.
-		 * Disable checkJs if you'd like to use dynamic types in JS.
-		 * Note that setting allowJs false does not prevent the use
-		 * of JS in `.svelte` files.
-		 */
-		"allowJs": true,
-		"checkJs": true
-	},
-	"include": ["src/**/*.d.ts", "src/**/*.ts", "src/**/*.js", "src/**/*.svelte", "./*.ts"],
-	"exclude": ["node_modules/**/*"]
+  "compilerOptions": {
+    "target": "ESNext",
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "types": ["vite/client", "jest"],
+    "allowJs": false,
+    "skipLibCheck": false,
+    "esModuleInterop": false,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "noFallthroughCasesInSwitch": true,
+    "paths": {
+      "__/*": ["./src/*"]
+    },
+    "forceConsistentCasingInFileNames": true,
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "preserve",
+    "jsxFactory": "h",
+    "jsxFragmentFactory": "Fragment",
+    "plugins": [{ "name": "typescript-plugin-css-modules" }]
+  },
+  "include": ["./src"]
 }

@@ -15,12 +15,12 @@ export type Wallpaper = {
 	};
 };
 
-const optimized_wallpapers = import.meta.glob('../../assets/wallpapers/*.{webp,jpg}', {
+const optimized_wallpapers = import.meta.glob('../../assets/wallpapers/*.{webp,jpg,png}', {
 	eager: true,
 	query: { w: 3000, quality: 98, format: 'webp' },
 }) as Record<string, any>;
 
-const wallpaperThumbnails = import.meta.glob('../../assets/wallpapers/*.{webp,jpg}', {
+const wallpaperThumbnails = import.meta.glob('../../assets/wallpapers/*.{webp,jpg,png}', {
 	eager: true,
 	query: { w: 800, format: 'webp' },
 }) as Record<string, any>;
@@ -34,6 +34,7 @@ const create_wallpapers_config = <TConfig = string>(
 		const wallpaper = wallpaper_config[wallpaperName as keyof TConfig];
 		const thumbnail = config.thumbnail;
 
+		console.log(Object.entries(wallpaperThumbnails).find(([path]) => path.includes(thumbnail)));
 		wallpaper.thumbnail = (
 			Object.entries(wallpaperThumbnails).find(([path]) => path.includes(thumbnail))[1] as any
 		).default;
@@ -55,6 +56,22 @@ const create_wallpapers_config = <TConfig = string>(
 };
 
 export const wallpapers_config = create_wallpapers_config({
+	tahoe: {
+		name: 'Tahoe',
+		type: 'dynamic',
+		thumbnail: 'tahoe-2',
+		timestamps: {
+			wallpaper: {
+				7: 'tahoe-2',
+				18: 'tahoe-1',
+			},
+			theme: {
+				7: 'light',
+				18: 'dark',
+			},
+		},
+	},
+
 	ventura: {
 		name: 'Ventura',
 		type: 'dynamic',

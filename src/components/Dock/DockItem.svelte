@@ -60,6 +60,8 @@
 	});
 
 	let raf: number;
+	let is_running = false;
+
 	function animate() {
 		if (image_el && mouse_x !== null) {
 			const rect = image_el.getBoundingClientRect();
@@ -72,17 +74,44 @@
 			// and the img center x coordinate value
 			const distance_delta = mouse_x - img_center_x;
 			distance = distance_delta;
-			return;
+		} else {
+			distance = beyond_the_distance_limit;
 		}
 
-		distance = beyond_the_distance_limit;
+		// Continue the loop
+		if (is_running) {
+			raf = requestAnimationFrame(animate);
+		}
+	}
+
+	function start_animation() {
+		if (!is_running) {
+			is_running = true;
+			raf = requestAnimationFrame(animate);
+		}
+	}
+
+	function stop_animation() {
+		is_running = false;
+		if (raf) {
+			cancelAnimationFrame(raf);
+		}
 	}
 
 	$effect(() => {
-		mouse_x;
-		if (preferences.reduced_motion || apps.is_being_dragged) return;
+		// Check conditions
+		if (preferences.reduced_motion || apps.is_being_dragged) {
+			stop_animation();
+			return;
+		}
 
-		raf = requestAnimationFrame(animate);
+		// Start the animation loop
+		start_animation();
+
+		// Cleanup when effect is destroyed
+		return () => {
+			stop_animation();
+		};
 	});
 
 	const {

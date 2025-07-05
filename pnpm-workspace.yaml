@@ -1,3 +1,6 @@
 onlyBuiltDependencies:
   - esbuild
   - sharp
+
+overrides:
+  '@neodrag/core': link:../neodrag/packages/core

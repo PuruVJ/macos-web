@@ -4,6 +4,9 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+overrides:
+  '@neodrag/core': link:../neodrag/packages/core
+
 importers:
 
   .:
@@ -12,11 +15,11 @@ importers:
         specifier: ^5.1.0
         version: 5.2.6
       '@neodrag/core':
-        specifier: 3.0.0-next.3
-        version: 3.0.0-next.3
+        specifier: link:../neodrag/packages/core
+        version: link:../neodrag/packages/core
       '@neodrag/svelte':
         specifier: 3.0.0-next.3
-        version: 3.0.0-next.3(@neodrag/core@3.0.0-next.3)(svelte@5.34.8)
+        version: 3.0.0-next.3(@neodrag/core@neodrag+packages+core)(svelte@5.34.8)
       date-fns:
         specifier: ^4.1.0
         version: 4.1.0
@@ -910,9 +913,6 @@ packages:
 
   '@jridgewell/trace-mapping@0.3.25':
     resolution: {integrity: sha512-vNk6aEwybGtawWmy/PzwnGDOjCkLWSD2wqvjGGAgOAwCGWySYXfYoxt00IJkTF+8Lb57DwOb3Aa0o9CApepiYQ==}
-
-  '@neodrag/core@3.0.0-next.3':
-    resolution: {integrity: sha512-vJFojWj6SUYqdlsOY2fWXgUCJJlox9ZGN4WvqJ57L/t3XFRVtwb4j7lPHD7eYVTcDPekGf8YG6xq36ppinQ5og==}
 
   '@neodrag/svelte@3.0.0-next.3':
     resolution: {integrity: sha512-6sWtAXRwbXBRHjpuJG3iHYRspAq8S2c/5RH/Do0Ucsy3GA12hHrkTu8EUI4+vU3ABjzCN7ouUZxvtBaYgDh7/Q==}
@@ -3211,11 +3211,9 @@ snapshots:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.0
 
-  '@neodrag/core@3.0.0-next.3': {}
-
-  '@neodrag/svelte@3.0.0-next.3(@neodrag/core@3.0.0-next.3)(svelte@5.34.8)':
+  '@neodrag/svelte@3.0.0-next.3(@neodrag/core@neodrag+packages+core)(svelte@5.34.8)':
     dependencies:
-      '@neodrag/core': 3.0.0-next.3
+      '@neodrag/core': link:../neodrag/packages/core
       svelte: 5.34.8
 
   '@rollup/plugin-babel@5.3.1(@babel/core@7.27.7)(rollup@2.79.2)':

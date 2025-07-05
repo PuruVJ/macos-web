@@ -1,5 +1,6 @@
 <script>
 	import Dock from '../Dock/Dock.svelte';
+	import LiquidGlass from '../LiquidGlass.svelte';
 	import TopBar from '../TopBar/TopBar.svelte';
 	import Wallpaper from '../apps/WallpaperApp/Wallpaper.svelte';
 	import BootupScreen from './BootupScreen.svelte';
@@ -25,6 +26,7 @@
 	<main>
 		<TopBar />
 		<WindowsArea />
+
 		<Dock />
 	</main>
 

@@ -64,6 +64,9 @@ export default defineConfig({
 			'🍎': new URL('./src/', import.meta.url).pathname,
 		},
 	},
+	optimizeDeps: {
+		exclude: ['@neodrag/svelte', '@neodrag/core'],
+	},
 	build: {
 		minify: 'terser',
 		cssMinify: 'lightningcss',

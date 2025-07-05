@@ -120,10 +120,10 @@
 
 		width: 100%;
 
-		border-bottom: solid 0.9px hsla(var(--system-color-dark-hsl), 0.3);
+		border-bottom: solid 0.9px color-mix(in lch, var(--system-color-dark), transparent 70%);
 
 		span {
-			color: hsla(var(--system-color-dark-hsl), 0.8);
+			color: color-mix(in lch, var(--system-color-dark), transparent 20%);
 			font-weight: 500;
 			font-size: 0.9rem;
 			letter-spacing: 0.5px;
@@ -151,7 +151,7 @@
 		}
 
 		&::-webkit-scrollbar-thumb {
-			background-color: hsla(var(--system-color-dark-hsl), 0.8);
+			background-color: color-mix(in lch, var(--system-color-dark), transparent 20%);
 			border: 6px solid transparent;
 			border-radius: 16px;
 			background-clip: content-box;
@@ -159,7 +159,7 @@
 		}
 
 		&::-webkit-scrollbar-thumb:hover {
-			background-color: hsla(var(--system-color-dark-hsl), 1);
+			background-color: color-mix(in lch, var(--system-color-dark), transparent 0%);
 		}
 	}
 
@@ -195,7 +195,7 @@
 		}
 
 		.wallpaper-type {
-			color: hsla(var(--system-color-dark-hsl), 0.7);
+			color: color-mix(in lch, var(--system-color-dark), transparent 30%);
 			text-transform: capitalize;
 		}
 
@@ -257,7 +257,7 @@
 			&:hover,
 			&:focus-visible {
 				img {
-					box-shadow: 0 0 0 0.25rem hsla(var(--system-color-primary-hsl), 0.7);
+					box-shadow: 0 0 0 0.25rem color-mix(in lch, var(--system-color-primary), transparent 30%);
 				}
 			}
 		}

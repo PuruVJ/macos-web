@@ -6,7 +6,6 @@
 	import TransitionMaskedIcon from '~icons/mdi/transition-masked';
 	import NotchIcon from '~icons/pepicons/smartphone-notch';
 
-	import { colors } from '🍎/configs/theme/colors.config';
 	import { wallpapers_config } from '🍎/configs/wallpapers/wallpaper.config';
 	import { apps } from '🍎/state/apps.svelte.ts';
 	import { should_show_notch } from '🍎/state/menubar.svelte';
@@ -14,6 +13,7 @@
 
 	import ActionCenterSurface from './ActionCenterSurface.svelte';
 	import ActionCenterTile from './ActionCenterTile.svelte';
+	import { COLORS } from '🍎/configs/colors';
 
 	let {
 		is_theme_warning_dialog_open: _is_theme_warning_dialog_open = $bindable(),
@@ -95,15 +95,12 @@
 			<div class="color-picker">
 				<p>System Color</p>
 				<div class="color-palette">
-					{#each Object.keys(colors) as colorID}
-						{@const { contrastHsl, hsl } = colors[colorID][preferences.theme.scheme]}
-
+					{#each COLORS as color}
 						<button
-							style:--color-hsl={hsl}
-							style:--color-contrast-hsl={contrastHsl}
-							onclick={() => (preferences.theme.primaryColor = colorID)}
+							style:--color="var(--system-color-accent-color-{color})"
+							onclick={() => (preferences.theme.primaryColor = color)}
 						>
-							{#if preferences.theme.primaryColor === colorID}
+							{#if preferences.theme.primaryColor === color}
 								<CheckedIcon />
 							{/if}
 						</button>
@@ -169,14 +166,14 @@
 
 		user-select: none;
 
-		background-color: hsla(var(--system-color-light-hsl), 0.3);
+		background-color: color-mix(in lch, var(--system-color-light), transparent 70%);
 
 		border-radius: 1rem;
 
 		box-shadow:
-			hsla(0, 0%, 0%, 0.3) 0px 0px 11px 0px,
-			inset 0 0 0 var(--border-size) hsla(var(--system-color-dark-hsl), 0.3),
-			0 0 0 var(--border-size) hsla(var(--system-color-light-hsl), 0.3);
+			lch(0% 0 0 / 0.3) 0px 0px 11px 0px,
+			inset 0 0 0 var(--border-size) color-mix(in lch, var(--system-color-dark), transparent 70%),
+			0 0 0 var(--border-size) color-mix(in lch, var(--system-color-light), transparent 70%);
 
 		&.dark {
 			--border-size: 0.5px;
@@ -202,11 +199,11 @@
 	.toggle-icon {
 		--size: 1.7rem;
 
-		--bgcolor: var(--system-color-dark-hsl);
-		--bgalpha: 0.1;
+		--bgcolor: var(--system-color-dark);
+		--bgalpha: 90%;
 
-		--svgcolor: var(--system-color-light-contrast-hsl);
-		--svgalpha: 0.9;
+		--svgcolor: var(--system-color-light-contrast);
+		--svgalpha: 10%;
 
 		height: var(--size) !important;
 		width: var(--size);
@@ -219,26 +216,26 @@
 
 		border-radius: 50%;
 
-		background-color: hsla(var(--bgcolor), var(--bgalpha));
+		background-color: color-mix(in lch, var(--bgcolor), transparent var(--bgalpha));
 
 		transition:
 			box-shadow 100ms ease,
 			background-color 150ms ease;
 
 		:global(svg) {
-			color: hsla(var(--svgcolor), var(--svgalpha));
+			color: color-mix(in lch, var(--svgcolor), transparent var(--svgalpha));
 		}
 
 		&:focus-visible {
-			box-shadow: 0 0 0 0.25rem hsla(var(--bgcolor), 0.4);
+			box-shadow: 0 0 0 0.25rem color-mix(in lch, var(--bgcolor), transparent 60%);
 		}
 
 		&.filled {
-			--bgcolor: var(--system-color-primary-hsl);
-			--bgalpha: 1;
+			--bgcolor: var(--system-color-primary);
+			--bgalpha: 0%;
 
-			--svgcolor: var(--system-color-primary-contrast-hsl);
-			--svgalpha: 1;
+			--svgcolor: var(--system-color-primary-contrast);
+			--svgalpha: 0%;
 		}
 	}
 
@@ -297,17 +294,17 @@
 				height: 1.4rem;
 				width: 1.4rem;
 
-				color: hsl(var(--color-contrast-hsl));
+				color: var(--system-color-grey-100);
 
 				border-radius: 50%;
 
-				background-color: hsl(var(--color-hsl));
+				background-color: var(--color);
 
 				transition: box-shadow 200ms ease-in;
 
 				&:hover,
 				&:focus-visible {
-					box-shadow: 0 0 0 0.2rem hsla(var(--color-hsl), 0.25);
+					box-shadow: 0 0 0 0.2rem color-mix(in lch, var(--color), transparent 75%);
 				}
 			}
 		}

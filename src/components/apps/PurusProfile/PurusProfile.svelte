@@ -64,7 +64,7 @@
 
 <style>
 	.container {
-		--color: var(--system-color-light-hsl);
+		--color: var(--system-color-light);
 
 		display: grid;
 		grid-template-columns: 12rem 1fr;
@@ -74,8 +74,8 @@
 
 		background-image: linear-gradient(
 			to right,
-			hsla(var(--color), 0.7) 12rem,
-			hsla(var(--color), 1) 12rem 100%
+			color-mix(in lch, var(--color), transparent 30%) 12rem,
+			var(--color) 12rem 100%
 		);
 
 		transition: --color 200ms ease-in;
@@ -101,7 +101,7 @@
 		user-select: none;
 
 		span {
-			color: hsla(var(--system-color-dark-hsl), 0.8);
+			color: color-mix(in lch, var(--system-color-dark), transparent 20%);
 			font-weight: 500;
 			font-size: 0.9rem;
 			letter-spacing: 0.5px;
@@ -160,7 +160,7 @@
 				width: 100%;
 				height: 1px;
 
-				background-color: hsla(var(--system-color-dark-hsl), 0.2);
+				background-color: color-mix(in lch, var(--system-color-dark), transparent 80%);
 
 				border: none;
 			}
@@ -170,7 +170,7 @@
 				gap: 0.4rem;
 				align-items: center;
 
-				color: hsla(var(--system-color-dark-hsl), 0.9);
+				color: color-mix(in lch, var(--system-color-dark), transparent 10%);
 				text-decoration: none;
 				font-weight: 400;
 
@@ -181,7 +181,7 @@
 				transition: background-color 100ms ease;
 
 				&:hover {
-					background-color: hsla(var(--system-color-dark-hsl), 0.2);
+					background-color: color-mix(in lch, var(--system-color-dark), transparent 80%);
 				}
 			}
 		}

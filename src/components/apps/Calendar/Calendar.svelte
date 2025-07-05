@@ -67,8 +67,8 @@
 
 		&.dark {
 			box-shadow:
-				inset 0 0 0 0.9px hsla(var(--system-color-dark-hsl), 0.2),
-				0 0 0 1.5px hsla(var(--system-color-light-hsl), 0.5);
+				inset 0 0 0 0.9px color-mix(in lch, var(--system-color-dark), transparent 80%),
+				0 0 0 1.5px color-mix(in lch, var(--system-color-light), transparent 50%);
 		}
 	}
 
@@ -120,10 +120,10 @@
 		justify-content: center;
 
 		button {
-			--bgcolor: hsla(var(--system-color-light-hsl), 0.5);
+			--bgcolor: color-mix(in lch, var(--system-color-light), transparent 50%);
 
 			border-radius: 0.375rem;
-			box-shadow: hsla(var(--system-color-dark-hsl), 0.4) 0px 0.5px 2px;
+			box-shadow: color-mix(in lch, var(--system-color-dark), transparent 60%) 0px 0.5px 2px;
 
 			background-color: var(--bgcolor);
 

@@ -87,7 +87,7 @@
 
 		padding: 1rem;
 
-		background: hsla(var(--system-color-light-hsl), 0.6);
+		background: color-mix(in lch, var(--system-color-light), transparent 40%);
 		backdrop-filter: blur(20px);
 
 		will-change: transform;
@@ -99,8 +99,8 @@
 			/* // border-radius: inherit; */
 			box-shadow:
 				var(--elevation),
-				inset 0 0 0 0.9px hsla(var(--system-color-dark-hsl), 0.3),
-				0 0 0 1px hsla(var(--system-color-light-hsl), 0.5);
+				inset 0 0 0 0.9px color-mix(in lch, var(--system-color-dark), transparent 70%),
+				0 0 0 1px color-mix(in lch, var(--system-color-light), transparent 50%);
 		}
 	}
 </style>

@@ -223,7 +223,7 @@
 
 		position: absolute;
 
-		background-color: hsla(var(--system-color-light-hsl), 0.5);
+		background-color: color-mix(in lch, var(--system-color-light), transparent 50%);
 		backdrop-filter: blur(5px);
 
 		padding: 0.5rem 0.75rem;
@@ -242,8 +242,9 @@
 		display: none;
 
 		&.dark {
-			--double-border: inset 0 0 0 0.9px hsla(var(--system-color-dark-hsl), 0.3),
-				0 0 0 1.2px hsla(var(--system-color-light-hsl), 0.3);
+			--double-border: inset 0 0 0 0.9px
+					color-mix(in lch, var(--system-color-dark), transparent 70%),
+				0 0 0 1.2px color-mix(in lch, var(--system-color-light), transparent 70%);
 		}
 	}
 
@@ -266,7 +267,7 @@
 
 		background-color: rgba(248, 58, 58, 0.85);
 
-		box-shadow: hsla(var(--system-color-dark-hsl), 0.4) 0px 0.5px 2px;
+		box-shadow: color-mix(in lch, var(--system-color-dark), transparent 60%) 0px 0.5px 2px;
 		border-radius: 50%;
 
 		pointer-events: none;

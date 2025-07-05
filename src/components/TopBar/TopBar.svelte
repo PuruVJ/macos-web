@@ -37,8 +37,6 @@
 		width: 100%;
 		height: 1.8rem;
 
-		background-color: hsla(var(--system-color-light-hsl), 0.3);
-
 		color: var(--system-color-light-contrast);
 		fill: var(--system-color-light-contrast);
 
@@ -104,20 +102,6 @@
 			right: -16px;
 			box-shadow: -8px -8px #222;
 		}
-	}
-
-	header::before {
-		content: '';
-
-		width: inherit;
-		height: inherit;
-
-		position: fixed;
-		left: 0;
-		top: 0;
-
-		z-index: 0;
-		backdrop-filter: blur(12px);
 	}
 
 	.emoji {

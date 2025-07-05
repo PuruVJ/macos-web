@@ -117,10 +117,10 @@
 
 				border-radius: 0.5rem;
 
-				background-color: hsla(var(--system-color-dark-hsl), 0.2);
+				background-color: color-mix(in lch, var(--system-color-dark), transparent 80%);
 
 				&:hover {
-					background-color: hsla(var(--system-color-dark-hsl), 0.3);
+					background-color: color-mix(in lch, var(--system-color-dark), transparent 70%);
 				}
 
 				&.confirm {
@@ -129,7 +129,7 @@
 					color: var(--system-color-primary-contrast);
 
 					&:hover {
-						background-color: hsla(var(--system-color-primary-hsl), 0.8);
+						background-color: color-mix(in lch, var(--system-color-primary), transparent 20%);
 					}
 				}
 			}

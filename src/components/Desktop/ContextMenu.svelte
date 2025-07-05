@@ -73,7 +73,7 @@
 		-webkit-font-smoothing: antialiased;
 		user-select: none;
 
-		background-color: hsla(var(--system-color-light-hsl), 0.3);
+		background-color: color-mix(in lch, var(--system-color-light), transparent 70%);
 
 		border-radius: 0.5rem;
 
@@ -82,8 +82,9 @@
 			var(--additional-shadow);
 
 		&.dark {
-			--additional-shadow: inset 0 0 0 0.9px hsla(var(--system-color-dark-hsl), 0.3),
-				0 0 0 1.2px hsla(var(--system-color-light-hsl), 0.3);
+			--additional-shadow: inset 0 0 0 0.9px
+					color-mix(in lch, var(--system-color-dark), transparent 70%),
+				0 0 0 1.2px color-mix(in lch, var(--system-color-light), transparent 70%);
 
 			&::before {
 				transform: scale(0.99);
@@ -114,7 +115,7 @@
 	}
 
 	.menu-item {
-		--alpha: 1;
+		--alpha: 0%;
 
 		display: flex;
 		justify-content: flex-start;
@@ -133,7 +134,7 @@
 		backface-visibility: hidden;
 		transition: none;
 
-		color: hsla(var(--system-color-dark-hsl), var(--alpha));
+		color: var(--system-color-dark);
 
 		&:hover,
 		&:focus-visible {
@@ -146,7 +147,7 @@
 		width: 100%;
 		height: 0.2px;
 
-		background-color: hsla(var(--system-color-dark-hsl), 0.2);
+		background-color: color-mix(in lch, var(--system-color-dark), transparent 80%);
 
 		margin: 2px 0;
 	}

@@ -6,7 +6,7 @@
 	import { create_interval } from '🍎/state/interval.svelte.ts';
 	import { preferences } from '🍎/state/preferences.svelte.ts';
 
-	let visible_background_image = $state(wallpapers_config.ventura.image);
+	let visible_background_image = $state(wallpapers_config.tahoe.image);
 
 	const interval = create_interval(5 * 1000);
 

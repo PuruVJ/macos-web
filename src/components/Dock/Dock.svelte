@@ -1,7 +1,5 @@
-<svelte:options runes={true} />
-
 <script lang="ts">
-	import { elevation } from '🍎/actions';
+	import { elevation } from '🍎/attachments';
 	import { apps_config } from '🍎/configs/apps/apps-config';
 	import { apps } from '🍎/state/apps.svelte';
 	import { system_needs_update } from '🍎/state/system.svelte';
@@ -50,7 +48,7 @@
 	class="dock-container"
 	class:dock-hidden={is_dock_hidden.value}
 	bind:this={dockContainerEl}
-	use:elevation={'dock'}
+	{@attach elevation('dock')}
 >
 	<!-- svelte-ignore a11y_no_static_element_interactions -->
 	<div

@@ -6,10 +6,10 @@
 	import GithubIcon from '~icons/mdi/github';
 	import DevToIcon from '~icons/mdi/dev-to';
 
-	function external(node: HTMLAnchorElement) {
-		node.rel = 'noopener noreferrer';
-		node.target = '_blank';
-	}
+	const external = {
+		rel: 'noopener noreferrer',
+		target: '_blank',
+	};
 </script>
 
 <section class="container">
@@ -19,17 +19,17 @@
 
 	<aside class:light={preferences.theme.scheme === 'light'}>
 		<nav>
-			<a href="https://www.puruvj.dev/blog" use:external> <BlogIcon /> Blog </a>
-			<a href="https://www.puruvj.dev/works" use:external> <WorksIcon /> Works </a>
+			<a href="https://www.puruvj.dev/blog" {...external}> <BlogIcon /> Blog </a>
+			<a href="https://www.puruvj.dev/works" {...external}> <WorksIcon /> Works </a>
 
 			<hr />
 
-			<a href="https://www.puruvj.dev/twitter" use:external>
+			<a href="https://www.puruvj.dev/twitter" {...external}>
 				<TwitterIcon />
 				Twitter
 			</a>
-			<a href="https://www.puruvj.dev/github" use:external> <GithubIcon /> Github </a>
-			<a href="https://www.puruvj.dev/devto" use:external> <DevToIcon /> Dev.to </a>
+			<a href="https://www.puruvj.dev/github" {...external}> <GithubIcon /> Github </a>
+			<a href="https://www.puruvj.dev/devto" {...external}> <DevToIcon /> Dev.to </a>
 		</nav>
 	</aside>
 

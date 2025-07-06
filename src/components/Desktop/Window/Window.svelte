@@ -12,7 +12,7 @@
 	} from '@neodrag/svelte';
 	import { onMount, untrack } from 'svelte';
 	import { sineInOut } from 'svelte/easing';
-	import { elevation } from '🍎/actions';
+	import { elevation } from '🍎/attachments';
 	import { apps_config } from '🍎/configs/apps/apps-config.ts';
 	import { rand_int } from '🍎/helpers/random.ts';
 	import { sleep } from '🍎/helpers/sleep';
@@ -140,7 +140,7 @@
 	onkeydown={() => {}}
 	out:windowCloseTransition
 >
-	<div class="tl-container {app_id}" use:elevation={'window-traffic-lights'}>
+	<div class="tl-container {app_id}" {@attach elevation('window-traffic-lights')}>
 		<TrafficLights {app_id} on_maximize_click={maximizeApp} on_close_app={closeApp} />
 	</div>
 

@@ -27,7 +27,7 @@
 	import { onDestroy, untrack } from 'svelte';
 	import { sineInOut } from 'svelte/easing';
 	import { spring, tweened } from 'svelte/motion';
-	import { elevation } from '🍎/actions';
+	import { elevation } from '🍎/attachments';
 	import { apps_config } from '🍎/configs/apps/apps-config.ts';
 	import { apps, type AppID } from '🍎/state/apps.svelte.ts';
 	import { preferences } from '🍎/state/preferences.svelte.ts';
@@ -167,7 +167,7 @@
 		class:dark={preferences.theme.scheme === 'dark'}
 		style:top={preferences.reduced_motion ? '-50px' : '-35%'}
 		style:transform="translate(0, {$appOpenIconBounceTransform}px)"
-		use:elevation={'dock-tooltip'}
+		{@attach elevation('dock-tooltip')}
 	>
 		{title}
 	</p>

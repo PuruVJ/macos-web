@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { elevation } from '🍎/actions';
+	import { elevation } from '🍎/attachments';
 	import { context_menu_config } from '🍎/configs/menu/context.menu.config.ts';
 	import { fade_out } from '🍎/helpers/fade.ts';
 	import { preferences } from '🍎/state/preferences.svelte.ts';
@@ -45,7 +45,7 @@
 		class:dark={preferences.theme.scheme === 'dark'}
 		style:transform="translate({x_pos}px, {y_pos}px)"
 		out:fade_out
-		use:elevation={'context-menu'}
+		{@attach elevation('context-menu')}
 	>
 		{#each Object.values(context_menu_config.default) as contents}
 			<button class="menu-item">{contents.title}</button>

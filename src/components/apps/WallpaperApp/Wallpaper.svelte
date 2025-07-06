@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { untrack } from 'svelte';
-	import { elevation } from '🍎/actions';
+	import { elevation } from '🍎/attachments';
 	import { wallpapers_config } from '🍎/configs/wallpapers/wallpaper.config.ts';
 	import { smaller_closest_value } from '🍎/helpers/smaller-closest-value.ts';
 	import { create_interval } from '🍎/state/interval.svelte.ts';
@@ -88,7 +88,7 @@
 <div
 	class="background-cover"
 	style:background-image="url({visible_background_image})"
-	use:elevation={'wallpaper'}
+	{@attach elevation('wallpaper')}
 ></div>
 
 <style>

@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { Snippet } from 'svelte';
 	import { sineInOut } from 'svelte/easing';
-	import { click_outside, elevation, portal, trapFocus } from '🍎/actions';
+	import { click_outside, elevation, portal, trap_focus } from '🍎/attachments';
 	import { fade_out } from '🍎/helpers/fade.ts';
 	import { preferences } from '🍎/state/preferences.svelte.ts';
 
@@ -45,7 +45,7 @@
 </script>
 
 {#if is_open}
-	<section class="overlay" use:portal={'#windows-area'} use:elevation={'system-dialog'}>
+	<section class="overlay" {@attach portal('#windows-area')} {@attach elevation('system-dialog')}>
 		<!-- svelte-ignore a11y_click_events_have_key_events -->
 		<!-- svelte-ignore a11y_no_noninteractive_tabindex -->
 		<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
@@ -58,8 +58,8 @@
 			aria-describedby="info-description"
 			in:dialog_open_transition
 			out:fade_out
-			use:trapFocus
-			use:click_outside={() => backdrop_dismiss && close()}
+			{@attach trap_focus}
+			{@attach click_outside(() => backdrop_dismiss && close())}
 			onclick={(e) => e.stopPropagation()}
 		>
 			{@render children?.()}

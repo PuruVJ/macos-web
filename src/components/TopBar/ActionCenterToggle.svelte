@@ -2,7 +2,7 @@
 	import { untrack } from 'svelte';
 	import { sineIn } from 'svelte/easing';
 	import { fade } from 'svelte/transition';
-	import { click_outside, elevation, focus_outside } from '🍎/actions';
+	import { click_outside, elevation, focus_outside } from '🍎/attachments';
 	import { fade_out } from '🍎/helpers/fade.ts';
 	import { apps } from '🍎/state/apps.svelte.ts';
 	import SwitchSvg from '../SVG/SwitchSVG.svelte';
@@ -30,7 +30,7 @@
 	}
 </script>
 
-<div class="container" use:click_outside={hide} use:focus_outside={hide}>
+<div class="container" {@attach click_outside(hide)} {@attach focus_outside(hide)}>
 	<button style:--scale={visible ? 1 : 0} onclick={show} onfocus={show}>
 		<SwitchSvg />
 	</button>
@@ -40,7 +40,7 @@
 			in:fade={{ easing: sineIn, duration: 150 }}
 			out:fade_out
 			class="menu-parent"
-			use:elevation={'menubar-menu-parent'}
+			{@attach elevation('menubar-menu-parent')}
 		>
 			<ActionCenter bind:is_theme_warning_dialog_open />
 		</div>

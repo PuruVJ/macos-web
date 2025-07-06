@@ -1,14 +1,14 @@
 <script lang="ts">
 	import AppleIcon from '~icons/mdi/apple';
-	import { click_outside, elevation, focus_outside } from '🍎/actions';
+	import { click_outside, elevation, focus_outside } from '🍎/attachments';
 	import { menubar_state } from '🍎/state/menubar.svelte';
 	import Menu from './Menu.svelte';
 </script>
 
 <div
 	class="container"
-	use:click_outside={() => (menubar_state.active = '')}
-	use:focus_outside={() => (menubar_state.active = '')}
+	{@attach click_outside(() => (menubar_state.active = ''))}
+	{@attach focus_outside(() => (menubar_state.active = ''))}
 >
 	{#each Object.entries(menubar_state.menus) as [menuID, menuConfig]}
 		<div>
@@ -33,7 +33,7 @@
 			<div
 				class="menu-parent"
 				style:visibility={menubar_state.active === menuID ? 'visible' : 'hidden'}
-				use:elevation={'menubar-menu-parent'}
+				{@attach elevation('menubar-menu-parent')}
 			>
 				<Menu menu={menuConfig.menu} />
 			</div>

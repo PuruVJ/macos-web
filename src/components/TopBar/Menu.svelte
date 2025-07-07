@@ -1,10 +1,10 @@
 <script lang="ts">
-	import { preferences } from '🍎/state/preferences.svelte.ts';
+	import { theme } from '🍎/state/preferences.svelte.ts';
 
 	const { menu }: { menu: any } = $props();
 </script>
 
-<section class="container" class:dark={preferences.theme.scheme === 'dark'}>
+<section class="container" class:dark={theme.scheme === 'dark'}>
 	{#each Object.entries(menu) as Array<[any, any]> as [_, val]}
 		<button class="menu-item" disabled={val.disabled}>{val.title}</button>
 		{#if val.breakAfter}
@@ -42,7 +42,7 @@
 	}
 
 	.menu-item {
-		--alpha: 0%;
+		--alpha: 100%;
 
 		display: flex;
 		justify-content: flex-start;
@@ -60,7 +60,7 @@
 
 		transition: none;
 
-		color: color-mix(in lch, var(--system-color-dark), transparent var(--alpha));
+		color: lch(from var(--system-color-dark) l c h / var(--alpha));
 
 		&:disabled {
 			--alpha: 50%;
@@ -69,8 +69,8 @@
 		&:not(:disabled) {
 			&:hover,
 			&:focus-visible {
-				background-color: var(--system-color-primary);
-				color: white;
+				--alpha: 100%;
+				background-color: var(--system-accent-menubar);
 				/* color: var(--system-color-primary-contrast); */
 				/* font-weight: 500 !important; */
 			}

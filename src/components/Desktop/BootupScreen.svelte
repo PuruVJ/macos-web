@@ -1,17 +1,17 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { quintInOut } from 'svelte/easing';
-	import { tweened } from 'svelte/motion';
+	import { Tween } from 'svelte/motion';
 	import AppleIcon from '~icons/mdi/apple';
 	import { elevation } from '🍎/attachments';
 	import { fade_out } from '🍎/helpers/fade.ts';
 	import { sleep } from '🍎/helpers/sleep';
 
 	let hidden_splash_screen = $state(false);
-	let progress_val = tweened(100, { duration: 3000, easing: quintInOut });
+	let progress_val = new Tween(100, { duration: 3000, easing: quintInOut });
 
 	onMount(async () => {
-		$progress_val = 0;
+		progress_val.target = 0;
 		await sleep(3000);
 		hidden_splash_screen = true;
 	});
@@ -24,12 +24,12 @@
 		<div
 			class="progress"
 			role="progressbar"
-			aria-valuenow={100 - $progress_val}
+			aria-valuenow={100 - progress_val.current}
 			aria-valuemin={0}
 			aria-valuemax={100}
 			aria-valuetext="Loading up macOS Web"
 		>
-			<div class="indicator" style:translate="-{$progress_val}% 0"></div>
+			<div class="indicator" style:translate="-{progress_val.current}% 0"></div>
 		</div>
 	</div>
 {/if}

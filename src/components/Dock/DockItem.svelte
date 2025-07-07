@@ -26,11 +26,11 @@
 	import { interpolate } from 'popmotion';
 	import { onDestroy, untrack } from 'svelte';
 	import { sineInOut } from 'svelte/easing';
-	import { spring, tweened } from 'svelte/motion';
+	import { Spring, Tween } from 'svelte/motion';
 	import { elevation } from '🍎/attachments';
 	import { apps_config } from '🍎/configs/apps/apps-config.ts';
 	import { apps, type AppID } from '🍎/state/apps.svelte.ts';
-	import { preferences } from '🍎/state/preferences.svelte.ts';
+	import { reduced_motion, theme } from '🍎/state/preferences.svelte.ts';
 
 	const {
 		mouse_x,
@@ -46,7 +46,7 @@
 
 	let distance = $state(beyond_the_distance_limit);
 
-	const width_px = spring(baseWidth, {
+	const width_px = new Spring(baseWidth, {
 		damping: 0.47,
 		stiffness: 0.12,
 	});
@@ -100,7 +100,7 @@
 
 	$effect(() => {
 		// Check conditions
-		if (preferences.reduced_motion || apps.is_being_dragged) {
+		if (reduced_motion.current || apps.is_being_dragged) {
 			stop_animation();
 			return;
 		}
@@ -121,7 +121,7 @@
 	} = apps_config[app_id];
 
 	// Spring animation for the click animation
-	const appOpenIconBounceTransform = tweened(0, {
+	const appOpenIconBounceTransform = new Tween(0, {
 		duration: 400,
 		easing: sineInOut,
 	});
@@ -164,20 +164,20 @@
 	<p
 		class="tooltip"
 		class:tooltip-enabled={!apps.is_being_dragged}
-		class:dark={preferences.theme.scheme === 'dark'}
-		style:top={preferences.reduced_motion ? '-50px' : '-35%'}
-		style:transform="translate(0, {$appOpenIconBounceTransform}px)"
+		class:dark={theme.scheme === 'dark'}
+		style:top={reduced_motion.current ? '-50px' : '-35%'}
+		style:transform="translate(0, {appOpenIconBounceTransform.current}px)"
 		{@attach elevation('dock-tooltip')}
 	>
 		{title}
 	</p>
 
-	<span style:transform="translate(0, {$appOpenIconBounceTransform}px)">
+	<span style:transform="translate(0, {appOpenIconBounceTransform.current}px)">
 		<img
 			bind:this={image_el}
 			src="/app-icons/{app_id}/256.webp"
 			alt="{title} app"
-			style:width="{$width_px / 16}rem"
+			style:width="{width_px.current / 16}rem"
 			draggable="false"
 		/>
 	</span>

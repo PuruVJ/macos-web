@@ -26,6 +26,9 @@ importers:
       unplugin-icons:
         specifier: ^0.19.3
         version: 0.19.3
+      valibot:
+        specifier: ^1.1.0
+        version: 1.1.0(typescript@5.8.3)
     devDependencies:
       '@iconify-json/gg':
         specifier: ^1.2.1
@@ -2171,6 +2174,14 @@ packages:
     hasBin: true
     peerDependencies:
       browserslist: '>= 4.21.0'
+
+  valibot@1.1.0:
+    resolution: {integrity: sha512-Nk8lX30Qhu+9txPYTwM0cFlWLdPFsFr6LblzqIySfbZph9+BFsAHsNvHOymEviUepeIW6KFHzpX8TKhbptBXXw==}
+    peerDependencies:
+      typescript: '>=5'
+    peerDependenciesMeta:
+      typescript:
+        optional: true
 
   vite-imagetools@7.1.0:
     resolution: {integrity: sha512-Mqh1uUY2DEMuBOogFz5Rd7cAs70VP6wsdQh2IShrJ+qGk5f7yQa4pN8w0YMLlGIKYW1JfM8oXrznUwVkhG+qxg==}
@@ -4589,6 +4600,10 @@ snapshots:
       browserslist: 4.25.1
       escalade: 3.2.0
       picocolors: 1.1.1
+
+  valibot@1.1.0(typescript@5.8.3):
+    optionalDependencies:
+      typescript: 5.8.3
 
   vite-imagetools@7.1.0(rollup@2.79.2):
     dependencies:

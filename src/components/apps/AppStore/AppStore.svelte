@@ -2,7 +2,7 @@
 	import { onMount } from 'svelte';
 	import { sleep } from '🍎/helpers/sleep';
 	import type { AppID } from '🍎/state/apps.svelte.ts';
-	import { preferences } from '🍎/state/preferences.svelte.ts';
+	import { reduced_motion } from '🍎/state/preferences.svelte.ts';
 	import { spring } from '🍎/state/spring.svelte.ts';
 
 	const { app_id }: { app_id: AppID } = $props();
@@ -16,7 +16,7 @@
 	});
 
 	const image_transform = $derived(
-		!preferences.reduced_motion
+		!reduced_motion.current
 			? `rotate(${180 * (motion_val.value + 1)}deg) scale(${motion_val.value}) translateZ(0px)`
 			: 'initial',
 	);
@@ -45,7 +45,7 @@
 
 <style>
 	.container {
-		background-color: var(--system-color-light);
+		background-color: var(--system-color-window-background);
 
 		border-radius: inherit;
 	}

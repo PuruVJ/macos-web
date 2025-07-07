@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { preferences } from '🍎/state/preferences.svelte.ts';
+	import { theme } from '🍎/state/preferences.svelte.ts';
 	import TwitterIcon from '~icons/mdi/twitter';
 	import BlogIcon from '~icons/mdi/grease-pencil';
 	import WorksIcon from '~icons/ic/round-workspaces';
@@ -17,7 +17,7 @@
 		<span>About the Developer</span>
 	</header>
 
-	<aside class:light={preferences.theme.scheme === 'light'}>
+	<aside class:light={theme.scheme === 'light'}>
 		<nav>
 			<a href="https://www.puruvj.dev/blog" {...external}> <BlogIcon /> Blog </a>
 			<a href="https://www.puruvj.dev/works" {...external}> <WorksIcon /> Works </a>

@@ -124,12 +124,12 @@
 				}
 
 				&.confirm {
-					background-color: var(--system-color-primary);
+					background-color: var(--system-accent);
 
 					color: var(--system-color-primary-contrast);
 
 					&:hover {
-						background-color: color-mix(in lch, var(--system-color-primary), transparent 20%);
+						background-color: color-mix(in lch, var(--system-accent), transparent 20%);
 					}
 				}
 			}

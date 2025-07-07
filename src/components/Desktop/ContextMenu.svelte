@@ -2,7 +2,7 @@
 	import { elevation } from '🍎/attachments';
 	import { context_menu_config } from '🍎/configs/menu/context.menu.config.ts';
 	import { fade_out } from '🍎/helpers/fade.ts';
-	import { preferences } from '🍎/state/preferences.svelte.ts';
+	import { theme } from '🍎/state/preferences.svelte.ts';
 
 	const { target_element }: { target_element: HTMLElement } = $props();
 
@@ -42,7 +42,7 @@
 {#if is_menu_visible}
 	<div
 		class="container"
-		class:dark={preferences.theme.scheme === 'dark'}
+		class:dark={theme.scheme === 'dark'}
 		style:transform="translate({x_pos}px, {y_pos}px)"
 		out:fade_out
 		{@attach elevation('context-menu')}
@@ -138,8 +138,8 @@
 
 		&:hover,
 		&:focus-visible {
-			background-color: var(--system-color-primary);
-			color: var(--system-color-primary-contrast);
+			background-color: var(--system-accent);
+			color: var(--system-accent-contrast);
 		}
 	}
 

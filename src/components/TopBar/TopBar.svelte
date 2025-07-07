@@ -14,7 +14,7 @@
 
 	<span style:flex="1 1 auto"></span>
 
-	{#if should_show_notch.value}
+	{#if should_show_notch.current}
 		<div class="notch" in:fade={{ duration: 150, easing: sineIn }} out:fade_out>
 			<span> <img src="/emojis/wink.png" alt="Wink emoji" class="emoji" /> </span>
 		</div>

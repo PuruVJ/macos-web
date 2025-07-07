@@ -1,29 +1,117 @@
 body,
 body[data-theme='light'] {
-	/* // Primary */
-	--system-color-primary: lch(53.37% 76.33 286.69);
-	--system-color-primary-contrast: lch(100% 0.01 296.81);
+	--system-color-dark: lch(0% 0 0);
+	--system-color-dark-contrast: lch(100% 0 0);
+	--system-color-light: lch(100% 0 0);
+	--system-color-light-contrast: lch(0% 0 0);
+	--system-color-window-background: lch(99% 0 0);
+	--system-color-control-background: lch(100% 0 0);
 
-	/* // Dark */
-	--system-color-dark: lch(9.84% 1.48 290.68);
-	--system-color-dark-contrast: lch(100% 0.01 296.81);
-
-	/* // Light */
-	--system-color-light: lch(100% 0.01 296.81);
-	--system-color-light-contrast: lch(10.27% 0 296.81);
+	--system-color-dark-disabled: lch(0% 0 0 / 0.25); /* Disabled foreground elements */
+	--system-color-light-disabled: lch(100% 0 0 / 0.4); /* Disabled backgrounds */
+	--system-color-window-background-disabled: lch(93% 0 0 / 0.6); /* Disabled windows */
+	--system-color-control-background-disabled: lch(100% 0 0 / 0.4); /* Disabled controls */
 
 	--system-font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Helvetica Neue', 'Helvetica',
 		'Arial', sans-serif;
 
 	--system-focus-outline: 0 0 0 3px color-mix(in lch, var(--system-color-primary), transparent 50%);
 
-	--system-color-accent-color-orange: lch(74 83.14 67.73);
-	--system-color-accent-color-green: lch(71.05% 75.47 144.13);
-	--system-color-accent-color-cyan: lch(66.75% 40.5 249.73);
-	--system-color-accent-color-blue: hsl(211, 100%, 50%);
-	--system-color-accent-color-indigo: lch(43.94% 75.22 299.8);
-	--system-color-accent-color-purple: lch(52.78% 81.01 317.13);
-	--system-color-accent-color-pink: lch(55.94% 82.53 22.66);
+	/* ===== BASE ACCENT COLORS (Light Mode) ===== */
+	/* Using latest macOS Sequoia/Sonoma color values */
+	--accent-blue: lch(55% 70 270); /* Default system blue */
+	--accent-purple: lch(52% 81 317); /* System purple */
+	--accent-pink: lch(56% 83 23); /* System pink */
+	--accent-red: lch(55% 82 27); /* System red */
+	--accent-orange: lch(74% 83.14 67.73); /* System orange (from your values) */
+	--accent-yellow: lch(84% 80 95); /* System yellow */
+	--accent-green: lch(71.05% 75.47 144.13); /* System green (from your values) */
+	--accent-graphite: lch(60% 4 280); /* System graphite */
+
+	/* ===== CONTEXTUAL VARIATIONS ===== */
+	/* Standard States - Using Apple's system effect calculations */
+
+	/* Blue Variations */
+	--accent-blue-hover: lch(from var(--accent-blue) calc(l - 0.08) calc(c * 1.1) h);
+	--accent-blue-pressed: lch(from var(--accent-blue) calc(l - 0.15) calc(c * 1.2) h);
+	--accent-blue-disabled: lch(from var(--accent-blue) calc(l + 0.1) calc(c * 0.3) h / 0.4);
+	--accent-blue-menubar: lch(from var(--accent-blue) calc(l + 0.12) calc(c * 0.7) h / 0.8);
+	--accent-blue-selection: lch(from var(--accent-blue) l c h / 0.25);
+	--accent-blue-sidebar: lch(from var(--accent-blue) calc(l - 0.05) calc(c * 0.9) h);
+
+	/* Purple Variations */
+	--accent-purple-hover: lch(from var(--accent-purple) calc(l - 0.08) calc(c * 1.1) h);
+	--accent-purple-pressed: lch(from var(--accent-purple) calc(l - 0.15) calc(c * 1.2) h);
+	--accent-purple-disabled: lch(from var(--accent-purple) calc(l + 0.1) calc(c * 0.3) h / 0.4);
+	--accent-purple-menubar: lch(from var(--accent-purple) calc(l + 0.12) calc(c * 0.7) h / 0.8);
+	--accent-purple-selection: lch(from var(--accent-purple) l c h / 0.25);
+	--accent-purple-sidebar: lch(from var(--accent-purple) calc(l - 0.05) calc(c * 0.9) h);
+
+	/* Pink Variations */
+	--accent-pink-hover: lch(from var(--accent-pink) calc(l - 0.08) calc(c * 1.1) h);
+	--accent-pink-pressed: lch(from var(--accent-pink) calc(l - 0.15) calc(c * 1.2) h);
+	--accent-pink-disabled: lch(from var(--accent-pink) calc(l + 0.1) calc(c * 0.3) h / 0.4);
+	--accent-pink-menubar: lch(from var(--accent-pink) calc(l + 0.12) calc(c * 0.7) h / 0.8);
+	--accent-pink-selection: lch(from var(--accent-pink) l c h / 0.25);
+	--accent-pink-sidebar: lch(from var(--accent-pink) calc(l - 0.05) calc(c * 0.9) h);
+
+	/* Red Variations */
+	--accent-red-hover: lch(from var(--accent-red) calc(l - 0.08) calc(c * 1.1) h);
+	--accent-red-pressed: lch(from var(--accent-red) calc(l - 0.15) calc(c * 1.2) h);
+	--accent-red-disabled: lch(from var(--accent-red) calc(l + 0.1) calc(c * 0.3) h / 0.4);
+	--accent-red-menubar: lch(from var(--accent-red) calc(l + 0.12) calc(c * 0.7) h / 0.8);
+	--accent-red-selection: lch(from var(--accent-red) l c h / 0.25);
+	--accent-red-sidebar: lch(from var(--accent-red) calc(l - 0.05) calc(c * 0.9) h);
+
+	/* Orange Variations */
+	--accent-orange-hover: lch(from var(--accent-orange) calc(l - 0.08) calc(c * 1.1) h);
+	--accent-orange-pressed: lch(from var(--accent-orange) calc(l - 0.15) calc(c * 1.2) h);
+	--accent-orange-disabled: lch(from var(--accent-orange) calc(l + 0.1) calc(c * 0.3) h / 0.4);
+	--accent-orange-menubar: lch(from var(--accent-orange) calc(l + 0.12) calc(c * 0.7) h / 0.8);
+	--accent-orange-selection: lch(from var(--accent-orange) l c h / 0.25);
+	--accent-orange-sidebar: lch(from var(--accent-orange) calc(l - 0.05) calc(c * 0.9) h);
+
+	/* Yellow Variations */
+	--accent-yellow-hover: lch(from var(--accent-yellow) calc(l - 0.08) calc(c * 1.1) h);
+	--accent-yellow-pressed: lch(from var(--accent-yellow) calc(l - 0.15) calc(c * 1.2) h);
+	--accent-yellow-disabled: lch(from var(--accent-yellow) calc(l + 0.1) calc(c * 0.3) h / 0.4);
+	--accent-yellow-menubar: lch(from var(--accent-yellow) calc(l + 0.12) calc(c * 0.7) h / 0.8);
+	--accent-yellow-selection: lch(from var(--accent-yellow) l c h / 0.25);
+	--accent-yellow-sidebar: lch(from var(--accent-yellow) calc(l - 0.05) calc(c * 0.9) h);
+
+	/* Green Variations */
+	--accent-green-hover: lch(from var(--accent-green) calc(l - 0.08) calc(c * 1.1) h);
+	--accent-green-pressed: lch(from var(--accent-green) calc(l - 0.15) calc(c * 1.2) h);
+	--accent-green-disabled: lch(from var(--accent-green) calc(l + 0.1) calc(c * 0.3) h / 0.4);
+	--accent-green-menubar: lch(from var(--accent-green) calc(l + 0.12) calc(c * 0.7) h / 0.8);
+	--accent-green-selection: lch(from var(--accent-green) l c h / 0.25);
+	--accent-green-sidebar: lch(from var(--accent-green) calc(l - 0.05) calc(c * 0.9) h);
+
+	/* Graphite Variations */
+	--accent-graphite-hover: lch(from var(--accent-graphite) calc(l - 0.08) calc(c * 1.1) h);
+	--accent-graphite-pressed: lch(from var(--accent-graphite) calc(l - 0.15) calc(c * 1.2) h);
+	--accent-graphite-disabled: lch(from var(--accent-graphite) calc(l + 0.1) calc(c * 0.3) h / 0.4);
+	--accent-graphite-menubar: lch(from var(--accent-graphite) calc(l + 0.12) calc(c * 0.7) h / 0.8);
+	--accent-graphite-selection: lch(from var(--accent-graphite) l c h / 0.25);
+	--accent-graphite-sidebar: lch(from var(--accent-graphite) calc(l - 0.05) calc(c * 0.9) h);
+
+	/* ===== SEMANTIC COLOR MAPPINGS ===== */
+	/* Default to blue (Apple's system default) */
+	--system-accent: var(--accent-blue);
+	--system-accent-hover: var(--accent-blue-hover);
+	--system-accent-pressed: var(--accent-blue-pressed);
+	--system-accent-disabled: var(--accent-blue-disabled);
+	--system-accent-menubar: var(--accent-blue-menubar);
+	--system-accent-selection: var(--accent-blue-selection);
+	--system-accent-sidebar: var(--accent-blue-sidebar);
+
+	/* ===== INTERFACE ELEMENT COLORS ===== */
+	/* Based on Apple's semantic color system */
+	--control-accent-color: var(--system-accent);
+	--selected-content-background: var(--system-accent);
+	--selected-text-background: var(--system-accent-selection);
+	--keyboard-focus-indicator: var(--system-accent);
+	--link-color: var(--system-accent);
 
 	--system-color-grey-50: #fafafa;
 	--system-color-grey-100: #f5f5f5;
@@ -52,24 +140,170 @@ body[data-theme='light'] {
 	--system-cursor-working-in-bg: url('/cursors/working-in-background.webp');
 }
 
-body.dark {
-	/* // Primary */
-	--system-color-primary: lch(56.15% 70.43 283.06);
-	--system-color-primary-contrast: lch(3.25% 7.55 263.43);
-
-	/* // Dark */
-	--system-color-dark: lch(100% 0.01 296.81);
-	--system-color-dark-contrast: lch(10.27% 0 296.81);
-
-	/* // Light */
+body[data-theme='dark'] {
+	--system-color-dark: lch(100% 0 0);
+	--system-color-dark-contrast: lch(9.84% 1.48 290.68);
 	--system-color-light: lch(9.84% 1.48 290.68);
-	--system-color-light-contrast: lch(100% 0.01 296.81);
+	--system-color-light-contrast: lch(100% 0 0);
+	--system-color-window-background: var(--system-color-light);
+	--system-color-control-background: lch(15% 0 0);
 
-	--system-color-accent-color-orange: lch(73.15% 81.63 69.81);
-	--system-color-accent-color-green: lch(74.11% 81.2 143.52);
-	--system-color-accent-color-cyan: lch(80.25% 36.07 237.66);
-	--system-color-accent-color-blue: hsl(210, 100%, 52%);
-	--system-color-accent-color-indigo: lch(46.64% 80.75 299.96);
-	--system-color-accent-color-purple: lch(56.88% 87.62 317.09);
-	--system-color-accent-color-pink: lch(57.01% 78.77 19.35);
+	--system-color-dark-disabled: lch(100% 0 0 / 0.25); /* Disabled foreground elements */
+	--system-color-light-disabled: lch(9.84% 1.48 290.68 / 0.4); /* Disabled backgrounds */
+	--system-color-window-background-disabled: lch(22% 0 0 / 0.6); /* Disabled windows */
+	--system-color-control-background-disabled: lch(15% 0 0 / 0.4); /* Disabled controls */
+
+	/* Base Colors - Dark Mode (updated for latest macOS) */
+	--accent-blue: lch(60% 72 270);
+	--accent-purple: lch(55% 83 317);
+	--accent-pink: lch(58% 84 23);
+	--accent-red: lch(58% 84 27);
+	--accent-orange: lch(76% 85 67.73);
+	--accent-yellow: lch(86% 78 95);
+	--accent-green: lch(73% 77 144.13);
+	--accent-graphite: lch(62% 4 280);
+
+	/* Blue Dark Variations */
+	--accent-blue-hover: lch(from var(--accent-blue) calc(l + 0.05) calc(c * 1.05) h);
+	--accent-blue-pressed: lch(from var(--accent-blue) calc(l - 0.1) calc(c * 1.15) h);
+	--accent-blue-disabled: lch(from var(--accent-blue) calc(l - 0.2) calc(c * 0.4) h / 0.5);
+	--accent-blue-menubar: lch(from var(--accent-blue) calc(l - 0.08) calc(c * 0.8) h / 0.7);
+	--accent-blue-selection: lch(from var(--accent-blue) calc(l - 0.1) c h / 0.3);
+	--accent-blue-sidebar: lch(from var(--accent-blue) calc(l - 0.05) calc(c * 0.95) h);
+
+	/* Purple Dark Variations */
+	--accent-purple-hover: lch(from var(--accent-purple) calc(l + 0.05) calc(c * 1.05) h);
+	--accent-purple-pressed: lch(from var(--accent-purple) calc(l - 0.1) calc(c * 1.15) h);
+	--accent-purple-disabled: lch(from var(--accent-purple) calc(l - 0.2) calc(c * 0.4) h / 0.5);
+	--accent-purple-menubar: lch(from var(--accent-purple) calc(l - 0.08) calc(c * 0.8) h / 0.7);
+	--accent-purple-selection: lch(from var(--accent-purple) calc(l - 0.1) c h / 0.3);
+	--accent-purple-sidebar: lch(from var(--accent-purple) calc(l - 0.05) calc(c * 0.95) h);
+
+	/* Pink Dark Variations */
+	--accent-pink-hover: lch(from var(--accent-pink) calc(l + 0.05) calc(c * 1.05) h);
+	--accent-pink-pressed: lch(from var(--accent-pink) calc(l - 0.1) calc(c * 1.15) h);
+	--accent-pink-disabled: lch(from var(--accent-pink) calc(l - 0.2) calc(c * 0.4) h / 0.5);
+	--accent-pink-menubar: lch(from var(--accent-pink) calc(l - 0.08) calc(c * 0.8) h / 0.7);
+	--accent-pink-selection: lch(from var(--accent-pink) calc(l - 0.1) c h / 0.3);
+	--accent-pink-sidebar: lch(from var(--accent-pink) calc(l - 0.05) calc(c * 0.95) h);
+
+	/* Red Dark Variations */
+	--accent-red-hover: lch(from var(--accent-red) calc(l + 0.05) calc(c * 1.05) h);
+	--accent-red-pressed: lch(from var(--accent-red) calc(l - 0.1) calc(c * 1.15) h);
+	--accent-red-disabled: lch(from var(--accent-red) calc(l - 0.2) calc(c * 0.4) h / 0.5);
+	--accent-red-menubar: lch(from var(--accent-red) calc(l - 0.08) calc(c * 0.8) h / 0.7);
+	--accent-red-selection: lch(from var(--accent-red) calc(l - 0.1) c h / 0.3);
+	--accent-red-sidebar: lch(from var(--accent-red) calc(l - 0.05) calc(c * 0.95) h);
+
+	/* Orange Dark Variations */
+	--accent-orange-hover: lch(from var(--accent-orange) calc(l + 0.05) calc(c * 1.05) h);
+	--accent-orange-pressed: lch(from var(--accent-orange) calc(l - 0.1) calc(c * 1.15) h);
+	--accent-orange-disabled: lch(from var(--accent-orange) calc(l - 0.2) calc(c * 0.4) h / 0.5);
+	--accent-orange-menubar: lch(from var(--accent-orange) calc(l - 0.08) calc(c * 0.8) h / 0.7);
+	--accent-orange-selection: lch(from var(--accent-orange) calc(l - 0.1) c h / 0.3);
+	--accent-orange-sidebar: lch(from var(--accent-orange) calc(l - 0.05) calc(c * 0.95) h);
+
+	/* Yellow Dark Variations */
+	--accent-yellow-hover: lch(from var(--accent-yellow) calc(l + 0.05) calc(c * 1.05) h);
+	--accent-yellow-pressed: lch(from var(--accent-yellow) calc(l - 0.1) calc(c * 1.15) h);
+	--accent-yellow-disabled: lch(from var(--accent-yellow) calc(l - 0.2) calc(c * 0.4) h / 0.5);
+	--accent-yellow-menubar: lch(from var(--accent-yellow) calc(l - 0.08) calc(c * 0.8) h / 0.7);
+	--accent-yellow-selection: lch(from var(--accent-yellow) calc(l - 0.1) c h / 0.3);
+	--accent-yellow-sidebar: lch(from var(--accent-yellow) calc(l - 0.05) calc(c * 0.95) h);
+
+	/* Green Dark Variations */
+	--accent-green-hover: lch(from var(--accent-green) calc(l + 0.05) calc(c * 1.05) h);
+	--accent-green-pressed: lch(from var(--accent-green) calc(l - 0.1) calc(c * 1.15) h);
+	--accent-green-disabled: lch(from var(--accent-green) calc(l - 0.2) calc(c * 0.4) h / 0.5);
+	--accent-green-menubar: lch(from var(--accent-green) calc(l - 0.08) calc(c * 0.8) h / 0.7);
+	--accent-green-selection: lch(from var(--accent-green) calc(l - 0.1) c h / 0.3);
+	--accent-green-sidebar: lch(from var(--accent-green) calc(l - 0.05) calc(c * 0.95) h);
+
+	/* Graphite Dark Variations */
+	--accent-graphite-hover: lch(from var(--accent-graphite) calc(l + 0.05) calc(c * 1.05) h);
+	--accent-graphite-pressed: lch(from var(--accent-graphite) calc(l - 0.1) calc(c * 1.15) h);
+	--accent-graphite-disabled: lch(from var(--accent-graphite) calc(l - 0.2) calc(c * 0.4) h / 0.5);
+	--accent-graphite-menubar: lch(from var(--accent-graphite) calc(l - 0.08) calc(c * 0.8) h / 0.7);
+	--accent-graphite-selection: lch(from var(--accent-graphite) calc(l - 0.1) c h / 0.3);
+	--accent-graphite-sidebar: lch(from var(--accent-graphite) calc(l - 0.05) calc(c * 0.95) h);
+}
+
+[data-accent='blue'] {
+	--system-accent: var(--accent-blue);
+	--system-accent-hover: var(--accent-blue-hover);
+	--system-accent-pressed: var(--accent-blue-pressed);
+	--system-accent-disabled: var(--accent-blue-disabled);
+	--system-accent-menubar: var(--accent-blue-menubar);
+	--system-accent-selection: var(--accent-blue-selection);
+	--system-accent-sidebar: var(--accent-blue-sidebar);
+}
+
+[data-accent='purple'] {
+	--system-accent: var(--accent-purple);
+	--system-accent-hover: var(--accent-purple-hover);
+	--system-accent-pressed: var(--accent-purple-pressed);
+	--system-accent-disabled: var(--accent-purple-disabled);
+	--system-accent-menubar: var(--accent-purple-menubar);
+	--system-accent-selection: var(--accent-purple-selection);
+	--system-accent-sidebar: var(--accent-purple-sidebar);
+}
+
+[data-accent='pink'] {
+	--system-accent: var(--accent-pink);
+	--system-accent-hover: var(--accent-pink-hover);
+	--system-accent-pressed: var(--accent-pink-pressed);
+	--system-accent-disabled: var(--accent-pink-disabled);
+	--system-accent-menubar: var(--accent-pink-menubar);
+	--system-accent-selection: var(--accent-pink-selection);
+	--system-accent-sidebar: var(--accent-pink-sidebar);
+}
+
+[data-accent='red'] {
+	--system-accent: var(--accent-red);
+	--system-accent-hover: var(--accent-red-hover);
+	--system-accent-pressed: var(--accent-red-pressed);
+	--system-accent-disabled: var(--accent-red-disabled);
+	--system-accent-menubar: var(--accent-red-menubar);
+	--system-accent-selection: var(--accent-red-selection);
+	--system-accent-sidebar: var(--accent-red-sidebar);
+}
+
+[data-accent='orange'] {
+	--system-accent: var(--accent-orange);
+	--system-accent-hover: var(--accent-orange-hover);
+	--system-accent-pressed: var(--accent-orange-pressed);
+	--system-accent-disabled: var(--accent-orange-disabled);
+	--system-accent-menubar: var(--accent-orange-menubar);
+	--system-accent-selection: var(--accent-orange-selection);
+	--system-accent-sidebar: var(--accent-orange-sidebar);
+}
+
+[data-accent='yellow'] {
+	--system-accent: var(--accent-yellow);
+	--system-accent-hover: var(--accent-yellow-hover);
+	--system-accent-pressed: var(--accent-yellow-pressed);
+	--system-accent-disabled: var(--accent-yellow-disabled);
+	--system-accent-menubar: var(--accent-yellow-menubar);
+	--system-accent-selection: var(--accent-yellow-selection);
+	--system-accent-sidebar: var(--accent-yellow-sidebar);
+}
+
+[data-accent='green'] {
+	--system-accent: var(--accent-green);
+	--system-accent-hover: var(--accent-green-hover);
+	--system-accent-pressed: var(--accent-green-pressed);
+	--system-accent-disabled: var(--accent-green-disabled);
+	--system-accent-menubar: var(--accent-green-menubar);
+	--system-accent-selection: var(--accent-green-selection);
+	--system-accent-sidebar: var(--accent-green-sidebar);
+}
+
+[data-accent='graphite'] {
+	--system-accent: var(--accent-graphite);
+	--system-accent-hover: var(--accent-graphite-hover);
+	--system-accent-pressed: var(--accent-graphite-pressed);
+	--system-accent-disabled: var(--accent-graphite-disabled);
+	--system-accent-menubar: var(--accent-graphite-menubar);
+	--system-accent-selection: var(--accent-graphite-selection);
+	--system-accent-sidebar: var(--accent-graphite-sidebar);
 }

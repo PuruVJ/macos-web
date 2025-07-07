@@ -17,7 +17,7 @@
 	import { rand_int } from '🍎/helpers/random.ts';
 	import { sleep } from '🍎/helpers/sleep';
 	import { apps, type AppID } from '🍎/state/apps.svelte.ts';
-	import { preferences } from '🍎/state/preferences.svelte.ts';
+	import { reduced_motion, theme } from '🍎/state/preferences.svelte.ts';
 
 	import AppNexus from '../../apps/AppNexus.svelte';
 	import TrafficLights from './TrafficLights.svelte';
@@ -59,7 +59,7 @@
 
 	function windowCloseTransition(
 		el: HTMLElement,
-		{ duration = preferences.reduced_motion ? 0 : 300 }: SvelteTransitionConfig = {},
+		{ duration = reduced_motion.current ? 0 : 300 }: SvelteTransitionConfig = {},
 	): SvelteTransitionReturnType {
 		const existingTransform = getComputedStyle(el).transform;
 
@@ -71,7 +71,7 @@
 	}
 
 	async function maximizeApp() {
-		if (!preferences.reduced_motion) {
+		if (!reduced_motion.current) {
 			windowEl.style.transition = 'height 0.3s ease, width 0.3s ease, transform 0.3s ease';
 		}
 
@@ -98,7 +98,7 @@
 
 		await sleep(300);
 
-		if (!preferences.reduced_motion) windowEl.style.transition = '';
+		if (!reduced_motion.current) windowEl.style.transition = '';
 	}
 
 	function closeApp() {
@@ -122,7 +122,7 @@
 <section
 	role="application"
 	class="container"
-	class:dark={preferences.theme.scheme === 'dark'}
+	class:dark={theme.scheme === 'dark'}
 	class:active={apps.active === app_id}
 	style:width="{+width / remModifier}rem"
 	style:height="{+height / remModifier}rem"

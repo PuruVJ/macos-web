@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { wallpapers_config, type WallpaperID } from '🍎/configs/wallpapers/wallpaper.config.ts';
-	import { preferences } from '🍎/state/preferences.svelte.ts';
+	import { theme, wallpaper } from '🍎/state/preferences.svelte.ts';
 
 	const dynamic_wallpapers = Object.entries(wallpapers_config).filter(
 		([, { type }]) => type === 'dynamic',
@@ -10,10 +10,10 @@
 		([, { type }]) => type === 'standalone',
 	);
 
-	const current_wallpaper_thumb = $derived(`url(${preferences.wallpaper.image})`);
+	const current_wallpaper_thumb = $derived(`url(${wallpaper.image})`);
 
-	function change_wallpaper(wallpaperName: WallpaperID) {
-		preferences.wallpaper.id = wallpaperName;
+	function change_wallpaper(wallpaper_id: WallpaperID) {
+		wallpaper.id = wallpaper_id;
 	}
 
 	function preload(url: string) {
@@ -37,19 +37,19 @@
 			<div class="image" style:background-image={current_wallpaper_thumb}></div>
 
 			<div class="info">
-				<h2>{wallpapers_config[preferences.wallpaper.id].name}</h2>
+				<h2>{wallpaper.config.name}</h2>
 				<p class="wallpaper-type">
-					{wallpapers_config[preferences.wallpaper.id].type} wallpaper
+					{wallpapers_config[wallpaper.id].type} wallpaper
 				</p>
 
 				<br /> <br />
 
-				{#if wallpapers_config[preferences.wallpaper.id].type !== 'standalone'}
+				<!-- {#if wallpapers_config[wallpaper.id].type !== 'standalone'}
 					<label>
 						<input type="checkbox" bind:checked={preferences.wallpaper.canControlTheme} />
 						Change dark/light mode as wallpapers change
 					</label>
-				{/if}
+				{/if} -->
 			</div>
 		</section>
 
@@ -210,7 +210,7 @@
 				height: 1.2rem;
 				width: 1.2rem;
 
-				accent-color: var(--system-color-primary);
+				accent-color: var(--system-color-acent);
 			}
 		}
 	}
@@ -257,7 +257,7 @@
 			&:hover,
 			&:focus-visible {
 				img {
-					box-shadow: 0 0 0 0.25rem color-mix(in lch, var(--system-color-primary), transparent 30%);
+					box-shadow: 0 0 0 0.25rem color-mix(in lch, var(--system-accent), transparent 30%);
 				}
 			}
 		}

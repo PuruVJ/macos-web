@@ -1,3 +1,4 @@
+export { autofocus } from './autofocus.ts';
 export { click_outside } from './click-outside';
 export { elevation } from './elevation';
 export { focus_outside } from './focus-outside';

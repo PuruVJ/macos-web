@@ -1,4 +1,4 @@
-import type { Theme } from '🍎/state/preferences.svelte.ts';
+import { theme } from '🍎/state/preferences.svelte.ts';
 
 export type Wallpaper = {
 	name: string;
@@ -11,7 +11,7 @@ export type Wallpaper = {
 	/** Timestamps definition in terms of when a new wallpaper should take effect */
 	timestamps?: {
 		wallpaper?: Record<number, string>;
-		theme?: Record<number, Theme['scheme']>;
+		theme?: Record<number, (typeof theme)['scheme']>;
 	};
 };
 
@@ -34,7 +34,6 @@ const create_wallpapers_config = <TConfig = string>(
 		const wallpaper = wallpaper_config[wallpaperName as keyof TConfig];
 		const thumbnail = config.thumbnail;
 
-		console.log(Object.entries(wallpaperThumbnails).find(([path]) => path.includes(thumbnail)));
 		wallpaper.thumbnail = (
 			Object.entries(wallpaperThumbnails).find(([path]) => path.includes(thumbnail))[1] as any
 		).default;

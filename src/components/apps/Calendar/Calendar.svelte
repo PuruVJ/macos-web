@@ -2,7 +2,7 @@
 	import { addMonths, format } from 'date-fns';
 	import LeftArrow from '~icons/ic/round-chevron-left';
 	import RightArrow from '~icons/ic/round-chevron-right';
-	import { preferences } from '🍎/state/preferences.svelte.ts';
+	import { theme } from '🍎/state/preferences.svelte.ts';
 	import MonthView from './MonthView.svelte';
 
 	const { view = 'month' }: { view?: 'year' | 'month' | 'week' | 'day' } = $props();
@@ -22,7 +22,7 @@
 	}
 </script>
 
-<section class="container" class:dark={preferences.theme.scheme === 'dark'}>
+<section class="container" class:dark={theme.scheme === 'dark'}>
 	<header class="app-window-drag-handle titlebar"></header>
 
 	<section class="main-area">

@@ -54,16 +54,16 @@ body[data-theme='light'] {
 
 body.dark {
 	/* // Primary */
-	--system-color-primary: #0a85ff;
-	--system-color-primary-contrast: hsl(210, 92%, 5%);
+	--system-color-primary: lch(56.15% 70.43 283.06);
+	--system-color-primary-contrast: lch(3.25% 7.55 263.43);
 
 	/* // Dark */
-	--system-color-dark: hsl(240, 24%, 100%);
-	--system-color-dark-contrast: hsl(0, 0%, 11%);
+	--system-color-dark: lch(100% 0.01 296.81);
+	--system-color-dark-contrast: lch(10.27% 0 296.81);
 
 	/* // Light */
-	--system-color-light: hsl(240, 3%, 11%);
-	--system-color-light-contrast: hsl(240, 24%, 100%);
+	--system-color-light: lch(9.84% 1.48 290.68);
+	--system-color-light-contrast: lch(100% 0.01 296.81);
 
 	--system-color-accent-color-orange: lch(73.15% 81.63 69.81);
 	--system-color-accent-color-green: lch(74.11% 81.2 143.52);

@@ -1,24 +1,27 @@
-import { untrack } from 'svelte';
-import { auto_destroy_effect_root } from './auto-destroy-effect-root.svelte.ts';
+import { createSubscriber } from 'svelte/reactivity';
 
-export function create_interval(duration: number) {
-	let time = $state(Date.now());
+export class Interval {
+	#duration = $state() as number;
+	#subscribe: () => void;
 
-	auto_destroy_effect_root(() => {
-		$effect(() => {
+	constructor(duration: number) {
+		this.#duration = duration;
+
+		this.#subscribe = createSubscriber((update) => {
 			const interval = setInterval(() => {
-				untrack(() => (time = Date.now()));
-			}, duration);
+				update();
+			}, this.#duration);
 
-			return () => {
-				clearInterval(interval);
-			};
+			return () => clearInterval(interval);
 		});
-	});
+	}
 
-	return {
-		get value() {
-			return time;
-		},
-	};
+	get current() {
+		this.#subscribe();
+		return new Date();
+	}
+
+	get duration() {
+		return this.#duration;
+	}
 }

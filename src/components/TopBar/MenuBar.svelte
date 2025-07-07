@@ -47,22 +47,24 @@
 
 		display: flex;
 		position: relative;
+		padding: 0.25rem 0;
 	}
 
 	.menu-parent {
 		position: absolute;
-		margin-top: 1.5px;
+		margin-top: 0.3rem;
 	}
 
 	.menu-button {
 		font-weight: 500;
 
-		border-radius: 0.25rem;
+		border-radius: 1rem;
 
 		position: relative;
 		z-index: 1;
 
-		padding: 0 0.5rem;
+		padding: 0 0.65rem;
+		font-size: 0.8rem;
 
 		height: 100%;
 
@@ -89,7 +91,7 @@
 
 			transition: transform 100ms ease;
 
-			background-color: color-mix(in lch, var(--system-color-dark), transparent 80%);
+			background-color: color-mix(in lch, white, transparent 80%);
 		}
 	}
 

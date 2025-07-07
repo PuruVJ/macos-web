@@ -17,7 +17,7 @@
 
 	$effect(() => {
 		if (is_theme_warning_dialog_open) {
-			untrack(() => theme_warning_dialog.open());
+			theme_warning_dialog.open();
 		}
 	});
 
@@ -31,7 +31,7 @@
 </script>
 
 <div class="container" {@attach click_outside(hide)} {@attach focus_outside(hide)}>
-	<button style:--scale={visible ? 1 : 0} onclick={show} onfocus={show}>
+	<button style:--scale={visible ? '1 1' : 0} onclick={show} onfocus={show}>
 		<SwitchSvg />
 	</button>
 
@@ -75,15 +75,23 @@
 </SystemDialog>
 
 <style>
+	.container {
+		height: 100%;
+
+		padding: 0.25rem 0;
+	}
+
 	.container button {
 		height: 100%;
 		width: max-content;
 
-		padding: 0 0.5rem !important;
-
-		border-radius: 0.25rem;
+		border-radius: 1rem;
 
 		position: relative;
+		z-index: 1;
+
+		padding: 0 0.8rem;
+		font-size: 0.8rem;
 
 		&::before {
 			content: '';
@@ -91,27 +99,28 @@
 			position: absolute;
 			top: 0;
 			left: 0;
-			z-index: -1;
+
+			pointer-events: none;
 
 			height: 100%;
 			width: 100%;
 
 			border-radius: inherit;
 
-			transform: scale(var(--scale));
+			scale: var(--scale);
 			transform-origin: center center;
 
 			transition: transform 100ms ease;
 
-			background-color: hsla(0, 0%, 96%, 0.3);
+			background-color: color-mix(in lch, white, transparent 80%);
 		}
 
 		:global(svg),
 		:global(svg path) {
-			height: 1rem;
-			width: 1rem;
+			height: 0.9rem;
+			width: 0.9rem;
 
-			fill: var(--system-color-light-contrast) !important;
+			fill: white !important;
 
 			position: relative;
 		}

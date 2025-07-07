@@ -63,11 +63,11 @@ export const wallpapers_config = create_wallpapers_config({
 		timestamps: {
 			wallpaper: {
 				7: 'tahoe-2',
-				18: 'tahoe-1',
+				18: 'tahoe-2',
 			},
 			theme: {
 				7: 'light',
-				18: 'dark',
+				18: 'light',
 			},
 		},
 	},

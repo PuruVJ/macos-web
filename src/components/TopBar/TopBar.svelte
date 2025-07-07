@@ -35,10 +35,10 @@
 		position: relative;
 
 		width: 100%;
-		height: 1.8rem;
+		height: 2rem;
 
-		color: var(--system-color-light-contrast);
-		fill: var(--system-color-light-contrast);
+		color: white;
+		fill: white;
 
 		button {
 			font-weight: 500;

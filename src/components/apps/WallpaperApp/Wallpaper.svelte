@@ -3,15 +3,15 @@
 	import { elevation } from '🍎/attachments';
 	import { wallpapers_config } from '🍎/configs/wallpapers/wallpaper.config.ts';
 	import { smaller_closest_value } from '🍎/helpers/smaller-closest-value.ts';
-	import { create_interval } from '🍎/state/interval.svelte.ts';
+	import { Interval } from '🍎/state/interval.svelte.ts';
 	import { preferences } from '🍎/state/preferences.svelte.ts';
 
 	let visible_background_image = $state(wallpapers_config.tahoe.image);
 
-	const interval = create_interval(5 * 1000);
+	const interval = new Interval(5 * 1000);
 
 	$effect(() => {
-		interval.value;
+		interval.current;
 
 		if (wallpapers_config[preferences.wallpaper.id].type === 'standalone') {
 			untrack(
@@ -68,7 +68,7 @@
 
 		if (hour > maxTimestamp || hour < minTimestamp) {
 			// Go for the min timestamp value
-			preferences.theme.scheme = 'dark';
+			preferences.theme.scheme = 'light';
 			return;
 		}
 

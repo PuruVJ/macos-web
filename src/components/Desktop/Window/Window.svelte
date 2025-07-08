@@ -130,7 +130,10 @@
 	tabindex="-1"
 	bind:this={windowEl}
 	{@attach draggable(() => [
-		controls({ allow: ControlFrom.selector('.app-window-drag-handle') }),
+		controls(
+			{ allow: ControlFrom.selector('.app-window-drag-handle') },
+			({ hook }) => hook === 'start',
+		),
 		bounds(BoundsFrom.viewport({ bottom: -6000, top: 27.2, left: -6000, right: -6000 })),
 		disabledComp,
 		position({ default: defaultPosition }),

@@ -15,8 +15,8 @@ importers:
         specifier: 3.0.0-next.3
         version: 3.0.0-next.3
       '@neodrag/svelte':
-        specifier: 3.0.0-next.3
-        version: 3.0.0-next.3(@neodrag/core@3.0.0-next.3)(svelte@5.34.8)
+        specifier: 3.0.0-next.5
+        version: 3.0.0-next.5(@neodrag/core@3.0.0-next.3)(svelte@5.34.8)
       date-fns:
         specifier: ^4.1.0
         version: 4.1.0
@@ -917,10 +917,10 @@ packages:
   '@neodrag/core@3.0.0-next.3':
     resolution: {integrity: sha512-vJFojWj6SUYqdlsOY2fWXgUCJJlox9ZGN4WvqJ57L/t3XFRVtwb4j7lPHD7eYVTcDPekGf8YG6xq36ppinQ5og==}
 
-  '@neodrag/svelte@3.0.0-next.3':
-    resolution: {integrity: sha512-6sWtAXRwbXBRHjpuJG3iHYRspAq8S2c/5RH/Do0Ucsy3GA12hHrkTu8EUI4+vU3ABjzCN7ouUZxvtBaYgDh7/Q==}
+  '@neodrag/svelte@3.0.0-next.5':
+    resolution: {integrity: sha512-cfSJYHB7ibzW18MhTzGBkixNLrXA3Ri9IPtR1jU2LJmy79BsiGZX2q7pEQjBmcC9Th4XEhS9UchLDZceYREXLQ==}
     peerDependencies:
-      '@neodrag/core': 3.0.0-next.3
+      '@neodrag/core': 3.0.0-next.5
       svelte: ^3 || ^4 || ^5
 
   '@rollup/plugin-babel@5.3.1':
@@ -3224,7 +3224,7 @@ snapshots:
 
   '@neodrag/core@3.0.0-next.3': {}
 
-  '@neodrag/svelte@3.0.0-next.3(@neodrag/core@3.0.0-next.3)(svelte@5.34.8)':
+  '@neodrag/svelte@3.0.0-next.5(@neodrag/core@3.0.0-next.3)(svelte@5.34.8)':
     dependencies:
       '@neodrag/core': 3.0.0-next.3
       svelte: 5.34.8

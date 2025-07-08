@@ -71,8 +71,6 @@
 			&:focus-visible {
 				--alpha: 100%;
 				background-color: var(--system-accent-menubar);
-				/* color: var(--system-color-primary-contrast); */
-				/* font-weight: 500 !important; */
 			}
 		}
 	}

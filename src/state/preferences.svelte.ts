@@ -36,24 +36,6 @@ class Theme {
 		theme_schema,
 	);
 
-	#current = $derived.by(() => {
-		this.#media_observer.current;
-
-		if (this.#persisted.current.preference === 'system') {
-			return this.#media_observer.current ? 'dark' : 'light';
-		}
-
-		return this.#persisted.current.preference;
-	});
-
-	constructor() {
-		auto_destroy_effect_root(() => {
-			$effect(() => {
-				document.body.dataset.theme = this.#current;
-			});
-		});
-	}
-
 	get scheme() {
 		this.#media_observer.current;
 

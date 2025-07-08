@@ -1,5 +1,4 @@
-body,
-body[data-theme='light'] {
+:where(body, body[data-theme='light']) {
 	--system-color-dark: lch(0% 0 0);
 	--system-color-dark-contrast: lch(100% 0 0);
 	--system-color-light: lch(100% 0 0);
@@ -140,7 +139,7 @@ body[data-theme='light'] {
 	--system-cursor-working-in-bg: url('/cursors/working-in-background.webp');
 }
 
-body[data-theme='dark'] {
+:where(body[data-theme='dark']) {
 	--system-color-dark: lch(100% 0 0);
 	--system-color-dark-contrast: lch(9.84% 1.48 290.68);
 	--system-color-light: lch(9.84% 1.48 290.68);

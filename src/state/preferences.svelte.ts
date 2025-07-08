@@ -1,11 +1,10 @@
 import { MediaQuery } from 'svelte/reactivity';
 import * as v from 'valibot';
-import { auto_destroy_effect_root } from './auto-destroy-effect-root.svelte';
 import { COLORS } from '🍎/configs/colors.ts';
-import { Persisted } from './persisted.svelte';
 import { wallpapers_config, type WallpaperID } from '🍎/configs/wallpapers/wallpaper.config';
 import { smaller_closest_value } from '🍎/helpers/smaller-closest-value';
 import { Interval } from './interval.svelte';
+import { Persisted } from './persisted.svelte';
 
 const theme_schema = v.object({
 	current: v.picklist(['light', 'dark']),

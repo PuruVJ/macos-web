@@ -14,7 +14,7 @@
 	--system-font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Helvetica Neue', 'Helvetica',
 		'Arial', sans-serif;
 
-	--system-focus-outline: 0 0 0 3px color-mix(in lch, var(--system-color-primary), transparent 50%);
+	--system-focus-outline: 0 0 0 3px lch(from var(--system-color-primary) l c h / 50%);
 
 	/* ===== BASE ACCENT COLORS (Light Mode) ===== */
 	/* Using latest macOS Sequoia/Sonoma color values */

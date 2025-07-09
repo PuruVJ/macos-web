@@ -117,10 +117,10 @@
 
 				border-radius: 0.5rem;
 
-				background-color: color-mix(in lch, var(--system-color-dark), transparent 80%);
+				background-color: lch(from var(--system-color-dark) l c h / 20%);
 
 				&:hover {
-					background-color: color-mix(in lch, var(--system-color-dark), transparent 70%);
+					background-color: lch(from var(--system-color-dark) l c h / 30%);
 				}
 
 				&.confirm {
@@ -129,7 +129,7 @@
 					color: var(--system-color-primary-contrast);
 
 					&:hover {
-						background-color: color-mix(in lch, var(--system-accent), transparent 20%);
+						background-color: lch(from var(--system-accent) l c h / 80%);
 					}
 				}
 			}

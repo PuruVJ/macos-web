@@ -74,7 +74,7 @@
 
 		background-image: linear-gradient(
 			to right,
-			color-mix(in lch, var(--color), transparent 30%) 12rem,
+			lch(from var(--color) l c h / 70%) 12rem,
 			var(--color) 12rem 100%
 		);
 
@@ -101,7 +101,7 @@
 		user-select: none;
 
 		span {
-			color: color-mix(in lch, var(--system-color-dark), transparent 20%);
+			color: lch(from var(--system-color-dark) l c h / 80%);
 			font-weight: 500;
 			font-size: 0.9rem;
 			letter-spacing: 0.5px;
@@ -160,7 +160,7 @@
 				width: 100%;
 				height: 1px;
 
-				background-color: color-mix(in lch, var(--system-color-dark), transparent 80%);
+				background-color: lch(from var(--system-color-dark) l c h / 20%);
 
 				border: none;
 			}
@@ -170,7 +170,7 @@
 				gap: 0.4rem;
 				align-items: center;
 
-				color: color-mix(in lch, var(--system-color-dark), transparent 10%);
+				color: lch(from var(--system-color-dark) l c h / 90%);
 				text-decoration: none;
 				font-weight: 400;
 
@@ -181,7 +181,7 @@
 				transition: background-color 100ms ease;
 
 				&:hover {
-					background-color: color-mix(in lch, var(--system-color-dark), transparent 80%);
+					background-color: lch(from var(--system-color-dark) l c h / 20%);
 				}
 			}
 		}

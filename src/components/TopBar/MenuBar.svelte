@@ -91,7 +91,7 @@
 
 			transition: transform 100ms ease;
 
-			background-color: color-mix(in lch, white, transparent 80%);
+			background-color: lch(from white l c h / 20%);
 		}
 	}
 

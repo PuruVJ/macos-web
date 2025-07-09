@@ -87,7 +87,7 @@
 
 		padding: 1rem;
 
-		background: color-mix(in lch, var(--system-color-light), transparent 40%);
+		background: lch(from var(--system-color-light) l c h / 60%);
 		backdrop-filter: blur(20px);
 
 		will-change: transform;
@@ -99,8 +99,8 @@
 			/* // border-radius: inherit; */
 			box-shadow:
 				var(--elevation),
-				inset 0 0 0 0.9px color-mix(in lch, var(--system-color-dark), transparent 70%),
-				0 0 0 1px color-mix(in lch, var(--system-color-light), transparent 50%);
+				inset 0 0 0 0.9px lch(from var(--system-color-dark) l c h / 30%),
+				0 0 0 1px lch(from var(--system-color-light) l c h / 50%);
 		}
 	}
 </style>

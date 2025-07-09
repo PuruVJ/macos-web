@@ -223,7 +223,7 @@
 
 		position: absolute;
 
-		background-color: color-mix(in lch, var(--system-color-light), transparent 50%);
+		background-color: lch(from var(--system-color-light) l c h / 50%);
 		backdrop-filter: blur(5px);
 
 		padding: 0.5rem 0.75rem;
@@ -243,8 +243,8 @@
 
 		&.dark {
 			--double-border: inset 0 0 0 0.9px
-					color-mix(in lch, var(--system-color-dark), transparent 70%),
-				0 0 0 1.2px color-mix(in lch, var(--system-color-light), transparent 70%);
+					lch(from var(--system-color-dark) l c h / 30%),
+				0 0 0 1.2px lch(from var(--system-color-light) l c h / 30%);
 		}
 	}
 
@@ -267,7 +267,7 @@
 
 		background-color: rgba(248, 58, 58, 0.85);
 
-		box-shadow: color-mix(in lch, var(--system-color-dark), transparent 60%) 0px 0.5px 2px;
+		box-shadow: lch(from var(--system-color-dark) l c h / 40%) 0px 0.5px 2px;
 		border-radius: 50%;
 
 		pointer-events: none;

@@ -67,8 +67,8 @@
 
 		&.dark {
 			box-shadow:
-				inset 0 0 0 0.9px color-mix(in lch, var(--system-color-dark), transparent 80%),
-				0 0 0 1.5px color-mix(in lch, var(--system-color-light), transparent 50%);
+				inset 0 0 0 0.9px lch(from var(--system-color-dark) l c h / 20%),
+				0 0 0 1.5px lch(from var(--system-color-light) l c h / 50%);
 		}
 	}
 
@@ -120,10 +120,10 @@
 		justify-content: center;
 
 		button {
-			--bgcolor: color-mix(in lch, var(--system-color-light), transparent 50%);
+			--bgcolor: lch(from var(--system-color-light) l c h / 50%);
 
 			border-radius: 0.375rem;
-			box-shadow: color-mix(in lch, var(--system-color-dark), transparent 60%) 0px 0.5px 2px;
+			box-shadow: lch(from var(--system-color-dark) l c h / 40%) 0px 0.5px 2px;
 
 			background-color: var(--bgcolor);
 

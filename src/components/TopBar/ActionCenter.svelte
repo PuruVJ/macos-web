@@ -135,14 +135,14 @@
 
 		user-select: none;
 
-		background-color: color-mix(in lch, var(--system-color-light), transparent 70%);
+		background-color: lch(from var(--system-color-light) l c h / 30%);
 
 		border-radius: 1rem;
 
 		box-shadow:
 			lch(0% 0 0 / 0.3) 0px 0px 11px 0px,
-			inset 0 0 0 var(--border-size) color-mix(in lch, var(--system-color-dark), transparent 70%),
-			0 0 0 var(--border-size) color-mix(in lch, var(--system-color-light), transparent 70%);
+			inset 0 0 0 var(--border-size) lch(from var(--system-color-dark) l c h / 30%),
+			0 0 0 var(--border-size) lch(from var(--system-color-light) l c h / 30%);
 
 		&.dark {
 			--border-size: 0.5px;
@@ -169,10 +169,10 @@
 		--size: 1.7rem;
 
 		--bgcolor: var(--system-color-dark);
-		--bgalpha: 90%;
+		--bgalpha: 10%;
 
 		--svgcolor: var(--system-color-light-contrast);
-		--svgalpha: 10%;
+		--svgalpha: 90%;
 
 		height: var(--size) !important;
 		width: var(--size);
@@ -185,26 +185,26 @@
 
 		border-radius: 50%;
 
-		background-color: color-mix(in lch, var(--bgcolor), transparent var(--bgalpha));
+		background-color: lch(from var(--bgcolor) l c h / var(--bgalpha));
 
 		transition:
 			box-shadow 100ms ease,
 			background-color 150ms ease;
 
 		:global(svg) {
-			color: color-mix(in lch, var(--svgcolor), transparent var(--svgalpha));
+			color: lch(from var(--svgcolor) l c h / var(--svgalpha));
 		}
 
 		&:focus-visible {
-			box-shadow: 0 0 0 0.25rem color-mix(in lch, var(--bgcolor), transparent 60%);
+			box-shadow: 0 0 0 0.25rem lch(from var(--bgcolor) l c h / 40%);
 		}
 
 		&.filled {
 			--bgcolor: var(--system-accent);
-			--bgalpha: 0%;
+			--bgalpha: 100%;
 
 			--svgcolor: var(--system-accent-contrast);
-			--svgalpha: 0%;
+			--svgalpha: 100%;
 		}
 	}
 
@@ -273,7 +273,7 @@
 
 				&:hover,
 				&:focus-visible {
-					box-shadow: 0 0 0 0.2rem color-mix(in lch, var(--color), transparent 75%);
+					box-shadow: 0 0 0 0.2rem lch(from var(--color) l c h / 25%);
 				}
 			}
 		}

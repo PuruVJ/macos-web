@@ -35,7 +35,7 @@
 
 		&.unfocused button {
 			--bgcolor: #b6b6b7;
-			--border-color: color-mix(in lch, var(--system-color-dark), transparent 50%);
+			--border-color: lch(from var(--system-color-dark) l c h / 50%);
 		}
 
 		:global(svg) {

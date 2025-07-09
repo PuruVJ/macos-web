@@ -37,10 +37,10 @@
 		border-radius: 0.75rem;
 		box-shadow:
 			hsla(0, 0%, 0%, 0.3) 0px 1px 4px -1px,
-			inset 0 0 0 var(--border-size) color-mix(in lch, var(--system-color-dark), transparent 70%),
-			0 0 0 var(--border-size) color-mix(in lch, var(--system-color-light), transparent 70%);
+			inset 0 0 0 var(--border-size) lch(from var(--system-color-dark) l c h / 30%),
+			0 0 0 var(--border-size) lch(from var(--system-color-light) l c h / 30%);
 
-		background-color: color-mix(in lch, var(--system-color-light), transparent 50%);
+		background-color: lch(from var(--system-color-light) l c h / 50%);
 
 		&.dark {
 			--border-size: 0.4px;

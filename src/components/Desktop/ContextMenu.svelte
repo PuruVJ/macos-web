@@ -73,7 +73,7 @@
 		-webkit-font-smoothing: antialiased;
 		user-select: none;
 
-		background-color: color-mix(in lch, var(--system-color-light), transparent 70%);
+		background-color: lch(from var(--system-color-light) l c h / 30%);
 
 		border-radius: 0.5rem;
 
@@ -83,8 +83,8 @@
 
 		&.dark {
 			--additional-shadow: inset 0 0 0 0.9px
-					color-mix(in lch, var(--system-color-dark), transparent 70%),
-				0 0 0 1.2px color-mix(in lch, var(--system-color-light), transparent 70%);
+					lch(from var(--system-color-dark) l c h / 30%),
+				0 0 0 1.2px lch(from var(--system-color-light) l c h / 30%);
 
 			&::before {
 				transform: scale(0.99);
@@ -147,7 +147,7 @@
 		width: 100%;
 		height: 0.2px;
 
-		background-color: color-mix(in lch, var(--system-color-dark), transparent 80%);
+		background-color: lch(from var(--system-color-dark) l c h / 20%);
 
 		margin: 2px 0;
 	}

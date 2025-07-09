@@ -120,10 +120,10 @@
 
 		width: 100%;
 
-		border-bottom: solid 0.9px color-mix(in lch, var(--system-color-dark), transparent 70%);
+		border-bottom: solid 0.9px lch(from var(--system-color-dark) l c h / 30%);
 
 		span {
-			color: color-mix(in lch, var(--system-color-dark), transparent 20%);
+			color: lch(from var(--system-color-dark) l c h / 80%);
 			font-weight: 500;
 			font-size: 0.9rem;
 			letter-spacing: 0.5px;
@@ -151,7 +151,7 @@
 		}
 
 		&::-webkit-scrollbar-thumb {
-			background-color: color-mix(in lch, var(--system-color-dark), transparent 20%);
+			background-color: lch(from var(--system-color-dark) l c h / 80%);
 			border: 6px solid transparent;
 			border-radius: 16px;
 			background-clip: content-box;
@@ -159,7 +159,7 @@
 		}
 
 		&::-webkit-scrollbar-thumb:hover {
-			background-color: color-mix(in lch, var(--system-color-dark), transparent 0%);
+			background-color: lch(from var(--system-color-dark) l c h / 100%);
 		}
 	}
 
@@ -195,7 +195,7 @@
 		}
 
 		.wallpaper-type {
-			color: color-mix(in lch, var(--system-color-dark), transparent 30%);
+			color: lch(from var(--system-color-dark) l c h / 70%);
 			text-transform: capitalize;
 		}
 
@@ -257,7 +257,7 @@
 			&:hover,
 			&:focus-visible {
 				img {
-					box-shadow: 0 0 0 0.25rem color-mix(in lch, var(--system-accent), transparent 30%);
+					box-shadow: 0 0 0 0.25rem lch(from var(--system-accent) l c h / 70%);
 				}
 			}
 		}

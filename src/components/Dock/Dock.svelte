@@ -87,11 +87,11 @@
 	}
 
 	.dock-el {
-		background-color: color-mix(in lch, var(--system-color-light), transparent 60%);
+		background-color: lch(from var(--system-color-light) l c h / 40%);
 
 		box-shadow:
-			inset 0 0 0 0.2px color-mix(in lch, var(--system-color-grey-100), transparent 30%),
-			0 0 0 0.2px color-mix(in lch, var(--system-color-grey-900), transparent 30%),
+			inset 0 0 0 0.2px lch(from var(--system-color-grey-100) l c h / 70%),
+			0 0 0 0.2px lch(from var(--system-color-grey-900) l c h / 70%),
 			hsla(0, 0%, 0%, 0.3) 2px 5px 19px 7px;
 
 		position: relative;
@@ -147,7 +147,7 @@
 		height: 100%;
 		width: 0.2px;
 
-		background-color: color-mix(in lch, var(--system-color-dark), transparent 70%);
+		background-color: lch(from var(--system-color-dark) l c h / 30%);
 
 		margin: 0 4px;
 	}

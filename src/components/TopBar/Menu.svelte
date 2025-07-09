@@ -17,8 +17,8 @@
 	.container {
 		/* // Initial invisible border */
 		--additional-box-shadow: inset 0 0 0 0.7px
-				color-mix(in lch, var(--system-color-dark), transparent 50%),
-			0 0 0 0.1px color-mix(in lch, var(--system-color-dark), transparent 80%);
+				lch(from var(--system-color-dark) l c h / 50%),
+			0 0 0 0.1px lch(from var(--system-color-dark) l c h / 20%);
 
 		display: block;
 
@@ -31,7 +31,7 @@
 
 		user-select: none;
 
-		background-color: color-mix(in lch, var(--system-color-light), transparent 70%);
+		background-color: lch(from var(--system-color-light) l c h / 30%);
 		backdrop-filter: blur(10px);
 
 		border-radius: 1rem;
@@ -79,7 +79,7 @@
 		width: 100%;
 		height: 0.2px;
 
-		background-color: color-mix(in lch, var(--system-color-dark), transparent 80%);
+		background-color: lch(from var(--system-color-dark) l c h / 20%);
 
 		margin: 4px 0;
 	}

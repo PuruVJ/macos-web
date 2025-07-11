@@ -18,16 +18,16 @@
 		"@iconify-json/pepicons": "^1.2.0",
 		"@iconify-json/ph": "^1.2.1",
 		"@iconify-json/uil": "^1.2.1",
-		"@sveltejs/vite-plugin-svelte": "4.0.0",
+		"@sveltejs/vite-plugin-svelte": "6.0.0",
 		"browserslist": "^4.24.2",
 		"lightningcss": "^1.27.0",
 		"prettier-plugin-svelte": "^3.4.0",
-		"svelte": "5.34.8",
+		"svelte": "5.35.6",
 		"svelte-check": "^4.0.5",
 		"typescript": "^5.6.3",
-		"vite": "5.4.10",
+		"vite": "7.0.4",
 		"vite-imagetools": "^7.0.4",
-		"vite-plugin-pwa": "^0.20.5",
+		"vite-plugin-pwa": "^1.0.1",
 		"workbox-window": "^7.3.0"
 	},
 	"dependencies": {
@@ -36,7 +36,7 @@
 		"@neodrag/svelte": "3.0.0-next.5",
 		"date-fns": "^4.1.0",
 		"popmotion": "^11.0.5",
-		"unplugin-icons": "^0.19.3",
+		"unplugin-icons": "^22.1.0",
 		"valibot": "^1.1.0"
 	},
 	"packageManager": "pnpm@10.12.3"

@@ -10,6 +10,7 @@ const z_index_config = {
 	'system-updates-available': 60,
 	'system-dialog': 90,
 	'menubar-menu-parent': 160,
+	'brightness-overlay': 170,
 };
 
 for (const [element, zIndexValue] of Object.entries(z_index_config)) {

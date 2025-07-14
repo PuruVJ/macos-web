@@ -4,11 +4,7 @@ import { finder_menu_config } from '🍎/configs/menu/finder.menu.config';
 
 const menu_configs = { finder: finder_menu_config };
 
-export const should_show_notch = new Persisted(
-	'macos:setting:should-show-notch',
-	false,
-	v.boolean(),
-);
+export const should_show_notch = new Persisted('macos:setting:notch', false, v.boolean());
 
 export const menubar_state = $state({
 	menus: menu_configs.finder,

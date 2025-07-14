@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { format } from 'date-fns';
-	import { Interval } from '🍎/state/interval.svelte';
+	import { Interval } from 'svelte-interval-rune';
 
 	const time = new Interval(1000);
 </script>

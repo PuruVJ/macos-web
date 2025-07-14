@@ -37,9 +37,9 @@
 
 		border-radius: inherit;
 
-		font-size: 0.85rem;
-		font-weight: 600;
-		color: var(--system-color-dark);
+		font-size: 0.9rem;
+		font-weight: 500;
+		color: white;
 		text-align: start;
 	}
 </style>

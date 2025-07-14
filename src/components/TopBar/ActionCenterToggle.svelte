@@ -2,28 +2,24 @@
 	import { sineIn } from 'svelte/easing';
 	import { fade } from 'svelte/transition';
 	import { click_outside, elevation, focus_outside } from '🍎/attachments';
-	import { fade_out } from '🍎/helpers/fade.ts';
+	import { fade_out } from '🍎/helpers/fade';
+	import { Toggleable } from '🍎/state/toggleable.svelte';
 	import SwitchSvg from '../SVG/SwitchSVG.svelte';
-	import SystemDialog from '../SystemUI/SystemDialog.svelte';
 	import ActionCenter from './ActionCenter.svelte';
 
-	let visible = $state(false);
-
-	function show() {
-		visible = true;
-	}
-
-	function hide() {
-		visible = false;
-	}
+	const visibility_toggle = new Toggleable(() => false);
 </script>
 
-<div class="container" {@attach click_outside(hide)} {@attach focus_outside(hide)}>
-	<button style:--scale={visible ? '1 1' : 0} onclick={show} onfocus={show}>
+<div
+	class="container"
+	{@attach click_outside(visibility_toggle.hide)}
+	{@attach focus_outside(visibility_toggle.hide)}
+>
+	<button style:--scale={visibility_toggle.current ? '1 1' : 0} onclick={visibility_toggle.toggle}>
 		<SwitchSvg />
 	</button>
 
-	{#if visible}
+	{#if visibility_toggle.current}
 		<div
 			in:fade={{ easing: sineIn, duration: 150 }}
 			out:fade_out
@@ -73,7 +69,7 @@
 
 			transition: transform 100ms ease;
 
-			background-color: lch(from white l c h / 20%);
+			background-color: lch(100% 0 0 / 20%);
 		}
 
 		:global(svg),

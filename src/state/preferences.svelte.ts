@@ -3,7 +3,7 @@ import * as v from 'valibot';
 import { COLORS } from '🍎/configs/colors.ts';
 import { wallpapers_config, type WallpaperID } from '🍎/configs/wallpapers/wallpaper.config';
 import { smaller_closest_value } from '🍎/helpers/smaller-closest-value';
-import { Interval } from './interval.svelte';
+import { Interval } from 'svelte-interval-rune';
 import { Persisted } from './persisted.svelte';
 
 const theme_schema = v.object({
@@ -19,6 +19,7 @@ const reduced_motion_schema = v.object({
 	preference: v.picklist(['system', 'true', 'false']),
 	current: v.boolean(),
 });
+const brightness_schema = v.number();
 
 export type ReducedMotionType = v.InferOutput<typeof reduced_motion_schema>;
 export type ThemeValue = v.InferOutput<typeof theme_schema>;
@@ -85,18 +86,11 @@ export class Wallpaper {
 	#persisted: Persisted<typeof wallpaper_schema>;
 	#interval = new Interval(5 * 1000);
 
-	static metadata = wallpapers_config;
+	#image = $derived.by(() => {
+		if (!('timestamps' in this.config)) {
+			return this.config.image;
+		}
 
-	constructor(id: WallpaperID) {
-		this.#persisted = new Persisted('macos:wallpaper', { id }, wallpaper_schema);
-	}
-
-	get config() {
-		return Wallpaper.metadata[this.#persisted.current.id];
-	}
-
-	get image() {
-		// Depends on the interval
 		this.#interval.current;
 
 		let value = this.config.image;
@@ -122,6 +116,20 @@ export class Wallpaper {
 		}
 
 		return value;
+	});
+
+	static metadata = wallpapers_config;
+
+	constructor(id: WallpaperID) {
+		this.#persisted = new Persisted('macos:wallpaper', { id }, wallpaper_schema);
+	}
+
+	get config() {
+		return Wallpaper.metadata[this.#persisted.current.id];
+	}
+
+	get image() {
+		return this.#image;
 	}
 
 	get id() {
@@ -170,6 +178,9 @@ class ReducedMotion {
 	}
 }
 
+export const brightness = new Persisted('macos:brightness', 100, brightness_schema, {
+	debounce: 500,
+});
 export const theme = new Theme();
 export const reduced_motion = new ReducedMotion();
 export const wallpaper = new Wallpaper('tahoe');

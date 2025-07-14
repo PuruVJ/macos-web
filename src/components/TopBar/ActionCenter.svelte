@@ -8,16 +8,16 @@
 	import { COLORS } from '🍎/configs/colors';
 	import { apps } from '🍎/state/apps.svelte.ts';
 	import { should_show_notch } from '🍎/state/menubar.svelte';
-	import { reduced_motion, theme, wallpaper } from '🍎/state/preferences.svelte.ts';
+	import { brightness, reduced_motion, theme, wallpaper } from '🍎/state/preferences.svelte.ts';
+	import Slider from '../SystemUI/Slider.svelte';
 	import ActionCenterSurface from './ActionCenterSurface.svelte';
 	import ActionCenterTile from './ActionCenterTile.svelte';
+	import { Toggleable } from '🍎/state/toggleable.svelte';
+
+	const notch = Toggleable.of(should_show_notch);
 
 	function toggle_theme() {
 		theme.preference = theme.preference === 'light' ? 'dark' : 'light';
-	}
-
-	function toggle_notch() {
-		should_show_notch.current = !should_show_notch.current;
 	}
 
 	function toggle_motion_preference() {
@@ -31,7 +31,7 @@
 </script>
 
 <!-- svelte-ignore a11y_no_noninteractive_tabindex -->
-<section class="container" class:dark={theme.scheme === 'dark'} tabindex={-1} {@attach autofocus}>
+<section class={['container', theme.scheme === 'dark' && 'dark']} tabindex={-1} {@attach autofocus}>
 	<!-- Main controls: Wifi, Bluetooth, Airdrop -->
 	<ActionCenterSurface
 		grid={[
@@ -64,7 +64,25 @@
 	<ActionCenterSurface
 		grid={[
 			[1, 12],
-			[3, 2],
+			[3, 1],
+		]}
+	>
+		<ActionCenterTile grid={[1, 1]}>
+			<Slider
+				value={brightness.current}
+				onValueChange={(val) => {
+					brightness.current = val;
+				}}
+				min={10}
+				max={100}
+			/>
+		</ActionCenterTile>
+	</ActionCenterSurface>
+
+	<ActionCenterSurface
+		grid={[
+			[1, 12],
+			[4, 2],
 		]}
 	>
 		<ActionCenterTile grid={[1, 1]} role="region">
@@ -86,7 +104,7 @@
 	<ActionCenterSurface
 		grid={[
 			[1, 12],
-			[5, 3],
+			[6, 3],
 		]}
 	>
 		<ActionCenterTile grid={[1, 1]} onclick={open_wallpapers_app}>
@@ -104,12 +122,12 @@
 	<ActionCenterSurface
 		grid={[
 			[1, 12],
-			[8, 2],
+			[9, 2],
 		]}
 	>
-		<ActionCenterTile grid={[1, 1]} onclick={toggle_notch}>
+		<ActionCenterTile grid={[1, 1]} onclick={notch.toggle}>
 			<div class="notch-tile">
-				<span class="toggle-icon" class:filled={should_show_notch.current}>
+				<span class="toggle-icon" class:filled={notch.current}>
 					<NotchIcon />
 				</span>
 				Notch
@@ -129,24 +147,26 @@
 
 		width: 19.5rem;
 
-		padding: 0.75rem;
+		padding: 0.25rem;
 
 		position: relative;
 
 		user-select: none;
+		/* opacity: 0; */
 
-		background-color: lch(from var(--system-color-light) l c h / 30%);
+		transition: all 200ms var(--sine-in);
+
+		/* background-color: lch(from var(--system-color-light) l c h / 30%); */
 
 		border-radius: 1rem;
-
-		box-shadow:
-			lch(0% 0 0 / 0.3) 0px 0px 11px 0px,
-			inset 0 0 0 var(--border-size) lch(from var(--system-color-dark) l c h / 30%),
-			0 0 0 var(--border-size) lch(from var(--system-color-light) l c h / 30%);
 
 		&.dark {
 			--border-size: 0.5px;
 		}
+
+		/* &.visible {
+			opacity: 1;
+		} */
 
 		&::before {
 			content: '';
@@ -160,13 +180,18 @@
 			left: 0;
 			top: 0;
 
+			transition: all 300ms var(--sine-in);
+
 			z-index: -1;
-			backdrop-filter: blur(12px);
+			backdrop-filter: blur(5px);
+			mask: linear-gradient(to right, transparent, black 10%, black 90%, transparent),
+				linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
+			mask-composite: intersect;
 		}
 	}
 
 	.toggle-icon {
-		--size: 1.7rem;
+		--size: 2.5rem;
 
 		--bgcolor: var(--system-color-dark);
 		--bgalpha: 10%;
@@ -185,26 +210,28 @@
 
 		border-radius: 50%;
 
-		background-color: lch(from var(--bgcolor) l c h / var(--bgalpha));
+		background-color: lch(100% 0 0 / 80%);
 
 		transition:
 			box-shadow 100ms ease,
 			background-color 150ms ease;
 
-		:global(svg) {
-			color: lch(from var(--svgcolor) l c h / var(--svgalpha));
+		:global {
+			svg {
+				color: lch(0% 0 0 / 50%);
+				height: calc(var(--size) * 0.55);
+				width: calc(var(--size) * 0.55);
+			}
 		}
 
 		&:focus-visible {
 			box-shadow: 0 0 0 0.25rem lch(from var(--bgcolor) l c h / 40%);
 		}
 
-		&.filled {
-			--bgcolor: var(--system-accent);
-			--bgalpha: 100%;
-
-			--svgcolor: var(--system-accent-contrast);
-			--svgalpha: 100%;
+		&.filled :global {
+			svg {
+				color: var(--system-accent);
+			}
 		}
 	}
 
@@ -225,7 +252,7 @@
 
 			object-fit: cover;
 
-			border-radius: 0.5rem;
+			border-radius: 0.875rem;
 		}
 
 		h3 {
@@ -284,7 +311,7 @@
 		gap: 0.5rem;
 		align-items: center;
 
-		padding: 0 0.6rem;
+		padding: 0 0.09rem;
 
 		width: 100%;
 		height: 100%;

@@ -35,7 +35,9 @@
 		"@neodrag/core": "3.0.0-next.5",
 		"@neodrag/svelte": "3.0.0-next.5",
 		"date-fns": "^4.1.0",
+		"melt": "^0.38.0",
 		"popmotion": "^11.0.5",
+		"svelte-interval-rune": "^1.0.3",
 		"unplugin-icons": "^22.1.0",
 		"valibot": "^1.1.0"
 	},

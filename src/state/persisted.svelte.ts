@@ -2,6 +2,7 @@ import { on } from 'svelte/events';
 import { createSubscriber } from 'svelte/reactivity';
 import type { BaseSchema } from 'valibot';
 import * as v from 'valibot';
+import { auto_destroy_effect_root } from './auto-destroy-effect-root.svelte.ts';
 
 export type Serde = {
 	stringify: (value: any) => string;
@@ -40,74 +41,77 @@ function get_value_from_storage(
 }
 
 export class Persisted<T extends BaseSchema<any, any, any>> {
+	#current = $state<ExtractValibotType<T>>(undefined as ExtractValibotType<T>);
 	#subscribe: () => void;
 	#key: string;
-	#update?: () => void;
-	#intial: ExtractValibotType<T>;
-	#shape: T;
-	#serde: Serde = default_serde;
+	#debounce: number;
+	#debounce_timer?: number;
 
-	constructor(key: string, initial: ExtractValibotType<T>, shape: T, serde = default_serde) {
+	constructor(
+		key: string,
+		initial: ExtractValibotType<T>,
+		shape: T,
+		{ serde = default_serde, debounce = 0 }: { serde?: Serde; debounce?: number } = {},
+	) {
+		this.#current = initial;
 		this.#key = key;
-		this.#intial = initial;
-		this.#shape = shape;
-		this.#serde = serde;
+		this.#debounce = debounce;
 
+		const val = get_value_from_storage(key, shape, serde);
+		if (val.found) {
+			this.#current = val.value;
+		}
+
+		// Create subscriber that only triggers for this specific key
 		this.#subscribe = createSubscriber((update) => {
-			this.#update = update;
-
-			const cleanup = on(window, 'storage', (e: StorageEvent) => {
+			return on(window, 'storage', (e: StorageEvent) => {
 				if (e.key === this.#key) {
-					update();
+					const val = get_value_from_storage(this.#key, shape, serde);
+					if (val.found) {
+						this.#current = val.value;
+						update();
+					}
 				}
 			});
+		});
 
+		auto_destroy_effect_root(() => {
+			let is_first_run = true;
+
+			$effect(() => {
+				this.#subscribe();
+
+				const current = $state.snapshot(this.#current);
+				if (!is_first_run) {
+					if (this.#debounce > 0) {
+						if (this.#debounce_timer) {
+							clearTimeout(this.#debounce_timer);
+						}
+						this.#debounce_timer = setTimeout(() => {
+							localStorage.setItem(key, serde.stringify(current));
+						}, this.#debounce);
+					} else {
+						localStorage.setItem(key, serde.stringify(current));
+					}
+				}
+
+				is_first_run = false;
+			});
+
+			// Cleanup debounce timer when effect is destroyed
 			return () => {
-				cleanup();
-				this.#update = undefined;
+				if (this.#debounce_timer) {
+					clearTimeout(this.#debounce_timer);
+				}
 			};
 		});
 	}
 
 	get current() {
-		this.#subscribe?.();
-
-		const val = get_value_from_storage(this.#key, this.#shape, this.#serde);
-		if (val.found) {
-			if (val.value != null && typeof val.value === 'object') {
-				return proxy(val.value, val.value, this.#key, this.#update);
-			}
-		}
-
-		if (typeof this.#intial === 'object') {
-			return proxy(this.#intial, this.#intial, this.#key, this.#update);
-		}
-
-		return this.#intial;
+		return this.#current;
 	}
 
 	set current(value: ExtractValibotType<T>) {
-		localStorage.setItem(this.#key, this.#serde.stringify(value));
-		this.#update?.();
+		this.#current = value;
 	}
-}
-
-function proxy<T extends object>(value: T, root: any, root_key: string, update: () => void) {
-	return new Proxy(value, {
-		get(target, key) {
-			const val = Reflect.get(target, key);
-			if (val != null && typeof val === 'object') {
-				return proxy(val, root, root_key, update);
-			}
-			return val;
-		},
-
-		set(target, key, value) {
-			Reflect.set(target, key, value);
-
-			localStorage.setItem(root_key, JSON.stringify(root));
-			update();
-			return true;
-		},
-	});
 }

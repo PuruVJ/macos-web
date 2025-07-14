@@ -1,4 +1,5 @@
-<script>
+<script lang="ts">
+	import { elevation } from '🍎/attachments';
 	import Dock from '../Dock/Dock.svelte';
 	import TopBar from '../TopBar/TopBar.svelte';
 	import Wallpaper from '../apps/WallpaperApp/Wallpaper.svelte';
@@ -6,6 +7,7 @@
 	import ContextMenu from './ContextMenu.svelte';
 	import SystemUpdate from './SystemUpdate.svelte';
 	import WindowsArea from './Window/WindowsArea.svelte';
+	import { brightness } from '🍎/state/preferences.svelte';
 
 	const isMac = /(Mac|iPhone|iPod|iPad)/i.test(navigator.platform);
 
@@ -17,11 +19,17 @@
 			import('@fontsource/inter/latin-ext-600.css'),
 		]);
 	}
-	/** @type {HTMLElement} */
-	let mainEl;
+
+	let main_el: HTMLElement;
 </script>
 
-<div bind:this={mainEl} class="container">
+<div
+	class="brightness-overlay"
+	{@attach elevation('brightness-overlay')}
+	style:opacity={1 - brightness.current / 100}
+></div>
+
+<div bind:this={main_el} class="container">
 	<main>
 		<TopBar />
 		<WindowsArea />
@@ -33,10 +41,24 @@
 	<BootupScreen />
 	<SystemUpdate />
 
-	<ContextMenu target_element={mainEl} />
+	<ContextMenu target_element={main_el} />
 </div>
 
 <style>
+	.brightness-overlay {
+		position: fixed;
+		inset: 0;
+
+		height: 100%;
+		width: 100%;
+
+		background-color: black;
+
+		transition: opacity 100ms ease;
+
+		pointer-events: none;
+	}
+
 	.container {
 		height: 100%;
 		width: 100%;

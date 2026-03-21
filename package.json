@@ -1,42 +1,92 @@
 {
-	"name": "macos-svelte",
-	"version": "13.0.0",
-	"type": "module",
-	"scripts": {
-		"dev": "vite",
-		"build": "vite build",
-		"serve": "vite preview",
-		"check": "svelte-check --tsconfig ./tsconfig.json"
-	},
-	"devDependencies": {
-		"@iconify-json/gg": "^1.2.1",
-		"@iconify-json/ic": "^1.2.1",
-		"@iconify-json/icon-park-outline": "^1.2.1",
-		"@iconify-json/iconamoon": "^1.2.1",
-		"@iconify-json/majesticons": "^1.2.1",
-		"@iconify-json/mdi": "^1.2.1",
-		"@iconify-json/pepicons": "^1.2.0",
-		"@iconify-json/ph": "^1.2.1",
-		"@iconify-json/uil": "^1.2.1",
-		"@sveltejs/vite-plugin-svelte": "4.0.0",
-		"browserslist": "^4.24.2",
-		"lightningcss": "^1.27.0",
-		"prettier-plugin-svelte": "^3.4.0",
-		"svelte": "5.34.8",
-		"svelte-check": "^4.0.5",
-		"typescript": "^5.6.3",
-		"vite": "5.4.10",
-		"vite-imagetools": "^7.0.4",
-		"vite-plugin-pwa": "^0.20.5",
-		"workbox-window": "^7.3.0"
-	},
-	"dependencies": {
-		"@fontsource/inter": "^5.1.0",
-		"@neodrag/core": "3.0.0-next.3",
-		"@neodrag/svelte": "3.0.0-next.3",
-		"date-fns": "^4.1.0",
-		"popmotion": "^11.0.5",
-		"unplugin-icons": "^0.19.3"
-	},
-	"packageManager": "pnpm@10.12.3"
+  "name": "macos-electron",
+  "version": "14.0.0",
+  "private": true,
+  "main": ".vite/build/main.js",
+  "scripts": {
+    "dev": "electron-forge start",
+    "build": "electron-forge package",
+    "make": "electron-forge make",
+    "postinstall": "node node_modules/electron/install.js",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:smoke": "pnpm build && playwright test -c playwright.electron.config.ts"
+  },
+  "config": {
+    "forge": {
+      "packagerConfig": {
+        "asar": true
+      },
+      "plugins": [
+        {
+          "name": "@electron-forge/plugin-vite",
+          "config": {
+            "concurrent": false,
+            "build": [
+              {
+                "entry": "electron/main.ts",
+                "config": "vite.main.config.ts"
+              },
+              {
+                "entry": "electron/preload.ts",
+                "config": "vite.preload.config.ts"
+              }
+            ],
+            "renderer": [
+              {
+                "name": "main_window",
+                "config": "vite.renderer.config.ts"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "dependencies": {
+    "@tanstack/react-query": "5.91.3",
+    "@tanstack/react-router": "1.168.1",
+    "@tanstack/react-router-devtools": "1.166.10",
+    "axios": "1.13.6",
+    "class-variance-authority": "0.7.1",
+    "clsx": "2.1.1",
+    "date-fns": "4.1.0",
+    "react": "19.2.4",
+    "react-dom": "19.2.4",
+    "react-native": "0.83.2",
+    "react-native-web": "0.21.2",
+    "react-rnd": "10.5.3",
+    "tailwind-merge": "3.5.0",
+    "uniwind": "1.6.0",
+    "zustand": "5.0.12"
+  },
+  "devDependencies": {
+    "@electron-forge/cli": "7.11.1",
+    "@electron-forge/plugin-vite": "7.11.1",
+    "@playwright/test": "1.58.2",
+    "@tailwindcss/vite": "4.2.2",
+    "@tanstack/router-plugin": "1.167.2",
+    "@testing-library/jest-dom": "6.9.1",
+    "@testing-library/react": "16.3.2",
+    "@types/node": "25.5.0",
+    "@types/react": "19.2.14",
+    "@types/react-dom": "19.2.3",
+    "@vitejs/plugin-react": "6.0.1",
+    "jsdom": "29.0.1",
+    "prettier": "3.8.1",
+    "prettier-plugin-tailwindcss": "0.7.2",
+    "tailwindcss": "4.2.2",
+    "typescript": "5.9.3",
+    "electron": "41.0.3",
+    "vite": "8.0.1",
+    "vite-plugin-rnw": "0.0.11",
+    "vitest": "4.1.0"
+  },
+  "pnpm": {
+    "overrides": {
+      "lightningcss": "1.30.1"
+    }
+  },
+  "packageManager": "pnpm@10.12.3"
 }

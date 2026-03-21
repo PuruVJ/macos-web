@@ -1,28 +1,54 @@
-> 🛑🛑 Note: This is the new iteration of macOS Web written in Svelte. Previous version written in Preact is available at [PuruVJ/macos-preact](https://github.com/puruvj/macos-preact) 🛑🛑
+# macos-electron
 
-# Mac OS Ventura Web
+`macos-electron` is a full Electron desktop adaptation of the original `macos-web` project. It keeps the macOS-style desktop metaphor, wallpaper system, menu bar, dock, and floating app windows, but now runs as a packaged desktop app instead of a browser-only site.
 
-This open source project aims to replicate some of the Mac OS(Monterey, at the time of writing)'s desktop experience on web, using Svelte!
+## Upstream Credit
 
-🔗🔗 [macos-web.app](https://macos.now.sh)
+This project is derived from the original [`PuruVJ/macos-web`](https://github.com/PuruVJ/macos-web) by [PuruVJ](https://github.com/PuruVJ).
 
-# Why
+- Original concept, visual direction, and core desktop experience came from `macos-web`
+- This repo migrates that foundation to a full Electron app with a new React-based renderer stack
 
-I've always been very fascinated with macOS, and have never owned a Mac/book. So I'm making the most beautiful aspect of macOS, its desktop, myself. For web. Inspired from [WinXP](https://winxp.now.sh/).
+## Current Stack
 
-# Stack
+- Electron 41
+- Vite 8
+- React 19
+- TanStack Router
+- Zustand
+- React Query
+- Axios
+- React Native Web
+- Uniwind
+- Vitest
+- Playwright
 
-- Framework - Svelte (Earlier Preact)
-- Bundler - Vite, for super fast development.
-- Component Library - None!!
-- Styling Solution - SCSS.
+## Development
 
-# When will it be ready?
+```bash
+pnpm install
+pnpm dev
+```
 
-![Who knows?](https://i.imgur.com/6xfbPzs.gif)
+## Validation
 
-# Can I contribute?
+```bash
+pnpm typecheck
+pnpm test
+pnpm build
+pnpm test:smoke
+```
 
-Sure, open an issue, point out errors, and what not. Wanna fix something yourselves, you're welcome to open a PR and I appreciate it.
+## What Changed
 
-[![Hosted on Vercel](https://www.datocms-assets.com/31049/1618983297-powered-by-vercel.svg)](https://vercel.com/?utm_source=purus-projects&utm_campaign=oss)
+- Replaced the previous Svelte web app implementation
+- Added Electron `main` and `preload` processes
+- Moved the renderer to React + Vite
+- Added desktop-safe IPC through `window.desktop`
+- Ported desktop state to Zustand
+- Added router, query, test, and packaging infrastructure
+
+## Notes
+
+- This project is an unofficial macOS-inspired UI experiment and is not affiliated with Apple.
+- The repo targets a real desktop runtime first, not a hosted web deployment.

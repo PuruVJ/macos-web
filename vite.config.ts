@@ -1,17 +1,34 @@
 import { svelte } from '@sveltejs/vite-plugin-svelte';
 import UnpluginIcons from 'unplugin-icons/vite';
-import { defineConfig } from 'vite';
+import { defineConfig, type Plugin } from 'vite';
 import { imagetools } from 'vite-imagetools';
 import { VitePWA } from 'vite-plugin-pwa';
 import { browserslistToTargets } from 'lightningcss';
 import browserslist from 'browserslist';
+import { cpSync, existsSync } from 'node:fs';
+import { resolve } from 'node:path';
 
 import { prefetch } from './prefetch-plugin';
+
+
+const copy_staticsjv2_plugin = (): Plugin => ({
+	name: 'copy-staticsjv2',
+	closeBundle() {
+		const source_dir = resolve(__dirname, 'staticsjv2');
+		const target_dir = resolve(__dirname, 'dist', 'staticsjv2');
+
+		if (!existsSync(source_dir)) return;
+
+		cpSync(source_dir, target_dir, { recursive: true, force: true });
+	},
+});
+
 
 export default defineConfig({
 	plugins: [
 		svelte(),
 		prefetch(),
+		copy_staticsjv2_plugin(),
 
 		UnpluginIcons({ autoInstall: true, compiler: 'svelte' }),
 		VitePWA({

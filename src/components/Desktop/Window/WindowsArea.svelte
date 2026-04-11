@@ -1,7 +1,13 @@
 <script lang="ts">
+	import Window from './Window.svelte';
 	import { untrack } from 'svelte';
-	import { apps_config } from '🍎/configs/apps/apps-config';
+	import { get_runtime_app_config, get_runtime_app_ids } from '🍎/configs/apps/runtime-apps';
 	import { apps } from '🍎/state/apps.svelte';
+	import { load_proxy_installs } from '🍎/state/proxy-apps.svelte';
+
+	const runtime_app_ids = $derived(get_runtime_app_ids());
+
+	load_proxy_installs();
 
 	$effect(() => {
 		apps.active;
@@ -31,11 +37,9 @@
 </script>
 
 <section id="windows-area">
-	{#each Object.keys(apps_config) as app_id}
-		{#if apps.open[app_id] && apps_config[app_id].should_open_window}
-			{#await import('./Window.svelte') then { default: Window }}
-				<Window {app_id} />
-			{/await}
+	{#each runtime_app_ids as app_id}
+		{#if apps.open[app_id] && get_runtime_app_config(app_id).should_open_window}
+			<Window {app_id} />
 		{/if}
 	{/each}
 </section>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Browser</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/gh/Destroyed12121/Staticsj@main/JS/scramjet.all.js" defer></script>
+    <script type="module">
+        import * as BareMux from "https://cdn.jsdelivr.net/npm/@mercuryworkshop/bare-mux/dist/index.mjs";
+        window.BareMux = BareMux;
+    </script>
+    <link rel="stylesheet" href="style.css">
+    <script src="./script.js" defer></script>
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <!-- Home Button -->
+
+
+    <div id="app"></div>
+
+    <div class="wisp-settings-modal hidden" id="wisp-settings-modal">
+        <div class="settings-card">
+            <div class="settings-header">
+                <h2><i class="fa-solid fa-server"></i> Proxy Settings</h2>
+                <button class="close-btn" id="close-wisp-modal"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="settings-content">
+                <div class="section-title"><i class="fa-solid fa-cloud"></i> Select Server</div>
+                <div class="server-list" id="server-list"></div>
+                <div class="section-title"><i class="fa-solid fa-plus-circle"></i> Custom Server</div>
+                <div class="custom-input-group">
+                    <input type="text" id="custom-wisp-input" placeholder="wss://your-wisp-server.com/wisp/">
+                    <button id="save-custom-wisp"><i class="fa-solid fa-plus"></i></button>
+                </div>
+            </div>
+            <div class="settings-footer">
+                Lower ping = faster browsing
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

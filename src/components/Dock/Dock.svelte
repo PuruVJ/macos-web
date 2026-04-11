@@ -2,12 +2,13 @@
 
 <script lang="ts">
 	import { elevation } from '🍎/actions';
-	import { apps_config } from '🍎/configs/apps/apps-config';
+	import { get_runtime_app_config, get_runtime_app_ids } from '🍎/configs/apps/runtime-apps';
 	import { apps } from '🍎/state/apps.svelte';
 	import { system_needs_update } from '🍎/state/system.svelte';
 	import { is_dock_hidden } from '🍎/state/dock.svelte';
+	import { load_proxy_installs } from '🍎/state/proxy-apps.svelte';
 	import DockItem from './DockItem.svelte';
-	import { untrack } from 'svelte';
+	import { onMount, untrack } from 'svelte';
 
 	let dock_mouse_x = $state<number | null>(null);
 
@@ -16,6 +17,11 @@
 	let mouseY = $state(0);
 
 	let dockContainerEl = $state<HTMLElement>();
+	const runtime_app_ids = $derived(get_runtime_app_ids());
+
+	onMount(() => {
+		load_proxy_installs();
+	});
 
 	$effect(() => {
 		// Due to how pointer-events: none works, if dock auto opens, you move away, it won't close automatically.
@@ -59,7 +65,8 @@
 		onmousemove={(event) => (dock_mouse_x = event.x)}
 		onmouseleave={() => (dock_mouse_x = null)}
 	>
-		{#each Object.entries(apps_config) as [appID, config]}
+		{#each runtime_app_ids as appID}
+			{@const config = get_runtime_app_config(appID)}
 			{#if config.dock_breaks_before}
 				<div class="divider" aria-hidden="true"></div>
 			{/if}

@@ -94,7 +94,7 @@ export const apps_config = {
 	appstore,
 	// safari,
 
-	// 'system-preferences': systemPreferences,
+	'system-preferences': systemPreferences,
 
 	'purus-twitter': purusTwitter,
 	'view-source': viewSource,

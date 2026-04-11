@@ -6,7 +6,8 @@
 		"dev": "vite",
 		"build": "vite build",
 		"serve": "vite preview",
-		"check": "svelte-check --tsconfig ./tsconfig.json"
+		"check": "svelte-check --tsconfig ./tsconfig.json",
+		"build:offline": "vite build && node scripts/build-offline-html.mjs"
 	},
 	"devDependencies": {
 		"@iconify-json/gg": "^1.2.1",

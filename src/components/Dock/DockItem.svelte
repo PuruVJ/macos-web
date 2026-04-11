@@ -28,7 +28,8 @@
 	import { sineInOut } from 'svelte/easing';
 	import { spring, tweened } from 'svelte/motion';
 	import { elevation } from '🍎/actions';
-	import { apps_config } from '🍎/configs/apps/apps-config.ts';
+	import { get_app_icon_path } from '🍎/configs/apps/app-icons.config.ts';
+	import { get_runtime_app_config } from '🍎/configs/apps/runtime-apps.ts';
 	import { apps, type AppID } from '🍎/state/apps.svelte.ts';
 	import { preferences } from '🍎/state/preferences.svelte.ts';
 
@@ -89,7 +90,7 @@
 		title,
 		should_open_window: shouldOpenWindow,
 		external_action: externalAction,
-	} = apps_config[app_id];
+	} = get_runtime_app_config(app_id);
 
 	// Spring animation for the click animation
 	const appOpenIconBounceTransform = tweened(0, {
@@ -146,7 +147,7 @@
 	<span style:transform="translate(0, {$appOpenIconBounceTransform}px)">
 		<img
 			bind:this={image_el}
-			src="/app-icons/{app_id}/256.webp"
+			src={get_app_icon_path(app_id)}
 			alt="{title} app"
 			style:width="{$width_px / 16}rem"
 			draggable="false"

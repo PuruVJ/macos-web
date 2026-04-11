@@ -1,5 +1,11 @@
 <script lang="ts">
 	import type { AppID } from '🍎/state/apps.svelte';
+	import AppStore from './AppStore/AppStore.svelte';
+	import Calculator from './Calculator/Calculator.svelte';
+	import Calendar from './Calendar/Calendar.svelte';
+	import PurusProfile from './PurusProfile/PurusProfile.svelte';
+	import VSCode from './VSCode/VSCode.svelte';
+	import WallpaperSelector from './WallpaperApp/WallpaperSelectorApp.svelte';
 
 	const {
 		app_id,
@@ -11,27 +17,15 @@
 </script>
 
 {#if app_id === 'calendar'}
-	{#await import('./Calendar/Calendar.svelte') then { default: Calendar }}
-		<Calendar />
-	{/await}
+	<Calendar />
 {:else if app_id === 'vscode'}
-	{#await import('./VSCode/VSCode.svelte') then { default: VSCode }}
-		<VSCode {is_being_dragged} />
-	{/await}
+	<VSCode {is_being_dragged} />
 {:else if app_id === 'calculator'}
-	{#await import('./Calculator/Calculator.svelte') then { default: Calculator }}
-		<Calculator />
-	{/await}
+	<Calculator />
 {:else if app_id === 'wallpapers'}
-	{#await import('./WallpaperApp/WallpaperSelectorApp.svelte') then { default: WallpaperSelector }}
-		<WallpaperSelector />
-	{/await}
+	<WallpaperSelector />
 {:else if app_id === 'purus-twitter'}
-	{#await import('./PurusProfile/PurusProfile.svelte') then { default: PurusProfile }}
-		<PurusProfile />
-	{/await}
+	<PurusProfile />
 {:else}
-	{#await import('./AppStore/AppStore.svelte') then { default: AppStore }}
-		<AppStore {app_id} />
-	{/await}
+	<AppStore {app_id} />
 {/if}

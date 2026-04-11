@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Embed</title>
+    <script src="./config.js"></script>
+    <script src="./scripts/background.js"></script>
+    <script src="./scripts/settings.js"></script>
+    <link rel="stylesheet" href="./styles/main.css">
+    <link rel="stylesheet" href="./styles/background.css">
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box}
+        html,body{height:100%;overflow:hidden;background:var(--bg);font-family:'Inter',system-ui,sans-serif}
+        #iframe-container{width:100%;height:100%;position:absolute;top:0;left:0;transition:filter .5s ease;z-index:1;filter:blur(15px)}
+        #iframe-container.loaded{filter:blur(0)}
+        #embed-frame{width:100%;height:100%;border:none;background:transparent}
+        .message-container{display:flex;align-items:center;justify-content:center;height:100%;width:100%;color:var(--text);text-align:center;position:fixed;top:0;left:0;z-index:10;background:rgba(10,10,10,.4);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);transition:opacity .3s ease,visibility .3s}
+        .message-content{max-width:400px;padding:20px}
+        .message-content h1{font-size:1.25rem;font-weight:600;color:var(--text);margin-bottom:8px}
+        .message-content p{color:var(--text-muted);font-size:13px;word-break:break-all}
+        .spinner{border:2px solid var(--border);border-top-color:var(--accent);border-radius:50%;width:32px;height:32px;animation:spin .8s linear infinite;margin:0 auto 20px}
+        @keyframes spin{to{transform:rotate(360deg)}}
+        #skip-btn,#retry-btn{margin-top:20px;padding:8px 16px;background:transparent;color:var(--text-muted);border:1px solid var(--border);border-radius:6px;cursor:pointer;font-size:13px;transition:all .15s}
+        #skip-btn:hover,#retry-btn:hover{border-color:var(--border-light);color:var(--text)}
+    </style>
+    <script src="https://cdn.jsdelivr.net/gh/Destroyed12121/Staticsj@main/JS/scramjet.all.js" defer></script>
+    <script type="module">
+        import * as BareMux from "https://cdn.jsdelivr.net/npm/@mercuryworkshop/bare-mux/dist/index.mjs";
+        window.BareMux = BareMux;
+        
+        // Load script.js after BareMux is available
+        const loadScripts = async () => {
+            await new Promise(resolve => {
+                const script = document.createElement('script');
+                script.src = "./script.js";
+                script.onload = resolve;
+                document.head.appendChild(script);
+            });
+        };
+        
+        // Signal that scripts are loaded
+        window.scriptsLoaded = loadScripts();
+    </script>
+</head>
+<body>
+    <div id="loading" class="message-container">
+        <div class="message-content">
+            <div class="spinner"></div>
+            <h1 id="loading-title">Connecting</h1>
+            <p id="loading-url">Initializing proxy...</p>
+            <button id="skip-btn">Skip</button>
+        </div>
+    </div>
+    <div id="error" class="message-container" style="display:none">
+        <div class="message-content">
+            <h1>Connection Error</h1>
+            <p id="error-message">An error occurred.</p>
+            <button id="retry-btn">Retry</button>
+        </div>
+    </div>
+    <div id="iframe-container"></div>
+    <script>
+        // Get config from config.js (already loaded in head)
+        const DEFAULT_WISP = window.SITE_CONFIG?.defaultWisp || "wss://glseries.net/wisp/";
+        const WISP_SERVERS = window.SITE_CONFIG?.wispServers || [];
+
+        const ERRORS={noUrl:{title:"No URL Provided",message:"You need to provide a URL to load.",hint:`Format: ${location.pathname}#https://example.com`},invalidUrl:{title:"Invalid URL",message:"The URL you provided is not valid.",hint:`Try: ${location.pathname}#https://google.com`},connectionFailed:{title:"Connection Failed",message:"Could not connect to the website.",hint:"The site may be down or blocking requests."},proxyError:{title:"Proxy Error",message:"Failed to initialize the proxy connection.",hint:"Try refreshing or check your proxy settings."},timeout:{title:"Loading Timeout",message:"The page is taking too long to load.",hint:"Click 'Skip' to view what has loaded, or 'Retry' to try again."},blocked:{title:"Access Denied",message:"This website is blocking access.",hint:"Some sites don't allow being loaded through proxies."},unknown:{title:"Error",message:"An unexpected error occurred.",hint:"Please try again."}};
+        const els={loading:document.getElementById('loading'),loadingTitle:document.getElementById('loading-title'),loadingUrl:document.getElementById('loading-url'),error:document.getElementById('error'),errorMessage:document.getElementById('error-message'),iframeContainer:document.getElementById('iframe-container'),skipBtn:document.getElementById('skip-btn'),retryBtn:document.getElementById('retry-btn')};
+        const isValidUrl=(url)=>{try{const u=new URL(url);return u.protocol==='http:'||u.protocol==='https:'}catch{return false}};
+        const showContent=()=>{els.loading.style.opacity='0';els.loading.style.visibility='hidden';els.iframeContainer.classList.add('loaded')};
+        function showError(type,details=''){els.loading.style.display='none';els.error.style.display='flex';const err=ERRORS[type]||ERRORS.unknown;els.errorMessage.innerHTML=`<strong>${err.title}</strong><br><br>${err.message}<br><br><small style="color:var(--text-muted)">${err.hint}</small>${details?`<br><br><code style="font-size:11px;background:var(--surface);padding:4px 8px;border-radius:4px">${details}</code>`:''}`}
+        function getErrorType(msg){msg=(msg||'').toLowerCase();if(msg.includes('fetch')||msg.includes('network'))return'connectionFailed';if(msg.includes('timeout'))return'timeout';if(msg.includes('blocked')||msg.includes('cors')||msg.includes('access'))return'blocked';if(msg.includes('websocket')||msg.includes('wisp'))return'proxyError';return'unknown'}
+
+        // Initialize scramjet directly in embed.html
+        let scramjetInstance = null;
+        let connectionInstance = null;
+
+        async function initializeScramjet() {
+            if (scramjetInstance) return scramjetInstance;
+
+            const basePath = location.pathname.replace(/[^/]*$/, '');
+            const { ScramjetController } = $scramjetLoadController();
+
+            scramjetInstance = new ScramjetController({
+                prefix: basePath + "scramjet/",
+                files: {
+                    wasm: "https://cdn.jsdelivr.net/gh/Destroyed12121/Staticsj@main/JS/scramjet.wasm.wasm",
+                    all: "https://cdn.jsdelivr.net/gh/Destroyed12121/Staticsj@main/JS/scramjet.all.js",
+                    sync: "https://cdn.jsdelivr.net/gh/Destroyed12121/Staticsj@main/JS/scramjet.sync.js"
+                }
+            });
+
+            await scramjetInstance.init();
+            return scramjetInstance;
+        }
+
+        async function initializeConnection() {
+            if (connectionInstance) return connectionInstance;
+
+            const basePath = location.pathname.replace(/[^/]*$/, '');
+            const wispUrl = localStorage.getItem("proxServer") || DEFAULT_WISP;
+
+            connectionInstance = new BareMux.BareMuxConnection(basePath + "bareworker.js");
+            await connectionInstance.setTransport("https://cdn.jsdelivr.net/npm/@mercuryworkshop/epoxy-transport@2.1.28/dist/index.mjs", [{ wisp: wispUrl }]);
+            return connectionInstance;
+        }
+
+        async function registerServiceWorker() {
+            if ('serviceWorker' in navigator) {
+                try {
+                    const basePath = location.pathname.replace(/[^/]*$/, '');
+                    const registration = await navigator.serviceWorker.register(basePath + 'sw.js', { scope: basePath });
+                    await navigator.serviceWorker.ready;
+
+                    // Send config to service worker
+                    const wispUrl = localStorage.getItem("proxServer") || DEFAULT_WISP;
+                    const allServers = [...WISP_SERVERS, ...JSON.parse(localStorage.getItem('customWisps') || '[]')];
+                    const autoswitch = localStorage.getItem('wispAutoswitch') !== 'false';
+
+                    const swConfig = {
+                        type: "config",
+                        wispurl: wispUrl,
+                        servers: allServers,
+                        autoswitch: autoswitch
+                    };
+
+                    const sendConfig = () => {
+                        if (registration.active) {
+                            registration.active.postMessage(swConfig);
+                        }
+                    };
+
+                    sendConfig();
+                    setTimeout(sendConfig, 500);
+                    setTimeout(sendConfig, 1500);
+
+                    console.log('Service worker registered for embed');
+                } catch (error) {
+                    console.error('Service worker registration failed:', error);
+                }
+            }
+        }
+
+        async function initialize(){const targetUrl=window.location.hash.substring(1);const skipLoading=new URLSearchParams(window.location.search).get('skip')!==null;const basePath=location.pathname.replace(/[^/]*$/,'');if(!targetUrl)return showError('noUrl');if(!isValidUrl(targetUrl))return showError('invalidUrl',targetUrl);if(skipLoading){els.skipBtn.style.display='inline-block';els.skipBtn.onclick=showContent}
+            try{await registerServiceWorker();const scramjet=await initializeScramjet();await initializeConnection();els.loadingTitle.textContent='Loading Site';els.loadingUrl.textContent=targetUrl;const activeFrame=scramjet.createFrame();activeFrame.frame.id='embed-frame';els.iframeContainer.appendChild(activeFrame.frame);activeFrame.frame.addEventListener('load',showContent);setTimeout(()=>{els.skipBtn.style.display='inline-block';els.skipBtn.onclick=showContent},2000);activeFrame.go(targetUrl)}catch(err){console.error('Embed Error:',err);showError(getErrorType(err.message),targetUrl)}}
+        els.retryBtn.onclick=()=>location.reload();
+
+        // Wait for scripts to load before initializing
+        async function start() {
+            if (window.scriptsLoaded) {
+                await window.scriptsLoaded;
+            }
+            initialize();
+        }
+        window.addEventListener('load', start);
+    </script>
+</body>
+</html>

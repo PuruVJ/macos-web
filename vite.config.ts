@@ -3,8 +3,6 @@ import UnpluginIcons from 'unplugin-icons/vite';
 import { defineConfig } from 'vite';
 import { imagetools } from 'vite-imagetools';
 import { VitePWA } from 'vite-plugin-pwa';
-import { browserslistToTargets } from 'lightningcss';
-import browserslist from 'browserslist';
 
 import { prefetch } from './prefetch-plugin';
 
@@ -15,6 +13,12 @@ export default defineConfig({
 
 		UnpluginIcons({ autoInstall: true, compiler: 'svelte' }),
 		VitePWA({
+			// Let vite-plugin-pwa handle the web manifest + registration, but write
+			// our own service worker (src/sw.ts) powered by Serwist instead of
+			// workbox's generateSW. The precache list is injected as self.__WB_MANIFEST.
+			strategies: 'injectManifest',
+			srcDir: 'src',
+			filename: 'sw.ts',
 			includeAssets: [
 				'robots.txt',
 				'app-icons/finder/32.png',
@@ -57,21 +61,13 @@ export default defineConfig({
 				],
 			},
 		}),
-		imagetools({}),
+		imagetools(),
 	],
 	resolve: {
 		alias: {
 			'🍎': new URL('./src/', import.meta.url).pathname,
 		},
 	},
-	build: {
-		minify: 'terser',
-		cssMinify: 'lightningcss',
-	},
-	css: {
-		transformer: 'lightningcss',
-		lightningcss: {
-			targets: browserslistToTargets(browserslist('defaults, not IE 11, not IE_Mob 11, not dead')),
-		},
-	},
+	// Vite 8 (Rolldown) minifies JS with its built-in minifier and CSS with
+	// lightningcss by default — no explicit build/css config needed.
 });

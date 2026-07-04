@@ -3,3 +3,5 @@
 /.vscode/
 .DS_Store
 .idea/
+.wrangler/
+.dev.vars

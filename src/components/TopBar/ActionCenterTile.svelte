@@ -15,7 +15,7 @@
 		onkeyup?: (e: KeyboardEvent) => void;
 	} = $props();
 
-	const [rowStart, rowSpan] = grid;
+	const [rowStart, rowSpan] = $derived(grid);
 </script>
 
 <button

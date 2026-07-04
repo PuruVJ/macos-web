@@ -1,0 +1,11 @@
+{
+	"name": "macos-web",
+	"compatibility_date": "2026-07-01",
+	// Static-only deployment (no Worker script): the built Vite SPA in ./dist is
+	// served directly from Cloudflare's edge. `single-page-application` serves
+	// index.html for any unmatched path.
+	"assets": {
+		"directory": "./dist",
+		"not_found_handling": "single-page-application"
+	}
+}

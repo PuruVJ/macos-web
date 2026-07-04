@@ -1,0 +1,21 @@
+# Cloudflare Workers static-asset headers (copied to dist/_headers by Vite).
+#
+# Vite fingerprints everything under /assets/ with a content hash, so those are
+# safe to cache forever — a content change produces a new filename.
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Media served from public/ at stable (non-hashed) paths. Content is effectively
+# static, so cache it hard too.
+/*.webp
+  Cache-Control: public, max-age=31536000, immutable
+/*.png
+  Cache-Control: public, max-age=31536000, immutable
+/*.svg
+  Cache-Control: public, max-age=31536000, immutable
+/*.mp3
+  Cache-Control: public, max-age=31536000, immutable
+
+# NOTE: index.html, sw.js and manifest.webmanifest are intentionally left on
+# default (revalidating) caching — they are the entry points the browser
+# re-checks to pick up new deployments and service-worker updates.

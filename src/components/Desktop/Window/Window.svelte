@@ -31,9 +31,9 @@
 
 	let windowEl = $state<HTMLElement>();
 
-	const { height, width } = apps_config[app_id];
+	const { height, width } = $derived(apps_config[app_id]);
 
-	const remModifier = +height * 1.2 >= window.innerHeight ? 24 : 16;
+	const remModifier = $derived(+height * 1.2 >= window.innerHeight ? 24 : 16);
 
 	const randX = rand_int(-600, 600);
 	const randY = rand_int(-100, 100);

@@ -10,7 +10,7 @@
 		children: Snippet;
 	} = $props();
 
-	const [[columnStart, columnSpan], [rowStart, rowSpan]] = grid;
+	const [[columnStart, columnSpan], [rowStart, rowSpan]] = $derived(grid);
 </script>
 
 <section

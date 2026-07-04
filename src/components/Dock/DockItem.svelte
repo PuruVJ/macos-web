@@ -89,7 +89,7 @@
 		title,
 		should_open_window: shouldOpenWindow,
 		external_action: externalAction,
-	} = apps_config[app_id];
+	} = $derived(apps_config[app_id]);
 
 	// Spring animation for the click animation
 	const appOpenIconBounceTransform = tweened(0, {

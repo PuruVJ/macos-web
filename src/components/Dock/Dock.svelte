@@ -27,16 +27,16 @@
 		 * When it becomes null, Then use the mouseY and bodyHeight to determine if the dock should be hidden
 		 */
 		if (dock_mouse_x !== null) {
-			untrack(() => (is_dock_hidden.value = false));
+			untrack(() => (is_dock_hidden.current = false));
 			return;
 		}
 
 		if (!Object.values(apps.fullscreen).some(Boolean)) {
-			untrack(() => (is_dock_hidden.value = false));
+			untrack(() => (is_dock_hidden.current = false));
 			return;
 		}
 
-		untrack(() => (is_dock_hidden.value = Math.abs(mouseY - bodyHeight) > HIDDEN_DOCK_THRESHOLD));
+		untrack(() => (is_dock_hidden.current = Math.abs(mouseY - bodyHeight) > HIDDEN_DOCK_THRESHOLD));
 	});
 </script>
 
@@ -46,14 +46,14 @@
 
 <section
 	class="dock-container"
-	class:dock-hidden={is_dock_hidden.value}
+	class:dock-hidden={is_dock_hidden.current}
 	bind:this={dockContainerEl}
 	{@attach elevation('dock')}
 >
 	<!-- svelte-ignore a11y_no_static_element_interactions -->
 	<div
 		class="dock-el"
-		class:hidden={is_dock_hidden.value}
+		class:hidden={is_dock_hidden.current}
 		onmousemove={(event) => (dock_mouse_x = event.x)}
 		onmouseleave={() => (dock_mouse_x = null)}
 	>
@@ -74,7 +74,7 @@
 		bottom: 0;
 
 		width: 100%;
-		height: 5.2rem;
+		height: 5.8rem;
 
 		padding: 0.4rem;
 
@@ -87,18 +87,27 @@
 	}
 
 	.dock-el {
-		background-color: lch(from var(--system-color-light) l c h / 40%);
+		--border-size: 1px;
+
+		background-color: lch(0% 0 0 / 10%);
+
+		filter: drop-shadow(0 10px 60px rgba(0, 0, 0, 0.08)) drop-shadow(0 4px 20px rgba(0, 0, 0, 0.04))
+			drop-shadow(0 1px 3px rgba(0, 0, 0, 0.02));
 
 		box-shadow:
-			inset 0 0 0 0.2px lch(from var(--system-color-grey-100) l c h / 70%),
-			0 0 0 0.2px lch(from var(--system-color-grey-900) l c h / 70%),
-			hsla(0, 0%, 0%, 0.3) 2px 5px 19px 7px;
+			inset var(--border-size) 0 0 0 lch(100% 0 0 / 20%),
+			inset 0 calc(-1 * var(--border-size)) 0 0 lch(100% 0 0 / 30%),
+			inset calc(-1 * var(--border-size)) 0 0 0 lch(100% 0 0 / 30%),
+			inset 0 var(--border-size) 0 0 lch(100% 0 0 / 20%),
+			0 20px 80px rgba(0, 0, 0, 0.08),
+			0 8px 40px rgba(0, 0, 0, 0.05),
+			0 2px 16px rgba(0, 0, 0, 0.03);
 
 		position: relative;
 
 		padding: 0.3rem;
 
-		border-radius: 1.2rem;
+		border-radius: 2rem;
 
 		height: 100%;
 
@@ -125,29 +134,25 @@
 
 		&::before {
 			content: '';
-
-			border-radius: 20px;
-
-			width: 100%;
-			height: 100%;
-
-			border: inherit;
-
-			backdrop-filter: blur(10px);
-
 			position: absolute;
-			top: 0;
-			left: 0;
-
-			z-index: -1;
+			inset: 0;
+			border-radius: inherit;
+			background:
+				linear-gradient(to right, transparent, lch(100% 0 0 / 0%)) left/100% 100%,
+				linear-gradient(to top, transparent, lch(100% 0 0 / 0%)) bottom/100% 100%,
+				linear-gradient(to left, transparent, lch(100% 0 0 / 0%)) right/100% 100%,
+				linear-gradient(to bottom, transparent, lch(100% 0 0 / 0%)) top/100% 100%;
+			pointer-events: none;
 		}
 	}
 
 	.divider {
-		height: 100%;
+		height: 80%;
 		width: 0.2px;
 
-		background-color: lch(from var(--system-color-dark) l c h / 30%);
+		translate: 0 -10%;
+
+		background-color: lch(100% 0 0 / 30%);
 
 		margin: 0 4px;
 	}

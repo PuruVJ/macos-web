@@ -9,10 +9,10 @@
 	import { apps } from '🍎/state/apps.svelte.ts';
 	import { should_show_notch } from '🍎/state/menubar.svelte';
 	import { brightness, reduced_motion, theme, wallpaper } from '🍎/state/preferences.svelte.ts';
+	import { Toggleable } from '🍎/state/toggleable.svelte';
 	import Slider from '../SystemUI/Slider.svelte';
 	import ActionCenterSurface from './ActionCenterSurface.svelte';
 	import ActionCenterTile from './ActionCenterTile.svelte';
-	import { Toggleable } from '🍎/state/toggleable.svelte';
 
 	const notch = Toggleable.of(should_show_notch);
 

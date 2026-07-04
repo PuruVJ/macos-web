@@ -1,5 +1,5 @@
 <script module>
-	const baseWidth = 57.6;
+	const baseWidth = 64;
 	const distanceLimit = baseWidth * 6;
 	const beyond_the_distance_limit = distanceLimit + 1;
 	const distanceInput = [
@@ -200,6 +200,8 @@
 		justify-content: flex-end;
 		position: relative;
 
+		padding: 0 0.3rem;
+
 		border-radius: 0.5rem;
 
 		&:hover,
@@ -242,8 +244,7 @@
 		display: none;
 
 		&.dark {
-			--double-border: inset 0 0 0 0.9px
-					lch(from var(--system-color-dark) l c h / 30%),
+			--double-border: inset 0 0 0 0.9px lch(from var(--system-color-dark) l c h / 30%),
 				0 0 0 1.2px lch(from var(--system-color-light) l c h / 30%);
 		}
 	}
@@ -256,7 +257,7 @@
 
 		border-radius: 50%;
 
-		background-color: var(--system-color-dark);
+		background-color: white;
 
 		opacity: var(--opacity);
 	}

@@ -1,1 +1,1 @@
-export const is_dock_hidden = $state({ value: false as boolean });
+export const is_dock_hidden = $state({ current: false as boolean });

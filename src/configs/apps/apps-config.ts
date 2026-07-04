@@ -69,17 +69,6 @@ const viewSource = create_app_config({
 	external_action: () => window.open('https://github.com/puruvj/macos-web', '_blank'),
 });
 
-const vercel = create_app_config({
-	title: `Powered by Vercel`,
-	resizable: true,
-
-	should_open_window: false,
-	external_action: () =>
-		window.open('https://vercel.com/?utm_source=purus-projects&utm_campaign=oss', '_blank'),
-
-	dock_breaks_before: true,
-});
-
 const appstore = create_app_config({
 	title: 'App Store',
 	resizable: true,
@@ -98,6 +87,4 @@ export const apps_config = {
 
 	'purus-twitter': purusTwitter,
 	'view-source': viewSource,
-
-	vercel,
 };

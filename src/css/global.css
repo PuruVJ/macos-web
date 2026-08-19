@@ -1,107 +1,29 @@
 @import './reset.css';
 @import './theme.css';
 
-html,
+:root { background:#0f1115; color-scheme:light; font-synthesis:none; }
+html, body { height:100%; width:100%; margin:0; background:#0f1115; }
 body {
-	height: 100%;
+	color:var(--system-color-dark,#fff);
+	cursor:var(--system-cursor-default),default;
+	font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text",Inter,system-ui,sans-serif;
+	font-size:14px;
+	letter-spacing:-.01em;
+	overflow:hidden;
+	-webkit-font-smoothing:antialiased;
+	-moz-osx-font-smoothing:grayscale;
+	text-rendering:optimizeLegibility;
 }
-
-body {
-	cursor: var(--system-cursor-default), auto;
-
-	font-family: var(--system-font-family);
-
-	overflow: hidden;
-
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
-}
-
-* {
-	box-sizing: border-box;
-
-	transition:
-		background-color 150ms ease-in,
-		background 150ms ease-in;
-}
-
-*:focus {
-	outline: none;
-}
-
-*:focus-visible {
-	outline: none;
-
-	box-shadow: var(--system-focus-outline);
-}
-
-#root {
-	width: 100%;
-	height: 100%;
-
-	isolation: isolate;
-}
-
-button {
-	color: inherit;
-	text-decoration: none;
-	vertical-align: middle;
-	font-family: inherit;
-
-	border: 0;
-	border-radius: 0;
-
-	outline: 0;
-
-	margin: 0;
-	padding: 0;
-
-	display: inline-flex;
-	align-items: center;
-	justify-content: center;
-
-	position: relative;
-
-	user-select: none;
-	appearance: none;
-	cursor: var(--system-cursor-default), auto;
-
-	background-color: transparent;
-
-	-webkit-tap-highlight-color: transparent;
-}
-
-* {
-	cursor: var(--system-cursor-default), auto;
-}
-
-/* Scrollbar Stuffs */
-::-webkit-scrollbar {
-	width: 5px;
-}
-
-/* Track */
-::-webkit-scrollbar-track {
-	background-color: transparent;
-	border-radius: 0.75rem;
-	width: 5px;
-	transition-duration: 0.4s;
-}
-
-/* Handle */
-::-webkit-scrollbar-thumb {
-	background-color: #888;
-	border-radius: 0.75rem;
-	width: 5px;
-	transition-duration: 0.4s;
-}
-
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-	background-color: #666;
-}
-
-/* Handle on clicked */
-::-webkit-scrollbar-thumb:active {
-	background-color: #444;
-}
+*,*::before,*::after{box-sizing:border-box}
+*,button{cursor:var(--system-cursor-default),default}
+button,a,[role='button']{cursor:var(--system-cursor-pointer),pointer}
+button{font:inherit;-webkit-tap-highlight-color:transparent}
+*:focus{outline:none}
+*:focus-visible{outline:2px solid color-mix(in srgb,var(--system-color-primary) 78%,white 22%);outline-offset:2px;box-shadow:0 0 0 4px color-mix(in srgb,var(--system-color-primary) 18%,transparent)}
+#root{width:100%;height:100%;min-height:100vh;isolation:isolate;background:#0f1115}
+::selection{background:color-mix(in srgb,var(--system-color-primary) 32%,transparent)}
+::-webkit-scrollbar{width:8px;height:8px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:rgba(128,128,128,.42);border-radius:999px;border:2px solid transparent;background-clip:padding-box}
+::-webkit-scrollbar-thumb:hover{background:rgba(128,128,128,.6);background-clip:padding-box}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}

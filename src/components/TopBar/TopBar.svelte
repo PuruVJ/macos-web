@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { fade_out } from '🍎/helpers/fade';
 	import { should_show_notch } from '🍎/state/menubar.svelte.ts';
-
 	import { sineIn } from 'svelte/easing';
 	import { fade } from 'svelte/transition';
 	import ActionCenterToggle from './ActionCenterToggle.svelte';
@@ -10,120 +9,55 @@
 </script>
 
 <header>
-	<MenuBar />
-
-	<span style:flex="1 1 auto"></span>
-
-	{#if should_show_notch.value}
-		<div class="notch" in:fade={{ duration: 150, easing: sineIn }} out:fade_out>
-			<span> <img src="/emojis/wink.png" alt="Wink emoji" class="emoji" /> </span>
+	<div class="bar-content">
+		<MenuBar />
+		<span class="spacer"></span>
+		{#if should_show_notch.value}
+			<div class="notch" in:fade={{ duration: 150, easing: sineIn }} out:fade_out>
+				<span><img src={`${import.meta.env.BASE_URL}emojis/wink.png`} alt="Wink" class="emoji" /></span>
+			</div>
+		{/if}
+		<div class="right-group">
+			<ActionCenterToggle />
+			<button class="clock" aria-label="Current time"><TopBarTime /></button>
 		</div>
-	{/if}
-
-	<ActionCenterToggle />
-
-	<button>
-		<TopBarTime />
-	</button>
+	</div>
 </header>
 
 <style>
 	header {
+		position: fixed;
+		top: 0;
+		left: 0;
+		z-index: 10001;
+		width: 100%;
+		height: 1.9rem;
+		padding: .14rem .35rem;
+		pointer-events: none;
+	}
+	.bar-content {
+		position: relative;
+		height: 100%;
 		display: flex;
 		align-items: center;
-
-		position: relative;
-
-		width: 100%;
-		height: 1.8rem;
-
-		background-color: hsla(var(--system-color-light-hsl), 0.3);
-
+		padding: 0 .18rem;
+		border: 1px solid rgba(255,255,255,.16);
+		border-radius: .72rem;
+		background: linear-gradient(180deg, rgba(255,255,255,.16), rgba(255,255,255,.065));
+		box-shadow: inset 0 1px 0 rgba(255,255,255,.2), 0 3px 12px rgba(0,0,0,.08);
+		backdrop-filter: blur(18px) saturate(145%);
+		-webkit-backdrop-filter: blur(18px) saturate(145%);
 		color: var(--system-color-light-contrast);
 		fill: var(--system-color-light-contrast);
-
-		button {
-			font-weight: 500;
-			font-size: 0.8rem;
-			font-family: var(--system-font-family);
-
-			letter-spacing: 0.3px;
-
-			position: relative;
-
-			height: 100%;
-
-			text-shadow: 0 0 1px hsla(0, 0%, 0%, 0.1);
-		}
+		pointer-events: auto;
 	}
-
-	.notch {
-		--width: 140px;
-
-		display: grid;
-		place-items: center;
-
-		position: absolute;
-		top: 0;
-		left: 50%;
-
-		width: var(--width);
-		height: 95%;
-
-		background-color: #222;
-		border-radius: 0 0 0.5rem 0.5rem;
-		transform: translateX(-50%);
-
-		& > span {
-			opacity: 0;
-
-			transition: opacity 0.2s ease-in-out;
-		}
-
-		&:hover {
-			& > span {
-				opacity: 1;
-			}
-		}
-
-		/* // for outward curves */
-		&::before,
-		&::after {
-			content: '';
-			position: absolute;
-			top: 0;
-			height: 16px;
-			width: 16px;
-			border-radius: 50%;
-		}
-		&::before {
-			left: -16px;
-			box-shadow: 8px -8px #222;
-		}
-		&::after {
-			right: -16px;
-			box-shadow: -8px -8px #222;
-		}
-	}
-
-	header::before {
-		content: '';
-
-		width: inherit;
-		height: inherit;
-
-		position: fixed;
-		left: 0;
-		top: 0;
-
-		z-index: 0;
-		backdrop-filter: blur(12px);
-	}
-
-	.emoji {
-		height: 1.5em;
-		width: 1.5em;
-
-		vertical-align: middle;
-	}
+	.spacer { flex: 1 1 auto; }
+	.right-group { height: 100%; display:flex; align-items:center; gap:.05rem; }
+	.clock { height:100%; padding:0 .55rem; border:0; border-radius:.55rem; background:transparent; font-weight:600; font-size:.76rem; letter-spacing:.15px; color:inherit; }
+	.clock:hover, .clock:focus-visible { background:rgba(255,255,255,.1); outline:none; }
+	.emoji { height:1.25em; width:1.25em; }
+	.notch { --width:138px; position:absolute; top:-1px; left:50%; width:var(--width); height:1.9rem; display:grid; place-items:center; background:linear-gradient(180deg,#1b1b1d,#0d0d0f); border-radius:0 0 .65rem .65rem; transform:translateX(-50%); box-shadow:0 2px 8px rgba(0,0,0,.18); }
+	.notch > span { opacity:0; transition:opacity .2s ease; }
+	.notch:hover > span { opacity:1; }
+	@media (max-width:640px){ header{padding:.08rem .2rem}.bar-content{border-radius:.58rem}.notch{--width:110px} }
 </style>

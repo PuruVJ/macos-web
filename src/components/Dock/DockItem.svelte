@@ -2,24 +2,8 @@
 	const baseWidth = 57.6;
 	const distanceLimit = baseWidth * 6;
 	const beyond_the_distance_limit = distanceLimit + 1;
-	const distanceInput = [
-		-distanceLimit,
-		-distanceLimit / 1.25,
-		-distanceLimit / 2,
-		0,
-		distanceLimit / 2,
-		distanceLimit / 1.25,
-		distanceLimit,
-	];
-	const widthOutput = [
-		baseWidth,
-		baseWidth * 1.1,
-		baseWidth * 1.414,
-		baseWidth * 2,
-		baseWidth * 1.414,
-		baseWidth * 1.1,
-		baseWidth,
-	];
+	const distanceInput = [-distanceLimit, -distanceLimit / 1.25, -distanceLimit / 2, 0, distanceLimit / 2, distanceLimit / 1.25, distanceLimit];
+	const widthOutput = [baseWidth, baseWidth * 1.1, baseWidth * 1.414, baseWidth * 2, baseWidth * 1.414, baseWidth * 1.1, baseWidth];
 </script>
 
 <script lang="ts">
@@ -32,227 +16,119 @@
 	import { apps, type AppID } from '🍎/state/apps.svelte.ts';
 	import { preferences } from '🍎/state/preferences.svelte.ts';
 
-	const {
-		mouse_x,
-		app_id,
-		needs_update = false,
-	}: {
-		mouse_x: number | null;
-		app_id: AppID;
-		needs_update?: boolean;
-	} = $props();
-
-	let image_el = $state<HTMLImageElement>();
-
+	const { mouse_x, app_id, needs_update = false }: { mouse_x: number | null; app_id: AppID; needs_update?: boolean } = $props();
+	let icon_el = $state<HTMLElement>();
 	let distance = $state(beyond_the_distance_limit);
-
-	const width_px = spring(baseWidth, {
-		damping: 0.47,
-		stiffness: 0.12,
-	});
-
+	const width_px = spring(baseWidth, { damping: 0.47, stiffness: 0.12 });
 	const get_width_from_distance = interpolate(distanceInput, widthOutput);
-
-	$effect(() => {
-		distance;
-
-		untrack(() => ($width_px = get_width_from_distance(distance)));
-	});
+	$effect(() => { distance; untrack(() => ($width_px = get_width_from_distance(distance))); });
 
 	let raf: number;
 	function animate() {
-		if (image_el && mouse_x !== null) {
-			const rect = image_el.getBoundingClientRect();
-
-			// get the x coordinate of the img DOMElement's center
-			// the left x coordinate plus the half of the width
-			const img_center_x = rect.left + rect.width / 2;
-
-			// difference between the x coordinate value of the mouse pointer
-			// and the img center x coordinate value
-			const distance_delta = mouse_x - img_center_x;
-			distance = distance_delta;
+		if (icon_el && mouse_x !== null) {
+			const rect = icon_el.getBoundingClientRect();
+			distance = mouse_x - (rect.left + rect.width / 2);
 			return;
 		}
-
 		distance = beyond_the_distance_limit;
 	}
-
 	$effect(() => {
 		mouse_x;
 		if (preferences.reduced_motion || apps.is_being_dragged) return;
-
 		raf = requestAnimationFrame(animate);
 	});
 
-	const {
-		title,
-		should_open_window: shouldOpenWindow,
-		external_action: externalAction,
-	} = $derived(apps_config[app_id]);
-
-	// Spring animation for the click animation
-	const appOpenIconBounceTransform = tweened(0, {
-		duration: 400,
-		easing: sineInOut,
-	});
+	const { title = app_id } = $derived(apps_config[app_id]);
+	const openWindow = $derived(apps_config[app_id]?.should_open_window !== false);
+	const externalAction = $derived(apps_config[app_id]?.external_action);
+	const iconSrc = $derived(`${import.meta.env.BASE_URL}app-icons/${app_id}/256.png`);
+	const appOpenIconBounceTransform = tweened(0, { duration: 400, easing: sineInOut });
 
 	async function bounceEffect() {
-		// Animate the icon
 		await appOpenIconBounceTransform.set(-40);
-
-		// Now animate it back to its place
 		appOpenIconBounceTransform.set(0);
 	}
 
 	async function openApp(e: MouseEvent) {
-		if (!shouldOpenWindow) return externalAction?.(e);
-
-		// For the bounce animation
+		if (!openWindow) {
+			if (externalAction) await externalAction(e);
+			return;
+		}
 		const isAppAlreadyOpen = apps.open[app_id];
-
 		apps.open[app_id] = true;
 		apps.active = app_id;
-
-		if (isAppAlreadyOpen) return;
-
-		bounceEffect();
+		if (!isAppAlreadyOpen) bounceEffect();
 	}
 
-	onDestroy(() => {
-		cancelAnimationFrame(raf);
-	});
-
+	onDestroy(() => cancelAnimationFrame(raf));
 	const is_app_store = $derived(app_id === 'appstore');
 	const show_pwa_badge = $derived(is_app_store && needs_update);
-
-	$effect(() => {
-		if (show_pwa_badge) bounceEffect();
-	});
+	$effect(() => { if (show_pwa_badge) bounceEffect(); });
 </script>
 
 <button onclick={openApp} aria-label="Launch {title} app" class="dock-open-app-button {app_id}">
-	<p
-		class="tooltip"
-		class:tooltip-enabled={!apps.is_being_dragged}
-		class:dark={preferences.theme.scheme === 'dark'}
-		style:top={preferences.reduced_motion ? '-50px' : '-35%'}
-		style:transform="translate(0, {$appOpenIconBounceTransform}px)"
-		use:elevation={'dock-tooltip'}
-	>
-		{title}
-	</p>
-
-	<span style:transform="translate(0, {$appOpenIconBounceTransform}px)">
-		<img
-			bind:this={image_el}
-			src="/app-icons/{app_id}/256.webp"
-			alt="{title} app"
-			style:width="{$width_px / 16}rem"
-			draggable="false"
-		/>
+	<p class="tooltip" class:tooltip-enabled={!apps.is_being_dragged} class:dark={preferences.theme.scheme === 'dark'} use:elevation={'dock-tooltip'}>{title}</p>
+	<span bind:this={icon_el} class="icon-shell" style:width="{$width_px / 16}rem" style:height="{$width_px / 16}rem" style:transform="translate(0, {$appOpenIconBounceTransform}px)">
+		<img src={iconSrc} alt="" draggable="false" loading="eager" decoding="async" />
 	</span>
-
 	<div class="dot" style:--opacity={+apps.open[app_id]}></div>
-
-	{#if show_pwa_badge}
-		<div class="pwa-badge" style:transform="scale({$width_px / baseWidth})">1</div>
-	{/if}
+	{#if show_pwa_badge}<div class="pwa-badge">1</div>{/if}
 </button>
 
 <style>
-	img {
-		will-change: width;
-	}
-
 	button {
 		display: flex;
 		flex-direction: column;
 		justify-content: flex-end;
 		position: relative;
-
-		border-radius: 0.5rem;
-
-		&:hover,
-		&:focus-visible {
-			.tooltip.tooltip-enabled {
-				display: block;
-			}
-		}
-
-		& > span {
-			display: flex;
-			justify-content: center;
-			align-items: center;
-		}
+		border-radius: .7rem;
+		padding: 0;
+		background: transparent;
+		border: 0;
+		box-shadow: none;
 	}
 
+	.icon-shell {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		background: transparent;
+		box-shadow: none;
+		filter: none;
+		flex: none;
+		border-radius: 18px;
+		overflow: hidden;
+	}
+
+	.icon-shell img {
+		display: block;
+		width: 100%;
+		height: 100%;
+		object-fit: contain;
+		flex: none;
+		user-select: none;
+		-webkit-user-drag: none;
+	}
+
+	button:hover .tooltip-enabled, button:focus-visible .tooltip-enabled { display: block; }
 	.tooltip {
-		--double-border: 0 0 0 0 white;
-
 		white-space: nowrap;
-
 		position: absolute;
-
-		background-color: hsla(var(--system-color-light-hsl), 0.5);
-		backdrop-filter: blur(5px);
-
-		padding: 0.5rem 0.75rem;
-		border-radius: 0.375rem;
-
-		box-shadow:
-			hsla(0deg, 0%, 0%, 30%) 0px 1px 5px 2px,
-			var(--double-border);
-
+		bottom: 3.65rem;
+		left: 50%;
+		transform: translateX(-50%);
+		background: color-mix(in srgb, var(--system-color-light) 58%, transparent);
+		backdrop-filter: blur(8px);
+		padding: .5rem .75rem;
+		border-radius: .375rem;
+		box-shadow: 0 1px 5px 2px rgba(0,0,0,.3);
 		color: var(--system-color-light-contrast);
 		font-family: var(--system-font-family);
-		font-weight: 400;
-		font-size: 0.9rem;
-		letter-spacing: 0.4px;
-
+		font-size: .85rem;
+		letter-spacing: .2px;
 		display: none;
-
-		&.dark {
-			--double-border: inset 0 0 0 0.9px hsla(var(--system-color-dark-hsl), 0.3),
-				0 0 0 1.2px hsla(var(--system-color-light-hsl), 0.3);
-		}
 	}
-
-	.dot {
-		height: 4px;
-		width: 4px;
-
-		margin: 0px;
-
-		border-radius: 50%;
-
-		background-color: var(--system-color-dark);
-
-		opacity: var(--opacity);
-	}
-	.pwa-badge {
-		position: absolute;
-		top: 1px;
-		right: -1px;
-
-		background-color: rgba(248, 58, 58, 0.85);
-
-		box-shadow: hsla(var(--system-color-dark-hsl), 0.4) 0px 0.5px 2px;
-		border-radius: 50%;
-
-		pointer-events: none;
-		vertical-align: middle;
-
-		width: 1.5rem;
-		height: 1.5rem;
-
-		margin: 0;
-		padding: 0;
-
-		text-align: center;
-		color: white;
-
-		font-size: 1rem;
-		line-height: 1.5;
-	}
+	.tooltip.dark { color: var(--system-color-dark); }
+	.dot { height: 4px; width: 4px; margin: 0; border-radius: 50%; background: var(--system-color-dark); opacity: var(--opacity); }
+	.pwa-badge { position: absolute; top: 0; right: -2px; background: #f83a3a; border-radius: 50%; width: 1.25rem; height: 1.25rem; text-align: center; color: #fff; font-size: .8rem; line-height: 1.25rem; }
 </style>

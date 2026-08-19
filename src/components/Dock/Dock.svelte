@@ -1,156 +1,92 @@
 <svelte:options runes={true} />
 
 <script lang="ts">
-	import { elevation } from '🍎/actions';
 	import { apps_config } from '🍎/configs/apps/apps-config';
-	import { apps } from '🍎/state/apps.svelte';
 	import { system_needs_update } from '🍎/state/system.svelte';
-	import { is_dock_hidden } from '🍎/state/dock.svelte';
 	import DockItem from './DockItem.svelte';
-	import { untrack } from 'svelte';
 
-	let dock_mouse_x = $state<number | null>(null);
-
-	const HIDDEN_DOCK_THRESHOLD = 30;
-	let bodyHeight = $state(0);
-	let mouseY = $state(0);
-
-	let dockContainerEl = $state<HTMLElement>();
-
-	$effect(() => {
-		// Due to how pointer-events: none works, if dock auto opens, you move away, it won't close automatically.
-		// So close it manually if mouse pointer goes out of the dock area.
-		if (Math.abs(mouseY - bodyHeight) > dockContainerEl?.clientHeight) {
-			untrack(() => (dock_mouse_x = null));
-		}
-
-		/**
-		 * if mouseX != null then show the dock. No matter what
-		 * When it becomes null, Then use the mouseY and bodyHeight to determine if the dock should be hidden
-		 */
-		if (dock_mouse_x !== null) {
-			untrack(() => (is_dock_hidden.value = false));
-			return;
-		}
-
-		if (!Object.values(apps.fullscreen).some(Boolean)) {
-			untrack(() => (is_dock_hidden.value = false));
-			return;
-		}
-
-		untrack(() => (is_dock_hidden.value = Math.abs(mouseY - bodyHeight) > HIDDEN_DOCK_THRESHOLD));
-	});
+	let mouseX = $state<number | null>(null);
 </script>
 
-<svelte:body onmousemove={({ y }) => (mouseY = y)} />
+<svelte:head>
+	<style>
+		/* Use the repository's real app artwork instead of generic hand-drawn placeholders. */
+		.dock-open-app-button .icon-shell {
+			background-size: 100% 100%;
+			background-position: center;
+			background-repeat: no-repeat;
+			box-shadow: none;
+		}
 
-<svelte:window bind:innerHeight={bodyHeight} />
+		.dock-open-app-button .icon-shell > svg {
+			opacity: 0;
+			width: 100%;
+			height: 100%;
+		}
 
-<section
-	class="dock-container"
-	class:dock-hidden={is_dock_hidden.value}
-	bind:this={dockContainerEl}
-	use:elevation={'dock'}
->
-	<!-- svelte-ignore a11y_no_static_element_interactions -->
+		.dock-open-app-button.finder .icon-shell { background-image: url('${import.meta.env.BASE_URL}app-icons/finder/256.png'); }
+		.dock-open-app-button.safari .icon-shell { background-image: url('${import.meta.env.BASE_URL}app-icons/safari/256.png'); }
+		.dock-open-app-button.calculator .icon-shell { background-image: url('${import.meta.env.BASE_URL}app-icons/calculator/256.png'); }
+		.dock-open-app-button.calendar .icon-shell { background-image: url('${import.meta.env.BASE_URL}app-icons/calendar/256.png'); }
+		.dock-open-app-button.notes .icon-shell { background-image: url('${import.meta.env.BASE_URL}app-icons/notes/256.png'); }
+		.dock-open-app-button.terminal .icon-shell { background-image: url('${import.meta.env.BASE_URL}app-icons/terminal/256.png'); }
+		.dock-open-app-button.vscode .icon-shell { background-image: url('${import.meta.env.BASE_URL}app-icons/vscode/256.png'); }
+		.dock-open-app-button.system-preferences .icon-shell { background-image: url('${import.meta.env.BASE_URL}app-icons/system-preferences/256.png'); }
+		.dock-open-app-button.appstore .icon-shell { background-image: url('${import.meta.env.BASE_URL}app-icons/appstore/256.png'); }
+	</style>
+</svelte:head>
+
+<section class="dock-container" aria-label="Dock">
 	<div
 		class="dock-el"
-		class:hidden={is_dock_hidden.value}
-		onmousemove={(event) => (dock_mouse_x = event.x)}
-		onmouseleave={() => (dock_mouse_x = null)}
+		onmousemove={(event) => (mouseX = event.clientX)}
+		onmouseleave={() => (mouseX = null)}
 	>
-		{#each Object.entries(apps_config) as [appID, config]}
-			{#if config.dock_breaks_before}
-				<div class="divider" aria-hidden="true"></div>
-			{/if}
-
-			<DockItem mouse_x={dock_mouse_x} app_id={appID} needs_update={system_needs_update.value} />
+		{#each Object.entries(apps_config).filter(([, config]) => config.showInDock && !config.disabled) as [appID]}
+			<DockItem mouse_x={mouseX} app_id={appID} needs_update={system_needs_update.value} />
 		{/each}
 	</div>
 </section>
 
 <style>
 	.dock-container {
-		padding-bottom: 0.7rem;
+		position: fixed;
+		z-index: 10000;
 		left: 0;
-		bottom: 0;
-
+		bottom: .7rem;
 		width: 100%;
-		height: 5.2rem;
-
-		padding: 0.4rem;
-
+		min-height: 5.25rem;
 		display: flex;
 		justify-content: center;
-
-		&:not(.dock-hidden) {
-			pointer-events: none;
-		}
+		pointer-events: none;
+		padding: 0 .65rem;
 	}
 
 	.dock-el {
-		background-color: hsla(var(--system-color-light-hsl), 0.4);
-
-		box-shadow:
-			inset 0 0 0 0.2px hsla(var(--system-color-grey-100-hsl), 0.7),
-			0 0 0 0.2px hsla(var(--system-color-grey-900-hsl), 0.7),
-			hsla(0, 0%, 0%, 0.3) 2px 5px 19px 7px;
-
-		position: relative;
-
-		padding: 0.3rem;
-
-		border-radius: 1.2rem;
-
-		height: 100%;
-
+		min-height: 4.45rem;
+		max-width: min(94vw, 860px);
+		padding: .36rem .5rem .42rem;
 		display: flex;
 		align-items: flex-end;
-
-		transition: transform 0.3s ease;
-
-		&:not(.hidden) {
-			pointer-events: auto;
-		}
-
-		&.hidden {
-			transform: translate3d(0, 200%, 0);
-
-			&::before {
-				width: calc(100% - 2px);
-				height: calc(100% - 2px);
-
-				margin-top: 1px;
-				margin-left: 1px;
-			}
-		}
-
-		&::before {
-			content: '';
-
-			border-radius: 20px;
-
-			width: 100%;
-			height: 100%;
-
-			border: inherit;
-
-			backdrop-filter: blur(10px);
-
-			position: absolute;
-			top: 0;
-			left: 0;
-
-			z-index: -1;
-		}
+		gap: .16rem;
+		pointer-events: auto;
+		border: 1px solid color-mix(in srgb, white 28%, transparent);
+		border-radius: 1.45rem;
+		background:
+			linear-gradient(180deg, rgba(255,255,255,.18), rgba(255,255,255,.07) 48%, rgba(255,255,255,.03)),
+			color-mix(in srgb, var(--system-color-light) 18%, transparent);
+		box-shadow:
+			0 18px 42px rgba(0,0,0,.28),
+			0 4px 12px rgba(0,0,0,.14),
+			inset 0 1px 0 rgba(255,255,255,.35),
+			inset 0 -1px 0 rgba(0,0,0,.12);
+		backdrop-filter: blur(22px) saturate(145%);
+		-webkit-backdrop-filter: blur(22px) saturate(145%);
+		isolation: isolate;
 	}
 
-	.divider {
-		height: 100%;
-		width: 0.2px;
-
-		background-color: hsla(var(--system-color-dark-hsl), 0.3);
-
-		margin: 0 4px;
+	@media (max-width: 640px) {
+		.dock-container { bottom: .35rem; min-height: 4.6rem; }
+		.dock-el { max-width: 99vw; overflow-x: auto; border-radius: 1.15rem; }
 	}
 </style>

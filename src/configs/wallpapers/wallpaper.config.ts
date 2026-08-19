@@ -295,160 +295,37 @@ export const wallpapers_config = create_wallpapers_config({
 		},
 	},
 
-	'kryptonian-demise': {
-		name: 'Kryptonian Demise',
-		type: 'standalone',
-		thumbnail: '38',
-	},
-
-	'nahargarh-sunset': {
-		name: 'Nahargarh Sunset',
-		type: 'standalone',
-		thumbnail: '39',
-	},
-
-	'somber-forest': {
-		name: 'Somber Forest',
-		type: 'standalone',
-		thumbnail: '40',
-	},
-
-	'blade-runner-2149': {
-		name: 'Blade Runner 2149',
-		type: 'standalone',
-		thumbnail: '41',
-	},
-
-	'lone-dune-wolf': {
-		name: 'Lone Dune Wolf',
-		type: 'standalone',
-		thumbnail: '42',
-	},
-
-	'childhood-innocence': {
-		name: 'Childhood Innocence',
-		type: 'standalone',
-		thumbnail: '43',
-	},
-
-	'fox-in-somber-forest': {
-		name: 'Fox in Somber Forest',
-		type: 'standalone',
-		thumbnail: '44',
-	},
-
-	'blood-diamond': {
-		name: 'Blood Diamond',
-		type: 'standalone',
-		thumbnail: '45',
-	},
-
-	'black-bird-in-a-city': {
-		name: 'Black Bird in a City',
-		type: 'standalone',
-		thumbnail: '46',
-	},
-
-	'sunrise-of-dreams': {
-		name: 'Sunrise of Dreams',
-		type: 'standalone',
-		thumbnail: '47',
-	},
-
-	'how-do-we-get-down': {
-		name: 'How do we get down?',
-		type: 'standalone',
-		thumbnail: '48',
-	},
-
-	'cozy-night-with-cat': {
-		name: 'Cozy Night with Cat',
-		type: 'standalone',
-		thumbnail: '49',
-	},
-
-	'age-of-titans': {
-		name: 'Age of Titans',
-		type: 'standalone',
-		thumbnail: '50',
-	},
-
-	dune: {
-		name: 'Dune',
-		type: 'standalone',
-		thumbnail: '51',
-	},
-
-	'vibrant-night': {
-		name: 'Vibrant Night',
-		type: 'standalone',
-		thumbnail: '52',
-	},
-
-	'cabin-in-woods': {
-		name: 'Cabin in the Woods',
-		type: 'standalone',
-		thumbnail: '53',
-	},
-
-	'asgardian-sunrise': {
-		name: 'Asgardian Sunrise',
-		type: 'standalone',
-		thumbnail: '54',
-	},
-
-	'asura-lok': {
-		name: 'Asura Lok',
-		type: 'standalone',
-		thumbnail: '55',
-	},
-
-	'my-neighbour-totoro': {
-		name: 'My Neighbour Totoro',
-		type: 'standalone',
-		thumbnail: '56',
-	},
-
-	tron: {
-		name: 'Tron',
-		type: 'standalone',
-		thumbnail: '57',
-	},
-	leopard: {
-		name: 'Leopard',
-		type: 'standalone',
-		thumbnail: '58',
-	},
-	'retro-90s': {
-		name: 'Retro 90s',
-		type: 'standalone',
-		thumbnail: '59',
-	},
-	'lost-lands': {
-		name: 'Lost Lands',
-		type: 'standalone',
-		thumbnail: '60',
-	},
-	'flower-field': {
-		name: 'Flower Field',
-		type: 'standalone',
-		thumbnail: '61',
-	},
-	'cherry-blossoms': {
-		name: 'Cherry Blossoms',
-		type: 'standalone',
-		thumbnail: '62',
-	},
-	'indian-gardens': {
-		name: 'Indian Gardens',
-		type: 'standalone',
-		thumbnail: '63',
-	},
-	'along-the-ganges': {
-		name: 'Along the Ganges',
-		type: 'standalone',
-		thumbnail: '64',
-	},
+	'kryptonian-demise': { name: 'Kryptonian Demise', type: 'standalone', thumbnail: '38' },
+	'nahargarh-sunset': { name: 'Nahargarh Sunset', type: 'standalone', thumbnail: '39' },
+	'somber-forest': { name: 'Somber Forest', type: 'standalone', thumbnail: '40' },
+	'blade-runner-2149': { name: 'Blade Runner 2149', type: 'standalone', thumbnail: '41' },
+	'lone-dune-wolf': { name: 'Lone Dune Wolf', type: 'standalone', thumbnail: '42' },
+	'childhood-innocence': { name: 'Childhood Innocence', type: 'standalone', thumbnail: '43' },
+	'fox-in-somber-forest': { name: 'Fox in Somber Forest', type: 'standalone', thumbnail: '44' },
+	'blood-diamond': { name: 'Blood Diamond', type: 'standalone', thumbnail: '45' },
+	'black-bird-in-a-city': { name: 'Black Bird in a City', type: 'standalone', thumbnail: '46' },
+	'sunrise-of-dreams': { name: 'Sunrise of Dreams', type: 'standalone', thumbnail: '47' },
+	'how-do-we-get-down': { name: 'How do we get down?', type: 'standalone', thumbnail: '48' },
+	'cozy-night-with-cat': { name: 'Cozy Night with Cat', type: 'standalone', thumbnail: '49' },
+	'age-of-titans': { name: 'Age of Titans', type: 'standalone', thumbnail: '50' },
+	dune: { name: 'Dune', type: 'standalone', thumbnail: '51' },
+	'vibrant-night': { name: 'Vibrant Night', type: 'standalone', thumbnail: '52' },
+	'cabin-in-woods': { name: 'Cabin in the Woods', type: 'standalone', thumbnail: '53' },
+	'asgardian-sunrise': { name: 'Asgardian Sunrise', type: 'standalone', thumbnail: '54' },
+	'asura-lok': { name: 'Asura Lok', type: 'standalone', thumbnail: '55' },
+	'my-neighbour-totoro': { name: 'My Neighbour Totoro', type: 'standalone', thumbnail: '56' },
+	tron: { name: 'Tron', type: 'standalone', thumbnail: '57' },
+	leopard: { name: 'Leopard', type: 'standalone', thumbnail: '58' },
+	'retro-90s': { name: 'Retro 90s', type: 'standalone', thumbnail: '59' },
+	'lost-lands': { name: 'Lost Lands', type: 'standalone', thumbnail: '60' },
+	'flower-field': { name: 'Flower Field', type: 'standalone', thumbnail: '61' },
+	'cherry-blossoms': { name: 'Cherry Blossoms', type: 'standalone', thumbnail: '62' },
+	'indian-gardens': { name: 'Indian Gardens', type: 'standalone', thumbnail: '63' },
+	'along-the-ganges': { name: 'Along the Ganges', type: 'standalone', thumbnail: '64' },
 });
+
+// Legacy Mac OS X 10.0–10.15 wallpapers live in a separate config so they can
+// be appended to the main catalog without duplicating the wallpaper metadata.
+import './legacy-macos-wallpapers.ts';
 
 export type WallpaperID = keyof typeof wallpapers_config;

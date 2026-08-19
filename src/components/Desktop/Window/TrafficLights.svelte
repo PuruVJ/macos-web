@@ -1,88 +1,26 @@
 <script lang="ts">
-	import CloseIcon from '🍎/components/SVG/traffic-lights/CloseSVG.svelte';
-	import GreenLight from '🍎/components/SVG/traffic-lights/GreenLight.svelte';
-	import MinimizeSvg from '🍎/components/SVG/traffic-lights/MinimizeSVG.svelte';
-	import { apps_config } from '🍎/configs/apps/apps-config.ts';
 	import { apps, type AppID } from '🍎/state/apps.svelte.ts';
 
-	const {
-		app_id,
-		on_close_app,
-		on_maximize_click,
-	}: { app_id: AppID; on_close_app: () => void; on_maximize_click: () => void } = $props();
+	const { app_id, on_close_app, on_maximize_click }: { app_id: AppID; on_close_app: () => void; on_maximize_click: () => void } = $props();
 </script>
 
-<div class="container" class:unfocused={apps.active !== app_id}>
-	<button class="close-light" onclick={on_close_app}> <CloseIcon /> </button>
-	<button class="minimize-light"> <MinimizeSvg /> </button>
-	<button class="stretch-light" onclick={on_maximize_click}>
-		<GreenLight expandable={apps_config[app_id].expandable} />
-	</button>
+<div class="container" class:unfocused={apps.active !== app_id} aria-label="Window controls">
+	<button class="traffic close-light" type="button" aria-label="Close window" title="Close" onclick={on_close_app}><span class="x"></span></button>
+	<button class="traffic minimize-light" type="button" aria-label="Minimize window" title="Minimize"><span class="minus"></span></button>
+	<button class="traffic stretch-light" type="button" aria-label="Zoom window" title="Zoom" onclick={on_maximize_click}><span class="zoom"></span></button>
 </div>
 
 <style>
-	.container {
-		--button-size: 0.8rem;
-
-		/* // pointer-events: none; */
-
-		display: grid;
-		grid-template-columns: repeat(3, var(--button-size));
-		align-items: center;
-		gap: 0.6rem;
-
-		height: 100%;
-
-		&.unfocused button {
-			--bgcolor: #b6b6b7;
-			--border-color: hsla(var(--system-color-dark-hsl), 0.5);
-		}
-
-		:global(svg) {
-			opacity: 0;
-		}
-
-		&:hover {
-			button {
-				transform: scale(1.2);
-			}
-
-			:global(svg) {
-				opacity: 1;
-			}
-		}
-	}
-
-	button {
-		height: var(--button-size);
-		width: var(--button-size);
-
-		/* // pointer-events: initial; */
-
-		border-radius: 50%;
-
-		background-color: var(--bgcolor);
-		box-shadow: 0 0 0 0.5px var(--border-color);
-
-		transition: transform 100ms ease-in;
-	}
-
-	.close-light {
-		--bgcolor: #ff5f56;
-		--border-color: #e0443e;
-	}
-
-	.stretch-light {
-		--bgcolor: #27c93f;
-		--border-color: #1aab29;
-
-		:global(svg) {
-			transform: rotate(90deg);
-		}
-	}
-
-	.minimize-light {
-		--bgcolor: #ffbd2e;
-		--border-color: #dea123;
-	}
+	.container { display:flex; align-items:center; gap:.5rem; height:1rem; }
+	.traffic { --size:.82rem; width:var(--size); height:var(--size); padding:0; border:0; border-radius:50%; display:grid; place-items:center; position:relative; background:var(--bg); box-shadow:inset 0 0 0 .5px var(--border), 0 1px 1px rgba(0,0,0,.16); cursor:pointer; transition:transform 120ms ease, filter 120ms ease; }
+	.traffic:hover, .traffic:focus-visible { transform:scale(1.06); outline:none; filter:brightness(1.04); }
+	.container.unfocused .traffic { filter:saturate(.08) brightness(.93); }
+	.close-light { --bg:#ff5f57; --border:#e0443e; }
+	.minimize-light { --bg:#febc2e; --border:#dea123; }
+	.stretch-light { --bg:#28c840; --border:#1aab29; }
+	.x,.minus,.zoom { position:relative; display:block; width:.4rem; height:.4rem; opacity:.78; }
+	.x::before,.x::after { content:''; position:absolute; left:50%; top:50%; width:.34rem; height:1.6px; border-radius:2px; background:rgba(35,35,35,.8); }
+	.x::before { transform:translate(-50%,-50%) rotate(45deg); } .x::after { transform:translate(-50%,-50%) rotate(-45deg); }
+	.minus::before { content:''; position:absolute; left:50%; top:50%; width:.34rem; height:1.6px; border-radius:2px; background:rgba(75,55,5,.78); transform:translate(-50%,-50%); }
+	.zoom { width:.32rem; height:.32rem; border:1.5px solid rgba(15,80,20,.72); border-radius:2px; }
 </style>

@@ -6,111 +6,91 @@
 	import { create_interval } from '🍎/state/interval.svelte.ts';
 	import { preferences } from '🍎/state/preferences.svelte.ts';
 
-	let visible_background_image = $state(wallpapers_config.ventura.image);
-
+	let visible_background_image = $state(wallpapers_config.ventura.image ?? '');
 	const interval = create_interval(5 * 1000);
 
 	$effect(() => {
-		interval.value;
+		const selectedImage = preferences.wallpaper.image;
+		if (selectedImage && selectedImage !== visible_background_image) {
+			untrack(() => (visible_background_image = selectedImage));
+		}
+	});
 
-		if (wallpapers_config[preferences.wallpaper.id].type === 'standalone') {
-			untrack(
-				() => (preferences.wallpaper.image = wallpapers_config[preferences.wallpaper.id].image),
-			);
+	$effect(() => {
+		interval.value;
+		const currentWallpaper = wallpapers_config[preferences.wallpaper.id];
+		if (!currentWallpaper) return;
+
+		if (currentWallpaper.type === 'standalone') {
+			untrack(() => (preferences.wallpaper.image = currentWallpaper.image ?? ''));
 			return;
 		}
-
-		/** Only dynamic and light/dark wallpaper logic to tackle */
-		// Now check if user really wants the change to happen.
 
 		untrack(handleTheme);
 		untrack(handleWallpaper);
 	});
 
 	function handleWallpaper() {
-		const date = new Date();
-		const hour = date.getHours();
+		const currentWallpaper = wallpapers_config[preferences.wallpaper.id];
+		const map = currentWallpaper?.timestamps?.wallpaper;
+		if (!map) return;
 
-		const wallpaperTimestampsMap = wallpapers_config[preferences.wallpaper.id].timestamps.wallpaper;
-		const timestamps = Object.keys(wallpaperTimestampsMap);
-
+		const hour = new Date().getHours();
+		const timestamps = Object.keys(map).map(Number);
 		const minTimestamp = Math.min(...timestamps);
 		const maxTimestamp = Math.max(...timestamps);
 
 		if (hour > maxTimestamp || hour < minTimestamp) {
-			// Go for the min timestamp value
-			if (wallpaperTimestampsMap[maxTimestamp]) {
-				preferences.wallpaper.image = wallpaperTimestampsMap[maxTimestamp];
-			}
-
+			const fallback = map[maxTimestamp];
+			if (fallback) preferences.wallpaper.image = fallback;
 			return;
 		}
 
-		// Now set the right timestamp
-		const chosenTimeStamp = smaller_closest_value(timestamps, hour);
-
-		if (wallpaperTimestampsMap[chosenTimeStamp]) {
-			preferences.wallpaper.image = wallpaperTimestampsMap[chosenTimeStamp];
-		}
+		const chosen = smaller_closest_value(timestamps.map(String), hour).toString();
+		const image = map[Number(chosen)];
+		if (image) preferences.wallpaper.image = image;
 	}
 
 	function handleTheme() {
 		if (!preferences.wallpaper.canControlTheme) return;
+		const currentWallpaper = wallpapers_config[preferences.wallpaper.id];
+		const map = currentWallpaper?.timestamps?.theme;
+		if (!map) return;
 
-		const date = new Date();
-		const hour = date.getHours();
-
-		const themeTimestampsMap = wallpapers_config[preferences.wallpaper.id].timestamps.theme;
-		const timestamps = Object.keys(themeTimestampsMap);
-
+		const hour = new Date().getHours();
+		const timestamps = Object.keys(map).map(Number);
 		const minTimestamp = Math.min(...timestamps);
 		const maxTimestamp = Math.max(...timestamps);
 
 		if (hour > maxTimestamp || hour < minTimestamp) {
-			// Go for the min timestamp value
-			preferences.theme.scheme = 'dark';
+			preferences.theme.scheme = map[maxTimestamp] ?? 'dark';
 			return;
 		}
 
-		// Now set the right timestamp
-		const chosenTimeStamp = smaller_closest_value(timestamps, hour);
-		preferences.theme.scheme = themeTimestampsMap?.[chosenTimeStamp] || 'light';
-	}
-
-	function previewImageOnLoad() {
-		visible_background_image = preferences.wallpaper.image;
+		const chosen = smaller_closest_value(timestamps.map(String), hour).toString();
+		preferences.theme.scheme = map[Number(chosen)] ?? 'light';
 	}
 </script>
 
-<!-- This preload and render the image for browser but invisible to user -->
-<img src={preferences.wallpaper.image} aria-hidden="true" alt="" onload={previewImageOnLoad} />
-
 <div
 	class="background-cover"
-	style:background-image="url({visible_background_image})"
+	style:background-image={visible_background_image ? `url("${visible_background_image}")` : 'none'}
 	use:elevation={'wallpaper'}
 ></div>
 
 <style>
-	img {
-		height: 1px;
-		width: 1px;
-
-		display: none;
-	}
-
 	.background-cover {
 		height: 100%;
 		width: 100%;
-
 		position: fixed;
-		top: 0;
-		left: 0;
-
+		inset: 0;
+		z-index: 0;
 		will-change: background-image;
-
 		transition: background-image 150ms ease-in;
-
+		background-color: #17233a;
+		background-image:
+			radial-gradient(circle at 20% 15%, rgba(255,255,255,.18), transparent 32%),
+			linear-gradient(135deg, #17233a 0%, #315a86 46%, #151d32 100%);
 		background-repeat: no-repeat;
 		background-size: cover;
 		background-position: center;

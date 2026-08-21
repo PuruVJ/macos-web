@@ -22,28 +22,19 @@ export const preferences = persisted('macos:preferences', {
 	wallpaper: {
 		image: 'ventura-2',
 		id: 'ventura',
-		canControlTheme: true,
+		canControlTheme: false,
 	} as WallpaperSettings,
 });
 
 $effect.root(() => {
 	$effect(() => {
-		// Color scheme
 		const { classList } = document.body;
 		classList.remove('light', 'dark');
 		classList.add(preferences.theme.scheme);
-
-		// Primary color
 		const colorObj = colors[preferences.theme.primaryColor][preferences.theme.scheme];
 		document.body.style.setProperty('--system-color-primary', `hsl(${colorObj.hsl})`);
 		document.body.style.setProperty('--system-color-primary-hsl', `${colorObj.hsl}`);
-		document.body.style.setProperty(
-			'--system-color-primary-contrast',
-			`hsl(${colorObj.contrastHsl})`,
-		);
-		document.body.style.setProperty(
-			'--system-color-primary-contrast-hsl',
-			`${colorObj.contrastHsl}`,
-		);
+		document.body.style.setProperty('--system-color-primary-contrast', `hsl(${colorObj.contrastHsl})`);
+		document.body.style.setProperty('--system-color-primary-contrast-hsl', `${colorObj.contrastHsl}`);
 	});
 });

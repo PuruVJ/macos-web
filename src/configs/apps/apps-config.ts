@@ -1,90 +1,18 @@
-import { create_app_config } from '🍎/helpers/create-app-config.ts';
-
-const wallpapers = create_app_config({
-	title: 'Wallpapers',
-	resizable: true,
-
-	height: 600,
-	width: 800,
-
-	dock_breaks_before: true,
-});
-
-const calculator = create_app_config({
-	title: 'Calculator',
-
-	expandable: true,
-	resizable: false,
-
-	height: 250 * 1.414,
-	width: 250,
-});
-
-const calendar = create_app_config({
-	title: 'Calendar',
-	resizable: true,
-});
-
-const vscode = create_app_config({
-	title: 'VSCode',
-	resizable: true,
-
-	height: 600,
-	width: 800,
-});
-
-const finder = create_app_config({
-	title: 'Finder',
-	resizable: true,
-
-	// dockBreaksBefore: true,
-	should_open_window: false,
-});
-
-const safari = create_app_config({
-	title: 'Safari',
-	resizable: true,
-});
-
-const systemPreferences = create_app_config({
-	title: 'System Preferences',
-	resizable: true,
-});
-
-const purusTwitter = create_app_config({
-	title: `About the Developer`,
-	resizable: true,
-
-	dock_breaks_before: true,
-
-	height: 600,
-	width: 800,
-});
-
-const viewSource = create_app_config({
-	title: `View Source`,
-	resizable: true,
-
-	should_open_window: false,
-	external_action: () => window.open('https://github.com/puruvj/macos-web', '_blank'),
-});
-
-const appstore = create_app_config({
-	title: 'App Store',
-	resizable: true,
-});
+import Safari from '🍎/components/apps/Safari/Safari.svelte';
 
 export const apps_config = {
-	finder,
-	wallpapers,
-	calculator,
-	calendar,
-	vscode,
-	appstore,
-	// safari,
-
-	// 'system-preferences': systemPreferences,
-
-	'purus-twitter': purusTwitter,
-	'view-source': viewSource,
+	finder: { id: 'finder', title: 'Finder', icon: 'finder', disabled: false, faded: false, showInDock: true, showInAppStore: false, should_open_window: true, height: 560, width: 860 },
+	safari: { id: 'safari', title: 'Safari', icon: 'safari', disabled: false, faded: false, showInDock: true, showInAppStore: true, should_open_window: true, height: 620, width: 980, component: Safari },
+	calculator: { id: 'calculator', title: 'Calculator', icon: 'calculator', disabled: false, faded: false, showInDock: true, showInAppStore: true, should_open_window: true, height: 430, width: 330 },
+	calendar: { id: 'calendar', title: 'Calendar', icon: 'calendar', disabled: false, faded: false, showInDock: true, showInAppStore: true, should_open_window: true, height: 620, width: 860 },
+	notes: { id: 'notes', title: 'Notes', icon: 'notes', disabled: false, faded: false, showInDock: true, showInAppStore: true, should_open_window: true, height: 620, width: 760 },
+	terminal: { id: 'terminal', title: 'Terminal', icon: 'terminal', disabled: false, faded: false, showInDock: true, showInAppStore: true, should_open_window: true, height: 520, width: 780 },
+	'system-preferences': { id: 'system-preferences', title: 'System Settings', icon: 'system-preferences', disabled: false, faded: false, showInDock: true, showInAppStore: false, should_open_window: true, height: 620, width: 780 },
+	wallpapers: { id: 'wallpapers', title: 'Wallpapers', icon: 'wallpapers', disabled: false, faded: false, showInDock: true, showInAppStore: false, should_open_window: true, height: 680, width: 980 },
+	vscode: { id: 'vscode', title: 'VS Code', icon: 'vscode', disabled: false, faded: false, showInDock: true, showInAppStore: true, should_open_window: true, height: 650, width: 1000 },
+	appstore: { id: 'appstore', title: 'App Store', icon: 'appstore', disabled: false, faded: false, showInDock: true, showInAppStore: false, should_open_window: true, height: 600, width: 820 },
 };
+
+export const appsConfig = apps_config;
+export const apps = apps_config;
+export default apps_config;

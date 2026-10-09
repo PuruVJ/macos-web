@@ -64,11 +64,15 @@ button {
 
 	user-select: none;
 	appearance: none;
-	cursor: var(--system-cursor-default), auto;
+	cursor: var(--system-cursor-pointer), pointer;
 
 	background-color: transparent;
 
 	-webkit-tap-highlight-color: transparent;
+}
+
+a {
+	cursor: var(--system-cursor-pointer), pointer;
 }
 
 * {

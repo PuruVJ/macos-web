@@ -21,7 +21,7 @@
 
 	export function open() {
 		is_open = true;
-		on_open();
+		on_open?.();
 	}
 
 	export function close(message?: string) {
@@ -81,7 +81,8 @@
 	}
 
 	.dialog {
-		--elevation: 0px 2.7px 10.4px rgba(0, 0, 0, 0.124), 0px 6.5px 25px rgba(0, 0, 0, 0.178),
+		--elevation:
+			0px 2.7px 10.4px rgba(0, 0, 0, 0.124), 0px 6.5px 25px rgba(0, 0, 0, 0.178),
 			0px 12.3px 47.1px rgba(0, 0, 0, 0.22), 0px 21.9px 84px rgba(0, 0, 0, 0.262),
 			0px 40.9px 157.1px rgba(0, 0, 0, 0.316), 0px 98px 376px rgba(0, 0, 0, 0.44);
 

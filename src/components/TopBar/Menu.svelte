@@ -6,7 +6,7 @@
 
 <section class="container" class:dark={preferences.theme.scheme === 'dark'}>
 	{#each Object.entries(menu) as Array<[any, any]> as [_, val]}
-		<button class="menu-item" disabled={val.disabled}>{val.title}</button>
+		<button class="menu-item" disabled={val.disabled} onclick={val.action}>{val.title}</button>
 		{#if val.breakAfter}
 			<div class="divider"></div>
 		{/if}

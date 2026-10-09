@@ -1,8 +1,31 @@
 <script lang="ts">
 	import AppleIcon from '~icons/mdi/apple';
 	import { click_outside, elevation, focus_outside } from '🍎/actions';
+	import { apps_config } from '🍎/configs/apps/apps-config';
+	import { apps, type AppID } from '🍎/state/apps.svelte';
 	import { menubar_state } from '🍎/state/menubar.svelte';
 	import Menu from './Menu.svelte';
+
+	const active_app = $derived(apps_config[apps.active as AppID]);
+	const active_menus = $derived({
+		...menubar_state.menus,
+		default: {
+			title: active_app.title,
+			menu: {
+				close_app: {
+					title: `Close ${active_app.title}`,
+					action: () => {
+						apps.open[apps.active as AppID] = false;
+						apps.minimized[apps.active as AppID] = false;
+						apps.fullscreen[apps.active as AppID] = false;
+						delete apps.minimized_previews[apps.active as AppID];
+						delete apps.minimized_rects[apps.active as AppID];
+						delete apps.window_rects[apps.active as AppID];
+					},
+				},
+			},
+		},
+	});
 </script>
 
 <div
@@ -10,7 +33,7 @@
 	use:click_outside={() => (menubar_state.active = '')}
 	use:focus_outside={() => (menubar_state.active = '')}
 >
-	{#each Object.entries(menubar_state.menus) as [menuID, menuConfig]}
+	{#each Object.entries(active_menus) as [menuID, menuConfig]}
 		<div>
 			<div style:height="100%">
 				<button

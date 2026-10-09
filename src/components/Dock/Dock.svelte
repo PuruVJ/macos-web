@@ -1,21 +1,49 @@
 <svelte:options runes={true} />
 
 <script lang="ts">
+	import { interpolate } from 'popmotion';
+	import { untrack } from 'svelte';
+	import { spring } from 'svelte/motion';
 	import { elevation } from '🍎/actions';
 	import { apps_config } from '🍎/configs/apps/apps-config';
 	import { apps } from '🍎/state/apps.svelte';
 	import { system_needs_update } from '🍎/state/system.svelte';
 	import { is_dock_hidden } from '🍎/state/dock.svelte';
 	import DockItem from './DockItem.svelte';
-	import { untrack } from 'svelte';
+	import DockWindow from './DockWindow.svelte';
+	import Launchpad from './Launchpad.svelte';
+	import { preferences } from '🍎/state/preferences.svelte';
+	import type { AppID } from '🍎/state/apps.svelte';
+
+	const minimized_group_anchor = Object.entries(apps_config)
+		.filter(([, config]) => config.dock_breaks_before)
+		.at(-1)?.[0];
 
 	let dock_mouse_x = $state<number | null>(null);
+	let launchpad_open = $state(false);
+	let launchpad_image_el = $state<HTMLImageElement>();
+	const launchpad_width_px = spring(57.6, { damping: 0.47, stiffness: 0.12 });
+	const launchpad_distance_input = [-345.6, -276.48, -172.8, 0, 172.8, 276.48, 345.6];
+	const launchpad_width_output = [57.6, 63.36, 81.4464, 115.2, 81.4464, 63.36, 57.6];
+	const get_launchpad_width = interpolate(launchpad_distance_input, launchpad_width_output);
 
 	const HIDDEN_DOCK_THRESHOLD = 30;
 	let bodyHeight = $state(0);
 	let mouseY = $state(0);
 
 	let dockContainerEl = $state<HTMLElement>();
+
+	function updateDockMouse(mouse_x: number | null) {
+		dock_mouse_x = mouse_x;
+		if (!launchpad_image_el || mouse_x === null || apps.is_being_dragged) {
+			$launchpad_width_px = 57.6;
+			return;
+		}
+
+		const rect = launchpad_image_el.getBoundingClientRect();
+		const distance = mouse_x - (rect.left + rect.width / 2);
+		$launchpad_width_px = preferences.reduced_motion ? 57.6 : get_launchpad_width(distance);
+	}
 
 	$effect(() => {
 		// Due to how pointer-events: none works, if dock auto opens, you move away, it won't close automatically.
@@ -56,18 +84,44 @@
 	<div
 		class="dock-el"
 		class:hidden={is_dock_hidden.value}
-		onmousemove={(event) => (dock_mouse_x = event.x)}
-		onmouseleave={() => (dock_mouse_x = null)}
+		onmousemove={(event) => updateDockMouse(event.x)}
+		onmouseleave={() => updateDockMouse(null)}
 	>
+		<button
+			class="launchpad-button"
+			class:active={launchpad_open}
+			aria-label={launchpad_open ? 'Close Launchpad' : 'Open Launchpad'}
+			title="Launchpad"
+			style:width="{$launchpad_width_px / 16}rem"
+			onclick={() => (launchpad_open = !launchpad_open)}
+		>
+			<img
+				bind:this={launchpad_image_el}
+				src="/app-icons/launchpad/256.png"
+				alt=""
+				draggable="false"
+			/>
+		</button>
+
 		{#each Object.entries(apps_config) as [appID, config]}
 			{#if config.dock_breaks_before}
 				<div class="divider" aria-hidden="true"></div>
+				{#if appID === minimized_group_anchor && Object.keys(apps.minimized_previews).length}
+					{#each Object.keys(apps.minimized_previews) as minimizedID (minimizedID)}
+						<DockWindow app_id={minimizedID as AppID} />
+					{/each}
+					<div class="divider" aria-hidden="true"></div>
+				{/if}
 			{/if}
 
 			<DockItem mouse_x={dock_mouse_x} app_id={appID} needs_update={system_needs_update.value} />
 		{/each}
 	</div>
 </section>
+
+{#if launchpad_open}
+	<Launchpad on_close={() => (launchpad_open = false)} />
+{/if}
 
 <style>
 	.dock-container {
@@ -148,9 +202,30 @@
 	.divider {
 		height: 100%;
 		width: 0.2px;
+		flex: 0 0 0.2px;
 
 		background-color: hsla(var(--system-color-dark-hsl), 0.3);
 
 		margin: 0 4px;
+	}
+
+	.launchpad-button {
+		flex: 0 0 auto;
+		width: 3.6rem;
+		aspect-ratio: 1;
+		margin: 0 0.3rem;
+		border-radius: 0.7rem;
+		transition: transform 150ms ease;
+
+		&:hover,
+		&.active {
+			transform: translateY(-0.2rem);
+		}
+
+		img {
+			width: 100%;
+			height: 100%;
+			object-fit: contain;
+		}
 	}
 </style>

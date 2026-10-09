@@ -110,8 +110,18 @@
 
 		// For the bounce animation
 		const isAppAlreadyOpen = apps.open[app_id];
+		if (apps.minimized[app_id] && e.currentTarget instanceof HTMLElement) {
+			const rect = e.currentTarget.getBoundingClientRect();
+			apps.minimized_rects[app_id] = {
+				left: rect.left,
+				top: rect.top,
+				width: rect.width,
+				height: rect.height,
+			};
+		}
 
 		apps.open[app_id] = true;
+		apps.minimized[app_id] = false;
 		apps.active = app_id;
 
 		if (isAppAlreadyOpen) return;
@@ -213,7 +223,8 @@
 		display: none;
 
 		&.dark {
-			--double-border: inset 0 0 0 0.9px hsla(var(--system-color-dark-hsl), 0.3),
+			--double-border:
+				inset 0 0 0 0.9px hsla(var(--system-color-dark-hsl), 0.3),
 				0 0 0 1.2px hsla(var(--system-color-light-hsl), 0.3);
 		}
 	}

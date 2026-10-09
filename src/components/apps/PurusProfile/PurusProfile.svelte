@@ -36,8 +36,6 @@
 	<section class="content">
 		<img height="200" width="200" src="/purus-profile/puru.webp" alt="Puru Vijay Profile pic" />
 
-		<br />
-
 		<h1>Hi, I'm Puru</h1>
 
 		<h2>
@@ -45,15 +43,11 @@
 			<img src="/emojis/wink.png" alt="Wink emoji" class="emoji" />
 		</h2>
 
-		<br /><br />
-
 		<p>
 			I am a fullstack web developer, with an infinite amount of love for frontend web development,
 			esp JavaScript, TypeScript, and for frontend frameworks like Svelte, Vue and React
 			<img src="/emojis/star-struck.png" alt="Star Struck face emoji" class="emoji" />
 		</p>
-
-		<br /><br />
 
 		<p>
 			However, my love for tech doesn't end there. I enjoy writing backend APIs, scripts, working
@@ -65,17 +59,23 @@
 <style>
 	.container {
 		--color: var(--system-color-light-hsl);
+		--sidebar-width: clamp(8rem, 25%, 12rem);
 
+		width: 100%;
+		height: 100%;
+		min-width: 0;
+		min-height: 0;
 		display: grid;
-		grid-template-columns: 12rem 1fr;
-		grid-template-rows: 3rem 1fr;
+		grid-template-columns: var(--sidebar-width) minmax(0, 1fr);
+		grid-template-rows: 3rem minmax(0, 1fr);
+		overflow: hidden;
 
 		border-radius: inherit;
 
 		background-image: linear-gradient(
 			to right,
-			hsla(var(--color), 0.7) 12rem,
-			hsla(var(--color), 1) 12rem 100%
+			hsla(var(--color), 0.7) var(--sidebar-width),
+			hsla(var(--color), 1) var(--sidebar-width) 100%
 		);
 
 		transition: --color 200ms ease-in;
@@ -113,13 +113,14 @@
 
 		transform: translateZ(0);
 
-		height: calc(100% - 2.7px);
-		width: calc(12rem - 2.27px);
+		height: calc(100% - 3px);
+		width: calc(var(--sidebar-width) - 3px);
 
-		margin: 1.8px 0 0px 1.8px;
+		margin: 1.5px 0 0 1.5px;
 
 		border-top-left-radius: 0.5rem;
 		border-bottom-left-radius: inherit;
+		overflow: hidden;
 
 		&::before {
 			content: '';
@@ -138,13 +139,7 @@
 		}
 
 		&.light {
-			height: calc(100% - 3px);
-			width: calc(12rem - 2.5px);
-
-			margin: 1.7px 0 0px 1.7px;
-
-			border-top-left-radius: 0.5rem;
-			border-bottom-left-radius: 0.5rem;
+			border-bottom-left-radius: inherit;
 		}
 
 		nav {
@@ -192,33 +187,76 @@
 
 		display: flex;
 		flex-direction: column;
+		justify-content: flex-start;
 		align-items: center;
+		gap: 0.8rem;
 
-		padding: 1rem;
+		min-width: 0;
+		min-height: 0;
+		overflow: auto;
+		padding: clamp(1rem, 4vw, 2rem);
+		text-align: center;
 
 		img {
+			width: min(10rem, 35%);
+			height: auto;
+			aspect-ratio: 1;
 			border-radius: 50%;
+			object-fit: cover;
 		}
 	}
 
 	.emoji {
 		height: 1em;
 		width: 1em;
-
 		vertical-align: middle;
 	}
 
+	.content img.emoji {
+		width: 1em;
+		height: 1em;
+		aspect-ratio: auto;
+		border-radius: 0;
+	}
+
+	h1,
+	h2,
+	p {
+		max-width: 42rem;
+	}
+
 	h1 {
-		font-size: 2.618rem;
-		line-height: 1.618;
+		font-size: clamp(1.6rem, 4vw, 2.4rem);
+		line-height: 1.15;
 	}
 
 	h2 {
-		font-size: 1.618rem;
-		line-height: 1.2;
+		font-size: clamp(1rem, 2.5vw, 1.4rem);
+		line-height: 1.35;
 	}
 
 	p {
-		line-height: 1.618rem;
+		font-size: 0.95rem;
+		line-height: 1.5;
+	}
+
+	@media (max-width: 520px) {
+		.container {
+			--sidebar-width: 7.5rem;
+		}
+
+		aside nav {
+			margin: 3.5rem 0.35rem;
+		}
+
+		aside nav a {
+			padding: 0.45rem 0.35rem;
+			font-size: 0.85rem;
+		}
+
+		.content {
+			gap: 0.55rem;
+			padding: 0.75rem;
+		}
 	}
 </style>

@@ -15,6 +15,7 @@ export type Theme = {
 
 export const preferences = persisted('macos:preferences', {
 	reduced_motion: matchMedia('(prefers-reduced-motion)').matches,
+	brightness: 100,
 	theme: {
 		scheme: matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light',
 		primaryColor: 'blue',

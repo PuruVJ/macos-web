@@ -150,6 +150,42 @@
 			</div>
 		</ActionCenterTile>
 	</ActionCenterSurface>
+
+	<!-- Brightness -->
+	<ActionCenterSurface
+		grid={[
+			[1, 12],
+			[10, 2],
+		]}
+	>
+		<ActionCenterTile grid={[1, 1]} tag="div">
+			<div class="brightness-control">
+				<div class="brightness-header">
+					<span class="brightness-icon" aria-hidden="true">
+						<svg viewBox="0 0 24 24">
+							<circle cx="12" cy="12" r="4" />
+							<path
+								d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.65 17.65l1.42 1.42M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.65 6.35l1.42-1.42"
+							/>
+						</svg>
+					</span>
+
+					<span class="brightness-label">Display</span>
+				</div>
+
+				<input
+					type="range"
+					min="0"
+					max="100"
+					step="1"
+					bind:value={preferences.brightness}
+					aria-label="Brightness"
+					aria-valuetext="{preferences.brightness}%"
+					style:--slider-progress="{preferences.brightness}%"
+				/>
+			</div>
+		</ActionCenterTile>
+	</ActionCenterSurface>
 </section>
 
 <style>
@@ -322,5 +358,100 @@
 
 		width: 100%;
 		height: 100%;
+	}
+
+	.brightness-control {
+		width: 100%;
+		height: 100%;
+
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		gap: 0.45rem;
+
+		padding: 0.25rem 0.5rem;
+	}
+
+	.brightness-header {
+		display: flex;
+		align-items: center;
+		gap: 0.45rem;
+	}
+
+	.brightness-label {
+		font-size: 0.8rem;
+		font-weight: 600;
+	}
+
+	.brightness-icon {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+
+		color: hsla(var(--system-color-dark-hsl), 0.7);
+
+		:global(svg) {
+			width: 1.1rem;
+			height: 1.1rem;
+
+			fill: none;
+			stroke: currentColor;
+			stroke-width: 1.7;
+			stroke-linecap: round;
+		}
+	}
+
+	.brightness-control input[type='range'] {
+		--track-color: hsla(var(--system-color-dark-hsl), 0.18);
+
+		width: 100%;
+		height: 0.55rem;
+
+		margin: 0;
+
+		border: 0;
+		border-radius: 999px;
+
+		appearance: none;
+
+		background: linear-gradient(
+			to right,
+			var(--system-color-primary) 0,
+			var(--system-color-primary) var(--slider-progress),
+			var(--track-color) var(--slider-progress),
+			var(--track-color) 100%
+		);
+
+		cursor: var(--system-cursor-pointer), pointer;
+	}
+
+	.brightness-control input[type='range']::-webkit-slider-thumb {
+		width: 1rem;
+		height: 1rem;
+
+		border: 0.125rem solid var(--system-color-light);
+		border-radius: 50%;
+
+		appearance: none;
+
+		background: var(--system-color-primary);
+
+		box-shadow: 0 0.125rem 0.25rem hsla(0, 0%, 0%, 0.25);
+	}
+
+	.brightness-control input[type='range']::-moz-range-thumb {
+		width: 0.75rem;
+		height: 0.75rem;
+
+		border: 0.125rem solid var(--system-color-light);
+		border-radius: 50%;
+
+		background: var(--system-color-primary);
+
+		box-shadow: 0 0.125rem 0.25rem hsla(0, 0%, 0%, 0.25);
+	}
+
+	.brightness-control input[type='range']:focus-visible {
+		box-shadow: 0 0 0 0.2rem hsla(var(--system-color-primary-hsl), 0.35);
 	}
 </style>

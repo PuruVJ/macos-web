@@ -5,43 +5,145 @@
 	import PlusMinus from '~icons/majesticons/plus-minus-2';
 	import Division from '~icons/ph/divide-bold';
 	import Multiply from '~icons/uil/multiply';
+
+	let display = $state('0');
+	let stored_value = $state<number>();
+	let pending_operation = $state<string>();
+	let reset_display = $state(false);
+
+	function enterDigit(digit: string) {
+		if (display === 'Error' || reset_display) {
+			display = digit;
+			reset_display = false;
+			return;
+		}
+
+		display = display === '0' ? digit : `${display}${digit}`;
+	}
+
+	function enterDecimal() {
+		if (display === 'Error' || reset_display) {
+			display = '0.';
+			reset_display = false;
+		} else if (!display.includes('.')) {
+			display += '.';
+		}
+	}
+
+	function formatResult(value: number) {
+		return Number.isFinite(value) ? Number(value.toPrecision(12)).toString() : 'Error';
+	}
+
+	function calculate(left: number, right: number, operation: string) {
+		switch (operation) {
+			case '+':
+				return left + right;
+			case '-':
+				return left - right;
+			case '×':
+				return left * right;
+			case '÷':
+				return left / right;
+			default:
+				return right;
+		}
+	}
+
+	function chooseOperation(operation: string) {
+		const current_value = Number(display);
+		if (!Number.isFinite(current_value)) {
+			display = '0';
+			stored_value = undefined;
+			pending_operation = undefined;
+			return;
+		}
+
+		if (pending_operation && stored_value !== undefined && !reset_display) {
+			const result = calculate(stored_value, current_value, pending_operation);
+			display = formatResult(result);
+			stored_value = result;
+		} else {
+			stored_value = current_value;
+		}
+
+		pending_operation = operation;
+		reset_display = true;
+	}
+
+	function equals() {
+		if (pending_operation && stored_value !== undefined) {
+			display = formatResult(calculate(stored_value, Number(display), pending_operation));
+			stored_value = undefined;
+			pending_operation = undefined;
+			reset_display = true;
+		}
+	}
+
+	function clear() {
+		display = '0';
+		stored_value = undefined;
+		pending_operation = undefined;
+		reset_display = false;
+	}
+
+	function toggleSign() {
+		if (display !== '0' && display !== 'Error') {
+			display = display.startsWith('-') ? display.slice(1) : `-${display}`;
+		}
+	}
+
+	function percentage() {
+		if (display !== 'Error') display = formatResult(Number(display) / 100);
+	}
 </script>
 
 <section class="container">
 	<header class="app-window-drag-handle"></header>
 
-	<section class="show-area">0</section>
+	<output class="show-area" aria-live="polite" aria-label="Calculator display">{display}</output>
 
 	<section class="buttons-container">
-		<button class="top-row-button"> AC </button>
-		<button class="top-row-button">
+		<button class="top-row-button" onclick={clear}> AC </button>
+		<button class="top-row-button" aria-label="Change sign" onclick={toggleSign}>
 			<PlusMinus />
 		</button>
-		<button class="top-row-button"> % </button>
-		<button class="operation-button">
+		<button class="top-row-button" onclick={percentage}> % </button>
+		<button class="operation-button" aria-label="Divide" onclick={() => chooseOperation('÷')}>
 			<Division />
 		</button>
-		<button class="number-button"> 7 </button>
-		<button class="number-button"> 8 </button>
-		<button class="number-button"> 9 </button>
-		<button class="operation-button">
+		<button class="number-button" onclick={() => enterDigit('7')}> 7 </button>
+		<button class="number-button" onclick={() => enterDigit('8')}> 8 </button>
+		<button class="number-button" onclick={() => enterDigit('9')}> 9 </button>
+		<button class="operation-button" aria-label="Multiply" onclick={() => chooseOperation('×')}>
 			<Multiply />
 		</button>
-		<button class="number-button"> 4 </button>
-		<button class="number-button"> 5 </button>
-		<button class="number-button"> 6 </button>
-		<button class="operation-button">
+		<button class="number-button" onclick={() => enterDigit('4')}> 4 </button>
+		<button class="number-button" onclick={() => enterDigit('5')}> 5 </button>
+		<button class="number-button" onclick={() => enterDigit('6')}> 6 </button>
+		<button class="operation-button" aria-label="Subtract" onclick={() => chooseOperation('-')}>
 			<Minus />
 		</button>
-		<button class="number-button"> 1 </button>
-		<button class="number-button"> 2 </button>
-		<button class="number-button"> 3 </button>
-		<button class="operation-button"> <Plus /> </button>
-		<button class="number-button curved-bottom-left-button" style:grid-column="1 / span 2">
+		<button class="number-button" onclick={() => enterDigit('1')}> 1 </button>
+		<button class="number-button" onclick={() => enterDigit('2')}> 2 </button>
+		<button class="number-button" onclick={() => enterDigit('3')}> 3 </button>
+		<button class="operation-button" aria-label="Add" onclick={() => chooseOperation('+')}>
+			<Plus />
+		</button>
+		<button
+			class="number-button curved-bottom-left-button"
+			style:grid-column="1 / span 2"
+			onclick={() => enterDigit('0')}
+		>
 			0
 		</button>
-		<button class="number-button"> . </button>
-		<button class="operation-button curved-bottom-right-button"> <Equal /> </button>
+		<button class="number-button" onclick={enterDecimal}> . </button>
+		<button
+			class="operation-button curved-bottom-right-button"
+			aria-label="Equals"
+			onclick={equals}
+		>
+			<Equal />
+		</button>
 	</section>
 </section>
 

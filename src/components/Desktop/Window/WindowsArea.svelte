@@ -13,7 +13,6 @@
 	$effect(() => {
 		if (!Object.values(apps.z_indices).some((z_index) => z_index > 50)) return;
 
-		// Get the lowest non-zero z-index
 		const lowest_z_index = Math.min(
 			...[...new Set(Object.values(apps.z_indices))].filter((val) => val !== 0),
 		);
@@ -43,12 +42,9 @@
 <style>
 	section {
 		display: block;
+		position: relative;
 
-		/* // 1.7 rem is the heigh of the header
-    // 5.25 rem is the height of dock
-    // top: 1.75rem; */
 		height: 100%;
-
 		width: 100vw;
 
 		justify-self: center;

@@ -8,13 +8,19 @@
 	const {
 		app_id,
 		on_close_app,
+		on_minimize_click,
 		on_maximize_click,
-	}: { app_id: AppID; on_close_app: () => void; on_maximize_click: () => void } = $props();
+	}: {
+		app_id: AppID;
+		on_close_app: () => void;
+		on_minimize_click: () => void;
+		on_maximize_click: () => void;
+	} = $props();
 </script>
 
 <div class="container" class:unfocused={apps.active !== app_id}>
 	<button class="close-light" onclick={on_close_app}> <CloseIcon /> </button>
-	<button class="minimize-light"> <MinimizeSvg /> </button>
+	<button class="minimize-light" onclick={on_minimize_click}> <MinimizeSvg /> </button>
 	<button class="stretch-light" onclick={on_maximize_click}>
 		<GreenLight expandable={apps_config[app_id].expandable} />
 	</button>
@@ -56,6 +62,7 @@
 	button {
 		height: var(--button-size);
 		width: var(--button-size);
+		cursor: var(--system-cursor-default), auto;
 
 		/* // pointer-events: initial; */
 

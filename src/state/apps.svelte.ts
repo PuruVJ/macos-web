@@ -1,6 +1,7 @@
 import type { apps_config } from '🍎/configs/apps/apps-config';
 
 export type AppID = keyof typeof apps_config;
+export type WindowRect = Pick<DOMRect, 'left' | 'top' | 'width' | 'height'>;
 
 export const apps = $state({
 	open: {
@@ -16,6 +17,24 @@ export const apps = $state({
 		'purus-twitter': false,
 		'view-source': true,
 	} as Record<AppID, boolean>,
+
+	minimized: {
+		wallpapers: false,
+		finder: false,
+		vscode: false,
+		calculator: false,
+		// safari: false,
+		appstore: false,
+		calendar: false,
+		// 'system-preferences': false,
+
+		'purus-twitter': false,
+		'view-source': false,
+	} as Record<AppID, boolean>,
+
+	minimized_previews: {} as Partial<Record<AppID, HTMLElement>>,
+	minimized_rects: {} as Partial<Record<AppID, WindowRect>>,
+	window_rects: {} as Partial<Record<AppID, WindowRect>>,
 
 	active: 'finder' satisfies AppID,
 

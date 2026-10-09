@@ -10,6 +10,10 @@
 
 	const interval = create_interval(5 * 1000);
 
+	const brightness_overlay_opacity = $derived(
+		0.5 + (preferences.brightness / 100) * 0.5,
+	);
+
 	$effect(() => {
 		interval.value;
 
@@ -19,9 +23,6 @@
 			);
 			return;
 		}
-
-		/** Only dynamic and light/dark wallpaper logic to tackle */
-		// Now check if user really wants the change to happen.
 
 		untrack(handleTheme);
 		untrack(handleWallpaper);
@@ -38,7 +39,6 @@
 		const maxTimestamp = Math.max(...timestamps);
 
 		if (hour > maxTimestamp || hour < minTimestamp) {
-			// Go for the min timestamp value
 			if (wallpaperTimestampsMap[maxTimestamp]) {
 				preferences.wallpaper.image = wallpaperTimestampsMap[maxTimestamp];
 			}
@@ -46,7 +46,6 @@
 			return;
 		}
 
-		// Now set the right timestamp
 		const chosenTimeStamp = smaller_closest_value(timestamps, hour);
 
 		if (wallpaperTimestampsMap[chosenTimeStamp]) {
@@ -67,12 +66,10 @@
 		const maxTimestamp = Math.max(...timestamps);
 
 		if (hour > maxTimestamp || hour < minTimestamp) {
-			// Go for the min timestamp value
 			preferences.theme.scheme = 'dark';
 			return;
 		}
 
-		// Now set the right timestamp
 		const chosenTimeStamp = smaller_closest_value(timestamps, hour);
 		preferences.theme.scheme = themeTimestampsMap?.[chosenTimeStamp] || 'light';
 	}
@@ -89,7 +86,13 @@
 	class="background-cover"
 	style:background-image="url({visible_background_image})"
 	use:elevation={'wallpaper'}
-></div>
+>
+	<div
+		class="brightness-overlay"
+		style:opacity="{1 - brightness_overlay_opacity}"
+		aria-hidden="true"
+	></div>
+</div>
 
 <style>
 	img {
@@ -114,5 +117,16 @@
 		background-repeat: no-repeat;
 		background-size: cover;
 		background-position: center;
+	}
+
+	.brightness-overlay {
+		position: absolute;
+		inset: 0;
+
+		background: #000;
+
+		pointer-events: none;
+
+		transition: opacity 150ms ease-out;
 	}
 </style>

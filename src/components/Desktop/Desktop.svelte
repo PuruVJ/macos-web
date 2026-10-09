@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import Dock from '../Dock/Dock.svelte';
 	import TopBar from '../TopBar/TopBar.svelte';
 	import Wallpaper from '../apps/WallpaperApp/Wallpaper.svelte';
@@ -6,6 +6,7 @@
 	import ContextMenu from './ContextMenu.svelte';
 	import SystemUpdate from './SystemUpdate.svelte';
 	import WindowsArea from './Window/WindowsArea.svelte';
+	import { preferences } from '🍎/state/preferences.svelte.ts';
 
 	const isMac = /(Mac|iPhone|iPod|iPad)/i.test(navigator.platform);
 
@@ -33,12 +34,20 @@
 	<SystemUpdate />
 
 	<ContextMenu target_element={mainEl} />
+
+	<div
+		class="display-brightness"
+		style:opacity="{(100 - preferences.brightness) / 200}"
+		aria-hidden="true"
+	></div>
 </div>
 
 <style>
 	.container {
 		height: 100%;
 		width: 100%;
+
+		position: relative;
 	}
 
 	main {
@@ -47,5 +56,18 @@
 
 		display: grid;
 		grid-template-rows: auto 1fr auto;
+	}
+
+	.display-brightness {
+		position: fixed;
+		inset: 0;
+
+		background: #000;
+
+		pointer-events: none;
+
+		z-index: 999999;
+
+		transition: opacity 150ms ease-out;
 	}
 </style>
